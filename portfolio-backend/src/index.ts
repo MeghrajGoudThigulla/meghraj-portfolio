@@ -10,7 +10,10 @@ const app = express();
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is not set. Configure it in the environment.");
 }
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  // Prisma 7 requires datasource URL via client options when not set in schema
+  datasourceUrl: process.env.DATABASE_URL,
+} as any);
 const PORT = process.env.PORT || 4000;
 
 app.use(cors());
