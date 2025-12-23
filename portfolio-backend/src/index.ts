@@ -13,17 +13,29 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is not set. Configure it in the environment.");
 }
 
-const sslConfig = {
-  rejectUnauthorized: false,
-  ...(process.env.PG_CA_CERT
-    ? { ca: process.env.PG_CA_CERT.replace(/\\n/g, "\n") }
-    : {}),
-};
+const databaseUrl = process.env.DATABASE_URL;
+const caCert = process.env.PG_CA_CERT?.replace(/\n/g, "\n").trim();
+
+const requiresSsl = /sslmode=(require|verify-ca|verify-full)/i.test(
+  databaseUrl,
+);
+const sslConfig = requiresSsl
+  ? caCert
+    ? { ca: caCert, rejectUnauthorized: true }
+    : { rejectUnauthorized: false }
+  : undefined;
+
+if (requiresSsl && !caCert) {
+  console.warn(
+    "PG_CA_CERT is not set; TLS verification is disabled for this connection.",
+  );
+}
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: databaseUrl,
   ssl: sslConfig,
 });
+
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 const PORT = process.env.PORT || 4000;
