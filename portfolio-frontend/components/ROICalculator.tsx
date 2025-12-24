@@ -19,7 +19,10 @@ export default function ROICalculator() {
   }, [hoursSaved, hourlyRate]);
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24" id="roi">
+    <section
+      className="border-y border-brand-charcoal/10 bg-white py-20 sm:py-24 lg:py-28"
+      id="roi"
+    >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Interactive"
@@ -55,10 +58,10 @@ export default function ROICalculator() {
             <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
               Estimated annual savings
             </p>
-            <p className="mt-3 text-4xl font-bold text-brand-gold lg:text-5xl">
+            <p className="mt-3 text-4xl font-bold text-brand-blue lg:text-5xl">
               {formatter.format(annualSavings)}
             </p>
-            <p className="mt-3 text-base leading-relaxed text-brand-charcoal">
+            <p className="mt-3 max-w-prose text-base leading-relaxed text-brand-charcoal">
               Based on {hoursSaved} hours saved each week at a blended rate of{" "}
               {formatter.format(hourlyRate)} / hr. Use this to anchor stakeholder
               discussions in tangible outcomes.

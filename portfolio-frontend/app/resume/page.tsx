@@ -1,5 +1,4 @@
 import Link from "next/link";
-import PrintButton from "@/components/PrintButton";
 
 export const metadata = {
   title: "Résumé | Meghraj Goud",
@@ -10,6 +9,7 @@ export const metadata = {
 const contactLinks = [
   { href: "tel:+917997221772", label: "+91 79972 21772" },
   { href: "mailto:meghraj.thigulla@outlook.com", label: "meghraj.thigulla@outlook.com" },
+  { href: "https://github.com/MeghrajGoudThigulla", label: "GitHub" },
   { href: "https://www.linkedin.com/in/meghraj-goud-thigulla", label: "LinkedIn" },
   { href: "https://linktr.ee/meghraj_goud_thigulla", label: "Certificates" },
 ];
@@ -40,11 +40,10 @@ export default function ResumePage() {
           <div className="flex gap-3">
             <Link
               href="/"
-              className="rounded-md border border-brand-charcoal/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-brand-navy transition hover:border-brand-blue hover:text-brand-blue"
+              className="btn btn-secondary"
             >
               Back to Portfolio
             </Link>
-            <PrintButton />
           </div>
         </header>
 
@@ -186,7 +185,7 @@ function Role({
           <p className="text-lg font-semibold text-brand-navy">{title}</p>
           <p className="text-sm font-medium text-slate-600">{place}</p>
         </div>
-        <p className="text-sm font-semibold text-brand-gold">{timeline}</p>
+        <p className="text-sm font-semibold text-brand-blue">{timeline}</p>
       </div>
       <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
         {bullets.map((item) => (

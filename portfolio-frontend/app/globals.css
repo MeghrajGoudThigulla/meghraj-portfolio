@@ -29,3 +29,25 @@ h4 {
   background: #dbeafe;
   color: #0f172a;
 }
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] transition;
+  }
+
+  .btn-primary {
+    @apply bg-brand-blue text-white shadow-sm hover:-translate-y-0.5 hover:bg-sky-800 hover:text-white hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply border border-brand-charcoal/25 text-brand-navy hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue;
+  }
+
+  .btn-ghost {
+    @apply text-brand-blue hover:text-brand-navy hover:underline underline-offset-4;
+  }
+
+  .badge-accent {
+    @apply rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-blue;
+  }
+}

@@ -13,20 +13,31 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-brand-blue">
-          <Link href="mailto:meghraj.thigulla@outlook.com" className="hover:text-brand-navy">
+          <Link
+            href="mailto:meghraj.thigulla@outlook.com"
+            className="hover:text-brand-navy hover:underline underline-offset-4"
+          >
             Email
+          </Link>
+          <Link
+            href="https://github.com/MeghrajGoudThigulla"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-brand-navy hover:underline underline-offset-4"
+          >
+            GitHub
           </Link>
           <Link
             href="https://www.linkedin.com/in/meghraj-goud-thigulla"
             target="_blank"
             rel="noreferrer"
-            className="hover:text-brand-navy"
+            className="hover:text-brand-navy hover:underline underline-offset-4"
           >
             LinkedIn
           </Link>
           <Link
             href="/resume"
-            className="hover:text-brand-navy"
+            className="hover:text-brand-navy hover:underline underline-offset-4"
           >
             Résumé
           </Link>

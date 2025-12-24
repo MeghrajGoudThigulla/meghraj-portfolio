@@ -2,16 +2,31 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="bg-white/80 py-16 shadow-sm sm:py-20 lg:py-24">
-      <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-gradient-to-br from-white via-white to-sky-50 py-20 shadow-sm sm:py-24 lg:py-28">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sky-100/70 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-28 bottom-0 h-72 w-72 rounded-full bg-sky-100/50 blur-3xl"
+      />
+      <div className="relative mx-auto flex max-w-5xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
             Full Stack Engineer → Consulting & Finance
           </p>
-          <h1 className="text-4xl font-bold leading-tight text-brand-navy lg:text-7xl">
-            Bridging scalable engineering and business strategy.
+          <p className="max-w-prose text-lg font-semibold text-brand-navy">
+            I help{" "}
+            <span className="text-brand-blue">
+              fintech and consulting teams
+            </span>{" "}
+            build scalable, high-performance web applications.
+          </p>
+          <h1 className="text-3xl font-bold leading-tight text-brand-navy sm:text-4xl lg:text-6xl">
+            Outcome-led product engineering with measurable impact.
           </h1>
-          <p className="max-w-4xl text-lg leading-relaxed text-brand-charcoal lg:text-xl">
+          <p className="max-w-prose text-lg leading-relaxed text-brand-charcoal lg:text-xl">
             I design and ship cross-platform systems that translate complex
             requirements into measurable outcomes—reducing engineering overhead,
             accelerating MVP launches, and building trustworthy data flows for
@@ -19,20 +34,20 @@ export default function Hero() {
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Link
-              href="#cases"
-              className="rounded-md bg-brand-blue px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-sm transition hover:bg-sky-800"
-            >
-              View Case Studies
-            </Link>
-            <Link
               href="#contact"
-              className="rounded-md border border-brand-charcoal/30 px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-brand-navy transition hover:border-brand-blue hover:text-brand-blue"
+              className="btn btn-primary"
             >
               Schedule a Call
             </Link>
             <Link
+              href="#cases"
+              className="btn btn-secondary"
+            >
+              View Case Studies
+            </Link>
+            <Link
               href="/resume"
-              className="rounded-md border border-transparent px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-brand-gold transition hover:text-amber-800"
+              className="btn btn-ghost"
             >
               View Résumé
             </Link>
@@ -43,12 +58,12 @@ export default function Hero() {
           {metricCards.map((metric) => (
             <div
               key={metric.label}
-              className="rounded border border-brand-charcoal/10 bg-brand-surface px-4 py-5 shadow-sm"
+              className="rounded border border-brand-charcoal/10 bg-brand-surface px-4 py-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
                 {metric.label}
               </p>
-              <p className="mt-3 text-3xl font-bold text-brand-gold">
+              <p className="mt-3 text-3xl font-bold text-brand-blue">
                 {metric.value}
               </p>
               <p className="mt-2 text-sm leading-relaxed text-brand-charcoal">

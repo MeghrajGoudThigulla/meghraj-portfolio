@@ -2,7 +2,7 @@ import SectionHeading from "./SectionHeading";
 
 export default function About() {
   return (
-    <section className="py-16 sm:py-20 lg:py-24" id="about">
+    <section className="py-20 sm:py-24 lg:py-28" id="about">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Consulting Pivot"
@@ -12,12 +12,16 @@ export default function About() {
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr,1fr]">
           <div className="space-y-4 rounded border border-brand-charcoal/10 bg-brand-surface px-5 py-6 shadow-sm">
-            <p className="text-base leading-relaxed text-brand-charcoal lg:text-lg">
+            <p className="max-w-prose text-base leading-relaxed text-brand-charcoal lg:text-lg">
               With a B.Tech in IT and full-stack delivery across mobile, web, and
               backend, I thrive in environments that demand clarity, analytics,
               and stakeholder alignment. My recent work spans healthcare ops,
               networking platforms, and compliance-minded data flows—core themes
               for finance and consulting teams.
+            </p>
+            <p className="max-w-prose text-sm leading-relaxed text-slate-600 lg:text-base">
+              I like working with teams that value tight feedback loops, shared
+              dashboards, and a clear path from prototype to production.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {strengths.map((item) => (
