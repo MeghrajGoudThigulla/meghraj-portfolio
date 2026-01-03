@@ -21,7 +21,7 @@ const caCertFromBase64 = process.env.PG_CA_CERT_B64
 const base64LooksValid = Boolean(
   caCertFromBase64 && caCertFromBase64.includes("BEGIN CERTIFICATE"),
 );
-const caCert = base64LooksValid ? caCertFromBase64 : caCertFromEnv;
+const caCert = process.env.PG_CA_CERT_B64 ? caCertFromBase64 : caCertFromEnv;
 if (process.env.PG_CA_CERT_B64 && !base64LooksValid) {
   console.warn("PG_CA_CERT_B64 is set but does not look like a PEM certificate.");
 }
