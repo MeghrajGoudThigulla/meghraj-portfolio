@@ -25,6 +25,16 @@ const caCert = process.env.PG_CA_CERT_B64 ? caCertFromBase64 : caCertFromEnv;
 if (process.env.PG_CA_CERT_B64 && !base64LooksValid) {
   console.warn("PG_CA_CERT_B64 is set but does not look like a PEM certificate.");
 }
+if (process.env.PG_CA_CERT_B64) {
+  console.log("TLS CA cert source: PG_CA_CERT_B64", {
+    caCertLength: caCert?.length ?? 0,
+    base64LooksValid,
+  });
+} else if (process.env.PG_CA_CERT) {
+  console.log("TLS CA cert source: PG_CA_CERT", { caCertLength: caCert?.length ?? 0 });
+} else {
+  console.log("TLS CA cert source: none");
+}
 
 const requiresSsl = /sslmode=(require|verify-ca|verify-full)/i.test(
   databaseUrl,
