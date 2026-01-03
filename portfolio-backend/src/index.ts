@@ -14,7 +14,11 @@ if (!process.env.DATABASE_URL) {
 }
 
 const databaseUrl = process.env.DATABASE_URL;
-const caCert = process.env.PG_CA_CERT?.replace(/\\n/g, "\n").trim();
+const caCertFromEnv = process.env.PG_CA_CERT?.replace(/\\n/g, "\n").trim();
+const caCertFromBase64 = process.env.PG_CA_CERT_B64
+  ? Buffer.from(process.env.PG_CA_CERT_B64, "base64").toString("utf8").trim()
+  : undefined;
+const caCert = caCertFromEnv || caCertFromBase64;
 
 const requiresSsl = /sslmode=(require|verify-ca|verify-full)/i.test(
   databaseUrl,
