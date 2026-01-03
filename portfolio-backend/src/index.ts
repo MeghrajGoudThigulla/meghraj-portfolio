@@ -14,7 +14,7 @@ if (!process.env.DATABASE_URL) {
 }
 
 const databaseUrl = process.env.DATABASE_URL;
-const caCert = process.env.PG_CA_CERT?.replace(/\n/g, "\n").trim();
+const caCert = process.env.PG_CA_CERT?.replace(/\\n/g, "\n").trim();
 
 const requiresSsl = /sslmode=(require|verify-ca|verify-full)/i.test(
   databaseUrl,
@@ -39,8 +39,37 @@ const pool = new Pool({
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 const PORT = process.env.PORT || 4000;
+const allowedOrigins = (process.env.CORS_ORIGINS || process.env.FRONTEND_ORIGIN || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const rateLimitWindowMs = Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000;
+const rateLimitMax = Number(process.env.RATE_LIMIT_MAX) || 20;
+const rateLimitStore = new Map<
+  string,
+  {
+    count: number;
+    resetAt: number;
+  }
+>();
 
-app.use(cors());
+if (process.env.TRUST_PROXY === "true") {
+  app.set("trust proxy", 1);
+}
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.length === 0) {
+        return callback(null, true);
+      }
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("CORS blocked: origin not allowed"));
+    },
+  }),
+);
 app.use(express.json());
 
 app.get("/", (_req, res) => {
@@ -55,6 +84,19 @@ app.post("/api/contact", async (req, res) => {
   }
 
   try {
+    const ip = req.ip || "unknown";
+    const now = Date.now();
+    const existing = rateLimitStore.get(ip);
+
+    if (!existing || now > existing.resetAt) {
+      rateLimitStore.set(ip, { count: 1, resetAt: now + rateLimitWindowMs });
+    } else {
+      existing.count += 1;
+      if (existing.count > rateLimitMax) {
+        return res.status(429).json({ error: "Too many requests, try again later." });
+      }
+    }
+
     const contact = await prisma.contact.create({
       data: {
         name,
@@ -64,29 +106,35 @@ app.post("/api/contact", async (req, res) => {
       },
     });
 
-    if (
+    const smtpPort = Number(process.env.SMTP_PORT);
+    const canSendMail =
       process.env.SMTP_HOST &&
-      process.env.SMTP_PORT &&
       process.env.SMTP_USER &&
       process.env.SMTP_PASS &&
-      process.env.ALERT_TO
-    ) {
+      process.env.ALERT_TO &&
+      Number.isFinite(smtpPort);
+
+    if (canSendMail) {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT),
-        secure: true,
+        port: smtpPort,
+        secure: smtpPort === 465,
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,
         },
       });
 
-      await transporter.sendMail({
-        from: `"Portfolio" <${process.env.SMTP_USER}>`,
-        to: process.env.ALERT_TO,
-        subject: `New contact: ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nSegment: ${segment || "Consulting"}\n\n${message}`,
-      });
+      try {
+        await transporter.sendMail({
+          from: `"Portfolio" <${process.env.SMTP_USER}>`,
+          to: process.env.ALERT_TO,
+          subject: `New contact: ${name}`,
+          text: `Name: ${name}\nEmail: ${email}\nSegment: ${segment || "Consulting"}\n\n${message}`,
+        });
+      } catch (emailError) {
+        console.error("Email notification failed", emailError);
+      }
     } else {
       console.warn("Email not sent: SMTP env vars missing");
     }

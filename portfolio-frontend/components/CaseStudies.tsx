@@ -74,25 +74,33 @@ const caseStudies: CaseStudy[] = [
 export default function CaseStudies() {
   return (
     <section
-      className="border-y border-brand-charcoal/10 bg-white py-20 sm:py-24 lg:py-28"
+      className="relative overflow-hidden border-y border-brand-charcoal/10 bg-brand-bg py-20 sm:py-24 lg:py-28"
       id="cases"
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-32 top-10 h-64 w-64 rounded-full bg-sky-100/70 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 bottom-8 h-72 w-72 rounded-full bg-white/80 blur-3xl"
+      />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Case Studies"
           title="Engineering that ships outcomes, not just code."
           description="Examples of turning ambiguity into measurable efficiency, resilience, and adoption."
         />
 
         <div className="grid gap-6 lg:gap-8">
-          {caseStudies.map((study) => {
+          {caseStudies.map((study, index) => {
             const detailsHref = study.detailsHref ?? "#contact";
             const isExternal = detailsHref.startsWith("http");
 
             return (
               <article
                 key={study.title}
-                className="rounded border border-brand-charcoal/10 bg-brand-surface px-5 py-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                className="card card-hover fade-up px-5 py-6"
+                style={{ animationDelay: `${index * 0.08}s` }}
               >
                 <div className="flex flex-col gap-1">
                   <h3 className="text-2xl font-semibold text-brand-navy lg:text-3xl">
@@ -128,7 +136,7 @@ export default function CaseStudies() {
                     </div>
                   </div>
 
-                  <div className="space-y-4 rounded border border-dashed border-brand-charcoal/15 bg-brand-bg px-4 py-5">
+                  <div className="space-y-4 rounded-lg border border-brand-charcoal/10 border-l-4 border-l-brand-blue/60 bg-white/90 px-4 py-5 shadow-sm">
                     <div>
                       <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
                         Impact

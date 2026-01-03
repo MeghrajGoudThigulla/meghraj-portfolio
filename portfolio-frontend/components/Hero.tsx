@@ -13,26 +13,23 @@ export default function Hero() {
       />
       <div className="relative mx-auto flex max-w-5xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-            Full Stack Engineer → Consulting & Finance
-          </p>
-          <p className="max-w-prose text-lg font-semibold text-brand-navy">
+          <p className="fade-up stagger-1 max-w-prose text-lg font-semibold text-brand-navy">
             I help{" "}
             <span className="text-brand-blue">
               fintech and consulting teams
             </span>{" "}
             build scalable, high-performance web applications.
           </p>
-          <h1 className="text-3xl font-bold leading-tight text-brand-navy sm:text-4xl lg:text-6xl">
+          <h1 className="fade-up stagger-2 text-3xl font-bold leading-tight text-brand-navy sm:text-4xl lg:text-6xl">
             Outcome-led product engineering with measurable impact.
           </h1>
-          <p className="max-w-prose text-lg leading-relaxed text-brand-charcoal lg:text-xl">
+          <p className="fade-up stagger-3 max-w-prose text-lg leading-relaxed text-brand-charcoal lg:text-xl">
             I design and ship cross-platform systems that translate complex
             requirements into measurable outcomes—reducing engineering overhead,
             accelerating MVP launches, and building trustworthy data flows for
             decision-makers.
           </p>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="fade-up stagger-2 flex flex-wrap items-center gap-3">
             <Link
               href="#contact"
               className="btn btn-primary"
@@ -58,7 +55,7 @@ export default function Hero() {
           {metricCards.map((metric) => (
             <div
               key={metric.label}
-              className="rounded border border-brand-charcoal/10 bg-brand-surface px-4 py-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="card card-hover fade-in px-4 py-5"
             >
               <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
                 {metric.label}
