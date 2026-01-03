@@ -18,7 +18,13 @@ const caCertFromEnv = process.env.PG_CA_CERT?.replace(/\\n/g, "\n").trim();
 const caCertFromBase64 = process.env.PG_CA_CERT_B64
   ? Buffer.from(process.env.PG_CA_CERT_B64, "base64").toString("utf8").trim()
   : undefined;
-const caCert = caCertFromEnv || caCertFromBase64;
+const base64LooksValid = Boolean(
+  caCertFromBase64 && caCertFromBase64.includes("BEGIN CERTIFICATE"),
+);
+const caCert = base64LooksValid ? caCertFromBase64 : caCertFromEnv;
+if (process.env.PG_CA_CERT_B64 && !base64LooksValid) {
+  console.warn("PG_CA_CERT_B64 is set but does not look like a PEM certificate.");
+}
 
 const requiresSsl = /sslmode=(require|verify-ca|verify-full)/i.test(
   databaseUrl,
