@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { PrismaClient } from "../generated/prisma";
 import nodemailer from "nodemailer";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import { Pool, type PoolConfig } from "pg";
 
 dotenv.config();
 
@@ -72,10 +72,13 @@ if (shouldUseSsl && !caCert && !sslModeVerifiesCert && allowInsecure) {
   );
 }
 
-const pool = new Pool({
+const poolConfig: PoolConfig & { family?: number } = {
   connectionString: databaseUrl,
   ssl: sslConfig,
-});
+  family: 4,
+};
+
+const pool = new Pool(poolConfig);
 
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
