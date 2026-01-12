@@ -10,13 +10,13 @@ export default function About() {
         aria-hidden
         className="pointer-events-none absolute -right-32 top-12 h-64 w-64 rounded-full bg-sky-100/60 blur-3xl"
       />
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Engineering rigor, finance-ready storytelling."
           description="I translate technical depth into business cases: operational efficiency, security, and speed to market."
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1.2fr,1fr]">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr,0.8fr] lg:gap-10">
           <div className="card fade-up space-y-4 px-5 py-6">
             <p className="max-w-prose text-base leading-relaxed text-brand-charcoal lg:text-lg">
               With a B.Tech in IT and full-stack delivery across mobile, web, and
@@ -33,7 +33,7 @@ export default function About() {
               {strengths.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-lg border border-brand-charcoal/10 bg-brand-bg px-4 py-3"
+                  className="rounded-xl border border-brand-charcoal/10 bg-brand-bg px-4 py-3"
                 >
                   <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
                     {item.title}
