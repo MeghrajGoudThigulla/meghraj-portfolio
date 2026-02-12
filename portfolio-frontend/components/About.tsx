@@ -12,22 +12,22 @@ export default function About() {
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          title="Engineering rigor, finance-ready storytelling."
-          description="I translate technical depth into business cases: operational efficiency, security, and speed to market."
+          title="Full-stack engineer focused on scalable systems."
+          description="I specialize in backend architecture and cross-platform product delivery with clear reliability, security, and business outcomes."
         />
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr,0.8fr] lg:gap-10">
           <div className="card fade-up space-y-4 px-5 py-6">
             <p className="max-w-prose text-base leading-relaxed text-brand-charcoal lg:text-lg">
-              With a B.Tech in IT and full-stack delivery across mobile, web, and
-              backend, I thrive in environments that demand clarity, analytics,
-              and stakeholder alignment. My recent work spans healthcare ops,
-              networking platforms, and compliance-minded data flows—core themes
-              for finance and consulting teams.
+              I&apos;m a full-stack engineer who designs and ships backend-first
+              systems across Flutter, React, and Python services. My focus is
+              clean architecture, secure data flows, and operational clarity in
+              production environments.
             </p>
             <p className="max-w-prose text-sm leading-relaxed text-slate-600 lg:text-base">
-              I like working with teams that value tight feedback loops, shared
-              dashboards, and a clear path from prototype to production.
+              I work best with teams that value measurable outcomes: fewer
+              failure points, faster iteration loops, and clear ownership from
+              API contracts to deployment.
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {strengths.map((item) => (
@@ -96,8 +96,8 @@ const strengths = [
       "Delivered 60% of an e-commerce MVP and structured it for 1K+ early users with modular services.",
   },
   {
-    title: "Leadership",
+    title: "Delivery Discipline",
     detail:
-      "Co-founded student initiatives impacting 500+ people; coordinated cross-team execution for large events.",
+      "Translate ambiguity into shippable milestones with clear ownership, pragmatic scope, and stable release cadence.",
   },
 ];
