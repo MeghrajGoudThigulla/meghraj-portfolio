@@ -55,18 +55,65 @@ export default function ResumePage() {
               place="Threshing Floor Group, Hyderabad • www.tfgorg.com"
               timeline="July 2024–Present"
               bullets={[
-                "Led end-to-end development of cross-platform mobile, web, and backend systems using Flutter, FastAPI, Flask, Firebase, and SQL databases, reducing cross-platform engineering overhead by 30%.",
-                "Architected and implemented secure backend systems with Firebase token authentication, JWT-based role enforcement, rate limiting, caching layers, and Play Integrity validation across production and internal applications.",
-                "Designed and optimized core business workflows including service requests, scheduling, subscriptions, assessments, and content delivery using Postgres/MySQL-backed APIs, Redis caching, and real-time client synchronization.",
-                "Improved performance, reliability, and delivery velocity by refactoring APIs, tuning database queries, standardizing reusable UI/API components, and introducing containerized, environment-isolated deployments.",
+                "Architected and delivered 4 full-stack platforms spanning Flutter mobile apps (80+ screens), React/MUI web systems (47+ pages), and backend services totaling 294 REST API endpoints across FastAPI, Spring Boot, and Express.",
+                "Designed and maintained 3 FastAPI services exposing 217 endpoints with JWT authentication, role-based access control (RBAC), Redis rate limiting, background workers, and object storage integrations.",
+                "Modeled relational systems using PostgreSQL and MySQL with 61+ SQLAlchemy models and 20+ schema migrations; implemented transactional writes, audit logging, and soft-delete patterns.",
+                "Built asynchronous webhook pipelines, Redis caching layers, Firebase Admin integrations, and secure token verification workflows across production and internal platforms.",
               ]}
             />
           </Section>
 
+          <Section title="SYSTEM SCALE SNAPSHOT">
+            <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
+              <li className="flex gap-3">
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+                <span>294 total backend API endpoints across 4 systems</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+                <span>217 FastAPI endpoints across 3 services</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+                <span>61+ SQLAlchemy models with 20+ schema migrations</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+                <span>80+ mobile screens and 96+ admin/web pages delivered</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+                <span>Redis rate limiting, async webhook workers, and transactional DB writes</span>
+              </li>
+            </ul>
+          </Section>
+
           <Section title="PROJECTS">
             <Project
+              title="DEALSMART"
+              subtitle="Commerce platform (Internal / Pre-release) with customer mobile app and operations admin system."
+              tech="Flutter, FastAPI, PostgreSQL, Redis, MinIO/S3"
+              bullets={[
+                "Built a Flutter customer application (23 screens, 6-tab navigation) and a 41-page Flutter Web admin dashboard.",
+                "Developed a FastAPI backend with 104 REST endpoints across 23 routers covering auth, catalog, cart, orders, payments, reporting, and admin workflows.",
+                "Designed a commerce-grade PostgreSQL schema with 42 SQLAlchemy models and 13 Alembic migrations supporting orders, shipments, refunds, RMAs, and inventory tracking.",
+                "Implemented Redis-based global rate limiting and RQ background workers for asynchronous payment webhook processing with idempotent event tracking.",
+              ]}
+            />
+            <Project
+              title="TFG SecureBank"
+              subtitle="Enterprise form-builder and workflow platform (Backend modernization from Spring Boot to FastAPI)."
+              tech="React (MUI), FastAPI, MySQL"
+              bullets={[
+                "Contributing to migration from legacy Spring Boot backend to a modular FastAPI metadata service (47 endpoints across 17 routers).",
+                "Delivered a 47-page React/MUI admin UX supporting dynamic form configuration, dashboards, and workflow management.",
+                "Designed SQLAlchemy-based metadata models with conditional fields, PII masking, and display rules.",
+                "Implemented correlation-ID logging and background rule-engine worker for asynchronous processing.",
+              ]}
+            />
+            <Project
               title="Medical Advisor"
-              subtitle="Production-grade healthcare service platform enabling ambulance requests, scheduling, subscriptions, and real-time support via mobile and web admin systems."
+              subtitle="Published production healthcare platform enabling ambulance requests, scheduling, subscriptions, and real-time support via mobile and web admin systems."
               link={{ href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor", label: "Play Store" }}
               tech="Flutter (Android/iOS), Flutter Web, FastAPI, PostgreSQL, Firebase Auth/Firestore/Storage, Redis, Google Maps"
               bullets={[
@@ -81,7 +128,7 @@ export default function ResumePage() {
             />
             <Project
               title="Personal Portfolio Platform"
-              subtitle="Full-stack developer portfolio showcasing projects, case studies, and contact workflows with production-grade backend controls."
+              subtitle="Published full-stack portfolio platform with backend controls for secure lead capture and operational reliability."
               tech="Next.js (App Router), Node.js, Express, Prisma, PostgreSQL, TypeScript"
               bullets={[
                 "Built a Next.js App Router frontend with modular components and static export for lightweight, fast deployments.",
@@ -93,7 +140,7 @@ export default function ResumePage() {
             />
             <Project
               title="GroConnect"
-              subtitle="Professional networking platform for profiles, peers, and curated opportunities."
+              subtitle="Published professional networking platform for profiles, peers, and curated opportunities."
               link={{ href: "https://groconnect.in", label: "groconnect.in" }}
               tech="Python, Flask, MongoDB, HTML/CSS, JavaScript, Bootstrap"
               bullets={[
@@ -103,39 +150,17 @@ export default function ResumePage() {
                 "Reduced page load time by refactoring layouts and removing redundant network calls.",
               ]}
             />
-            <Project
-              title="Blockchain-Based Fake Product Identification System"
-              subtitle="Platform for verifying product authenticity using tamper-proof smart contracts."
-              tech="Python, Solidity, Ethereum (Ganache), Web3.js, MySQL"
-              bullets={[
-                "Developed Solidity contracts for generating immutable product hashes for counterfeit prevention.",
-                "Built a Python backend integrated with Ethereum via Web3.js for registration and validation.",
-                "Designed user-facing verification flows using QR/product codes with real-time validation.",
-              ]}
-            />
-            <Project
-              title="AI Therapist Using NLP"
-              subtitle="AI chatbot offering sentiment-aware conversational support."
-              tech="Python, TensorFlow, PyTorch, NLTK, Scikit-learn"
-              bullets={[
-                "Built sentiment classification pipeline to analyze user intent and emotional tone.",
-                "Implemented full NLP preprocessing stack including tokenization, stemming, and normalization.",
-                "Trained deep learning dialogue models for personalized, context-aware responses.",
-                "Designed safety rule engine to detect crisis cues and recommend professional help.",
-              ]}
-            />
           </Section>
 
           <Section title="SKILLS">
             <SkillGroup
               items={[
-                { label: "Languages", value: "Python, Dart, JavaScript, C++" },
-                { label: "Frameworks", value: "Flutter, FastAPI, Flask" },
-                { label: "Mobile", value: "Flutter (Android & iOS), Firebase" },
-                { label: "Backend", value: "REST APIs, SQLAlchemy, Authentication, Caching" },
-                { label: "Database", value: "PostgreSQL, MySQL, MongoDB, Firestore" },
-                { label: "Tools", value: "Git, Docker, Android Studio, VS Code" },
-                { label: "Concepts", value: "System Design Basics, OOP, DSA, MVC/MVVM, CI/CD" },
+                { label: "Languages", value: "Python, Dart, JavaScript, TypeScript, C++" },
+                { label: "Backend Frameworks", value: "FastAPI, Flask, Express, Spring Boot" },
+                { label: "Frontend & Mobile", value: "Flutter (Android/iOS), React (MUI), Next.js" },
+                { label: "Databases", value: "PostgreSQL, MySQL, MongoDB, Redis, Firestore" },
+                { label: "Architecture", value: "REST API Design, RBAC, JWT, Rate Limiting, Caching, Background Workers, Transaction Management" },
+                { label: "DevOps & Tooling", value: "Docker, Alembic, SQLAlchemy, Prisma, Git" },
               ]}
             />
           </Section>
@@ -149,7 +174,7 @@ export default function ResumePage() {
             />
           </Section>
 
-          <Section title="EXTRA-CURRICULAR ACTIVITIES">
+          <Section title="LEADERSHIP HIGHLIGHTS">
             <ul className="space-y-3 text-sm leading-relaxed text-brand-charcoal lg:text-base">
               {activities.map((item) => (
                 <li key={item.title} className="flex gap-3">
@@ -285,21 +310,11 @@ const activities = [
   {
     title: "Organizing Committee, VIBHA 2K24",
     detail:
-      "Coordinated end-to-end logistics, venue planning, and event flow for a large-scale cultural and technical festival with 2,500+ attendees. Oversaw scheduling, stage management, and cross-team communication across 6+ student divisions to ensure an uninterrupted three-day event.",
+      "Coordinated logistics and cross-team execution for a 2,500+ attendee campus festival.",
   },
   {
     title: "Co-Founder, Sama Sangathan",
     detail:
-      "Initiated and led women’s safety and empowerment programs, delivering workshops, awareness campaigns, and interactive sessions that impacted 500+ students. Managed outreach, content planning, guest coordination, and collaboration with college leadership to scale the initiative.",
-  },
-  {
-    title: "Executive Member, Institute of Student Engineering VBIT SS",
-    detail:
-      "Spearheaded student engagement drives that generated 132 new active leads. Contributed to forming an incubation-focused vertical by organizing ideation meets, guiding junior teams, and facilitating collaboration between faculty mentors and student innovators.",
-  },
-  {
-    title: "Volunteer, Denaurlen's 3C Festival (T-HUB 2.0)",
-    detail:
-      "Managed hospitality, logistics, and VIP coordination for a high-visibility tech-focused product launch event. Oversaw crowd control, stage readiness, and backstage operations to maintain a smooth and incident-free attendee experience for founders, startups, and investors.",
+      "Led women’s safety and empowerment initiatives through workshops and awareness programs impacting 500+ students.",
   },
 ];

@@ -1,8 +1,9 @@
 import Link from "next/link";
 
 const navItems = [
-  { href: "#cases", label: "Case Studies" },
   { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#cases", label: "Case Studies" },
   { href: "#roi", label: "ROI" },
   { href: "#contact", label: "Contact" },
   { href: "https://github.com/MeghrajGoudThigulla", label: "GitHub" },

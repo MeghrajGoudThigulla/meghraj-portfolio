@@ -1,21 +1,100 @@
 import Link from "next/link";
+import ApiDiagramCard, { type ApiDiagramModel } from "./ApiDiagramCard";
 import SectionHeading from "./SectionHeading";
 
 export type CaseStudy = {
   title: string;
   subtitle: string;
+  status: "Published" | "Internal / Pre-release";
   problem: string;
   action: string[];
   result: string;
   metrics: string[];
   stack: string;
+  apiDiagram: ApiDiagramModel;
+  sourcePath: string;
   detailsHref?: string;
 };
 
 const caseStudies: CaseStudy[] = [
   {
+    title: "Commerce Platform Buildout",
+    subtitle: "DEALSMART | Customer App + Admin Platform",
+    status: "Internal / Pre-release",
+    problem:
+      "Needed a single commerce platform that could support customer flows, admin operations, and payment lifecycle management.",
+    action: [
+      "Built a Flutter customer app (23 screens) and a 41-page Flutter Web admin dashboard for catalog, orders, and operations.",
+      "Designed a FastAPI backend with 134 endpoints across 23 routers for auth, cart, orders, payments, reports, and admin controls.",
+      "Modeled a production commerce schema with 42 SQLAlchemy models and 13 Alembic migrations, including shipments, refunds, and RMAs.",
+    ],
+    result:
+      "Established a modular commerce foundation with secure request handling and asynchronous payment processing readiness.",
+    metrics: ["134 endpoints", "23 router modules", "Async webhooks + workers"],
+    stack:
+      "Flutter, FastAPI, PostgreSQL, Redis, RQ workers, MinIO/S3",
+    apiDiagram: {
+      theme: "commerce",
+      clientLabel: "Flutter Customer App + Flutter Web Admin",
+      gatewayLabel: "FastAPI /api/v1",
+      routeGroups: [
+        "auth (16)",
+        "catalog (17)",
+        "orders (20)",
+        "admin_inventory (15)",
+        "admin_payments (10)",
+        "admin_staff (7)",
+        "cart (4)",
+        "support (4)",
+        "addresses (5)",
+        "+14 additional admin/ops routers",
+      ],
+      dataLayerLabel: "PostgreSQL + Redis rate limiter + RQ background workers",
+      controlLabel: "Includes webhook replay, reconciliation, and admin audit modules",
+    },
+    sourcePath: "/Users/tfg-admin/dev/projects/DEALSMART/dealsmart-backend-next",
+  },
+  {
+    title: "Metadata Platform Modernization",
+    subtitle: "TFG SecureBank | Spring Boot to FastAPI Migration",
+    status: "Internal / Pre-release",
+    problem:
+      "Legacy backend constraints slowed delivery for dynamic form workflows and metadata-driven admin controls.",
+    action: [
+      "Contributed to migration from Spring Boot services into a modular FastAPI metadata service spanning 47 endpoints across 17 routers.",
+      "Delivered a 47-page React/MUI admin interface for form configuration, dashboard views, and workflow operations.",
+      "Implemented SQLAlchemy metadata models with conditional fields, PII masking rules, and correlation-ID-aware processing paths.",
+    ],
+    result:
+      "Improved extensibility for enterprise workflow configuration while reducing coupling between admin UX and backend logic.",
+    metrics: ["47 endpoints", "17 endpoint modules", "Rule-engine async jobs"],
+    stack: "React (MUI), FastAPI, MySQL, SQLAlchemy, worker orchestration",
+    apiDiagram: {
+      theme: "banking",
+      clientLabel: "React (MUI) Admin Console",
+      gatewayLabel: "FastAPI /api/v1 Metadata Service",
+      routeGroups: [
+        "excel (7)",
+        "formresponse (6)",
+        "user (5)",
+        "menu (5)",
+        "form (4)",
+        "dropdown (4)",
+        "ruleEngine (3)",
+        "header (3)",
+        "auth (2)",
+        "approval (2)",
+        "files/documents/download/records (4)",
+      ],
+      dataLayerLabel: "MySQL + SQLAlchemy metadata models + async rule engine jobs",
+      controlLabel: "Migration path from legacy Spring Boot workflow APIs",
+    },
+    sourcePath: "/Users/tfg-admin/dev/projects/tfg-securebank/tfg-securebank_api",
+  },
+  {
     title: "Healthcare Operations Optimization",
     subtitle: "Medical Advisor | Mobile, Web, Admin",
+    status: "Published",
     problem:
       "Manual scheduling and unverified service requests created compliance risk and operational drag.",
     action: [
@@ -26,48 +105,58 @@ const caseStudies: CaseStudy[] = [
     result:
       "Prepared for a 1K+ user launch with secure onboarding and reduced admin overhead.",
     metrics: [
-      "1K+ user readiness",
-      "Secure onboarding",
-      "Reduced admin overhead",
+      "68 endpoints",
+      "5 router groups",
+      "Play Integrity + Firebase auth",
     ],
     stack:
       "Flutter (Android/iOS/Web), Firebase Auth/Firestore/Storage, FastAPI, PostgreSQL, Play Integrity",
+    apiDiagram: {
+      theme: "healthcare",
+      clientLabel: "Flutter Mobile + Admin Web",
+      gatewayLabel: "FastAPI Service Layer",
+      routeGroups: [
+        "/admin/* (41)",
+        "/user/* (21)",
+        "/auth/* (3)",
+        "/health (2)",
+        "/integrity/nonce (1)",
+      ],
+      dataLayerLabel: "PostgreSQL + Firebase Auth/Storage + cache-backed settings",
+      controlLabel: "Play Integrity nonce verification and role-protected admin operations",
+    },
+    sourcePath: "/Users/tfg-admin/dev/projects/MEDICAL_ADVISOR/medicaladvisor-api",
     detailsHref:
       "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor",
   },
   {
-    title: "Network Performance & Acquisition",
-    subtitle: "GroConnect | Professional Networking Platform",
-    problem: "High bounce rates and slow page loads hurt user acquisition.",
+    title: "Assessment Engine API",
+    subtitle: "TFG NexaTest | Module + Attempt + Admin Workflow Backend",
+    status: "Internal / Pre-release",
+    problem: "Needed a compact assessment backend with authenticated attempts, analytics, and admin module controls.",
     action: [
-      "Refined data models and optimized MongoDB queries for faster profile and search flows.",
-      "Refactored layout logic, removed redundant network calls, and tuned caching for smoother navigation.",
-      "Built responsive UI modules to keep engagement consistent across mobile and desktop.",
+      "Built Express route groups for module discovery, attempt recording, history retrieval, and admin analytics.",
+      "Added auth middleware and role checks to split learner and admin capabilities across route domains.",
+      "Implemented schema validation on body/params to guard module mutations and attempt writes.",
     ],
     result:
-      "Improved load times and retention while keeping onboarding and peer connection workflows stable.",
-    metrics: ["Faster load times", "Lower bounce rates", "Stable onboarding"],
-    stack: "Python (Flask), MongoDB, JavaScript, Bootstrap, HTML/CSS",
-    detailsHref: "https://groconnect.in",
-  },
-  {
-    title: "Community Impact Initiative",
-    subtitle: "Sama Sangathan | Co-Founder & Strategic Lead",
-    problem:
-      "Needed a scalable model for women’s safety and empowerment outreach across campus.",
-    action: [
-      "Led cross-functional teams to design programming, outreach, and partnerships with college leadership.",
-      "Coordinated logistics and content for workshops and awareness campaigns across multiple cohorts.",
-      "Established feedback loops to keep programming relevant and measurable.",
-    ],
-    result:
-      "Impact delivered to 500+ students, demonstrating leadership and stakeholder alignment.",
-    metrics: [
-      "500+ students reached",
-      "Multi-cohort programs",
-      "Stakeholder alignment",
-    ],
-    stack: "Leadership, program design, stakeholder management, ops execution",
+      "Delivered a secure and testable API surface for module lifecycle and assessment history operations.",
+    metrics: ["13 endpoints", "4 route groups", "Auth + admin guards"],
+    stack: "Node.js, Express, middleware validation, role-based guards",
+    apiDiagram: {
+      theme: "assessment",
+      clientLabel: "Learner and Admin Clients",
+      gatewayLabel: "Express API Router",
+      routeGroups: [
+        "/modules (3)",
+        "/history (2)",
+        "/admin (6)",
+        "/me (2)",
+      ],
+      dataLayerLabel: "Authenticated route layer with validator middleware",
+      controlLabel: "requireAdmin guards on analytics and module governance actions",
+    },
+    sourcePath: "/Users/tfg-admin/dev/projects/TFG NexaTest/backend",
   },
 ];
 
@@ -87,8 +176,8 @@ export default function CaseStudies() {
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          title="Engineering that ships outcomes, not just code."
-          description="Turning ambiguity into measurable efficiency, resilience, and adoption."
+          title="Engineering case studies with architecture context."
+          description="Each case highlights the operating problem, system design choices, and measurable outcomes."
         />
 
         <div className="grid gap-6 lg:gap-8">
@@ -106,9 +195,20 @@ export default function CaseStudies() {
                   <h3 className="text-2xl font-semibold text-brand-navy lg:text-3xl">
                     {study.title}
                   </h3>
-                  <p className="text-sm font-medium uppercase tracking-[0.12em] text-slate-500">
-                    {study.subtitle}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-sm font-medium uppercase tracking-[0.12em] text-slate-500">
+                      {study.subtitle}
+                    </p>
+                    <span
+                      className={
+                        study.status === "Published"
+                          ? "badge-accent"
+                          : "rounded-full border border-amber-300/60 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-amber-700"
+                      }
+                    >
+                      {study.status}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="mt-5 grid gap-5 lg:grid-cols-[1.2fr,0.8fr] lg:gap-8">
@@ -151,6 +251,18 @@ export default function CaseStudies() {
                           </span>
                         ))}
                       </div>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
+                        API Diagram
+                      </p>
+                      <ApiDiagramCard
+                        idPrefix={`case-${index}`}
+                        diagram={study.apiDiagram}
+                      />
+                      <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
+                        Source: {study.sourcePath}
+                      </p>
                     </div>
                     <div>
                       <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
