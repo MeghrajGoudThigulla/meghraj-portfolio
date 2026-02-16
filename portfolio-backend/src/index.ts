@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { PrismaClient } from "../generated/prisma";
-import nodemailer from "nodemailer";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool, type PoolConfig } from "pg";
 
@@ -117,6 +116,42 @@ app.use(
 );
 app.use(express.json());
 
+const resendApiKey = process.env.RESEND_API_KEY;
+const resendFrom = process.env.RESEND_FROM;
+const alertTo = process.env.ALERT_TO;
+
+const sendResendEmail = async (payload: {
+  name: string;
+  email: string;
+  message: string;
+  segment: string;
+}) => {
+  if (!resendApiKey || !resendFrom || !alertTo) {
+    console.warn("Resend email not sent: missing RESEND_API_KEY, RESEND_FROM, or ALERT_TO.");
+    return;
+  }
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: resendFrom,
+      to: [alertTo],
+      reply_to: payload.email,
+      subject: `New contact: ${payload.name}`,
+      text: `Name: ${payload.name}\nEmail: ${payload.email}\nSegment: ${payload.segment}\n\n${payload.message}`,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`Resend API error ${response.status}: ${errorBody}`);
+  }
+};
+
 app.get("/", (_req, res) => {
   res.send("Consulting Portfolio API Active");
 });
@@ -151,38 +186,14 @@ app.post("/api/contact", async (req, res) => {
       },
     });
 
-    const smtpPort = Number(process.env.SMTP_PORT);
-    const canSendMail =
-      process.env.SMTP_HOST &&
-      process.env.SMTP_USER &&
-      process.env.SMTP_PASS &&
-      process.env.ALERT_TO &&
-      Number.isFinite(smtpPort);
-
-    if (canSendMail) {
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: smtpPort,
-        secure: smtpPort === 465,
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      });
-
-      try {
-        await transporter.sendMail({
-          from: `"Portfolio" <${process.env.SMTP_USER}>`,
-          to: process.env.ALERT_TO,
-          subject: `New contact: ${name}`,
-          text: `Name: ${name}\nEmail: ${email}\nSegment: ${segment || "Consulting"}\n\n${message}`,
-        });
-      } catch (emailError) {
-        console.error("Email notification failed", emailError);
-      }
-    } else {
-      console.warn("Email not sent: SMTP env vars missing");
-    }
+    void sendResendEmail({
+      name,
+      email,
+      message,
+      segment: segment || "Consulting",
+    }).catch((emailError) => {
+      console.error("Email notification failed", emailError);
+    });
 
     return res.json({ success: true, id: contact.id });
   } catch (error) {
