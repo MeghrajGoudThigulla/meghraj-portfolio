@@ -9,8 +9,9 @@ export const metadata = {
 const contactLinks = [
   { href: "tel:+917997221772", label: "+91 79972 21772" },
   { href: "mailto:meghraj.thigulla@outlook.com", label: "meghraj.thigulla@outlook.com" },
-  { href: "https://github.com/MeghrajGoudThigulla", label: "GitHub" },
   { href: "https://www.linkedin.com/in/meghraj-goud-thigulla", label: "LinkedIn" },
+  { href: "https://meghraj-portfolio.web.app/", label: "Portfolio" },
+  { href: "https://github.com/MeghrajGoudThigulla", label: "GitHub" },
   { href: "https://linktr.ee/meghraj_goud_thigulla", label: "Certificates" },
 ];
 
@@ -51,14 +52,13 @@ export default function ResumePage() {
           <Section title="EXPERIENCE">
             <Role
               title="Full Stack Developer"
-              place="Threshing Floor Group, Hyderabad"
+              place="Threshing Floor Group, Hyderabad • www.tfgorg.com"
               timeline="July 2024–Present"
               bullets={[
-                "Led end-to-end development across Android, iOS, and Web using Flutter, Firebase, Python, and Bootstrap, cutting cross-platform engineering overhead by 30% and accelerating release cycles.",
-                "Architected and implemented core modules for an upcoming e-commerce platform, delivering 60% of the MVP and enabling the planned onboarding of 1K+ users for the Q1 launch.",
-                "Increased app responsiveness by 25% through optimized API design, Firestore query restructuring, caching strategies, and modular UI refactoring.",
-                "Collaborated with product, design, and business stakeholders to convert requirements into scalable solutions with rapid iteration and measurable user impact.",
-                "Improved efficiency by introducing reusable design components, uniform API contracts, and automated build/test flows across mobile and web.",
+                "Led end-to-end development of cross-platform mobile, web, and backend systems using Flutter, FastAPI, Flask, Firebase, and SQL databases, reducing cross-platform engineering overhead by 30%.",
+                "Architected and implemented secure backend systems with Firebase token authentication, JWT-based role enforcement, rate limiting, caching layers, and Play Integrity validation across production and internal applications.",
+                "Designed and optimized core business workflows including service requests, scheduling, subscriptions, assessments, and content delivery using Postgres/MySQL-backed APIs, Redis caching, and real-time client synchronization.",
+                "Improved performance, reliability, and delivery velocity by refactoring APIs, tuning database queries, standardizing reusable UI/API components, and introducing containerized, environment-isolated deployments.",
               ]}
             />
           </Section>
@@ -66,15 +66,29 @@ export default function ResumePage() {
           <Section title="PROJECTS">
             <Project
               title="Medical Advisor"
-              subtitle="Mobile app for medical services with real-time support and admin tools."
+              subtitle="Production-grade healthcare service platform enabling ambulance requests, scheduling, subscriptions, and real-time support via mobile and web admin systems."
               link={{ href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor", label: "Play Store" }}
-              tech="Flutter (Android/iOS), Firebase Auth/Firestore/Storage, Google Maps/Places; FastAPI, SQLAlchemy, PostgreSQL, Play Integrity, Flutter Web Admin"
+              tech="Flutter (Android/iOS), Flutter Web, FastAPI, PostgreSQL, Firebase Auth/Firestore/Storage, Redis, Google Maps"
               bullets={[
-                "Added Play Integrity guard with secure nonce generation to block unauthorized service requests at scale.",
-                "Unified Firebase ID Token authentication across user and admin flows; dual Firestore writes for instant UI sync.",
-                "Built service, profile, and scheduling modules; compliant account deletion with audit logs.",
-                "Integrated file uploads via Firebase Storage and retrieval pipelines for admin operations.",
-                "Developed admin APIs (list, search, pagination) plus CORS and environment setup for stable deployment.",
+                "Built a multi-app architecture comprising Flutter mobile apps, a Flutter Web admin dashboard, and a FastAPI backend backed by PostgreSQL.",
+                "Implemented Firebase ID Token authentication for users and JWT-based auth with role enforcement for admin APIs.",
+                "Integrated Google Play Integrity with secure nonce generation, 5-minute TTL validation, and live request tracking refreshed every 15 seconds to block unauthorized access.",
+                "Designed core service workflows for requests, scheduling, profiles, and support, using Postgres as the source of truth with selective Firestore dual-writes for real-time UI sync.",
+                "Added Redis caching for advertisements and global settings with 5-minute TTLs, significantly reducing database read load.",
+                "Integrated Firebase Storage for secure image and document uploads, exposing controlled access via admin APIs.",
+                "Built admin-facing APIs for status management, search, pagination, support chats, and operational configuration with production-ready CORS and environment isolation.",
+              ]}
+            />
+            <Project
+              title="Personal Portfolio Platform"
+              subtitle="Full-stack developer portfolio showcasing projects, case studies, and contact workflows with production-grade backend controls."
+              tech="Next.js (App Router), Node.js, Express, Prisma, PostgreSQL, TypeScript"
+              bullets={[
+                "Built a Next.js App Router frontend with modular components and static export for lightweight, fast deployments.",
+                "Developed a Node/Express API backed by Prisma and PostgreSQL to handle contact submissions and backend workflows.",
+                "Implemented per-IP rate limiting (20 requests per 15 minutes) to protect contact endpoints from abuse.",
+                "Added TLS/CA-based secure Postgres connectivity and resilient email notifications using Resend.",
+                "Configured environment-based CORS policies and deployment-ready infrastructure for reliable production hosting.",
               ]}
             />
             <Project
@@ -95,8 +109,8 @@ export default function ResumePage() {
               tech="Python, Solidity, Ethereum (Ganache), Web3.js, MySQL"
               bullets={[
                 "Developed Solidity contracts for generating immutable product hashes for counterfeit prevention.",
-                "Built Java backend integrated with Ethereum via Web3.js for registration and validation.",
-                "Designed user-facing verification flows through QR/product codes with MySQL-backed audit logging.",
+                "Built a Python backend integrated with Ethereum via Web3.js for registration and validation.",
+                "Designed user-facing verification flows using QR/product codes with real-time validation.",
               ]}
             />
             <Project
@@ -131,9 +145,7 @@ export default function ResumePage() {
               title="Bachelor of Technology in Information Technology"
               place="Vignana Bharathi Institute of Technology (VBIT), Ghatkesar"
               timeline="2020–2024"
-              bullets={[
-                "Relevant Coursework: Data Structures and Algorithms, Software Engineering, DBMS, Computer Networks, Information Security, AI/ML, Design and Analysis of Algorithms.",
-              ]}
+              bullets={[]}
             />
           </Section>
 
@@ -187,14 +199,16 @@ function Role({
         </div>
         <p className="text-sm font-semibold text-brand-blue">{timeline}</p>
       </div>
-      <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
-        {bullets.map((item) => (
-          <li key={item} className="flex gap-3">
-            <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+      {bullets.length > 0 ? (
+        <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
+          {bullets.map((item) => (
+            <li key={item} className="flex gap-3">
+              <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }
@@ -271,21 +285,21 @@ const activities = [
   {
     title: "Organizing Committee, VIBHA 2K24",
     detail:
-      "Coordinated logistics, venue planning, and event flow for a cultural and technical festival with 2,500+ attendees across 6+ student divisions.",
+      "Coordinated end-to-end logistics, venue planning, and event flow for a large-scale cultural and technical festival with 2,500+ attendees. Oversaw scheduling, stage management, and cross-team communication across 6+ student divisions to ensure an uninterrupted three-day event.",
   },
   {
     title: "Co-Founder, Sama Sangathan",
     detail:
-      "Led women’s safety and empowerment programs impacting 500+ students through workshops, outreach, and collaboration with college leadership.",
+      "Initiated and led women’s safety and empowerment programs, delivering workshops, awareness campaigns, and interactive sessions that impacted 500+ students. Managed outreach, content planning, guest coordination, and collaboration with college leadership to scale the initiative.",
   },
   {
     title: "Executive Member, Institute of Student Engineering VBIT SS",
     detail:
-      "Drove student engagement, generating 132 new leads and supporting an incubation-focused vertical.",
+      "Spearheaded student engagement drives that generated 132 new active leads. Contributed to forming an incubation-focused vertical by organizing ideation meets, guiding junior teams, and facilitating collaboration between faculty mentors and student innovators.",
   },
   {
     title: "Volunteer, Denaurlen's 3C Festival (T-HUB 2.0)",
     detail:
-      "Managed hospitality, logistics, and VIP coordination for a high-visibility tech product launch to ensure smooth operations.",
+      "Managed hospitality, logistics, and VIP coordination for a high-visibility tech-focused product launch event. Oversaw crowd control, stage readiness, and backstage operations to maintain a smooth and incident-free attendee experience for founders, startups, and investors.",
   },
 ];
