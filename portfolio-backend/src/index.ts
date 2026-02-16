@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { PrismaClient } from "../generated/prisma";
 import nodemailer from "nodemailer";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
 
 dotenv.config();
 
@@ -10,7 +12,13 @@ const app = express();
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is not set. Configure it in the environment.");
 }
-const prisma = new PrismaClient();
+const useSsl = process.env.DATABASE_URL.includes("sslmode=require");
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: useSsl ? { rejectUnauthorized: false } : undefined,
+});
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 const PORT = process.env.PORT || 4000;
 
 app.use(cors());
