@@ -92,7 +92,7 @@ export default function ResumePage() {
             <Project
               title="Blockchain-Based Fake Product Identification System"
               subtitle="Platform for verifying product authenticity using tamper-proof smart contracts."
-              tech="Java, Solidity, Ethereum (Ganache), Web3.js, MySQL"
+              tech="Python, Solidity, Ethereum (Ganache), Web3.js, MySQL"
               bullets={[
                 "Developed Solidity contracts for generating immutable product hashes for counterfeit prevention.",
                 "Built Java backend integrated with Ethereum via Web3.js for registration and validation.",
