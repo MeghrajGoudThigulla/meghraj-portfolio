@@ -52,7 +52,7 @@ export default function ResumePage() {
             <Role
               title="Full Stack Developer"
               place="Threshing Floor Group, Hyderabad"
-              timeline="Mar 2025–Present"
+              timeline="June 2024–Present"
               bullets={[
                 "Led end-to-end development across Android, iOS, and Web using Flutter, Firebase, Python, and Bootstrap, cutting cross-platform engineering overhead by 30% and accelerating release cycles.",
                 "Architected and implemented core modules for an upcoming e-commerce platform, delivering 60% of the MVP and enabling the planned onboarding of 1K+ users for the Q1 launch.",
