@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
     "build": "tsc",
+    "migrate": "prisma migrate deploy",
+    "prestart": "prisma migrate deploy",
     "start": "node --dns-result-order=ipv4first dist/index.js",
     "postinstall": "prisma generate"
   },
