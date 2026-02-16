@@ -12,10 +12,17 @@ const app = express();
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is not set. Configure it in the environment.");
 }
-const useSsl = process.env.DATABASE_URL.includes("sslmode=require");
+
+const sslConfig = {
+  rejectUnauthorized: false,
+  ...(process.env.PG_CA_CERT
+    ? { ca: process.env.PG_CA_CERT.replace(/\\n/g, "\n") }
+    : {}),
+};
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: useSsl ? { rejectUnauthorized: false } : undefined,
+  ssl: sslConfig,
 });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
