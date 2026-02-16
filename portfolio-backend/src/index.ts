@@ -36,18 +36,39 @@ if (process.env.PG_CA_CERT_B64) {
   console.log("TLS CA cert source: none");
 }
 
-const requiresSsl = /sslmode=(require|verify-ca|verify-full)/i.test(
-  databaseUrl,
-);
-const sslConfig = requiresSsl
-  ? caCert
-    ? { ca: caCert, rejectUnauthorized: true }
-    : { rejectUnauthorized: false }
+let sslMode: string | undefined;
+let sslQuery: string | undefined;
+try {
+  const url = new URL(databaseUrl);
+  sslMode = url.searchParams.get("sslmode")?.toLowerCase() ?? undefined;
+  sslQuery = url.searchParams.get("ssl")?.toLowerCase() ?? undefined;
+} catch (error) {
+  console.warn("DATABASE_URL could not be parsed for SSL options.", error);
+}
+
+const sslModeDisablesSsl = sslMode === "disable";
+const sslModeRequiresSsl =
+  sslMode === "require" || sslMode === "verify-ca" || sslMode === "verify-full";
+const sslModeVerifiesCert = sslMode === "verify-ca" || sslMode === "verify-full";
+const sslQueryEnablesSsl = sslQuery === "true" || sslQuery === "1";
+const allowInsecure =
+  process.env.PG_SSL_ALLOW_SELF_SIGNED === "true" ||
+  process.env.PG_SSL_INSECURE === "true";
+const shouldUseSsl =
+  !sslModeDisablesSsl &&
+  (sslModeRequiresSsl || sslQueryEnablesSsl || Boolean(caCert) || process.env.PG_SSL === "true");
+const shouldVerify = Boolean(caCert) || sslModeVerifiesCert || !allowInsecure;
+
+const sslConfig = shouldUseSsl
+  ? {
+      ...(caCert ? { ca: caCert } : {}),
+      rejectUnauthorized: shouldVerify,
+    }
   : undefined;
 
-if (requiresSsl && !caCert) {
+if (shouldUseSsl && !caCert && !sslModeVerifiesCert && allowInsecure) {
   console.warn(
-    "PG_CA_CERT is not set; TLS verification is disabled for this connection.",
+    "PG_SSL_ALLOW_SELF_SIGNED is enabled; TLS verification is disabled for this connection.",
   );
 }
 
