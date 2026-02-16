@@ -53,7 +53,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24" id="contact">
+    <section className="py-20 sm:py-24 lg:py-28" id="contact">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Contact"
@@ -79,7 +79,7 @@ export default function ContactForm() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded border border-brand-charcoal/20 bg-brand-bg px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
+                className="w-full rounded-md border border-brand-charcoal/20 bg-brand-bg px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
                 placeholder="Your name"
                 name="name"
               />
@@ -93,7 +93,7 @@ export default function ContactForm() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded border border-brand-charcoal/20 bg-brand-bg px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
+                className="w-full rounded-md border border-brand-charcoal/20 bg-brand-bg px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
                 placeholder="you@company.com"
                 name="email"
               />
@@ -106,18 +106,18 @@ export default function ContactForm() {
                 required
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="min-h-[140px] w-full rounded border border-brand-charcoal/20 bg-brand-bg px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
+                className="min-h-[140px] w-full rounded-md border border-brand-charcoal/20 bg-brand-bg px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
                 placeholder="Describe the team, metrics, and urgency."
                 name="message"
               />
             </div>
 
             <div className="flex flex-col gap-3 lg:col-span-2 lg:flex-row lg:items-center lg:justify-between">
-              <p className="text-sm text-brand-charcoal">
+              <p className="max-w-prose text-sm text-brand-charcoal">
                 Prefer email? Reach me at{" "}
                 <a
                   href="mailto:meghraj.thigulla@outlook.com"
-                  className="font-semibold text-brand-blue hover:text-brand-navy"
+                  className="font-semibold text-brand-blue hover:text-brand-navy hover:underline underline-offset-4"
                 >
                   meghraj.thigulla@outlook.com
                 </a>
@@ -126,7 +126,7 @@ export default function ContactForm() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full rounded-md bg-brand-blue px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-sm transition hover:bg-sky-800 disabled:cursor-not-allowed disabled:opacity-70 lg:w-auto"
+                className="btn btn-primary w-full disabled:cursor-not-allowed disabled:opacity-70 lg:w-auto"
               >
                 {status === "sending" ? "Sending..." : "Send Proposal"}
               </button>

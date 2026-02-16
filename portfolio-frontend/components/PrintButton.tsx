@@ -11,7 +11,7 @@ export default function PrintButton() {
     <button
       type="button"
       onClick={handlePrint}
-      className="flex items-center gap-2 rounded-md bg-brand-blue px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-sm transition hover:bg-sky-800"
+      className="btn btn-primary gap-2"
     >
       <PrintIcon />
       Print / Save PDF

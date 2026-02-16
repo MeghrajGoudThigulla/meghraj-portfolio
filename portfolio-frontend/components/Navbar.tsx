@@ -5,6 +5,7 @@ const navItems = [
   { href: "#about", label: "About" },
   { href: "#roi", label: "ROI" },
   { href: "#contact", label: "Contact" },
+  { href: "https://github.com/MeghrajGoudThigulla", label: "GitHub" },
   { href: "/resume", label: "Résumé" },
 ];
 
@@ -21,6 +22,8 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               className="transition hover:text-brand-blue"
+              target={item.href.startsWith("http") ? "_blank" : undefined}
+              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
             >
               {item.label}
             </Link>
@@ -28,7 +31,7 @@ export default function Navbar() {
         </nav>
         <Link
           href="#contact"
-          className="rounded-md bg-brand-blue px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white shadow-sm transition hover:bg-sky-800"
+          className="btn btn-primary"
         >
           Let&apos;s Talk
         </Link>
