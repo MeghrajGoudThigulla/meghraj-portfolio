@@ -20,17 +20,24 @@ export default function ROICalculator() {
 
   return (
     <section
-      className="border-y border-brand-charcoal/10 bg-white py-20 sm:py-24 lg:py-28"
+      className="relative overflow-hidden border-y border-brand-charcoal/10 bg-gradient-to-b from-white to-sky-50 py-20 sm:py-24 lg:py-28"
       id="roi"
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-32 top-16 h-64 w-64 rounded-full bg-sky-100/60 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-40 bottom-10 h-72 w-72 rounded-full bg-white/70 blur-3xl"
+      />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Interactive"
           title="Project ROI calculator"
           description="Model the annual savings from automation, refactoring, or process improvements. Adjust inputs to match your environment."
         />
 
-        <div className="grid gap-6 rounded border border-brand-charcoal/10 bg-brand-surface p-5 shadow-sm lg:grid-cols-[1.1fr,0.9fr] lg:gap-8">
+        <div className="card fade-up grid gap-6 p-5 lg:grid-cols-[1.1fr,0.9fr] lg:gap-8">
           <div className="space-y-6">
             <SliderInput
               label="Hours saved per week"
@@ -48,13 +55,13 @@ export default function ROICalculator() {
               step={5}
               onChange={(val) => setHourlyRate(val)}
             />
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-slate-500">
               Tip: For consulting teams, include people-hours saved from
               automated reporting, fewer context switches, and reduced rework.
             </p>
           </div>
 
-          <div className="flex flex-col justify-center rounded border border-dashed border-brand-charcoal/20 bg-brand-bg px-5 py-6">
+          <div className="flex flex-col justify-center rounded-lg border border-dashed border-brand-charcoal/20 bg-white/90 px-5 py-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
               Estimated annual savings
             </p>

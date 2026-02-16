@@ -2,16 +2,22 @@ import SectionHeading from "./SectionHeading";
 
 export default function About() {
   return (
-    <section className="py-20 sm:py-24 lg:py-28" id="about">
+    <section
+      className="relative overflow-hidden border-y border-brand-charcoal/10 bg-white py-20 sm:py-24 lg:py-28"
+      id="about"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 top-12 h-64 w-64 rounded-full bg-sky-100/60 blur-3xl"
+      />
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Consulting Pivot"
           title="Engineering rigor, finance-ready storytelling."
           description="I translate technical depth into business cases: operational efficiency, security, and speed to market."
         />
 
         <div className="grid gap-8 lg:grid-cols-[1.2fr,1fr]">
-          <div className="space-y-4 rounded border border-brand-charcoal/10 bg-brand-surface px-5 py-6 shadow-sm">
+          <div className="card fade-up space-y-4 px-5 py-6">
             <p className="max-w-prose text-base leading-relaxed text-brand-charcoal lg:text-lg">
               With a B.Tech in IT and full-stack delivery across mobile, web, and
               backend, I thrive in environments that demand clarity, analytics,
@@ -27,7 +33,7 @@ export default function About() {
               {strengths.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded border border-brand-charcoal/10 bg-brand-bg px-4 py-3"
+                  className="rounded-lg border border-brand-charcoal/10 bg-brand-bg px-4 py-3"
                 >
                   <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
                     {item.title}
@@ -40,7 +46,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="space-y-4 rounded border border-brand-charcoal/10 bg-brand-surface px-5 py-6 shadow-sm">
+          <div className="card fade-up space-y-4 px-5 py-6">
             <h3 className="text-xl font-semibold text-brand-navy lg:text-2xl">
               How I operate
             </h3>

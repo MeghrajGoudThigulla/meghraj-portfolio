@@ -31,7 +31,7 @@ export default function Navbar() {
         </nav>
         <Link
           href="#contact"
-          className="btn btn-primary"
+          className="btn btn-primary btn-sm"
         >
           Let&apos;s Talk
         </Link>

@@ -47,7 +47,68 @@ h4 {
     @apply text-brand-blue hover:text-brand-navy hover:underline underline-offset-4;
   }
 
+  .btn-sm {
+    @apply px-4 py-2 text-xs tracking-[0.14em];
+  }
+
+  .card {
+    @apply rounded-xl border border-brand-charcoal/10 bg-brand-surface shadow-sm;
+  }
+
+  .card-hover {
+    @apply transition hover:-translate-y-0.5 hover:shadow-md;
+  }
+
   .badge-accent {
     @apply rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-blue;
+  }
+}
+
+@layer utilities {
+  .fade-up {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.6s ease both;
+  }
+
+  .stagger-1 {
+    animation-delay: 0.08s;
+  }
+
+  .stagger-2 {
+    animation-delay: 0.16s;
+  }
+
+  .stagger-3 {
+    animation-delay: 0.24s;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .fade-in {
+    animation: none;
   }
 }
