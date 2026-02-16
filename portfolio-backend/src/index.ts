@@ -54,10 +54,11 @@ const sslQueryEnablesSsl = sslQuery === "true" || sslQuery === "1";
 const allowInsecure =
   process.env.PG_SSL_ALLOW_SELF_SIGNED === "true" ||
   process.env.PG_SSL_INSECURE === "true";
+const forceVerify = process.env.PG_SSL_VERIFY === "true";
 const shouldUseSsl =
   !sslModeDisablesSsl &&
   (sslModeRequiresSsl || sslQueryEnablesSsl || Boolean(caCert) || process.env.PG_SSL === "true");
-const shouldVerify = Boolean(caCert) || sslModeVerifiesCert || !allowInsecure;
+const shouldVerify = Boolean(caCert) || sslModeVerifiesCert || forceVerify;
 
 const sslConfig = shouldUseSsl
   ? {
@@ -66,7 +67,7 @@ const sslConfig = shouldUseSsl
     }
   : undefined;
 
-if (shouldUseSsl && !caCert && !sslModeVerifiesCert && allowInsecure) {
+if (shouldUseSsl && !caCert && !shouldVerify && allowInsecure) {
   console.warn(
     "PG_SSL_ALLOW_SELF_SIGNED is enabled; TLS verification is disabled for this connection.",
   );
