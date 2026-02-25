@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import type { Metadata } from "next";
 import "./globals.css";
+import MetricsTracker from "@/components/MetricsTracker";
 
 export const metadata: Metadata = {
   title: "Meghraj Goud | Engineering Strategy & Financial Systems",
@@ -24,6 +25,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-brand-bg text-brand-charcoal antialiased font-sans">
+        <MetricsTracker />
         {children}
       </body>
     </html>

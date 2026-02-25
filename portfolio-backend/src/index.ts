@@ -83,12 +83,14 @@ const pool = new Pool(poolConfig);
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 const PORT = process.env.PORT || 4000;
+const isProduction = process.env.NODE_ENV === "production";
 const allowedOrigins = (process.env.CORS_ORIGINS || process.env.FRONTEND_ORIGIN || "")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
 const rateLimitWindowMs = Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000;
 const rateLimitMax = Number(process.env.RATE_LIMIT_MAX) || 20;
+const metricsRateLimitMax = Math.max(rateLimitMax * 6, 60);
 const rateLimitStore = new Map<
   string,
   {
@@ -96,6 +98,126 @@ const rateLimitStore = new Map<
     resetAt: number;
   }
 >();
+
+if (isProduction && allowedOrigins.length === 0) {
+  throw new Error("CORS_ORIGINS or FRONTEND_ORIGIN must be set in production.");
+}
+
+type ContactPayload = {
+  name: string;
+  email: string;
+  message: string;
+  segment: string;
+};
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const cleanupExpiredRateLimits = (now: number) => {
+  for (const [key, value] of rateLimitStore.entries()) {
+    if (now > value.resetAt) {
+      rateLimitStore.delete(key);
+    }
+  }
+};
+
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+  Boolean(value) && typeof value === "object" && !Array.isArray(value);
+
+const applyRateLimit = (key: string, limit: number) => {
+  const now = Date.now();
+  cleanupExpiredRateLimits(now);
+  const existing = rateLimitStore.get(key);
+
+  if (!existing || now > existing.resetAt) {
+    rateLimitStore.set(key, { count: 1, resetAt: now + rateLimitWindowMs });
+    return { allowed: true as const };
+  }
+
+  existing.count += 1;
+  if (existing.count > limit) {
+    return { allowed: false as const };
+  }
+
+  return { allowed: true as const };
+};
+
+const normalizeContactPayload = (body: unknown): ContactPayload | null => {
+  if (!isPlainObject(body)) {
+    return null;
+  }
+
+  const payload = body;
+  const name = typeof payload.name === "string" ? payload.name.trim() : "";
+  const email = typeof payload.email === "string" ? payload.email.trim().toLowerCase() : "";
+  const message = typeof payload.message === "string" ? payload.message.trim() : "";
+  const rawSegment = typeof payload.segment === "string" ? payload.segment.trim() : "";
+  const segment = rawSegment || "Consulting";
+
+  if (!name || !email || !message) {
+    return null;
+  }
+  if (!EMAIL_REGEX.test(email)) {
+    return null;
+  }
+  if (name.length > 120 || email.length > 254 || message.length > 5000 || segment.length > 80) {
+    return null;
+  }
+
+  return { name, email, message, segment };
+};
+
+type MetricPayload = {
+  eventName: string;
+  page: string;
+  sessionId: string | null;
+  value: number | null;
+  durationMs: number | null;
+  success: boolean | null;
+  meta: Record<string, unknown> | null;
+};
+
+const normalizeMetricPayload = (body: unknown): MetricPayload | null => {
+  if (!isPlainObject(body)) {
+    return null;
+  }
+
+  const eventName = typeof body.eventName === "string" ? body.eventName.trim() : "";
+  const page = typeof body.page === "string" ? body.page.trim() : "/";
+  const sessionId = typeof body.sessionId === "string" ? body.sessionId.trim() : "";
+  const success = typeof body.success === "boolean" ? body.success : null;
+  const value = typeof body.value === "number" && Number.isFinite(body.value) ? body.value : null;
+  const durationMs =
+    typeof body.durationMs === "number" && Number.isFinite(body.durationMs)
+      ? Math.round(body.durationMs)
+      : null;
+  const meta = isPlainObject(body.meta) ? body.meta : null;
+
+  if (!eventName || eventName.length > 80 || page.length > 200) {
+    return null;
+  }
+  if (sessionId.length > 120) {
+    return null;
+  }
+  if (durationMs !== null && (durationMs < 0 || durationMs > 3_600_000)) {
+    return null;
+  }
+  if (meta) {
+    const metaSize = Buffer.byteLength(JSON.stringify(meta), "utf8");
+    if (metaSize > 4096) {
+      return null;
+    }
+  }
+
+  return {
+    eventName,
+    page,
+    sessionId: sessionId || null,
+    value,
+    durationMs,
+    success,
+    meta,
+  };
+};
 
 if (process.env.TRUST_PROXY === "true") {
   app.set("trust proxy", 1);
@@ -114,7 +236,7 @@ app.use(
     },
   }),
 );
-app.use(express.json());
+app.use(express.json({ limit: "16kb" }));
 
 const resendApiKey = process.env.RESEND_API_KEY;
 const resendFrom = process.env.RESEND_FROM;
@@ -157,40 +279,54 @@ app.get("/", (_req, res) => {
 });
 
 app.post("/api/contact", async (req, res) => {
-  const { name, email, message, segment } = req.body || {};
-
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: "Missing required fields" });
+  const payload = normalizeContactPayload(req.body);
+  if (!payload) {
+    return res.status(400).json({ error: "Invalid contact payload" });
   }
 
   try {
+    const { name, email, message, segment } = payload;
     const ip = req.ip || "unknown";
-    const now = Date.now();
-    const existing = rateLimitStore.get(ip);
-
-    if (!existing || now > existing.resetAt) {
-      rateLimitStore.set(ip, { count: 1, resetAt: now + rateLimitWindowMs });
-    } else {
-      existing.count += 1;
-      if (existing.count > rateLimitMax) {
-        return res.status(429).json({ error: "Too many requests, try again later." });
-      }
+    const rateLimit = applyRateLimit(`contact:${ip}`, rateLimitMax);
+    if (!rateLimit.allowed) {
+      return res.status(429).json({ error: "Too many requests, try again later." });
     }
 
+    const startedAt = Date.now();
     const contact = await prisma.contact.create({
       data: {
         name,
         email,
         message,
-        segment: segment || "Consulting",
+        segment,
       },
     });
+
+    const responseDurationMs = Date.now() - startedAt;
+
+    void pool
+      .query(
+        `INSERT INTO "PortfolioMetric" ("eventName", "page", "sessionId", "value", "durationMs", "success", "meta")
+         VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb)`,
+        [
+          "contact_api_request",
+          "/api/contact",
+          null,
+          null,
+          responseDurationMs,
+          true,
+          JSON.stringify({ segment }),
+        ],
+      )
+      .catch((metricError) => {
+        console.error("Failed to persist contact API metric", metricError);
+      });
 
     void sendResendEmail({
       name,
       email,
       message,
-      segment: segment || "Consulting",
+      segment,
     }).catch((emailError) => {
       console.error("Email notification failed", emailError);
     });
@@ -199,6 +335,40 @@ app.post("/api/contact", async (req, res) => {
   } catch (error) {
     console.error("/api/contact error", error);
     return res.status(500).json({ error: "Database error" });
+  }
+});
+
+app.post("/api/metrics", async (req, res) => {
+  const payload = normalizeMetricPayload(req.body);
+  if (!payload) {
+    return res.status(400).json({ error: "Invalid metric payload" });
+  }
+
+  try {
+    const ip = req.ip || "unknown";
+    const rateLimit = applyRateLimit(`metrics:${ip}`, metricsRateLimitMax);
+    if (!rateLimit.allowed) {
+      return res.status(429).json({ error: "Too many metric events, try again later." });
+    }
+
+    await pool.query(
+      `INSERT INTO "PortfolioMetric" ("eventName", "page", "sessionId", "value", "durationMs", "success", "meta")
+       VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb)`,
+      [
+        payload.eventName,
+        payload.page,
+        payload.sessionId,
+        payload.value,
+        payload.durationMs,
+        payload.success,
+        JSON.stringify(payload.meta ?? {}),
+      ],
+    );
+
+    return res.status(202).json({ accepted: true });
+  } catch (error) {
+    console.error("/api/metrics error", error);
+    return res.status(500).json({ error: "Metrics storage error" });
   }
 });
 

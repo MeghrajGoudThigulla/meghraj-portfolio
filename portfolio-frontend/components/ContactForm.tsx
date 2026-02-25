@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SectionHeading from "./SectionHeading";
+import { trackMetric } from "@/lib/metrics";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -18,10 +19,22 @@ export default function ContactForm() {
     event.preventDefault();
     setStatus("sending");
     setError(null);
+    const startedAt = performance.now();
+
+    trackMetric({
+      eventName: "contact_submit_attempt",
+      meta: { segment: "Consulting" },
+    });
 
     if (!apiBase) {
       setStatus("error");
       setError("Contact endpoint not configured yet. Add NEXT_PUBLIC_RENDER_API_URL.");
+      trackMetric({
+        eventName: "contact_submit_error",
+        success: false,
+        durationMs: performance.now() - startedAt,
+        meta: { reason: "missing_api_base" },
+      });
       return;
     }
 
@@ -38,6 +51,12 @@ export default function ContactForm() {
       });
 
       if (!response.ok) {
+        trackMetric({
+          eventName: "contact_submit_error",
+          success: false,
+          durationMs: performance.now() - startedAt,
+          meta: { statusCode: response.status },
+        });
         throw new Error("Bad response");
       }
 
@@ -45,10 +64,22 @@ export default function ContactForm() {
       setName("");
       setEmail("");
       setMessage("");
+      trackMetric({
+        eventName: "contact_submit_success",
+        success: true,
+        durationMs: performance.now() - startedAt,
+        meta: { segment: "Consulting" },
+      });
     } catch (err) {
       console.error(err);
       setStatus("error");
       setError("Unable to send right now. Please try again or email directly.");
+      trackMetric({
+        eventName: "contact_submit_error",
+        success: false,
+        durationMs: performance.now() - startedAt,
+        meta: { reason: "request_failed" },
+      });
     }
   };
 

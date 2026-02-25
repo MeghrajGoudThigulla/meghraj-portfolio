@@ -21,3 +21,18 @@ model Contact {
   @@index([email])
   @@index([createdAt])
 }
+
+model PortfolioMetric {
+  id         Int      @id @default(autoincrement())
+  eventName  String
+  page       String
+  sessionId  String?
+  value      Float?
+  durationMs Int?
+  success    Boolean?
+  meta       Json?
+  createdAt  DateTime @default(now())
+
+  @@index([eventName])
+  @@index([createdAt])
+}

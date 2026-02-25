@@ -1,0 +1,6 @@
+{
+  "chat.useAgentsMdFile": true,
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "github.copilot.chat.experimental.useOllama": true,
+  "github.copilot.chat.ollama.endpoint": "http://localhost:11434"
+}

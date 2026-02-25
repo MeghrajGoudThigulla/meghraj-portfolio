@@ -1,7 +1,8 @@
 'use client';
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
+import { trackMetric } from "@/lib/metrics";
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -12,11 +13,24 @@ const formatter = new Intl.NumberFormat("en-US", {
 export default function ROICalculator() {
   const [hoursSaved, setHoursSaved] = useState(6);
   const [hourlyRate, setHourlyRate] = useState(85);
+  const trackedEngagementRef = useRef(false);
 
   const annualSavings = useMemo(() => {
     const weeks = 52;
     return Math.max(0, Math.round(hoursSaved * hourlyRate * weeks));
   }, [hoursSaved, hourlyRate]);
+
+  useEffect(() => {
+    if (trackedEngagementRef.current) return;
+    if (hoursSaved === 6 && hourlyRate === 85) return;
+
+    trackedEngagementRef.current = true;
+    trackMetric({
+      eventName: "roi_calculator_engaged",
+      value: annualSavings,
+      meta: { hoursSaved, hourlyRate },
+    });
+  }, [annualSavings, hourlyRate, hoursSaved]);
 
   return (
     <section
