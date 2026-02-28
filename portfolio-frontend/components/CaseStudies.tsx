@@ -1,5 +1,7 @@
 import Link from "next/link";
 import ApiDiagramCard, { type ApiDiagramModel } from "./ApiDiagramCard";
+import CaseStudyDetailsToggle from "./CaseStudyDetailsToggle";
+import CaseStudySummaryRow from "./CaseStudySummaryRow";
 import SectionHeading from "./SectionHeading";
 
 export type CaseStudy = {
@@ -213,27 +215,16 @@ export default function CaseStudies() {
 
                 <div className="mt-5 grid gap-5 lg:grid-cols-[1.2fr,0.8fr] lg:gap-8">
                   <div className="space-y-5">
-                    <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
-                        Problem
-                      </p>
-                      <p className="mt-2 max-w-prose text-base leading-relaxed text-brand-charcoal">
-                        {study.problem}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
-                        Solution
-                      </p>
-                      <ul className="mt-2 space-y-2 text-base leading-relaxed text-brand-charcoal">
-                        {study.action.map((item) => (
-                          <li key={item} className="flex gap-2">
-                            <span className="mt-1 h-2 w-2 rounded-full bg-brand-blue" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <CaseStudySummaryRow
+                      problem={study.problem}
+                      stack={study.stack}
+                      scale={study.metrics.join(", ")}
+                      impact={study.result}
+                    />
+                    <CaseStudyDetailsToggle
+                      caseTitle={study.title}
+                      actionItems={study.action}
+                    />
                   </div>
 
                   <div className="space-y-4 rounded-xl border border-brand-charcoal/10 bg-brand-bg px-4 py-5">

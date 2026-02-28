@@ -36,6 +36,16 @@ const baseImpressionPayload = {
   },
 };
 
+const baseCaseExpandPayload = {
+  eventName: "case_expand",
+  page: "/",
+  sessionId: "test-session-case-1",
+  meta: {
+    caseId: "commerce-platform-buildout",
+    caseTitle: "Commerce Platform Buildout",
+  },
+};
+
 const loadApp = async () => {
   const module = await import("../src/index");
   return module.app;
@@ -76,6 +86,40 @@ describe("/api/metrics dedupe", () => {
     const app = await loadApp();
 
     const response = await request(app).post("/api/metrics").send(baseImpressionPayload);
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true, deduped: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("accepts a new case_expand metric", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 1 });
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send(baseCaseExpandPayload);
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+    expect(queryMock.mock.calls[0][0]).toContain(`COALESCE("meta"->>'caseId', '')`);
+  });
+
+  it("marks duplicate case_expand metrics as deduped", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 0 });
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send(baseCaseExpandPayload);
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true, deduped: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("treats DB-level unique conflicts as deduped case_expand metrics", async () => {
+    queryMock.mockRejectedValueOnce({ code: "23505" });
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send(baseCaseExpandPayload);
 
     expect(response.status).toBe(202);
     expect(response.body).toEqual({ accepted: true, deduped: true });

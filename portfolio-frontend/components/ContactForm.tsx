@@ -1,87 +1,22 @@
 'use client';
 
-import { useState } from "react";
 import SectionHeading from "./SectionHeading";
-import { trackMetric } from "@/lib/metrics";
-
-type Status = "idle" | "sending" | "success" | "error";
-
-const apiBase = process.env.NEXT_PUBLIC_RENDER_API_URL;
+import ContactAside from "./ContactAside";
+import ContactFields from "./ContactFields";
+import { useContactForm } from "./useContactForm";
 
 export default function ContactForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<Status>("idle");
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setStatus("sending");
-    setError(null);
-    const startedAt = performance.now();
-
-    trackMetric({
-      eventName: "contact_submit_attempt",
-      meta: { segment: "Consulting" },
-    });
-
-    if (!apiBase) {
-      setStatus("error");
-      setError("Contact endpoint not configured yet. Add NEXT_PUBLIC_RENDER_API_URL.");
-      trackMetric({
-        eventName: "contact_submit_error",
-        success: false,
-        durationMs: performance.now() - startedAt,
-        meta: { reason: "missing_api_base" },
-      });
-      return;
-    }
-
-    try {
-      const response = await fetch(`${apiBase}/api/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-          segment: "Consulting",
-        }),
-      });
-
-      if (!response.ok) {
-        trackMetric({
-          eventName: "contact_submit_error",
-          success: false,
-          durationMs: performance.now() - startedAt,
-          meta: { statusCode: response.status },
-        });
-        throw new Error("Bad response");
-      }
-
-      setStatus("success");
-      setName("");
-      setEmail("");
-      setMessage("");
-      trackMetric({
-        eventName: "contact_submit_success",
-        success: true,
-        durationMs: performance.now() - startedAt,
-        meta: { segment: "Consulting" },
-      });
-    } catch (err) {
-      console.error(err);
-      setStatus("error");
-      setError("Unable to send right now. Please try again or email directly.");
-      trackMetric({
-        eventName: "contact_submit_error",
-        success: false,
-        durationMs: performance.now() - startedAt,
-        meta: { reason: "request_failed" },
-      });
-    }
-  };
+  const apiBase = process.env.NEXT_PUBLIC_RENDER_API_URL;
+  const {
+    formFields,
+    fieldErrors,
+    status,
+    error,
+    setFieldValue,
+    handleFieldBlur,
+    trackFormStart,
+    handleSubmit,
+  } = useContactForm({ apiBase });
 
   return (
     <section
@@ -109,51 +44,22 @@ export default function ContactForm() {
 
           <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr] lg:gap-8">
             <div className="rounded-xl border border-brand-charcoal/10 bg-white px-4 py-5">
-              <form className="grid gap-5 lg:grid-cols-2" onSubmit={handleSubmit}>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600">
-                    Name
-                  </label>
-                  <input
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-md border border-brand-charcoal/20 bg-white px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
-                    placeholder="Your name"
-                    name="name"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600">
-                    Email
-                  </label>
-                  <input
-                    required
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-md border border-brand-charcoal/20 bg-white px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
-                    placeholder="you@company.com"
-                    name="email"
-                  />
-                </div>
-                <div className="lg:col-span-2 space-y-2">
-                  <label className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600">
-                    What problem are we solving?
-                  </label>
-                  <textarea
-                    required
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="min-h-[140px] w-full rounded-md border border-brand-charcoal/20 bg-white px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
-                    placeholder="Describe the team, metrics, and urgency."
-                    name="message"
-                  />
-                </div>
+              <form
+                className="grid gap-5 lg:grid-cols-2"
+                noValidate
+                onSubmit={handleSubmit}
+              >
+                <ContactFields
+                  formFields={formFields}
+                  fieldErrors={fieldErrors}
+                  setFieldValue={setFieldValue}
+                  handleFieldBlur={handleFieldBlur}
+                  trackFormStart={trackFormStart}
+                />
 
                 <div className="flex flex-col gap-3 lg:col-span-2 lg:flex-row lg:items-center lg:justify-between">
                   <p className="max-w-prose text-sm text-brand-charcoal">
-                    Prefer email? Reach me at{" "}
+                    Prefer a faster async route? Reach me at{" "}
                     <a
                       href="mailto:meghraj.thigulla@outlook.com"
                       className="font-semibold text-brand-blue hover:text-brand-navy hover:underline underline-offset-4"
@@ -170,10 +76,24 @@ export default function ContactForm() {
                     {status === "sending" ? "Sending..." : "Send Proposal"}
                   </button>
                 </div>
+                <div className="flex flex-wrap gap-3 text-sm lg:col-span-2">
+                  <a
+                    href="mailto:meghraj.thigulla@outlook.com?subject=Discovery%20Call%20Request"
+                    className="font-semibold text-brand-blue transition hover:text-brand-navy hover:underline underline-offset-4"
+                  >
+                    Book discovery call
+                  </a>
+                  <a
+                    href="mailto:meghraj.thigulla@outlook.com"
+                    className="font-semibold text-brand-blue transition hover:text-brand-navy hover:underline underline-offset-4"
+                  >
+                    Email directly
+                  </a>
+                </div>
 
                 {status === "success" ? (
                   <div className="lg:col-span-2 rounded border border-green-500/50 bg-green-50 px-3 py-2 text-sm text-green-800">
-                    Message received. I will reply within one business day.
+                    Message received. I will reply within one business day with next-step options.
                   </div>
                 ) : null}
                 {status === "error" && error ? (
@@ -184,51 +104,7 @@ export default function ContactForm() {
               </form>
             </div>
 
-            <div className="space-y-5 rounded-xl border border-brand-charcoal/10 bg-brand-bg px-4 py-5">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
-                  What helps me respond fast
-                </p>
-                <h3 className="mt-2 text-xl font-semibold text-brand-navy">
-                  Share the key inputs and I will reply with a clear next step.
-                </h3>
-                <p className="mt-2 max-w-prose text-sm leading-relaxed text-brand-charcoal">
-                  I typically respond within one business day with a short plan,
-                  scope questions, and timelines.
-                </p>
-              </div>
-              <ul className="space-y-3 text-sm text-brand-charcoal">
-                {[
-                  "Team size and stakeholders involved.",
-                  "Target metric (cost, latency, adoption, compliance).",
-                  "Current stack or infrastructure constraints.",
-                  "Timeline or launch milestone.",
-                ].map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-1 h-2 w-2 rounded-full bg-brand-blue" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {[
-                  { label: "Response time", value: "Within 1 business day" },
-                  { label: "Focus areas", value: "MVPs, performance, data flows" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-xl border border-brand-charcoal/10 bg-white px-4 py-3"
-                  >
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                      {item.label}
-                    </p>
-                    <p className="mt-2 text-sm font-semibold text-brand-navy">
-                      {item.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ContactAside />
           </div>
         </div>
       </div>

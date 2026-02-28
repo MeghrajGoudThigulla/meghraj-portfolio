@@ -93,6 +93,7 @@ const rateLimitWindowMs = Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 
 const rateLimitMax = Number(process.env.RATE_LIMIT_MAX) || 20;
 const metricsRateLimitMax = Math.max(rateLimitMax * 6, 60);
 const badgeImpressionDedupeWindowHours = 24;
+const caseExpandDedupeWindowHours = 24;
 const rateLimitStore = new Map<
   string,
   {
@@ -228,6 +229,15 @@ const getMetricBadgeId = (meta: Record<string, unknown> | null): string | null =
   const badgeId = rawBadgeId.trim();
   if (!badgeId || badgeId.length > 120) return null;
   return badgeId;
+};
+
+const getMetricCaseId = (meta: Record<string, unknown> | null): string | null => {
+  if (!meta) return null;
+  const rawCaseId = meta.caseId;
+  if (typeof rawCaseId !== "string") return null;
+  const caseId = rawCaseId.trim();
+  if (!caseId || caseId.length > 120) return null;
+  return caseId;
 };
 
 const getMetricSessionFallback = (req: express.Request) => {
@@ -379,13 +389,22 @@ app.post("/api/metrics", async (req, res) => {
     }
 
     const badgeId = getMetricBadgeId(payload.meta);
+    const caseId = getMetricCaseId(payload.meta);
     const isBadgeImpressionEvent = payload.eventName === "hero_trust_badge_impression";
-    const supportsImpressionDedupe = isBadgeImpressionEvent && Boolean(badgeId);
-    const metricSessionId = supportsImpressionDedupe
+    const isCaseExpandEvent = payload.eventName === "case_expand";
+    const dedupeMetaField = isBadgeImpressionEvent ? "badgeId" : isCaseExpandEvent ? "caseId" : null;
+    const dedupeMetaValue = isBadgeImpressionEvent ? badgeId : isCaseExpandEvent ? caseId : null;
+    const dedupeWindowHours = isBadgeImpressionEvent
+      ? badgeImpressionDedupeWindowHours
+      : isCaseExpandEvent
+        ? caseExpandDedupeWindowHours
+        : 0;
+    const supportsEventDedupe = Boolean(dedupeMetaField && dedupeMetaValue);
+    const metricSessionId = supportsEventDedupe
       ? payload.sessionId ?? getMetricSessionFallback(req)
       : payload.sessionId;
 
-    if (supportsImpressionDedupe && badgeId) {
+    if (supportsEventDedupe && dedupeMetaField && dedupeMetaValue) {
       let dedupeInsert: { rowCount: number | null } = { rowCount: 0 };
       try {
         dedupeInsert = await pool.query(
@@ -396,7 +415,7 @@ app.post("/api/metrics", async (req, res) => {
              FROM "PortfolioMetric"
              WHERE "eventName" = $1
                AND "sessionId" = $8
-               AND COALESCE("meta"->>'badgeId', '') = $9
+               AND COALESCE("meta"->>'${dedupeMetaField}', '') = $9
                AND "createdAt" > NOW() - ($10 * INTERVAL '1 hour')
            )`,
           [
@@ -408,8 +427,8 @@ app.post("/api/metrics", async (req, res) => {
             payload.success,
             JSON.stringify(payload.meta ?? {}),
             metricSessionId,
-            badgeId,
-            badgeImpressionDedupeWindowHours,
+            dedupeMetaValue,
+            dedupeWindowHours,
           ],
         );
       } catch (insertError) {
