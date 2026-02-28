@@ -1,14 +1,6 @@
 import Link from "next/link";
-
-const navItems = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#cases", label: "Case Studies" },
-  { href: "#roi", label: "ROI" },
-  { href: "#contact", label: "Contact" },
-  { href: "https://github.com/MeghrajGoudThigulla", label: "GitHub" },
-  { href: "/resume", label: "Résumé" },
-];
+import MobileNav from "./MobileNav";
+import { navItems } from "./navItems";
 
 export default function Navbar() {
   return (
@@ -23,19 +15,22 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               className="transition hover:text-brand-blue"
-              target={item.href.startsWith("http") ? "_blank" : undefined}
-              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+              target={item.isExternal ? "_blank" : undefined}
+              rel={item.isExternal ? "noreferrer" : undefined}
             >
               {item.label}
             </Link>
           ))}
         </nav>
-        <Link
-          href="#contact"
-          className="btn btn-primary btn-sm"
-        >
-          Let&apos;s Talk
-        </Link>
+        <div className="flex items-center gap-2">
+          <MobileNav />
+          <Link
+            href="#contact"
+            className="btn btn-primary btn-sm"
+          >
+            Let&apos;s Talk
+          </Link>
+        </div>
       </div>
     </header>
   );

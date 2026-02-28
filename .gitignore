@@ -4,3 +4,6 @@
 /dist
 /out
 .DS_Store
+
+# Firebase local cache
+portfolio-frontend/.firebase/
