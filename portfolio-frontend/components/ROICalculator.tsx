@@ -15,6 +15,17 @@ export default function ROICalculator() {
   const [hourlyRate, setHourlyRate] = useState(85);
   const trackedEngagementRef = useRef(false);
 
+  useEffect(() => {
+    const loadTimingMs =
+      typeof performance !== "undefined" ? Math.round(performance.now()) : undefined;
+
+    trackMetric({
+      eventName: "roi_calculator_loaded",
+      durationMs: loadTimingMs,
+      meta: { source: "roi_section_mount" },
+    });
+  }, []);
+
   const annualSavings = useMemo(() => {
     const weeks = 52;
     return Math.max(0, Math.round(hoursSaved * hourlyRate * weeks));

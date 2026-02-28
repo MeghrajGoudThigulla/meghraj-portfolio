@@ -1,8 +1,19 @@
 'use client';
 
-export default function PrintButton() {
+type PrintButtonProps = {
+  label?: string;
+  className?: string;
+  onPrint?: () => void;
+};
+
+export default function PrintButton({
+  label = "Print / Save PDF",
+  className = "btn btn-primary gap-2",
+  onPrint,
+}: PrintButtonProps) {
   const handlePrint = () => {
     if (typeof window !== "undefined") {
+      onPrint?.();
       window.print();
     }
   };
@@ -11,10 +22,10 @@ export default function PrintButton() {
     <button
       type="button"
       onClick={handlePrint}
-      className="btn btn-primary gap-2"
+      className={className}
     >
       <PrintIcon />
-      Print / Save PDF
+      {label}
     </button>
   );
 }

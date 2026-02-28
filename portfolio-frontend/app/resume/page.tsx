@@ -1,4 +1,6 @@
 import Link from "next/link";
+import ResumeHighlightsBar from "@/components/ResumeHighlightsBar";
+import ResumeStickyActions from "@/components/ResumeStickyActions";
 
 export const metadata = {
   title: "Résumé | Meghraj Goud",
@@ -17,9 +19,11 @@ const contactLinks = [
 
 export default function ResumePage() {
   return (
-    <div className="bg-brand-bg text-brand-charcoal">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-        <header className="flex flex-col items-center gap-3 rounded-2xl border border-brand-charcoal/10 bg-brand-surface px-4 py-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+    <div className="resume-page bg-brand-bg text-brand-charcoal">
+      <div className="resume-shell mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+        <ResumeStickyActions />
+
+        <header className="resume-header flex flex-col items-center gap-3 rounded-2xl border border-brand-charcoal/10 bg-brand-surface px-4 py-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="text-center sm:text-left">
             <h1 className="text-3xl font-bold text-brand-navy lg:text-4xl">
               THIGULLA MEGHRAJ GOUD
@@ -38,17 +42,11 @@ export default function ResumePage() {
               ))}
             </p>
           </div>
-          <div className="flex gap-3">
-            <Link
-              href="/"
-              className="btn btn-secondary"
-            >
-              Back to Portfolio
-            </Link>
-          </div>
         </header>
 
-        <main className="grid gap-6">
+        <ResumeHighlightsBar />
+
+        <main id="main-content" tabIndex={-1} className="resume-content grid gap-6">
           <Section title="EXPERIENCE">
             <Role
               title="Full Stack Developer"
@@ -195,7 +193,7 @@ export default function ResumePage() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-brand-charcoal/10 bg-brand-surface px-4 py-5 shadow-sm lg:px-6 lg:py-6">
+    <section className="resume-section rounded-2xl border border-brand-charcoal/10 bg-brand-surface px-4 py-5 shadow-sm lg:px-6 lg:py-6">
       <h2 className="text-xl font-semibold uppercase tracking-[0.14em] text-brand-navy">
         {title}
       </h2>
