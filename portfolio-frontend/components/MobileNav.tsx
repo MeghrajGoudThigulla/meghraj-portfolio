@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { trackMetric } from "@/lib/metrics";
 import useActiveSection from "@/hooks/useActiveSection";
 import { navItems, navSectionIds } from "./navItems";
@@ -10,7 +10,16 @@ export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const activeSectionId = useActiveSection(navSectionIds);
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const openButtonRef = useRef<HTMLButtonElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   const internalSectionHref = activeSectionId ? `#${activeSectionId}` : "";
+
+  const closeMenu = useCallback(() => {
+    setIsOpen(false);
+    window.requestAnimationFrame(() => {
+      openButtonRef.current?.focus();
+    });
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -21,19 +30,50 @@ export default function MobileNav() {
       meta: { source: "navbar" },
     });
 
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleKeydown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const panelElement = panelRef.current;
+      if (!panelElement) return;
+
+      const focusableElements = Array.from(
+        panelElement.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.hasAttribute("disabled"));
+
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey && activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+        return;
+      }
+
+      if (!event.shiftKey && activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
       }
     };
 
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, [isOpen]);
+    document.addEventListener("keydown", handleKeydown);
+    return () => document.removeEventListener("keydown", handleKeydown);
+  }, [closeMenu, isOpen]);
 
   return (
     <>
       <button
+        ref={openButtonRef}
         type="button"
         className="sm:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-brand-charcoal/20 bg-white text-brand-navy transition hover:border-brand-blue hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
         aria-label="Open navigation menu"
@@ -50,9 +90,10 @@ export default function MobileNav() {
             type="button"
             aria-label="Close navigation menu backdrop"
             className="fixed inset-0 z-40 bg-brand-charcoal/40"
-            onClick={() => setIsOpen(false)}
+            onClick={closeMenu}
           />
           <div
+            ref={panelRef}
             id="mobile-nav-panel"
             role="dialog"
             aria-modal="true"
@@ -68,7 +109,7 @@ export default function MobileNav() {
                 type="button"
                 className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-brand-charcoal/20 text-brand-navy transition hover:border-brand-blue hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
                 aria-label="Close navigation menu"
-                onClick={() => setIsOpen(false)}
+                onClick={closeMenu}
               >
                 <span aria-hidden className="text-lg leading-none">X</span>
               </button>
@@ -89,7 +130,7 @@ export default function MobileNav() {
                     }`}
                     target={item.isExternal ? "_blank" : undefined}
                     rel={item.isExternal ? "noreferrer" : undefined}
-                    onClick={() => setIsOpen(false)}
+                    onClick={closeMenu}
                   >
                     {item.label}
                   </Link>

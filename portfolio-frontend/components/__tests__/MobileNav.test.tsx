@@ -131,12 +131,18 @@ describe("MobileNav", () => {
   it("closes the drawer on Escape key press", async () => {
     const user = userEvent.setup();
     render(<MobileNav />);
+    const openButton = screen.getByRole("button", { name: "Open navigation menu" });
 
-    await user.click(screen.getByRole("button", { name: "Open navigation menu" }));
+    await user.click(openButton);
     expect(screen.getByTestId("mobile-nav-panel")).toBeInTheDocument();
 
-    fireEvent.keyDown(window, { key: "Escape" });
-    expect(screen.queryByTestId("mobile-nav-panel")).not.toBeInTheDocument();
+    fireEvent.keyDown(document, { key: "Escape" });
+    await waitFor(() => {
+      expect(screen.queryByTestId("mobile-nav-panel")).not.toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(openButton).toHaveFocus();
+    });
   });
 
   it("renders all expected navigation links", async () => {
@@ -175,5 +181,23 @@ describe("MobileNav", () => {
         "location",
       );
     });
+  });
+
+  it("traps focus within the mobile drawer while tabbing", async () => {
+    const user = userEvent.setup();
+    render(<MobileNav />);
+
+    await user.click(screen.getByRole("button", { name: "Open navigation menu" }));
+
+    const firstFocusable = screen.getByRole("button", { name: "Close navigation menu" });
+    const lastFocusable = screen.getByRole("link", { name: "Resume" });
+
+    firstFocusable.focus();
+    await user.tab({ shift: true });
+    expect(lastFocusable).toHaveFocus();
+
+    lastFocusable.focus();
+    await user.tab();
+    expect(firstFocusable).toHaveFocus();
   });
 });

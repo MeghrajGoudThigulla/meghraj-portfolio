@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { createHash } from "node:crypto";
 import { PrismaClient } from "../generated/prisma";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool, type PoolConfig } from "pg";
@@ -91,6 +92,7 @@ const allowedOrigins = (process.env.CORS_ORIGINS || process.env.FRONTEND_ORIGIN 
 const rateLimitWindowMs = Number(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000;
 const rateLimitMax = Number(process.env.RATE_LIMIT_MAX) || 20;
 const metricsRateLimitMax = Math.max(rateLimitMax * 6, 60);
+const badgeImpressionDedupeWindowHours = 24;
 const rateLimitStore = new Map<
   string,
   {
@@ -218,6 +220,31 @@ const normalizeMetricPayload = (body: unknown): MetricPayload | null => {
     meta,
   };
 };
+
+const getMetricBadgeId = (meta: Record<string, unknown> | null): string | null => {
+  if (!meta) return null;
+  const rawBadgeId = meta.badgeId;
+  if (typeof rawBadgeId !== "string") return null;
+  const badgeId = rawBadgeId.trim();
+  if (!badgeId || badgeId.length > 120) return null;
+  return badgeId;
+};
+
+const getMetricSessionFallback = (req: express.Request) => {
+  const ip = req.ip || "unknown";
+  const userAgent = (req.get("user-agent") || "unknown").slice(0, 256);
+  const fingerprint = createHash("sha256")
+    .update(`${ip}|${userAgent}`)
+    .digest("hex")
+    .slice(0, 24);
+  return `anon-${fingerprint}`;
+};
+
+const isUniqueViolationError = (error: unknown): error is { code: string } =>
+  typeof error === "object" &&
+  error !== null &&
+  "code" in error &&
+  (error as { code?: string }).code === "23505";
 
 if (process.env.TRUST_PROXY === "true") {
   app.set("trust proxy", 1);
@@ -351,19 +378,65 @@ app.post("/api/metrics", async (req, res) => {
       return res.status(429).json({ error: "Too many metric events, try again later." });
     }
 
-    await pool.query(
-      `INSERT INTO "PortfolioMetric" ("eventName", "page", "sessionId", "value", "durationMs", "success", "meta")
-       VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb)`,
-      [
-        payload.eventName,
-        payload.page,
-        payload.sessionId,
-        payload.value,
-        payload.durationMs,
-        payload.success,
-        JSON.stringify(payload.meta ?? {}),
-      ],
-    );
+    const badgeId = getMetricBadgeId(payload.meta);
+    const isBadgeImpressionEvent = payload.eventName === "hero_trust_badge_impression";
+    const supportsImpressionDedupe = isBadgeImpressionEvent && Boolean(badgeId);
+    const metricSessionId = supportsImpressionDedupe
+      ? payload.sessionId ?? getMetricSessionFallback(req)
+      : payload.sessionId;
+
+    if (supportsImpressionDedupe && badgeId) {
+      let dedupeInsert: { rowCount: number | null } = { rowCount: 0 };
+      try {
+        dedupeInsert = await pool.query(
+          `INSERT INTO "PortfolioMetric" ("eventName", "page", "sessionId", "value", "durationMs", "success", "meta")
+           SELECT $1, $2, $3, $4, $5, $6, $7::jsonb
+           WHERE NOT EXISTS (
+             SELECT 1
+             FROM "PortfolioMetric"
+             WHERE "eventName" = $1
+               AND "sessionId" = $8
+               AND COALESCE("meta"->>'badgeId', '') = $9
+               AND "createdAt" > NOW() - ($10 * INTERVAL '1 hour')
+           )`,
+          [
+            payload.eventName,
+            payload.page,
+            metricSessionId,
+            payload.value,
+            payload.durationMs,
+            payload.success,
+            JSON.stringify(payload.meta ?? {}),
+            metricSessionId,
+            badgeId,
+            badgeImpressionDedupeWindowHours,
+          ],
+        );
+      } catch (insertError) {
+        if (isUniqueViolationError(insertError)) {
+          return res.status(202).json({ accepted: true, deduped: true });
+        }
+        throw insertError;
+      }
+
+      if ((dedupeInsert.rowCount ?? 0) === 0) {
+        return res.status(202).json({ accepted: true, deduped: true });
+      }
+    } else {
+      await pool.query(
+        `INSERT INTO "PortfolioMetric" ("eventName", "page", "sessionId", "value", "durationMs", "success", "meta")
+         VALUES ($1, $2, $3, $4, $5, $6, $7::jsonb)`,
+        [
+          payload.eventName,
+          payload.page,
+          metricSessionId,
+          payload.value,
+          payload.durationMs,
+          payload.success,
+          JSON.stringify(payload.meta ?? {}),
+        ],
+      );
+    }
 
     return res.status(202).json({ accepted: true });
   } catch (error) {
@@ -372,6 +445,10 @@ app.post("/api/metrics", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`API running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`API running on port ${PORT}`);
+  });
+}
+
+export { app };

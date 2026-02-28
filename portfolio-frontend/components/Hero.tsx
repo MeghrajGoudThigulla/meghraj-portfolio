@@ -1,4 +1,12 @@
 import Link from "next/link";
+import HeroTrustBadges from "./HeroTrustBadges";
+import {
+  HERO_EYEBROW,
+  HERO_HEADLINE,
+  HERO_METRIC_CARDS,
+  HERO_PROOF_LINE,
+  HERO_TRUST_BADGES,
+} from "@/content/heroProof";
 
 export default function Hero() {
   return (
@@ -14,28 +22,21 @@ export default function Hero() {
       <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.1fr,0.9fr] lg:items-center">
           <div className="flex flex-col gap-4">
-            <p className="fade-up stagger-1 max-w-prose text-lg font-semibold text-brand-navy">
-              I help{" "}
-              <span className="text-brand-blue">
-                fintech and consulting teams
-              </span>{" "}
-              build scalable, high-performance applications.
+            <p className="fade-up stagger-1 max-w-prose text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
+              {HERO_EYEBROW}
             </p>
             <h1 className="fade-up stagger-2 text-3xl font-bold leading-tight text-brand-navy sm:text-4xl lg:text-6xl">
-              Outcome-led product engineering with measurable impact.
+              {HERO_HEADLINE}
             </h1>
             <p className="fade-up stagger-3 max-w-prose text-lg leading-relaxed text-brand-charcoal lg:text-xl">
-              I design and ship cross-platform systems that translate complex
-              requirements into measurable outcomes—reducing engineering overhead,
-              accelerating MVP launches, and building trustworthy data flows for
-              decision-makers.
+              {HERO_PROOF_LINE}
             </p>
             <div className="fade-up stagger-2 flex flex-wrap items-center gap-3">
               <Link
                 href="#contact"
                 className="btn btn-primary"
               >
-                Schedule a Call
+                Contact Me
               </Link>
               <Link
                 href="#cases"
@@ -43,17 +44,15 @@ export default function Hero() {
               >
                 View Case Studies
               </Link>
-              <Link
-                href="/resume"
-                className="btn btn-ghost"
-              >
-                View Résumé
-              </Link>
             </div>
+            <Link href="/resume" className="fade-up stagger-3 btn btn-ghost w-fit">
+              View Resume
+            </Link>
+            <HeroTrustBadges badges={HERO_TRUST_BADGES} />
           </div>
 
           <div className="grid gap-4">
-            {metricCards.map((metric) => (
+            {HERO_METRIC_CARDS.map((metric) => (
               <div
                 key={metric.label}
                 className="card card-hover fade-in border-t-4 border-t-brand-blue/60 px-4 py-5"
@@ -75,24 +74,3 @@ export default function Hero() {
     </section>
   );
 }
-
-const metricCards = [
-  {
-    label: "Efficiency",
-    value: "30% ↓",
-    detail:
-      "Cut cross-platform engineering overhead by unifying mobile/web release flows.",
-  },
-  {
-    label: "MVP Delivery",
-    value: "60% built",
-    detail:
-      "Architected core modules for an e-commerce launch targeting 1K+ early users.",
-  },
-  {
-    label: "Responsiveness",
-    value: "25% faster",
-    detail:
-      "Optimized APIs, caching, and Firestore queries for smoother app experiences.",
-  },
-];
