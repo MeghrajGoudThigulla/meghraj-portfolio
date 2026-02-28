@@ -315,6 +315,10 @@ app.get("/", (_req, res) => {
   res.send("Consulting Portfolio API Active");
 });
 
+app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 app.post("/api/contact", async (req, res) => {
   const payload = normalizeContactPayload(req.body);
   if (!payload) {
