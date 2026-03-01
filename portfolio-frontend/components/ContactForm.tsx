@@ -25,7 +25,7 @@ export default function ContactForm() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-36 top-10 h-72 w-72 rounded-full bg-sky-100/70 blur-3xl"
+        className="pointer-events-none absolute -left-36 top-10 hidden h-72 w-72 rounded-full bg-sky-100/70 blur-3xl sm:block"
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading

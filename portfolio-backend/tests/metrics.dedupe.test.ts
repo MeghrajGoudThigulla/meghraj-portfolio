@@ -104,6 +104,7 @@ describe("/api/metrics dedupe", () => {
     expect(response.status).toBe(202);
     expect(response.body).toEqual({ accepted: true });
     expect(queryMock).toHaveBeenCalledTimes(1);
+    expect(queryMock.mock.calls[0][0]).toContain(`INSERT INTO "PortfolioMetricDedupe"`);
   });
 
   it("marks duplicate trust badge impressions as deduped", async () => {
@@ -137,7 +138,7 @@ describe("/api/metrics dedupe", () => {
     expect(response.status).toBe(202);
     expect(response.body).toEqual({ accepted: true });
     expect(queryMock).toHaveBeenCalledTimes(1);
-    expect(queryMock.mock.calls[0][0]).toContain(`COALESCE("meta"->>'caseId', '')`);
+    expect(queryMock.mock.calls[0][0]).toContain(`INSERT INTO "PortfolioMetricDedupe"`);
   });
 
   it("marks duplicate case_expand metrics as deduped", async () => {
@@ -171,7 +172,7 @@ describe("/api/metrics dedupe", () => {
     expect(response.status).toBe(202);
     expect(response.body).toEqual({ accepted: true });
     expect(queryMock).toHaveBeenCalledTimes(1);
-    expect(queryMock.mock.calls[0][0]).toContain(`COALESCE("meta"->>'presetId', '')`);
+    expect(queryMock.mock.calls[0][0]).toContain(`INSERT INTO "PortfolioMetricDedupe"`);
   });
 
   it("marks duplicate roi_preset_selected metrics as deduped", async () => {
@@ -194,7 +195,7 @@ describe("/api/metrics dedupe", () => {
     expect(response.status).toBe(202);
     expect(response.body).toEqual({ accepted: true });
     expect(queryMock).toHaveBeenCalledTimes(1);
-    expect(queryMock.mock.calls[0][0]).toContain(`COALESCE("meta"->>'estimateKey', '')`);
+    expect(queryMock.mock.calls[0][0]).toContain(`INSERT INTO "PortfolioMetricDedupe"`);
   });
 
   it("marks duplicate roi_estimate_cta_click metrics as deduped", async () => {
@@ -219,7 +220,7 @@ describe("/api/metrics dedupe", () => {
     expect(response.status).toBe(202);
     expect(response.body).toEqual({ accepted: true });
     expect(queryMock).toHaveBeenCalledTimes(1);
-    const insertedMetaRaw = queryMock.mock.calls[0][1][6] as string;
+    const insertedMetaRaw = queryMock.mock.calls[0][1][8] as string;
     expect(JSON.parse(insertedMetaRaw)).toEqual(
       expect.objectContaining({
         hoursSaved: 10,
@@ -229,7 +230,8 @@ describe("/api/metrics dedupe", () => {
     );
   });
 
-  it("rejects roi_preset_selected without presetId", async () => {
+  it("accepts roi_preset_selected without presetId using fallback dedupe key", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 1 });
     const app = await loadApp();
 
     const response = await request(app).post("/api/metrics").send({
@@ -239,12 +241,19 @@ describe("/api/metrics dedupe", () => {
       meta: { hoursSaved: 10, hourlyRate: 95 },
     });
 
-    expect(response.status).toBe(400);
-    expect(response.body).toEqual({ error: "Invalid metric payload" });
-    expect(queryMock).not.toHaveBeenCalled();
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+    const insertedMetaRaw = queryMock.mock.calls[0][1][8] as string;
+    expect(JSON.parse(insertedMetaRaw)).toEqual(
+      expect.objectContaining({
+        presetId: "10:95",
+      }),
+    );
   });
 
-  it("rejects roi_estimate_cta_click without estimate key inputs", async () => {
+  it("accepts roi_estimate_cta_click without estimate key inputs using value fallback", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 1 });
     const app = await loadApp();
 
     const response = await request(app).post("/api/metrics").send({
@@ -255,9 +264,15 @@ describe("/api/metrics dedupe", () => {
       meta: { source: "roi_section" },
     });
 
-    expect(response.status).toBe(400);
-    expect(response.body).toEqual({ error: "Invalid metric payload" });
-    expect(queryMock).not.toHaveBeenCalled();
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+    const insertedMetaRaw = queryMock.mock.calls[0][1][8] as string;
+    expect(JSON.parse(insertedMetaRaw)).toEqual(
+      expect.objectContaining({
+        estimateKey: "value:12345",
+      }),
+    );
   });
 
   it("keeps non-impression metrics on the standard insert path", async () => {

@@ -96,6 +96,12 @@ const badgeImpressionDedupeWindowHours = 24;
 const caseExpandDedupeWindowHours = 24;
 const roiPresetDedupeWindowHours = 24;
 const roiEstimateClickDedupeWindowHours = 24;
+const dedupeKeyMaxLength = 120;
+const dedupeCleanupTtlDays = Math.max(Number(process.env.METRICS_DEDUPE_TTL_DAYS) || 45, 7);
+const dedupeCleanupIntervalHours = Math.max(
+  Number(process.env.METRICS_DEDUPE_CLEANUP_INTERVAL_HOURS) || 24,
+  1,
+);
 const rateLimitStore = new Map<
   string,
   {
@@ -276,6 +282,32 @@ const getMetricRoiEstimateKey = (meta: Record<string, unknown> | null): string |
   return null;
 };
 
+const getMetricValueKey = (value: number | null): string | null => {
+  if (typeof value !== "number" || !Number.isFinite(value)) return null;
+  return `value:${Math.round(value)}`;
+};
+
+const getMetricFallbackHashKey = (payload: MetricPayload): string => {
+  const seed = JSON.stringify({
+    page: payload.page,
+    value: payload.value,
+    durationMs: payload.durationMs,
+    success: payload.success,
+    meta: payload.meta ?? {},
+  });
+  const hash = createHash("sha256").update(seed).digest("hex").slice(0, 24);
+  return `fallback:${hash}`;
+};
+
+const clampDedupeKey = (key: string): string => key.slice(0, dedupeKeyMaxLength);
+
+const getDedupeWindowStart = (windowHours: number): Date => {
+  const windowMs = windowHours * 60 * 60 * 1000;
+  const nowMs = Date.now();
+  const bucketStartMs = Math.floor(nowMs / windowMs) * windowMs;
+  return new Date(bucketStartMs);
+};
+
 const getMetricSessionFallback = (req: express.Request) => {
   const ip = req.ip || "unknown";
   const userAgent = (req.get("user-agent") || "unknown").slice(0, 256);
@@ -291,6 +323,33 @@ const isUniqueViolationError = (error: unknown): error is { code: string } =>
   error !== null &&
   "code" in error &&
   (error as { code?: string }).code === "23505";
+
+const isMissingRelationError = (error: unknown): error is { code: string } =>
+  typeof error === "object" &&
+  error !== null &&
+  "code" in error &&
+  (error as { code?: string }).code === "42P01";
+
+const cleanupDedupeRows = async (source: "startup" | "interval") => {
+  try {
+    const result = await pool.query(
+      `DELETE FROM "PortfolioMetricDedupe"
+       WHERE "createdAt" < NOW() - ($1 * INTERVAL '1 day')`,
+      [dedupeCleanupTtlDays],
+    );
+    if ((result.rowCount ?? 0) > 0) {
+      console.log(`[metrics-cleanup:${source}] removed ${result.rowCount} dedupe rows older than ${dedupeCleanupTtlDays} days`);
+    }
+  } catch (error) {
+    if (isMissingRelationError(error)) {
+      console.warn(
+        `[metrics-cleanup:${source}] skipped because PortfolioMetricDedupe table is not available yet.`,
+      );
+      return;
+    }
+    console.error(`[metrics-cleanup:${source}] failed`, error);
+  }
+};
 
 if (process.env.TRUST_PROXY === "true") {
   app.set("trust proxy", 1);
@@ -436,19 +495,21 @@ app.post("/api/metrics", async (req, res) => {
     const isCaseExpandEvent = payload.eventName === "case_expand";
     const isRoiPresetEvent = payload.eventName === "roi_preset_selected";
     const isRoiEstimateClickEvent = payload.eventName === "roi_estimate_cta_click";
-    if (isRoiPresetEvent && !roiPresetId) {
-      return res.status(400).json({ error: "Invalid metric payload" });
-    }
-    if (isRoiEstimateClickEvent && !roiEstimateKey) {
-      return res.status(400).json({ error: "Invalid metric payload" });
-    }
-
     const normalizedMeta: Record<string, unknown> = { ...(payload.meta ?? {}) };
-    if (isRoiPresetEvent && roiPresetId) {
-      normalizedMeta.presetId = roiPresetId;
+    const roiPresetFallbackKey = getMetricRoiEstimateKey(payload.meta) ?? getMetricValueKey(payload.value);
+    const roiEstimateFallbackKey = getMetricValueKey(payload.value);
+    const resolvedRoiPresetKey = clampDedupeKey(
+      roiPresetId ?? roiPresetFallbackKey ?? getMetricFallbackHashKey(payload),
+    );
+    const resolvedRoiEstimateKey = clampDedupeKey(
+      roiEstimateKey ?? roiEstimateFallbackKey ?? getMetricFallbackHashKey(payload),
+    );
+
+    if (isRoiPresetEvent) {
+      normalizedMeta.presetId = resolvedRoiPresetKey;
     }
-    if (isRoiEstimateClickEvent && roiEstimateKey) {
-      normalizedMeta.estimateKey = roiEstimateKey;
+    if (isRoiEstimateClickEvent) {
+      normalizedMeta.estimateKey = resolvedRoiEstimateKey;
     }
 
     const dedupeMetaField = isBadgeImpressionEvent
@@ -461,13 +522,13 @@ app.post("/api/metrics", async (req, res) => {
             ? "estimateKey"
             : null;
     const dedupeMetaValue = isBadgeImpressionEvent
-      ? badgeId
+      ? clampDedupeKey(badgeId ?? getMetricFallbackHashKey(payload))
       : isCaseExpandEvent
-        ? caseId
+        ? clampDedupeKey(caseId ?? getMetricFallbackHashKey(payload))
         : isRoiPresetEvent
-          ? roiPresetId
+          ? resolvedRoiPresetKey
           : isRoiEstimateClickEvent
-            ? roiEstimateKey
+            ? resolvedRoiEstimateKey
             : null;
     const dedupeWindowHours = isBadgeImpressionEvent
       ? badgeImpressionDedupeWindowHours
@@ -484,30 +545,30 @@ app.post("/api/metrics", async (req, res) => {
       : payload.sessionId;
 
     if (supportsEventDedupe && dedupeMetaField && dedupeMetaValue) {
-      let dedupeInsert: { rowCount: number | null } = { rowCount: 0 };
+      const windowStart = getDedupeWindowStart(dedupeWindowHours);
+      let metricInsert: { rowCount: number | null } = { rowCount: 0 };
       try {
-        dedupeInsert = await pool.query(
-          `INSERT INTO "PortfolioMetric" ("eventName", "page", "sessionId", "value", "durationMs", "success", "meta")
-           SELECT $1, $2, $3, $4, $5, $6, $7::jsonb
-           WHERE NOT EXISTS (
-             SELECT 1
-             FROM "PortfolioMetric"
-             WHERE "eventName" = $1
-               AND "sessionId" = $8
-               AND COALESCE("meta"->>'${dedupeMetaField}', '') = $9
-               AND "createdAt" > NOW() - ($10 * INTERVAL '1 hour')
-           )`,
+        metricInsert = await pool.query(
+          `WITH dedupe_insert AS (
+             INSERT INTO "PortfolioMetricDedupe" ("eventName", "sessionId", "dedupeKey", "windowStart")
+             VALUES ($1, $2, $3, $4)
+             ON CONFLICT ("eventName", "sessionId", "dedupeKey", "windowStart") DO NOTHING
+             RETURNING 1
+           )
+           INSERT INTO "PortfolioMetric" ("eventName", "page", "sessionId", "value", "durationMs", "success", "meta")
+           SELECT $1, $5, $2, $6, $7, $8, $9::jsonb
+           FROM dedupe_insert
+           RETURNING id`,
           [
             payload.eventName,
-            payload.page,
             metricSessionId,
+            dedupeMetaValue,
+            windowStart.toISOString(),
+            payload.page,
             payload.value,
             payload.durationMs,
             payload.success,
             JSON.stringify(normalizedMeta),
-            metricSessionId,
-            dedupeMetaValue,
-            dedupeWindowHours,
           ],
         );
       } catch (insertError) {
@@ -517,7 +578,7 @@ app.post("/api/metrics", async (req, res) => {
         throw insertError;
       }
 
-      if ((dedupeInsert.rowCount ?? 0) === 0) {
+      if ((metricInsert.rowCount ?? 0) === 0) {
         return res.status(202).json({ accepted: true, deduped: true });
       }
     } else {
@@ -544,6 +605,13 @@ app.post("/api/metrics", async (req, res) => {
 });
 
 if (process.env.NODE_ENV !== "test") {
+  void cleanupDedupeRows("startup");
+  const cleanupTimer = setInterval(
+    () => void cleanupDedupeRows("interval"),
+    dedupeCleanupIntervalHours * 60 * 60 * 1000,
+  );
+  cleanupTimer.unref();
+
   app.listen(PORT, () => {
     console.log(`API running on port ${PORT}`);
   });

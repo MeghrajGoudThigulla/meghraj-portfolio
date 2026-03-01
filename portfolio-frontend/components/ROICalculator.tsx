@@ -105,11 +105,11 @@ export default function ROICalculator() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 top-16 h-64 w-64 rounded-full bg-sky-100/60 blur-3xl"
+        className="pointer-events-none absolute -left-32 top-16 hidden h-64 w-64 rounded-full bg-sky-100/60 blur-3xl sm:block"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 bottom-10 h-72 w-72 rounded-full bg-white/70 blur-3xl"
+        className="pointer-events-none absolute -right-40 bottom-10 hidden h-72 w-72 rounded-full bg-white/70 blur-3xl sm:block"
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading

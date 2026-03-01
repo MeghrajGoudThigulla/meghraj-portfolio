@@ -36,3 +36,15 @@ model PortfolioMetric {
   @@index([eventName])
   @@index([createdAt])
 }
+
+model PortfolioMetricDedupe {
+  id          BigInt   @id @default(autoincrement())
+  eventName   String
+  sessionId   String
+  dedupeKey   String
+  windowStart DateTime
+  createdAt   DateTime @default(now())
+
+  @@unique([eventName, sessionId, dedupeKey, windowStart], map: "PortfolioMetricDedupe_event_session_key_window_idx")
+  @@index([createdAt])
+}
