@@ -53,8 +53,8 @@ export default function ResumePage() {
               place="Threshing Floor Group, Hyderabad • www.tfgorg.com"
               timeline="July 2024–Present"
               bullets={[
-                "Architected and delivered 4 full-stack platforms spanning Flutter mobile apps (80+ screens), React/MUI web systems (47+ pages), and backend services totaling 294 REST API endpoints across FastAPI, Spring Boot, and Express.",
-                "Designed and maintained 3 FastAPI services exposing 217 endpoints with JWT authentication, role-based access control (RBAC), Redis rate limiting, background workers, and object storage integrations.",
+                "Architected and delivered 4 full-stack platforms spanning Flutter mobile apps (80+ screens), React/MUI web systems (47+ pages), and backend services totaling 318 REST API endpoints across FastAPI, Spring Boot, and Express.",
+                "Designed and maintained 3 FastAPI services exposing 305 endpoints with JWT authentication, role-based access control (RBAC), Redis rate limiting, background workers, and object storage integrations.",
                 "Modeled relational systems using PostgreSQL and MySQL with 61+ SQLAlchemy models and 20+ schema migrations; implemented transactional writes, audit logging, and soft-delete patterns.",
                 "Built asynchronous webhook pipelines, Redis caching layers, Firebase Admin integrations, and secure token verification workflows across production and internal platforms.",
               ]}
@@ -65,11 +65,11 @@ export default function ResumePage() {
             <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>294 total backend API endpoints across 4 systems</span>
+                <span>318 total backend API endpoints across 4 systems</span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>217 FastAPI endpoints across 3 services</span>
+                <span>305 FastAPI endpoints across 3 services</span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
@@ -93,7 +93,7 @@ export default function ResumePage() {
               tech="Flutter, FastAPI, PostgreSQL, Redis, MinIO/S3"
               bullets={[
                 "Built a Flutter customer application (23 screens, 6-tab navigation) and a 41-page Flutter Web admin dashboard.",
-                "Developed a FastAPI backend with 104 REST endpoints across 23 routers covering auth, catalog, cart, orders, payments, reporting, and admin workflows.",
+                "Developed a FastAPI backend with 134 REST endpoints across 23 routers covering auth, catalog, cart, orders, payments, reporting, and admin workflows.",
                 "Designed a commerce-grade PostgreSQL schema with 42 SQLAlchemy models and 13 Alembic migrations supporting orders, shipments, refunds, RMAs, and inventory tracking.",
                 "Implemented Redis-based global rate limiting and RQ background workers for asynchronous payment webhook processing with idempotent event tracking.",
               ]}
@@ -101,12 +101,12 @@ export default function ResumePage() {
             <Project
               title="TFG SecureBank"
               subtitle="Enterprise form-builder and workflow platform (Backend modernization from Spring Boot to FastAPI)."
-              tech="React (MUI), FastAPI, MySQL"
+              tech="React (MUI), FastAPI, MySQL, Redis, SQLAlchemy, Alembic"
               bullets={[
-                "Contributing to migration from legacy Spring Boot backend to a modular FastAPI metadata service (47 endpoints across 17 routers).",
+                "Contributing to migration from legacy Spring Boot backend to a modular FastAPI platform (103 endpoints across 20 routers).",
                 "Delivered a 47-page React/MUI admin UX supporting dynamic form configuration, dashboards, and workflow management.",
-                "Designed SQLAlchemy-based metadata models with conditional fields, PII masking, and display rules.",
-                "Implemented correlation-ID logging and background rule-engine worker for asynchronous processing.",
+                "Shipped feature-flagged applicant lifecycle flows including signup/login, email verification, draft save/resume, and submission APIs.",
+                "Implemented observability endpoints, Redis-backed status rate limiting, and upload cleanup tracking with correlation-ID logging.",
               ]}
             />
             <Project

@@ -58,7 +58,7 @@ describe("HeroTrustBadges telemetry", () => {
     });
     trackMetricMock.mockClear();
 
-    await user.click(screen.getByRole("button", { name: /294\+ APIs/i }));
+    await user.click(screen.getByRole("button", { name: /318\+ APIs/i }));
 
     const engagementEvents = trackMetricMock.mock.calls
       .map(([payload]) => payload as { eventName?: string; meta?: Record<string, unknown> })

@@ -58,16 +58,6 @@ export default function ContactForm() {
                 />
 
                 <div className="flex flex-col gap-3 lg:col-span-2 lg:flex-row lg:items-center lg:justify-between">
-                  <p className="max-w-prose text-sm text-brand-charcoal">
-                    Prefer a faster async route? Reach me at{" "}
-                    <a
-                      href="mailto:meghraj.thigulla@outlook.com"
-                      className="font-semibold text-brand-blue hover:text-brand-navy hover:underline underline-offset-4"
-                    >
-                      meghraj.thigulla@outlook.com
-                    </a>
-                    .
-                  </p>
                   <button
                     type="submit"
                     disabled={status === "sending"}

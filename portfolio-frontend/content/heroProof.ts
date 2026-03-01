@@ -17,19 +17,19 @@ export const HERO_HEADLINE =
   "I build production systems that cut delivery friction and improve reliability.";
 
 export const HERO_PROOF_LINE =
-  "294+ APIs delivered across fintech, healthcare, and operations systems using Next.js, FastAPI, and Prisma-driven architectures.";
+  "318+ APIs delivered across fintech, healthcare, and operations systems using Next.js, FastAPI, and Prisma-driven architectures.";
 
 export const HERO_TRUST_BADGES: HeroTrustBadge[] = [
   {
     id: "apis_delivered",
-    title: "294+ APIs",
+    title: "318+ APIs",
     detail: "Production-delivered",
     proofRef: "cases",
   },
   {
     id: "core_stack",
     title: "Core Stack",
-    detail: "Next.js / FastAPI / Prisma",
+    detail: "FastAPI / Flutter / PostgreSQL",
     proofRef: "skills",
   },
   {

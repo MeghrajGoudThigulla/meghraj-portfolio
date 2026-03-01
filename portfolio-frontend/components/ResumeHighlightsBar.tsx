@@ -4,8 +4,8 @@ type ResumeHighlight = {
 };
 
 const resumeHighlights: ResumeHighlight[] = [
-  { label: "APIs Delivered", value: "294" },
-  { label: "FastAPI Endpoints", value: "217" },
+  { label: "APIs Delivered", value: "318" },
+  { label: "FastAPI Endpoints", value: "305" },
   { label: "Data Models", value: "61+" },
   { label: "Migrations", value: "20+" },
 ];
