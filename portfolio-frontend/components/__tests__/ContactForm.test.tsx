@@ -101,6 +101,7 @@ describe("ContactForm", () => {
         "Message received. I will reply within one business day with next-step options.",
       ),
     ).toBeInTheDocument();
+    expect(screen.getByRole("status")).toBeInTheDocument();
   });
 
   it("shows request failure feedback when backend returns a non-2xx response", async () => {
@@ -120,5 +121,6 @@ describe("ContactForm", () => {
     expect(
       await screen.findByText("Unable to send right now. Please try again or email directly."),
     ).toBeInTheDocument();
+    expect(screen.getByRole("alert")).toBeInTheDocument();
   });
 });

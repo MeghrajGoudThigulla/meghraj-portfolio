@@ -94,6 +94,8 @@ const rateLimitMax = Number(process.env.RATE_LIMIT_MAX) || 20;
 const metricsRateLimitMax = Math.max(rateLimitMax * 6, 60);
 const badgeImpressionDedupeWindowHours = 24;
 const caseExpandDedupeWindowHours = 24;
+const roiPresetDedupeWindowHours = 24;
+const roiEstimateClickDedupeWindowHours = 24;
 const rateLimitStore = new Map<
   string,
   {
@@ -238,6 +240,40 @@ const getMetricCaseId = (meta: Record<string, unknown> | null): string | null =>
   const caseId = rawCaseId.trim();
   if (!caseId || caseId.length > 120) return null;
   return caseId;
+};
+
+const getMetricRoiPresetId = (meta: Record<string, unknown> | null): string | null => {
+  if (!meta) return null;
+  const rawPresetId = meta.presetId;
+  if (typeof rawPresetId !== "string") return null;
+  const presetId = rawPresetId.trim();
+  if (!presetId || presetId.length > 120) return null;
+  return presetId;
+};
+
+const getMetricRoiEstimateKey = (meta: Record<string, unknown> | null): string | null => {
+  if (!meta) return null;
+
+  const rawEstimateKey = meta.estimateKey;
+  if (typeof rawEstimateKey === "string") {
+    const estimateKey = rawEstimateKey.trim();
+    if (estimateKey && estimateKey.length <= 120) {
+      return estimateKey;
+    }
+  }
+
+  const hoursSaved = meta.hoursSaved;
+  const hourlyRate = meta.hourlyRate;
+  if (
+    typeof hoursSaved === "number" &&
+    Number.isFinite(hoursSaved) &&
+    typeof hourlyRate === "number" &&
+    Number.isFinite(hourlyRate)
+  ) {
+    return `${Math.round(hoursSaved)}:${Math.round(hourlyRate)}`;
+  }
+
+  return null;
 };
 
 const getMetricSessionFallback = (req: express.Request) => {
@@ -394,15 +430,54 @@ app.post("/api/metrics", async (req, res) => {
 
     const badgeId = getMetricBadgeId(payload.meta);
     const caseId = getMetricCaseId(payload.meta);
+    const roiPresetId = getMetricRoiPresetId(payload.meta);
+    const roiEstimateKey = getMetricRoiEstimateKey(payload.meta);
     const isBadgeImpressionEvent = payload.eventName === "hero_trust_badge_impression";
     const isCaseExpandEvent = payload.eventName === "case_expand";
-    const dedupeMetaField = isBadgeImpressionEvent ? "badgeId" : isCaseExpandEvent ? "caseId" : null;
-    const dedupeMetaValue = isBadgeImpressionEvent ? badgeId : isCaseExpandEvent ? caseId : null;
+    const isRoiPresetEvent = payload.eventName === "roi_preset_selected";
+    const isRoiEstimateClickEvent = payload.eventName === "roi_estimate_cta_click";
+    if (isRoiPresetEvent && !roiPresetId) {
+      return res.status(400).json({ error: "Invalid metric payload" });
+    }
+    if (isRoiEstimateClickEvent && !roiEstimateKey) {
+      return res.status(400).json({ error: "Invalid metric payload" });
+    }
+
+    const normalizedMeta: Record<string, unknown> = { ...(payload.meta ?? {}) };
+    if (isRoiPresetEvent && roiPresetId) {
+      normalizedMeta.presetId = roiPresetId;
+    }
+    if (isRoiEstimateClickEvent && roiEstimateKey) {
+      normalizedMeta.estimateKey = roiEstimateKey;
+    }
+
+    const dedupeMetaField = isBadgeImpressionEvent
+      ? "badgeId"
+      : isCaseExpandEvent
+        ? "caseId"
+        : isRoiPresetEvent
+          ? "presetId"
+          : isRoiEstimateClickEvent
+            ? "estimateKey"
+            : null;
+    const dedupeMetaValue = isBadgeImpressionEvent
+      ? badgeId
+      : isCaseExpandEvent
+        ? caseId
+        : isRoiPresetEvent
+          ? roiPresetId
+          : isRoiEstimateClickEvent
+            ? roiEstimateKey
+            : null;
     const dedupeWindowHours = isBadgeImpressionEvent
       ? badgeImpressionDedupeWindowHours
       : isCaseExpandEvent
         ? caseExpandDedupeWindowHours
-        : 0;
+        : isRoiPresetEvent
+          ? roiPresetDedupeWindowHours
+          : isRoiEstimateClickEvent
+            ? roiEstimateClickDedupeWindowHours
+            : 0;
     const supportsEventDedupe = Boolean(dedupeMetaField && dedupeMetaValue);
     const metricSessionId = supportsEventDedupe
       ? payload.sessionId ?? getMetricSessionFallback(req)
@@ -429,7 +504,7 @@ app.post("/api/metrics", async (req, res) => {
             payload.value,
             payload.durationMs,
             payload.success,
-            JSON.stringify(payload.meta ?? {}),
+            JSON.stringify(normalizedMeta),
             metricSessionId,
             dedupeMetaValue,
             dedupeWindowHours,
@@ -456,7 +531,7 @@ app.post("/api/metrics", async (req, res) => {
           payload.value,
           payload.durationMs,
           payload.success,
-          JSON.stringify(payload.meta ?? {}),
+          JSON.stringify(normalizedMeta),
         ],
       );
     }

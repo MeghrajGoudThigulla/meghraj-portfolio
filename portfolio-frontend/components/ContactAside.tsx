@@ -1,6 +1,9 @@
 export default function ContactAside() {
   return (
-    <div className="space-y-5 rounded-xl border border-brand-charcoal/10 bg-brand-bg px-4 py-5">
+    <aside
+      aria-label="Contact planning guide"
+      className="space-y-5 rounded-xl border border-brand-charcoal/10 bg-brand-bg px-4 py-5"
+    >
       <div>
         <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
           What helps me respond fast
@@ -43,6 +46,15 @@ export default function ContactAside() {
           </div>
         ))}
       </div>
-    </div>
+      <div className="rounded-xl border border-brand-charcoal/10 bg-white px-4 py-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+          Typical first call output
+        </p>
+        <p className="mt-2 text-sm text-brand-charcoal">
+          A scoped problem statement, baseline assumptions, and a delivery plan
+          with risks and milestones.
+        </p>
+      </div>
+    </aside>
   );
 }

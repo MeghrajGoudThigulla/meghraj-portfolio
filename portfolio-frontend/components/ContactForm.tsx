@@ -72,10 +72,17 @@ export default function ContactForm() {
                     type="submit"
                     disabled={status === "sending"}
                     className="btn btn-primary w-full disabled:cursor-not-allowed disabled:opacity-70 lg:w-auto"
+                    aria-describedby="contact-response-sla"
                   >
                     {status === "sending" ? "Sending..." : "Send Proposal"}
                   </button>
                 </div>
+                <p
+                  id="contact-response-sla"
+                  className="text-xs text-slate-500 lg:col-span-2"
+                >
+                  Typical response window: within one business day.
+                </p>
                 <div className="flex flex-wrap gap-3 text-sm lg:col-span-2">
                   <a
                     href="mailto:meghraj.thigulla@outlook.com?subject=Discovery%20Call%20Request"
@@ -92,12 +99,19 @@ export default function ContactForm() {
                 </div>
 
                 {status === "success" ? (
-                  <div className="lg:col-span-2 rounded border border-green-500/50 bg-green-50 px-3 py-2 text-sm text-green-800">
+                  <div
+                    role="status"
+                    aria-live="polite"
+                    className="lg:col-span-2 rounded border border-green-500/50 bg-green-50 px-3 py-2 text-sm text-green-800"
+                  >
                     Message received. I will reply within one business day with next-step options.
                   </div>
                 ) : null}
                 {status === "error" && error ? (
-                  <div className="lg:col-span-2 rounded border border-amber-600/50 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+                  <div
+                    role="alert"
+                    className="lg:col-span-2 rounded border border-amber-600/50 bg-amber-50 px-3 py-2 text-sm text-amber-800"
+                  >
                     {error}
                   </div>
                 ) : null}

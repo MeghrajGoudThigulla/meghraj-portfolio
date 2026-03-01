@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ROICalculator from "../ROICalculator";
 
@@ -60,5 +61,45 @@ describe("ROICalculator", () => {
     );
 
     expect(engagementCalls).toHaveLength(1);
+  });
+
+  it("applies a preset and tracks roi_preset_selected", async () => {
+    const user = userEvent.setup();
+
+    render(<ROICalculator />);
+    await user.click(screen.getByRole("button", { name: "Ops Team" }));
+
+    expect(trackMetricMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "roi_preset_selected",
+        meta: expect.objectContaining({
+          presetId: "ops_team",
+          hoursSaved: 10,
+          hourlyRate: 95,
+        }),
+      }),
+    );
+
+    expect(screen.getByText("$49,400")).toBeInTheDocument();
+  });
+
+  it("tracks roi_estimate_cta_click with current estimate", async () => {
+    const user = userEvent.setup();
+
+    render(<ROICalculator />);
+    await user.click(screen.getByRole("link", { name: "Use this estimate in a discovery call" }));
+
+    expect(trackMetricMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "roi_estimate_cta_click",
+        value: 26520,
+        meta: expect.objectContaining({
+          source: "roi_section",
+          hoursSaved: 6,
+          hourlyRate: 85,
+          estimateKey: "6:85",
+        }),
+      }),
+    );
   });
 });

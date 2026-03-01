@@ -46,6 +46,42 @@ const baseCaseExpandPayload = {
   },
 };
 
+const baseRoiPresetPayload = {
+  eventName: "roi_preset_selected",
+  page: "/",
+  sessionId: "test-session-roi-preset-1",
+  meta: {
+    presetId: "ops_team",
+    hoursSaved: 10,
+    hourlyRate: 95,
+  },
+};
+
+const baseRoiEstimateClickPayload = {
+  eventName: "roi_estimate_cta_click",
+  page: "/",
+  sessionId: "test-session-roi-estimate-1",
+  value: 49400,
+  meta: {
+    estimateKey: "10:95",
+    hoursSaved: 10,
+    hourlyRate: 95,
+    source: "roi_section",
+  },
+};
+
+const baseRoiEstimateClickPayloadWithoutEstimateKey = {
+  eventName: "roi_estimate_cta_click",
+  page: "/",
+  sessionId: "test-session-roi-estimate-2",
+  value: 49400,
+  meta: {
+    hoursSaved: 10,
+    hourlyRate: 95,
+    source: "roi_section",
+  },
+};
+
 const loadApp = async () => {
   const module = await import("../src/index");
   return module.app;
@@ -124,6 +160,104 @@ describe("/api/metrics dedupe", () => {
     expect(response.status).toBe(202);
     expect(response.body).toEqual({ accepted: true, deduped: true });
     expect(queryMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("accepts a new roi_preset_selected metric", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 1 });
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send(baseRoiPresetPayload);
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+    expect(queryMock.mock.calls[0][0]).toContain(`COALESCE("meta"->>'presetId', '')`);
+  });
+
+  it("marks duplicate roi_preset_selected metrics as deduped", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 0 });
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send(baseRoiPresetPayload);
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true, deduped: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("accepts a new roi_estimate_cta_click metric", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 1 });
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send(baseRoiEstimateClickPayload);
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+    expect(queryMock.mock.calls[0][0]).toContain(`COALESCE("meta"->>'estimateKey', '')`);
+  });
+
+  it("marks duplicate roi_estimate_cta_click metrics as deduped", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 0 });
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send(baseRoiEstimateClickPayload);
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true, deduped: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("derives and persists estimateKey when roi_estimate_cta_click omits it", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 1 });
+    const app = await loadApp();
+
+    const response = await request(app)
+      .post("/api/metrics")
+      .send(baseRoiEstimateClickPayloadWithoutEstimateKey);
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true });
+    expect(queryMock).toHaveBeenCalledTimes(1);
+    const insertedMetaRaw = queryMock.mock.calls[0][1][6] as string;
+    expect(JSON.parse(insertedMetaRaw)).toEqual(
+      expect.objectContaining({
+        hoursSaved: 10,
+        hourlyRate: 95,
+        estimateKey: "10:95",
+      }),
+    );
+  });
+
+  it("rejects roi_preset_selected without presetId", async () => {
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send({
+      eventName: "roi_preset_selected",
+      page: "/",
+      sessionId: "session-missing-preset",
+      meta: { hoursSaved: 10, hourlyRate: 95 },
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ error: "Invalid metric payload" });
+    expect(queryMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects roi_estimate_cta_click without estimate key inputs", async () => {
+    const app = await loadApp();
+
+    const response = await request(app).post("/api/metrics").send({
+      eventName: "roi_estimate_cta_click",
+      page: "/",
+      sessionId: "session-missing-estimate",
+      value: 12345,
+      meta: { source: "roi_section" },
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ error: "Invalid metric payload" });
+    expect(queryMock).not.toHaveBeenCalled();
   });
 
   it("keeps non-impression metrics on the standard insert path", async () => {
