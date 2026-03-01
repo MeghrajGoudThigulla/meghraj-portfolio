@@ -55,10 +55,13 @@ export default function CaseStudyDetailsToggle({
   };
 
   return (
-    <div className="rounded-xl border border-brand-charcoal/10 bg-white p-4">
+    <div className="rounded-xl border border-brand-border bg-white p-4 shadow-sm">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+        Solution
+      </p>
       <button
         type="button"
-        className="inline-flex items-center text-sm font-semibold text-brand-blue transition hover:text-brand-navy hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
+        className="inline-flex items-center rounded-lg border border-transparent px-1 text-sm font-semibold text-brand-blue transition hover:text-brand-navy hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
         aria-expanded={expanded}
         aria-controls={panelId}
         onClick={handleToggle}
@@ -68,7 +71,7 @@ export default function CaseStudyDetailsToggle({
       {expanded ? (
         <ul id={panelId} className="mt-3 space-y-2 text-sm leading-relaxed text-brand-charcoal">
           {actionItems.map((item) => (
-            <li key={item} className="flex gap-2">
+            <li key={item} className="flex gap-2 rounded-lg border border-brand-border/60 bg-brand-muted/40 px-3 py-2">
               <span className="mt-1 h-2 w-2 rounded-full bg-brand-blue" />
               <span>{item}</span>
             </li>

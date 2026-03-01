@@ -19,14 +19,17 @@ export default function CaseStudySummaryRow({
   ];
 
   return (
-    <div className="rounded-xl border border-brand-charcoal/10 bg-white p-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+    <div className="rounded-xl border border-brand-border bg-white p-4 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
         At a glance
       </p>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         {summaryItems.map((item) => (
-          <div key={item.label} className="rounded-lg border border-brand-charcoal/10 bg-brand-bg p-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+          <div
+            key={item.label}
+            className="rounded-lg border border-brand-border/90 bg-brand-muted/45 p-3"
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
               {item.label}
             </p>
             <p className="mt-2 text-sm leading-relaxed text-brand-charcoal">

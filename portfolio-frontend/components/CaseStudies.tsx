@@ -165,7 +165,7 @@ const caseStudies: CaseStudy[] = [
 export default function CaseStudies() {
   return (
     <section
-      className="relative overflow-hidden border-y border-brand-charcoal/10 bg-brand-bg py-20 sm:py-24 lg:py-28"
+      className="section-shell section-band-muted relative"
       id="cases"
     >
       <div
@@ -180,6 +180,7 @@ export default function CaseStudies() {
         <SectionHeading
           title="Engineering case studies with architecture context."
           description="Each case highlights the operating problem, system design choices, and measurable outcomes."
+          eyebrow="Case Studies"
         />
 
         <div className="grid gap-6 lg:gap-8">
@@ -190,22 +191,22 @@ export default function CaseStudies() {
             return (
               <article
                 key={study.title}
-                className="card card-hover fade-up px-5 py-6"
+                className="card card-hover fade-up overflow-hidden border-brand-border bg-white/95 px-5 py-6 lg:px-6"
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
-                <div className="flex flex-col gap-1 border-b border-brand-charcoal/10 pb-4">
-                  <h3 className="text-2xl font-semibold text-brand-navy lg:text-3xl">
+                <div className="flex flex-col gap-2 border-b border-brand-border pb-4">
+                  <h3 className="text-2xl font-semibold leading-tight text-brand-navy lg:text-3xl">
                     {study.title}
                   </h3>
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-sm font-medium uppercase tracking-[0.12em] text-slate-500">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                       {study.subtitle}
                     </p>
                     <span
                       className={
                         study.status === "Published"
                           ? "badge-accent"
-                          : "rounded-full border border-amber-300/60 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-amber-700"
+                          : "rounded-full border border-amber-300/70 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-amber-700"
                       }
                     >
                       {study.status}
@@ -227,24 +228,24 @@ export default function CaseStudies() {
                     />
                   </div>
 
-                  <div className="space-y-4 rounded-xl border border-brand-charcoal/10 bg-brand-bg px-4 py-5">
+                  <div className="space-y-4 rounded-xl border border-brand-border bg-brand-muted/45 px-4 py-5">
                     <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                         Impact
                       </p>
-                      <p className="mt-2 text-lg font-semibold text-brand-blue">
+                      <p className="mt-2 text-base font-semibold leading-relaxed text-brand-navy">
                         {study.result}
                       </p>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {study.metrics.map((metric) => (
-                          <span key={metric} className="badge-accent">
+                          <span key={metric} className="badge-accent border-brand-blue/30 bg-white">
                             {metric}
                           </span>
                         ))}
                       </div>
                     </div>
                     <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                         API Diagram
                       </p>
                       <ApiDiagramCard
@@ -256,7 +257,7 @@ export default function CaseStudies() {
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                         Tech Stack
                       </p>
                       <p className="mt-2 text-sm leading-relaxed text-brand-charcoal">
@@ -265,7 +266,7 @@ export default function CaseStudies() {
                     </div>
                     <Link
                       href={detailsHref}
-                      className="inline-flex items-center text-sm font-semibold text-brand-blue transition hover:text-brand-navy hover:underline underline-offset-4"
+                      className="inline-flex items-center rounded-md text-sm font-semibold text-brand-blue transition hover:text-brand-navy hover:underline underline-offset-4"
                       target={isExternal ? "_blank" : undefined}
                       rel={isExternal ? "noreferrer" : undefined}
                     >

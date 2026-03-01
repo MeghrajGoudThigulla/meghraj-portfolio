@@ -26,25 +26,30 @@ const skillGroups = [
 export default function SkillsSnapshot() {
   return (
     <section
-      className="relative overflow-hidden border-y border-brand-charcoal/10 bg-white py-20 sm:py-24 lg:py-28"
+      className="section-shell section-band-muted relative"
       id="skills"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute -left-24 top-6 h-64 w-64 rounded-full bg-sky-100/60 blur-3xl"
       />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-28 bottom-4 h-60 w-60 rounded-full bg-white/70 blur-3xl"
+      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Skills snapshot for fast recruiter scan."
           description="Grouped by what I build with most often in production systems."
+          eyebrow="Capabilities"
         />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((group) => (
             <article
               key={group.label}
-              className="card fade-up space-y-3 px-4 py-5"
+              className="card fade-up space-y-3 border-brand-border bg-white/95 px-4 py-5"
             >
-              <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                 {group.label}
               </h3>
               <div className="flex flex-wrap gap-2">
