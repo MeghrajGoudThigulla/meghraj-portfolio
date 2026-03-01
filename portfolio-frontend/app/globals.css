@@ -5,6 +5,8 @@
 :root {
   color-scheme: light;
   --bottom-ui-height: 0px;
+  --section-y: 5rem;
+  --section-y-lg: 7rem;
 }
 
 html {
@@ -13,10 +15,13 @@ html {
 
 body {
   @apply bg-brand-bg text-brand-charcoal font-sans antialiased;
+  background-image:
+    radial-gradient(circle at 10% -15%, rgba(11, 116, 181, 0.1), transparent 36%),
+    radial-gradient(circle at 85% 0%, rgba(180, 83, 9, 0.08), transparent 34%);
 }
 
 a {
-  @apply text-brand-blue hover:text-brand-navy transition-colors;
+  @apply text-brand-blue hover:text-brand-navy transition-colors duration-200;
 }
 
 a:focus-visible,
@@ -41,16 +46,28 @@ h4 {
 }
 
 @layer components {
+  .section-shell {
+    @apply relative overflow-hidden py-section sm:py-24 lg:py-section-lg;
+  }
+
+  .section-band {
+    @apply border-y border-brand-border/80 bg-white;
+  }
+
+  .section-band-muted {
+    @apply border-y border-brand-border/70 bg-brand-muted/65;
+  }
+
   .btn {
-    @apply inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] transition;
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold uppercase tracking-[0.1em] transition duration-200;
   }
 
   .btn-primary {
-    @apply bg-brand-blue text-white shadow-sm hover:-translate-y-0.5 hover:bg-sky-800 hover:text-white hover:shadow-md;
+    @apply bg-gradient-to-r from-brand-blue to-sky-700 text-white shadow-elev-1 hover:-translate-y-0.5 hover:shadow-elev-2 hover:text-white;
   }
 
   .btn-secondary {
-    @apply border border-brand-charcoal/25 text-brand-navy hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue;
+    @apply border border-brand-border bg-white text-brand-navy shadow-sm hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue;
   }
 
   .btn-ghost {
@@ -58,19 +75,19 @@ h4 {
   }
 
   .btn-sm {
-    @apply px-4 py-2 text-xs tracking-[0.14em];
+    @apply px-4 py-2 text-xs tracking-[0.12em];
   }
 
   .card {
-    @apply rounded-2xl border border-brand-charcoal/10 bg-brand-surface shadow-sm;
+    @apply rounded-2xl border border-brand-border/90 bg-brand-surface shadow-elev-1;
   }
 
   .card-hover {
-    @apply transition hover:-translate-y-0.5 hover:shadow-lg;
+    @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-elev-2;
   }
 
   .badge-accent {
-    @apply rounded-full border border-brand-blue/20 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-blue;
+    @apply rounded-full border border-brand-blue/20 bg-sky-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-brand-blue;
   }
 }
 
