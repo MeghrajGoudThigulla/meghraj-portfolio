@@ -22,7 +22,7 @@ describe("CaseStudies", () => {
   it("renders summary rows and keeps external details links", () => {
     render(<CaseStudies />);
 
-    expect(screen.getAllByText("At a glance").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Case Snapshot").length).toBeGreaterThan(0);
     expect(screen.getAllByRole("button", { name: "Show architecture details" }).length).toBeGreaterThan(0);
     const detailLinks = screen.getAllByRole("link", { name: "View details →" });
     expect(detailLinks.length).toBeGreaterThan(0);

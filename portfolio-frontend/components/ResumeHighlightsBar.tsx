@@ -4,10 +4,10 @@ type ResumeHighlight = {
 };
 
 const resumeHighlights: ResumeHighlight[] = [
-  { label: "APIs Delivered", value: "318" },
-  { label: "FastAPI Endpoints", value: "305" },
+  { label: "APIs Delivered", value: "286" },
+  { label: "FastAPI Endpoints", value: "273" },
   { label: "Data Models", value: "61+" },
-  { label: "Migrations", value: "20+" },
+  { label: "Migrations", value: "30+" },
 ];
 
 export default function ResumeHighlightsBar() {

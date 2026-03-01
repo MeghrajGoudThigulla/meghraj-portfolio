@@ -17,46 +17,46 @@ export const HERO_HEADLINE =
   "I build production systems that cut delivery friction and improve reliability.";
 
 export const HERO_PROOF_LINE =
-  "318+ APIs delivered across fintech, healthcare, and operations systems using Next.js, FastAPI, and Prisma-driven architectures.";
+  "286 backend APIs shipped, including 273 FastAPI endpoints, with 61+ SQLAlchemy models and 30+ migrations.";
 
 export const HERO_TRUST_BADGES: HeroTrustBadge[] = [
   {
     id: "apis_delivered",
-    title: "318+ APIs",
-    detail: "Production-delivered",
+    title: "286 APIs",
+    detail: "Across 4 systems",
     proofRef: "cases",
   },
   {
-    id: "core_stack",
-    title: "Core Stack",
-    detail: "FastAPI / Flutter / PostgreSQL",
-    proofRef: "skills",
+    id: "fastapi_footprint",
+    title: "273 FastAPI",
+    detail: "Across 3 services",
+    proofRef: "cases",
   },
   {
-    id: "domain_coverage",
-    title: "Domain Coverage",
-    detail: "Fintech and Ops Systems",
-    proofRef: "about",
+    id: "data_layer_scale",
+    title: "61+ Models / 30+ Migrations",
+    detail: "SQLAlchemy + Alembic",
+    proofRef: "skills",
   },
 ];
 
 export const HERO_METRIC_CARDS: HeroMetricCard[] = [
   {
-    label: "Efficiency",
-    value: "30% ↓",
+    label: "Total APIs",
+    value: "286",
     detail:
-      "Cut cross-platform engineering overhead by unifying mobile/web release flows.",
+      "Combined REST endpoints across DEALSMART, SecureBank, Medical Advisor, and NexaTest.",
   },
   {
-    label: "MVP Delivery",
-    value: "60% built",
+    label: "FastAPI Footprint",
+    value: "273",
     detail:
-      "Architected core modules for an e-commerce launch targeting 1K+ early users.",
+      "FastAPI endpoints across DEALSMART, SecureBank, and Medical Advisor.",
   },
   {
-    label: "Responsiveness",
-    value: "25% faster",
+    label: "Data Layer",
+    value: "61+ / 30+",
     detail:
-      "Optimized APIs, caching, and Firestore queries for smoother app experiences.",
+      "SQLAlchemy models and Alembic migrations maintained across active services.",
   },
 ];

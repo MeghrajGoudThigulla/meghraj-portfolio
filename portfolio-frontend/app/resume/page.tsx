@@ -53,9 +53,9 @@ export default function ResumePage() {
               place="Threshing Floor Group, Hyderabad • www.tfgorg.com"
               timeline="July 2024–Present"
               bullets={[
-                "Architected and delivered 4 full-stack platforms spanning Flutter mobile apps (80+ screens), React/MUI web systems (47+ pages), and backend services totaling 318 REST API endpoints across FastAPI, Spring Boot, and Express.",
-                "Designed and maintained 3 FastAPI services exposing 305 endpoints with JWT authentication, role-based access control (RBAC), Redis rate limiting, background workers, and object storage integrations.",
-                "Modeled relational systems using PostgreSQL and MySQL with 61+ SQLAlchemy models and 20+ schema migrations; implemented transactional writes, audit logging, and soft-delete patterns.",
+                "Architected and delivered 4 full-stack platforms spanning Flutter mobile apps (80+ screens), React/MUI web systems (47+ pages), and backend services totaling 286 REST API endpoints across FastAPI, Spring Boot, and Express.",
+                "Designed and maintained 3 FastAPI services exposing 273 endpoints with JWT authentication, role-based access control (RBAC), Redis rate limiting, background workers, and object storage integrations.",
+                "Modeled relational systems using PostgreSQL and MySQL with 61+ SQLAlchemy models and 30+ schema migrations; implemented transactional writes, audit logging, and soft-delete patterns.",
                 "Built asynchronous webhook pipelines, Redis caching layers, Firebase Admin integrations, and secure token verification workflows across production and internal platforms.",
               ]}
             />
@@ -65,15 +65,15 @@ export default function ResumePage() {
             <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>318 total backend API endpoints across 4 systems</span>
+                <span>286 total backend API endpoints across 4 systems</span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>305 FastAPI endpoints across 3 services</span>
+                <span>273 FastAPI endpoints across 3 services</span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>61+ SQLAlchemy models with 20+ schema migrations</span>
+                <span>61+ SQLAlchemy models with 30+ schema migrations</span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
@@ -93,7 +93,7 @@ export default function ResumePage() {
               tech="Flutter, FastAPI, PostgreSQL, Redis, MinIO/S3"
               bullets={[
                 "Built a Flutter customer application (23 screens, 6-tab navigation) and a 41-page Flutter Web admin dashboard.",
-                "Developed a FastAPI backend with 134 REST endpoints across 23 routers covering auth, catalog, cart, orders, payments, reporting, and admin workflows.",
+                "Developed a FastAPI backend with 104 REST endpoints across 22 routers covering auth, catalog, cart, orders, payments, reporting, and admin workflows.",
                 "Designed a commerce-grade PostgreSQL schema with 42 SQLAlchemy models and 13 Alembic migrations supporting orders, shipments, refunds, RMAs, and inventory tracking.",
                 "Implemented Redis-based global rate limiting and RQ background workers for asynchronous payment webhook processing with idempotent event tracking.",
               ]}
@@ -116,6 +116,7 @@ export default function ResumePage() {
               tech="Flutter (Android/iOS), Flutter Web, FastAPI, PostgreSQL, Firebase Auth/Firestore/Storage, Redis, Google Maps"
               bullets={[
                 "Built a multi-app architecture comprising Flutter mobile apps, a Flutter Web admin dashboard, and a FastAPI backend backed by PostgreSQL.",
+                "Maintained 66 backend endpoints across 5 router groups (/admin, /user, /auth, /health, /integrity) for request lifecycle and operations workflows.",
                 "Implemented Firebase ID Token authentication for users and JWT-based auth with role enforcement for admin APIs.",
                 "Integrated Google Play Integrity with secure nonce generation, 5-minute TTL validation, and live request tracking refreshed every 15 seconds to block unauthorized access.",
                 "Designed core service workflows for requests, scheduling, profiles, and support, using Postgres as the source of truth with selective Firestore dual-writes for real-time UI sync.",

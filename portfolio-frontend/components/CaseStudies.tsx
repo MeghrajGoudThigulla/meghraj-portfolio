@@ -20,19 +20,19 @@ export type CaseStudy = {
 
 const caseStudies: CaseStudy[] = [
   {
-    title: "Commerce Platform Buildout",
-    subtitle: "DEALSMART | Customer App + Admin Platform",
+    title: "Commerce Platform Consolidation",
+    subtitle: "DEALSMART | Customer App + Operations Admin",
     status: "Internal / Pre-release",
     problem:
-      "Needed a single commerce platform that could support customer flows, admin operations, and payment lifecycle management.",
+      "Commerce flows, inventory operations, and payment handling were split across disconnected paths, slowing releases and increasing operational rework.",
     action: [
-      "Built a Flutter customer app (23 screens) and a 41-page Flutter Web admin dashboard for catalog, orders, and operations.",
-      "Designed a FastAPI backend with 134 endpoints across 23 routers for auth, cart, orders, payments, reports, and admin controls.",
-      "Modeled a production commerce schema with 42 SQLAlchemy models and 13 Alembic migrations, including shipments, refunds, and RMAs.",
+      "Delivered a dual-client setup with a 23-screen Flutter customer app and a 41-page Flutter Web admin console for catalog, order, and support workflows.",
+      "Implemented a FastAPI backend with 104 endpoints across 22 router modules covering auth, catalog, cart, orders, reporting, and admin operations.",
+      "Built a PostgreSQL commerce domain with 42 SQLAlchemy models and 13 Alembic migrations, then wired RQ-driven webhook handling for asynchronous payment events.",
     ],
     result:
-      "Established a modular commerce foundation with secure request handling and asynchronous payment processing readiness.",
-    metrics: ["134 endpoints", "23 router modules", "Async webhooks + workers"],
+      "Established a single commerce architecture with tighter operational controls and lower integration friction across customer and admin paths.",
+    metrics: ["104 endpoints", "22 router modules", "42 models / 13 migrations"],
     stack:
       "Flutter, FastAPI, PostgreSQL, Redis, RQ workers, MinIO/S3",
     apiDiagram: {
@@ -41,35 +41,36 @@ const caseStudies: CaseStudy[] = [
       gatewayLabel: "FastAPI /api/v1",
       routeGroups: [
         "auth (16)",
-        "catalog (17)",
-        "orders (20)",
         "admin_inventory (15)",
         "admin_payments (10)",
         "admin_staff (7)",
-        "cart (4)",
-        "support (4)",
         "addresses (5)",
-        "+14 additional admin/ops routers",
+        "cart, catalog, support, settings, favorites (4 each)",
+        "orders/users/admin_reports (3 each)",
+        "audit (2)",
+        "health/admin_uploads/razorpay (1 each)",
+        "+5 additional admin/ops routers",
       ],
       dataLayerLabel: "PostgreSQL + Redis rate limiter + RQ background workers",
-      controlLabel: "Includes webhook replay, reconciliation, and admin audit modules",
+      controlLabel:
+        "Razorpay webhook handling, reconciliation jobs, and admin audit endpoints",
     },
     sourcePath: "/Users/tfg-admin/dev/projects/DEALSMART/dealsmart-backend-next",
   },
   {
-    title: "Metadata Platform Modernization",
+    title: "Metadata + Applicant Platform Modernization",
     subtitle: "TFG SecureBank | Spring Boot to FastAPI Migration",
     status: "Internal / Pre-release",
     problem:
-      "Legacy backend constraints and fragmented applicant flows slowed delivery for metadata-driven workflows and operations visibility.",
+      "Legacy metadata services made applicant onboarding and workflow operations difficult to evolve safely.",
     action: [
-      "Contributed to migration from Spring Boot services into a modular FastAPI platform now spanning 103 endpoints across 20 routers.",
-      "Shipped applicant lifecycle capabilities behind feature flags: signup/login (email and Google), email verification, draft save/resume, and submission flows.",
-      "Added operations hardening with observability endpoints, Redis-backed status rate limiting, and upload cleanup tracking.",
+      "Expanded the FastAPI service surface to 103 endpoints across 20 routers while preserving metadata-driven form and workflow behavior.",
+      "Rolled out feature-flagged applicant capabilities: account auth (email/password + Google), verification, draft resume, document uploads, and submission flows.",
+      "Added observability endpoints, correlation IDs, and Redis-backed per-client rate limiting with worker-driven reliability jobs.",
     ],
     result:
-      "Improved rollout safety and operational control while scaling the service footprint for enterprise workflow and applicant processing.",
-    metrics: ["103 endpoints", "20 router modules", "Feature-flagged applicant rollout"],
+      "Enabled staged applicant delivery with stronger runtime visibility and safer operations for admin and workflow teams.",
+    metrics: ["103 endpoints", "20 router modules", "11 migrations + worker jobs"],
     stack: "React (MUI), FastAPI, MySQL, Redis, SQLAlchemy, Alembic",
     apiDiagram: {
       theme: "banking",
@@ -77,37 +78,37 @@ const caseStudies: CaseStudy[] = [
       gatewayLabel: "FastAPI /api/v1 Metadata Service",
       routeGroups: [
         "applicant (32)",
-        "formresponse + ruleEngine (8 each)",
-        "excel (7), menu + form (6 each)",
-        "header + dropdown + user (5 each)",
-        "observability (5)",
+        "formresponse, ruleEngine (8 each)",
+        "excel (7)",
+        "menu, form (6 each)",
+        "header, dropdown, user, observability (5 each)",
         "health (3)",
-        "auth/admin/approval/documents (2 each)",
-        "files/download/records/loanapplication/doc (1 each)",
+        "auth, admin, approval, documents (2 each)",
+        "files, download, records, loanapplication, doc (1 each)",
       ],
       dataLayerLabel: "MySQL + Redis + SQLAlchemy metadata models + async rule-engine jobs",
       controlLabel:
-        "Feature-flagged rollout path for applicant APIs with observability and admin safeguards",
+        "Feature flags, observability endpoints, and background workers for reliability controls",
     },
     sourcePath: "/Users/tfg-admin/dev/projects/tfg-securebank/tfg-securebank_api",
   },
   {
-    title: "Healthcare Operations Optimization",
-    subtitle: "Medical Advisor | Mobile, Web, Admin",
+    title: "Healthcare Request Operations Hardening",
+    subtitle: "Medical Advisor | Mobile + Admin + API",
     status: "Published",
     problem:
-      "Manual scheduling and unverified service requests created compliance risk and operational drag.",
+      "Healthcare service-request and scheduling operations needed stronger trust controls and reliable admin-to-mobile synchronization.",
     action: [
-      "Implemented Play Integrity guardrails and secure nonce generation to block unauthorized requests.",
-      "Unified Firebase ID token auth for users and admins; dual Firestore writes for instant UI sync.",
-      "Built admin search/pagination plus compliant account deletion with audit logs.",
+      "Maintained a FastAPI layer with 66 endpoints across 5 router groups for admin operations, user flows, auth, health checks, and integrity verification.",
+      "Enforced Firebase token authentication and Play Integrity nonce validation to harden mobile request submission paths.",
+      "Kept PostgreSQL as source of truth while dual-writing selected operational state to Firestore for real-time mobile/admin sync.",
     ],
     result:
-      "Prepared for a 1K+ user launch with secure onboarding and reduced admin overhead.",
+      "Improved request-processing reliability and security without sacrificing real-time product behavior.",
     metrics: [
-      "68 endpoints",
+      "66 endpoints",
       "5 router groups",
-      "Play Integrity + Firebase auth",
+      "14 models / 6 migrations",
     ],
     stack:
       "Flutter (Android/iOS/Web), Firebase Auth/Firestore/Storage, FastAPI, PostgreSQL, Play Integrity",
@@ -116,45 +117,48 @@ const caseStudies: CaseStudy[] = [
       clientLabel: "Flutter Mobile + Admin Web",
       gatewayLabel: "FastAPI Service Layer",
       routeGroups: [
-        "/admin/* (41)",
+        "/admin/* (39)",
         "/user/* (21)",
         "/auth/* (3)",
         "/health (2)",
         "/integrity/nonce (1)",
       ],
       dataLayerLabel: "PostgreSQL + Firebase Auth/Storage + cache-backed settings",
-      controlLabel: "Play Integrity nonce verification and role-protected admin operations",
+      controlLabel:
+        "Play Integrity nonce validation, Firebase token auth, and real-time dual-write flows",
     },
     sourcePath: "/Users/tfg-admin/dev/projects/MEDICAL_ADVISOR/medicaladvisor-api",
     detailsHref:
       "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor",
   },
   {
-    title: "Assessment Engine API",
-    subtitle: "TFG NexaTest | Module + Attempt + Admin Workflow Backend",
+    title: "Assessment Engine API Governance",
+    subtitle: "TFG NexaTest | Learner + Admin Backend",
     status: "Internal / Pre-release",
-    problem: "Needed a compact assessment backend with authenticated attempts, analytics, and admin module controls.",
+    problem:
+      "Assessment attempts and module governance required strict auth boundaries with a compact API surface.",
     action: [
-      "Built Express route groups for module discovery, attempt recording, history retrieval, and admin analytics.",
-      "Added auth middleware and role checks to split learner and admin capabilities across route domains.",
-      "Implemented schema validation on body/params to guard module mutations and attempt writes.",
+      "Built an Express backend exposing 13 endpoints across module discovery, history, profile, and admin governance routes.",
+      "Enforced Firebase token authentication and role-based admin guards for analytics, module toggles, and question-level oversight.",
+      "Added centralized params/body validation to protect attempt recording and module mutation workflows.",
     ],
     result:
-      "Delivered a secure and testable API surface for module lifecycle and assessment history operations.",
-    metrics: ["13 endpoints", "4 route groups", "Auth + admin guards"],
-    stack: "Node.js, Express, middleware validation, role-based guards",
+      "Delivered a secure, low-complexity backend for learner activity and admin oversight.",
+    metrics: ["13 endpoints", "4 route groups", "Firebase auth + RBAC"],
+    stack: "Node.js, Express, MySQL (mysql2), Firebase Admin, Zod validation",
     apiDiagram: {
       theme: "assessment",
       clientLabel: "Learner and Admin Clients",
       gatewayLabel: "Express API Router",
       routeGroups: [
+        "/admin (6)",
         "/modules (3)",
         "/history (2)",
-        "/admin (6)",
         "/me (2)",
       ],
-      dataLayerLabel: "Authenticated route layer with validator middleware",
-      controlLabel: "requireAdmin guards on analytics and module governance actions",
+      dataLayerLabel: "MySQL connection pool + Firebase token verification",
+      controlLabel:
+        "Global rate limiting, helmet/cors hardening, and request-validation middleware",
     },
     sourcePath: "/Users/tfg-admin/dev/projects/TFG NexaTest/backend",
   },
@@ -176,12 +180,12 @@ export default function CaseStudies() {
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          title="Engineering case studies with architecture context."
-          description="Each case highlights the operating problem, system design choices, and measurable outcomes."
+          title="Case studies mapped to live repository architecture."
+          description="Each case ties the delivery narrative to verifiable endpoint counts, module boundaries, and runtime controls."
           eyebrow="Case Studies"
         />
 
-        <div className="grid gap-6 lg:gap-8">
+        <div className="grid gap-6 sm:gap-7 lg:gap-9">
           {caseStudies.map((study, index) => {
             const detailsHref = study.detailsHref ?? "#contact";
             const isExternal = detailsHref.startsWith("http");
@@ -189,17 +193,27 @@ export default function CaseStudies() {
             return (
               <article
                 key={study.title}
-                className="card card-hover fade-up overflow-hidden border-brand-border bg-white/95 px-5 py-6 lg:px-6"
+                className="fade-up relative overflow-hidden rounded-3xl border border-brand-border bg-white/95 p-4 shadow-elev-1 transition hover:-translate-y-0.5 hover:shadow-elev-2 sm:p-5 lg:p-6"
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
-                <div className="flex flex-col gap-2 border-b border-brand-border pb-4">
-                  <h3 className="text-2xl font-semibold leading-tight text-brand-navy lg:text-3xl">
-                    {study.title}
-                  </h3>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                      {study.subtitle}
-                    </p>
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-blue via-sky-400 to-emerald-400"
+                />
+
+                <div className="flex flex-col gap-3 sm:gap-4 border-b border-brand-border pb-4 sm:pb-5">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+                        Case {(index + 1).toString().padStart(2, "0")}
+                      </p>
+                      <h3 className="mt-1 text-xl font-semibold leading-tight text-brand-navy sm:text-2xl lg:text-3xl">
+                        {study.title}
+                      </h3>
+                      <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 sm:text-xs">
+                        {study.subtitle}
+                      </p>
+                    </div>
                     <span
                       className={
                         study.status === "Published"
@@ -210,10 +224,21 @@ export default function CaseStudies() {
                       {study.status}
                     </span>
                   </div>
+
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    {study.metrics.map((metric) => (
+                      <span
+                        key={metric}
+                        className="rounded-full border border-brand-blue/25 bg-sky-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-brand-navy sm:px-3 sm:text-[11px] sm:tracking-[0.1em]"
+                      >
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="mt-5 grid gap-5 lg:grid-cols-[1.2fr,0.8fr] lg:gap-8">
-                  <div className="space-y-5">
+                <div className="mt-4 grid gap-4 sm:mt-5 sm:gap-5 xl:grid-cols-[1.1fr,0.9fr] xl:gap-7">
+                  <div className="space-y-4">
                     <CaseStudySummaryRow
                       problem={study.problem}
                       stack={study.stack}
@@ -224,52 +249,52 @@ export default function CaseStudies() {
                       caseTitle={study.title}
                       actionItems={study.action}
                     />
+                    <div className="rounded-2xl border border-brand-border bg-white px-3 py-3 shadow-sm sm:px-4 sm:py-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+                        Repository Source
+                      </p>
+                      <code className="mt-2 block break-all text-[11px] leading-relaxed text-slate-600">
+                        {study.sourcePath}
+                      </code>
+                    </div>
                   </div>
 
-                  <div className="space-y-4 rounded-xl border border-brand-border bg-brand-muted/45 px-4 py-5">
-                    <div>
+                  <div className="space-y-4">
+                    <div className="rounded-2xl border border-brand-border bg-brand-muted/35 px-3 py-4 sm:px-4 sm:py-5">
                       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                        Impact
-                      </p>
-                      <p className="mt-2 text-base font-semibold leading-relaxed text-brand-navy">
-                        {study.result}
-                      </p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {study.metrics.map((metric) => (
-                          <span key={metric} className="badge-accent border-brand-blue/30 bg-white">
-                            {metric}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                        API Diagram
+                        Architecture Surface
                       </p>
                       <ApiDiagramCard
                         idPrefix={`case-${index}`}
                         diagram={study.apiDiagram}
                       />
-                      <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
-                        Source: {study.sourcePath}
+                    </div>
+
+                    <div className="rounded-2xl border border-brand-border bg-white px-3 py-3 shadow-sm sm:px-4 sm:py-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+                        Outcome
+                      </p>
+                      <p className="mt-2 text-sm leading-relaxed text-brand-charcoal">
+                        {study.result}
                       </p>
                     </div>
-                    <div>
+
+                    <div className="rounded-2xl border border-brand-border bg-white px-3 py-3 shadow-sm sm:px-4 sm:py-4">
                       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                         Tech Stack
                       </p>
                       <p className="mt-2 text-sm leading-relaxed text-brand-charcoal">
                         {study.stack}
                       </p>
+                      <Link
+                        href={detailsHref}
+                        className="mt-3 inline-flex items-center rounded-md text-sm font-semibold text-brand-blue transition hover:text-brand-navy hover:underline underline-offset-4"
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "noreferrer" : undefined}
+                      >
+                        View details →
+                      </Link>
                     </div>
-                    <Link
-                      href={detailsHref}
-                      className="inline-flex items-center rounded-md text-sm font-semibold text-brand-blue transition hover:text-brand-navy hover:underline underline-offset-4"
-                      target={isExternal ? "_blank" : undefined}
-                      rel={isExternal ? "noreferrer" : undefined}
-                    >
-                      View details →
-                    </Link>
                   </div>
                 </div>
               </article>
