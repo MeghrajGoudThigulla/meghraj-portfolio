@@ -49,8 +49,8 @@ export const trackMetric = (event: MetricEvent) => {
 
     if (navigator.sendBeacon) {
       const blob = new Blob([body], { type: "application/json" });
-      navigator.sendBeacon(url, blob);
-      return;
+      const queued = navigator.sendBeacon(url, blob);
+      if (queued) return;
     }
 
     void fetch(url, {

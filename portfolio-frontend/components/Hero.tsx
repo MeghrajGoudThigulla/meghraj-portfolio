@@ -37,13 +37,13 @@ export default function Hero() {
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <Link
-                  href="#contact"
+                  href="/#contact"
                   className="btn btn-primary"
                 >
                   Contact Me
                 </Link>
                 <Link
-                  href="#cases"
+                  href="/#cases"
                   className="btn btn-secondary"
                 >
                   View Case Studies

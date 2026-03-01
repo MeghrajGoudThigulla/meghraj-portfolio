@@ -34,8 +34,8 @@ describe("Hero", () => {
   it("renders primary and secondary CTA hierarchy", () => {
     render(<Hero />);
 
-    expect(screen.getByRole("link", { name: "Contact Me" })).toHaveAttribute("href", "#contact");
-    expect(screen.getByRole("link", { name: "View Case Studies" })).toHaveAttribute("href", "#cases");
+    expect(screen.getByRole("link", { name: "Contact Me" })).toHaveAttribute("href", "/#contact");
+    expect(screen.getByRole("link", { name: "View Case Studies" })).toHaveAttribute("href", "/#cases");
     expect(screen.getByRole("link", { name: "View Resume" })).toHaveAttribute("href", "/resume");
   });
 

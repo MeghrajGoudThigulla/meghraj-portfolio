@@ -9,14 +9,14 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-30 border-b border-brand-border/80 bg-white/90 backdrop-blur-lg">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <Link href="#top" className="text-base font-semibold tracking-[0.06em] text-brand-navy">
+        <Link href="/#top" className="text-base font-semibold tracking-[0.06em] text-brand-navy">
           Meghraj Goud
         </Link>
         <nav className="hidden items-center gap-5 text-xs font-semibold uppercase tracking-[0.12em] text-slate-600 lg:flex">
           {desktopSectionItems.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={`/${item.href}`}
               className="rounded-md px-2 py-1 transition hover:bg-brand-muted hover:text-brand-blue"
             >
               {item.label}
@@ -39,7 +39,7 @@ export default function Navbar() {
           ))}
           <MobileNav />
           <Link
-            href="#contact"
+            href="/#contact"
             className="btn btn-primary btn-sm"
           >
             Let&apos;s Talk

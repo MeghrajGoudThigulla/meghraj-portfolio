@@ -124,10 +124,13 @@ export default function MobileNav() {
                 <div className="mt-2 flex flex-col gap-1 text-sm font-semibold uppercase tracking-[0.12em]">
                   {sectionLinks.map((item, index) => {
                     const isActive = item.href.startsWith("#") && item.href === internalSectionHref;
+                    const targetHref = item.href.startsWith("#")
+                      ? `/${item.href}`
+                      : item.href;
                     return (
                       <Link
                         key={item.href}
-                        href={item.href}
+                        href={targetHref}
                         ref={index === 0 ? firstLinkRef : undefined}
                         aria-current={isActive ? "location" : undefined}
                         className={`rounded-xl px-3 py-2 transition ${

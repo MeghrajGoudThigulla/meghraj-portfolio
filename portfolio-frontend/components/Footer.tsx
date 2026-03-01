@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const quickLinks = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#cases", label: "Case Studies" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#cases", label: "Case Studies" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 const profileLinks = [
@@ -72,7 +72,7 @@ export default function Footer() {
           <ul className="grid gap-2 text-sm font-semibold text-brand-blue">
             {profileLinks.map((link) => (
               <li key={link.href}>
-                <Link
+                <a
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noreferrer" : undefined}
@@ -80,7 +80,7 @@ export default function Footer() {
                   className="hover:text-brand-navy hover:underline underline-offset-4"
                 >
                   {link.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

@@ -10,10 +10,10 @@ describe("Footer", () => {
   it("renders section quick links", () => {
     render(<Footer />);
 
-    expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "#about");
-    expect(screen.getByRole("link", { name: "Skills" })).toHaveAttribute("href", "#skills");
-    expect(screen.getByRole("link", { name: "Case Studies" })).toHaveAttribute("href", "#cases");
-    expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "#contact");
+    expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "/#about");
+    expect(screen.getByRole("link", { name: "Skills" })).toHaveAttribute("href", "/#skills");
+    expect(screen.getByRole("link", { name: "Case Studies" })).toHaveAttribute("href", "/#cases");
+    expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/#contact");
   });
 
   it("renders profile links with descriptive labels", () => {

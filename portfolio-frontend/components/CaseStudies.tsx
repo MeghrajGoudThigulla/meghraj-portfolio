@@ -187,7 +187,7 @@ export default function CaseStudies() {
 
         <div className="grid gap-6 sm:gap-7 lg:gap-9">
           {caseStudies.map((study, index) => {
-            const detailsHref = study.detailsHref ?? "#contact";
+            const detailsHref = study.detailsHref ?? "/#contact";
             const isExternal = detailsHref.startsWith("http");
 
             return (
@@ -249,14 +249,6 @@ export default function CaseStudies() {
                       caseTitle={study.title}
                       actionItems={study.action}
                     />
-                    <div className="rounded-2xl border border-brand-border bg-white px-3 py-3 shadow-sm sm:px-4 sm:py-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                        Repository Source
-                      </p>
-                      <code className="mt-2 block break-all text-[11px] leading-relaxed text-slate-600">
-                        {study.sourcePath}
-                      </code>
-                    </div>
                   </div>
 
                   <div className="space-y-4">

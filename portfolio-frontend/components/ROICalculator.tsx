@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import SectionHeading from "./SectionHeading";
 import { trackMetric } from "@/lib/metrics";
@@ -216,8 +217,8 @@ export default function ROICalculator() {
                 <span>Pairs with the contact form to scope a pilot.</span>
               </li>
             </ul>
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               className="btn btn-primary mt-5 w-full sm:w-fit"
               onClick={() =>
                 trackMetric({
@@ -233,7 +234,7 @@ export default function ROICalculator() {
               }
             >
               Use this estimate in a discovery call
-            </a>
+            </Link>
           </div>
         </div>
       </div>
