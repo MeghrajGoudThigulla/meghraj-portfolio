@@ -43,7 +43,7 @@ export default function ContactForm() {
           ) : null}
 
           <div className="grid gap-6 lg:grid-cols-[1.1fr,0.9fr] lg:gap-8">
-            <div className="rounded-xl border border-brand-charcoal/10 bg-white px-4 py-5">
+            <div className="rounded-xl border border-brand-charcoal/10 bg-brand-surface px-4 py-5">
               <form
                 className="grid gap-5 lg:grid-cols-2"
                 noValidate

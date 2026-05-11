@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --bottom-ui-height: 0px;
   --section-y: 5rem;
   --section-y-lg: 7rem;
@@ -11,17 +11,18 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #0B0F19;
 }
 
 body {
   @apply bg-brand-bg text-brand-charcoal font-sans antialiased;
   background-image:
-    radial-gradient(circle at 10% -15%, rgba(11, 116, 181, 0.1), transparent 36%),
-    radial-gradient(circle at 85% 0%, rgba(180, 83, 9, 0.08), transparent 34%);
+    radial-gradient(circle at 10% -15%, rgba(56, 189, 248, 0.1), transparent 36%),
+    radial-gradient(circle at 85% 0%, rgba(139, 92, 246, 0.08), transparent 34%);
 }
 
 a {
-  @apply text-brand-blue hover:text-brand-navy transition-colors duration-200;
+  @apply text-brand-blue hover:text-white transition-colors duration-200;
 }
 
 a:focus-visible,
@@ -29,7 +30,7 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #0284c7;
+  outline: 2px solid #38BDF8;
   outline-offset: 2px;
 }
 
@@ -41,8 +42,8 @@ h4 {
 }
 
 ::selection {
-  background: #dbeafe;
-  color: #0f172a;
+  background: rgba(56, 189, 248, 0.3);
+  color: #FFFFFF;
 }
 
 @layer components {
@@ -51,11 +52,11 @@ h4 {
   }
 
   .section-band {
-    @apply border-y border-brand-border/80 bg-white;
+    @apply border-y border-brand-border bg-brand-surface shadow-glass;
   }
 
   .section-band-muted {
-    @apply border-y border-brand-border/70 bg-brand-muted/65;
+    @apply border-y border-brand-border bg-brand-bg;
   }
 
   .btn {
@@ -63,15 +64,15 @@ h4 {
   }
 
   .btn-primary {
-    @apply bg-gradient-to-r from-brand-blue to-sky-700 text-white shadow-elev-1 hover:-translate-y-0.5 hover:shadow-elev-2 hover:text-white;
+    @apply bg-gradient-to-r from-brand-blue to-sky-500 text-brand-bg shadow-elev-1 hover:-translate-y-0.5 hover:shadow-elev-2 hover:text-brand-bg;
   }
 
   .btn-secondary {
-    @apply border border-brand-border bg-white text-brand-navy shadow-sm hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue;
+    @apply border border-brand-border bg-brand-surface text-brand-navy shadow-glass hover:-translate-y-0.5 hover:border-brand-blue hover:text-brand-blue;
   }
 
   .btn-ghost {
-    @apply text-brand-blue hover:text-brand-navy hover:underline underline-offset-4;
+    @apply text-brand-blue hover:text-white hover:underline underline-offset-4;
   }
 
   .btn-sm {
@@ -79,15 +80,15 @@ h4 {
   }
 
   .card {
-    @apply rounded-2xl border border-brand-border/90 bg-brand-surface shadow-elev-1;
+    @apply rounded-2xl border border-brand-border bg-brand-surface shadow-glass;
   }
 
   .card-hover {
-    @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-elev-2;
+    @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-elev-2 hover:border-brand-blue/50;
   }
 
   .badge-accent {
-    @apply rounded-full border border-brand-blue/20 bg-sky-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-brand-blue;
+    @apply rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-brand-blue;
   }
 }
 

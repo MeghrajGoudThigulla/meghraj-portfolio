@@ -35,7 +35,7 @@ export default function ContactAside() {
         ].map((item) => (
           <div
             key={item.label}
-            className="rounded-xl border border-brand-charcoal/10 bg-white px-4 py-3"
+            className="rounded-xl border border-brand-charcoal/10 bg-brand-surface px-4 py-3"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
               {item.label}
@@ -46,7 +46,7 @@ export default function ContactAside() {
           </div>
         ))}
       </div>
-      <div className="rounded-xl border border-brand-charcoal/10 bg-white px-4 py-3">
+      <div className="rounded-xl border border-brand-charcoal/10 bg-brand-surface px-4 py-3">
         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
           Typical first call output
         </p>

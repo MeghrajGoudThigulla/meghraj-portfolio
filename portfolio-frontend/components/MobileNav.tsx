@@ -77,7 +77,7 @@ export default function MobileNav() {
       <button
         ref={openButtonRef}
         type="button"
-        className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-brand-border bg-white text-brand-navy shadow-sm transition hover:border-brand-blue hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
+        className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-xl border border-brand-border bg-brand-surface text-brand-navy shadow-sm transition hover:border-brand-blue hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
         aria-label="Open navigation menu"
         aria-expanded={isOpen}
         aria-controls="mobile-nav-panel"
@@ -101,7 +101,7 @@ export default function MobileNav() {
             aria-modal="true"
             aria-label="Mobile navigation"
             data-testid="mobile-nav-panel"
-            className="fixed right-0 top-0 z-50 h-full w-[82%] max-w-xs border-l border-brand-border bg-white p-5 shadow-elev-2"
+            className="fixed right-0 top-0 z-50 h-full w-[82%] max-w-xs border-l border-brand-border bg-brand-surface p-5 shadow-elev-2"
           >
             <div className="mb-5 flex items-center justify-between">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">

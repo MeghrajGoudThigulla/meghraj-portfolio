@@ -38,7 +38,7 @@ export default function ContactFields({
           onFocus={trackFormStart}
           aria-invalid={Boolean(fieldErrors.name)}
           aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
-          className="w-full rounded-md border border-brand-charcoal/20 bg-white px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
+          className="w-full rounded-md border border-brand-charcoal/20 bg-brand-surface px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
           placeholder="Your name"
           name="name"
         />
@@ -62,7 +62,7 @@ export default function ContactFields({
           onFocus={trackFormStart}
           aria-invalid={Boolean(fieldErrors.email)}
           aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
-          className="w-full rounded-md border border-brand-charcoal/20 bg-white px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
+          className="w-full rounded-md border border-brand-charcoal/20 bg-brand-surface px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
           placeholder="you@company.com"
           name="email"
         />
@@ -89,7 +89,7 @@ export default function ContactFields({
               ? "contact-message-error contact-message-guidance"
               : "contact-message-guidance"
           }
-          className="min-h-[140px] w-full rounded-md border border-brand-charcoal/20 bg-white px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
+          className="min-h-[140px] w-full rounded-md border border-brand-charcoal/20 bg-brand-surface px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
           placeholder="Describe the team, metrics, and urgency."
           name="message"
         />

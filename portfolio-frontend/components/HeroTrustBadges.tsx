@@ -51,7 +51,7 @@ export default function HeroTrustBadges({ badges }: HeroTrustBadgesProps) {
 
   return (
     <ul
-      className="fade-up stagger-3 flex flex-wrap gap-2 rounded-2xl border border-brand-border bg-white/75 p-3 shadow-elev-1"
+      className="fade-up stagger-3 flex flex-wrap gap-2 rounded-2xl border border-brand-border bg-brand-surface/75 p-3 shadow-elev-1"
       aria-label="Trust badges"
     >
       {badges.map((badge, index) => (
@@ -60,7 +60,7 @@ export default function HeroTrustBadges({ badges }: HeroTrustBadgesProps) {
         >
           <button
             type="button"
-            className="inline-flex items-center rounded-full border border-brand-blue/20 bg-white px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-brand-navy transition hover:border-brand-blue/45 hover:bg-sky-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
+            className="inline-flex items-center rounded-full border border-brand-blue/20 bg-brand-surface px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.1em] text-brand-navy transition hover:border-brand-blue/45 hover:bg-brand-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
             onClick={() => {
               trackMetric({
                 eventName: "hero_trust_badge_engaged",

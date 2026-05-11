@@ -32,7 +32,7 @@ const profileLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-brand-charcoal/10 bg-white py-10">
+    <footer className="border-t border-brand-charcoal/10 bg-brand-surface py-10">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.2fr,0.8fr,0.9fr] lg:px-8">
         <div className="space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">

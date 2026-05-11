@@ -20,148 +20,108 @@ export type CaseStudy = {
 
 const caseStudies: CaseStudy[] = [
   {
-    title: "Commerce Platform Consolidation",
-    subtitle: "DEALSMART | Customer App + Operations Admin",
+    title: "DealsMart",
+    subtitle: "Enterprise Commerce Platform",
     status: "Internal / Pre-release",
     problem:
-      "Commerce flows, inventory operations, and payment handling were split across disconnected paths, slowing releases and increasing operational rework.",
+      "Legacy NoSQL data stores introduced race conditions during multi-region inventory synchronization and limited the capability to execute complex relational queries across the checkout pipeline.",
     action: [
-      "Delivered a dual-client setup with a 23-screen Flutter customer app and a 41-page Flutter Web admin console for catalog, order, and support workflows.",
-      "Implemented a FastAPI backend with 104 endpoints across 22 router modules covering auth, catalog, cart, orders, reporting, and admin operations.",
-      "Built a PostgreSQL commerce domain with 42 SQLAlchemy models and 13 Alembic migrations, then wired RQ-driven webhook handling for asynchronous payment events.",
+      "Engineered a monolithic FastAPI layer interfacing with PostgreSQL to enforce strict ACID compliance across concurrent cart and inventory mutations.",
+      "Implemented an event-driven architecture using distributed RQ workers and Redis for idempotent payment reconciliation and background job execution.",
+      "Delivered a cross-platform presentation layer using Flutter to interface with the REST APIs, utilizing S3/MinIO for scalable object storage.",
     ],
     result:
-      "Established a single commerce architecture with tighter operational controls and lower integration friction across customer and admin paths.",
-    metrics: ["104 endpoints", "22 router modules", "42 models / 13 migrations"],
-    stack:
-      "Flutter, FastAPI, PostgreSQL, Redis, RQ workers, MinIO/S3",
+      "Successfully transitioned the platform to a relational architecture, enabling deterministic payment reconciliation and resolving inventory race conditions.",
+    metrics: ["FastAPI Migration", "Dual Flutter Apps", "RQ Background Workers"],
+    stack: "Flutter, FastAPI, PostgreSQL, Redis, RQ workers, S3/MinIO",
     apiDiagram: {
       theme: "commerce",
-      clientLabel: "Flutter Customer App + Flutter Web Admin",
-      gatewayLabel: "FastAPI /api/v1",
-      routeGroups: [
-        "auth (16)",
-        "admin_inventory (15)",
-        "admin_payments (10)",
-        "admin_staff (7)",
-        "addresses (5)",
-        "cart, catalog, support, settings, favorites (4 each)",
-        "orders/users/admin_reports (3 each)",
-        "audit (2)",
-        "health/admin_uploads/razorpay (1 each)",
-        "+5 additional admin/ops routers",
-      ],
-      dataLayerLabel: "PostgreSQL + Redis rate limiter + RQ background workers",
-      controlLabel:
-        "Razorpay webhook handling, reconciliation jobs, and admin audit endpoints",
+      clientLabel: "Customer App + Web Admin",
+      gatewayLabel: "FastAPI REST Gateway",
+      routeGroups: ["catalog", "cart & checkout", "returns", "support_chat"],
+      dataLayerLabel: "PostgreSQL + Redis + RQ",
+      controlLabel: "JWT Auth & Audit Logs",
     },
-    sourcePath: "/Users/tfg-admin/dev/projects/DEALSMART/dealsmart-backend-next",
+    sourcePath: "/Users/tfg-admin/dev/projects/DEALSMART",
   },
   {
-    title: "Metadata + Applicant Platform Modernization",
-    subtitle: "TFG SecureBank | Spring Boot to FastAPI Migration",
-    status: "Internal / Pre-release",
-    problem:
-      "Legacy metadata services made applicant onboarding and workflow operations difficult to evolve safely.",
-    action: [
-      "Expanded the FastAPI service surface to 103 endpoints across 20 routers while preserving metadata-driven form and workflow behavior.",
-      "Rolled out feature-flagged applicant capabilities: account auth (email/password + Google), verification, draft resume, document uploads, and submission flows.",
-      "Added observability endpoints, correlation IDs, and Redis-backed per-client rate limiting with worker-driven reliability jobs.",
-    ],
-    result:
-      "Enabled staged applicant delivery with stronger runtime visibility and safer operations for admin and workflow teams.",
-    metrics: ["103 endpoints", "20 router modules", "11 migrations + worker jobs"],
-    stack: "React (MUI), FastAPI, MySQL, Redis, SQLAlchemy, Alembic",
-    apiDiagram: {
-      theme: "banking",
-      clientLabel: "React (MUI) Admin Console + Applicant Portal",
-      gatewayLabel: "FastAPI /api/v1 Metadata Service",
-      routeGroups: [
-        "applicant (32)",
-        "formresponse, ruleEngine (8 each)",
-        "excel (7)",
-        "menu, form (6 each)",
-        "header, dropdown, user, observability (5 each)",
-        "health (3)",
-        "auth, admin, approval, documents (2 each)",
-        "files, download, records, loanapplication, doc (1 each)",
-      ],
-      dataLayerLabel: "MySQL + Redis + SQLAlchemy metadata models + async rule-engine jobs",
-      controlLabel:
-        "Feature flags, observability endpoints, and background workers for reliability controls",
-    },
-    sourcePath: "/Users/tfg-admin/dev/projects/tfg-securebank/tfg-securebank_api",
-  },
-  {
-    title: "Healthcare Request Operations Hardening",
-    subtitle: "Medical Advisor | Mobile + Admin + API",
+    title: "Medical Advisor",
+    subtitle: "Mission-Critical Healthcare API",
     status: "Published",
     problem:
-      "Healthcare service-request and scheduling operations needed stronger trust controls and reliable admin-to-mobile synchronization.",
+      "Field medical units required sub-second synchronization and strict cryptographic enforcement to prevent unauthorized API payload spoofing during critical dispatch workflows.",
     action: [
-      "Maintained a FastAPI layer with 66 endpoints across 5 router groups for admin operations, user flows, auth, health checks, and integrity verification.",
-      "Enforced Firebase token authentication and Play Integrity nonce validation to harden mobile request submission paths.",
-      "Kept PostgreSQL as source of truth while dual-writing selected operational state to Firestore for real-time mobile/admin sync.",
+      "Architected a FastAPI microservice integrating strict JWT authentication and Google Play Integrity nonces to cryptographically verify incoming requests.",
+      "Engineered an asynchronous dual-write pipeline synchronizing PostgreSQL transaction state directly to Firestore to enable real-time WebSocket updates.",
+      "Configured Redis for in-memory caching of high-frequency read paths, deployed via containerized Docker environments on Render.",
     ],
     result:
-      "Improved request-processing reliability and security without sacrificing real-time product behavior.",
-    metrics: [
-      "66 endpoints",
-      "5 router groups",
-      "14 models / 6 migrations",
-    ],
-    stack:
-      "Flutter (Android/iOS/Web), Firebase Auth/Firestore/Storage, FastAPI, PostgreSQL, Play Integrity",
+      "Deployed an enterprise-grade healthcare API that guarantees data integrity and sub-second dispatch state synchronization.",
+    metrics: ["FastAPI + Docker", "Firestore Sync", "Redis Caching"],
+    stack: "Python, FastAPI, PostgreSQL, Redis, Firebase/GCP, Docker",
     apiDiagram: {
       theme: "healthcare",
-      clientLabel: "Flutter Mobile + Admin Web",
-      gatewayLabel: "FastAPI Service Layer",
-      routeGroups: [
-        "/admin/* (39)",
-        "/user/* (21)",
-        "/auth/* (3)",
-        "/health (2)",
-        "/integrity/nonce (1)",
-      ],
-      dataLayerLabel: "PostgreSQL + Firebase Auth/Storage + cache-backed settings",
-      controlLabel:
-        "Play Integrity nonce validation, Firebase token auth, and real-time dual-write flows",
+      clientLabel: "Flutter Mobile Clients",
+      gatewayLabel: "FastAPI Security Gateway",
+      routeGroups: ["auth", "medical_data", "field_ops"],
+      dataLayerLabel: "Postgres + Firestore Sync",
+      controlLabel: "Strict JWT & RBAC",
     },
-    sourcePath: "/Users/tfg-admin/dev/projects/MEDICAL_ADVISOR/medicaladvisor-api",
-    detailsHref:
-      "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor",
+    sourcePath: "/Users/tfg-admin/dev/projects/MEDICAL_ADVISOR",
+    detailsHref: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor",
   },
   {
-    title: "Assessment Engine API Governance",
-    subtitle: "TFG NexaTest | Learner + Admin Backend",
-    status: "Internal / Pre-release",
+    title: "TFG Verify",
+    subtitle: "AI-Powered BGV (Background Verification) Platform",
+    status: "Published",
     problem:
-      "Assessment attempts and module governance required strict auth boundaries with a compact API surface.",
+      "Manual background verification processes lacked deterministic fraud detection capabilities and suffered from high computational latency during structured document parsing.",
     action: [
-      "Built an Express backend exposing 13 endpoints across module discovery, history, profile, and admin governance routes.",
-      "Enforced Firebase token authentication and role-based admin guards for analytics, module toggles, and question-level oversight.",
-      "Added centralized params/body validation to protect attempt recording and module mutation workflows.",
+      "Engineered an AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers to compute dense vector embeddings for CV semantic matching.",
+      "Architected a Next.js 16 SSR frontend, leveraging Turbopack for module resolution and Recharts for rendering normalized inference thresholds.",
+      "Configured a MongoDB (Motor) data layer to support high-throughput, unstructured document ingestion and ML feature store persistence.",
     ],
     result:
-      "Delivered a secure, low-complexity backend for learner activity and admin oversight.",
-    metrics: ["13 endpoints", "4 route groups", "Firebase auth + RBAC"],
-    stack: "Node.js, Express, MySQL (mysql2), Firebase Admin, Zod validation",
+      "Automated the candidate screening pipeline, shifting from manual processing to deterministic ML evaluation for high-precision fraud detection.",
+    metrics: ["Next.js 16 + Turbopack", "PyTesseract OCR", "GenAI + Sentence Transformers"],
+    stack: "Next.js 16, Python, FastAPI, MongoDB, PyTesseract, GenAI",
     apiDiagram: {
       theme: "assessment",
-      clientLabel: "Learner and Admin Clients",
-      gatewayLabel: "Express API Router",
-      routeGroups: [
-        "/admin (6)",
-        "/modules (3)",
-        "/history (2)",
-        "/me (2)",
-      ],
-      dataLayerLabel: "MySQL connection pool + Firebase token verification",
-      controlLabel:
-        "Global rate limiting, helmet/cors hardening, and request-validation middleware",
+      clientLabel: "Next.js BGV Dashboard",
+      gatewayLabel: "FastAPI Inference Gateway",
+      routeGroups: ["cv_parsing", "ocr_validation", "fraud_detection"],
+      dataLayerLabel: "MongoDB (Motor) + S3",
+      controlLabel: "AI Semantic Matching",
     },
-    sourcePath: "/Users/tfg-admin/dev/projects/TFG NexaTest/backend",
+    sourcePath: "/Users/tfg-admin/dev/projects/tfg-verify",
+    detailsHref: "https://tfgverify.com/",
   },
+  {
+    title: "TFG SecureBank",
+    subtitle: "Metadata-Driven Applicant Modernization",
+    status: "Published",
+    problem:
+      "Financial form onboarding required dynamic, metadata-driven schema resolution and an abstracted rules engine for complex workflow routing without hardcoding business logic.",
+    action: [
+      "Engineered a Spring Boot 3.x (Java 17) backend exposing 70 RESTful endpoints, secured via custom stateless JWT filters and strict RBAC.",
+      "Integrated Apache POI for dynamic execution of Excel-based rule templates and Apache PDFBox to generate immutable document artifacts.",
+      "Designed a normalized MySQL (JPA/Hibernate) schema utilizing EAV (Entity-Attribute-Value) patterns to serialize dynamic form metadata.",
+    ],
+    result:
+      "Delivered an abstracted banking administration portal that dynamically adapts to evolving applicant schemas and runtime compliance rules.",
+    metrics: ["Spring Boot 3.x", "70 REST Endpoints", "Dynamic Forms & PDF Gen"],
+    stack: "Java 17, Spring Boot, MySQL (JPA), Apache POI, PDFBox",
+    apiDiagram: {
+      theme: "banking",
+      clientLabel: "React Admin Console",
+      gatewayLabel: "Spring Boot API",
+      routeGroups: ["dynamic_forms", "workflow_rules", "pdf_generation", "auth"],
+      dataLayerLabel: "MySQL + JPA/Hibernate",
+      controlLabel: "Stateless JWT & RBAC",
+    },
+    sourcePath: "/Users/tfg-admin/dev/projects/tfg-securebank",
+    detailsHref: "https://tfgsecurebank.com/",
+  }
 ];
 
 export default function CaseStudies() {
@@ -176,7 +136,7 @@ export default function CaseStudies() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-32 bottom-8 h-72 w-72 rounded-full bg-white/80 blur-3xl"
+        className="pointer-events-none absolute -right-32 bottom-8 h-72 w-72 rounded-full bg-brand-surface/80 blur-3xl"
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -193,7 +153,7 @@ export default function CaseStudies() {
             return (
               <article
                 key={study.title}
-                className="fade-up relative overflow-hidden rounded-3xl border border-brand-border bg-white/95 p-4 shadow-elev-1 transition hover:-translate-y-0.5 hover:shadow-elev-2 sm:p-5 lg:p-6"
+                className="fade-up relative overflow-hidden rounded-3xl border border-brand-border bg-brand-surface/95 p-4 shadow-elev-1 transition hover:-translate-y-0.5 hover:shadow-elev-2 sm:p-5 lg:p-6"
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
                 <div
@@ -229,7 +189,7 @@ export default function CaseStudies() {
                     {study.metrics.map((metric) => (
                       <span
                         key={metric}
-                        className="rounded-full border border-brand-blue/25 bg-sky-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-brand-navy sm:px-3 sm:text-[11px] sm:tracking-[0.1em]"
+                        className="rounded-full border border-brand-blue/25 bg-brand-surface px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-brand-navy sm:px-3 sm:text-[11px] sm:tracking-[0.1em]"
                       >
                         {metric}
                       </span>
@@ -262,7 +222,7 @@ export default function CaseStudies() {
                       />
                     </div>
 
-                    <div className="rounded-2xl border border-brand-border bg-white px-3 py-3 shadow-sm sm:px-4 sm:py-4">
+                    <div className="rounded-2xl border border-brand-border bg-brand-surface px-3 py-3 shadow-sm sm:px-4 sm:py-4">
                       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                         Outcome
                       </p>
@@ -271,7 +231,7 @@ export default function CaseStudies() {
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-brand-border bg-white px-3 py-3 shadow-sm sm:px-4 sm:py-4">
+                    <div className="rounded-2xl border border-brand-border bg-brand-surface px-3 py-3 shadow-sm sm:px-4 sm:py-4">
                       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                         Tech Stack
                       </p>

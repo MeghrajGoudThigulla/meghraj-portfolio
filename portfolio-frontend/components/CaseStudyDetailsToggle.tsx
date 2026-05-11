@@ -55,13 +55,13 @@ export default function CaseStudyDetailsToggle({
   };
 
   return (
-    <div className="rounded-2xl border border-brand-border bg-white p-3 shadow-sm sm:p-5">
+    <div className="rounded-2xl border border-brand-border bg-brand-surface p-3 shadow-sm sm:p-5">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
         Execution Path
       </p>
       <button
         type="button"
-        className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-brand-blue/20 bg-sky-50 px-3 py-2 text-sm font-semibold text-brand-blue transition hover:border-brand-blue/35 hover:bg-sky-100/60 hover:text-brand-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
+        className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-brand-blue/20 bg-brand-surface px-3 py-2 text-sm font-semibold text-brand-blue transition hover:border-brand-blue/35 hover:bg-sky-100/60 hover:text-brand-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
         aria-expanded={expanded}
         aria-controls={panelId}
         onClick={handleToggle}

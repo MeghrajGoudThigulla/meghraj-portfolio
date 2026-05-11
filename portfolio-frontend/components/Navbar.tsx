@@ -7,7 +7,7 @@ export default function Navbar() {
   const desktopUtilityItems = navItems.filter((item) => item.group !== "section");
 
   return (
-    <header className="sticky top-0 z-30 border-b border-brand-border/80 bg-white/90 backdrop-blur-lg">
+    <header className="sticky top-0 z-30 border-b border-brand-border/80 bg-brand-surface/90 backdrop-blur-lg">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/#top" className="text-base font-semibold tracking-[0.06em] text-brand-navy">
           Meghraj Goud

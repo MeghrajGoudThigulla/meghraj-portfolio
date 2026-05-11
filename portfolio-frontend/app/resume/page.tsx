@@ -49,14 +49,14 @@ export default function ResumePage() {
         <main id="main-content" tabIndex={-1} className="resume-content grid gap-6">
           <Section title="EXPERIENCE">
             <Role
-              title="Full Stack Developer"
+              title="Senior AI Developer & Full Stack Engineer"
               place="Threshing Floor Group, Hyderabad • www.tfgorg.com"
               timeline="July 2024–Present"
               bullets={[
-                "Architected and delivered 4 full-stack platforms spanning Flutter mobile apps (80+ screens), React/MUI web systems (47+ pages), and backend services totaling 286 REST API endpoints across FastAPI, Spring Boot, and Express.",
-                "Designed and maintained 3 FastAPI services exposing 273 endpoints with JWT authentication, role-based access control (RBAC), Redis rate limiting, background workers, and object storage integrations.",
-                "Modeled relational systems using PostgreSQL and MySQL with 61+ SQLAlchemy models and 30+ schema migrations; implemented transactional writes, audit logging, and soft-delete patterns.",
-                "Built asynchronous webhook pipelines, Redis caching layers, Firebase Admin integrations, and secure token verification workflows across production and internal platforms.",
+                "Architecting scalable intelligence and building production systems that bridge complex deep-tech models with strategic business outcomes.",
+                "Engineered 6 high-performance platforms spanning Next.js, React, Flutter, and FastAPI, integrating modern ML pipelines and robust API layers.",
+                "Designed cloud-native environments with PostgreSQL/Supabase, integrating Redis rate limiting, Row-Level Security, and scalable background workers.",
+                "Translated ambiguous technical constraints into shippable milestones, acting as a technical consultant to align engineering output with executive goals.",
               ]}
             />
           </Section>
@@ -88,65 +88,56 @@ export default function ResumePage() {
 
           <Section title="PROJECTS">
             <Project
-              title="DEALSMART"
-              subtitle="Commerce platform (Internal / Pre-release) with customer mobile app and operations admin system."
-              tech="Flutter, FastAPI, PostgreSQL, Redis, MinIO/S3"
+              title="DealsMart"
+              subtitle="Enterprise Commerce Platform (Published)"
+              tech="Flutter, FastAPI, PostgreSQL, Redis, RQ workers, S3/MinIO"
               bullets={[
-                "Built a Flutter customer application (23 screens, 6-tab navigation) and a 41-page Flutter Web admin dashboard.",
-                "Developed a FastAPI backend with 104 REST endpoints across 22 routers covering auth, catalog, cart, orders, payments, reporting, and admin workflows.",
-                "Designed a commerce-grade PostgreSQL schema with 42 SQLAlchemy models and 13 Alembic migrations supporting orders, shipments, refunds, RMAs, and inventory tracking.",
-                "Implemented Redis-based global rate limiting and RQ background workers for asynchronous payment webhook processing with idempotent event tracking.",
-              ]}
-            />
-            <Project
-              title="TFG SecureBank"
-              subtitle="Enterprise form-builder and workflow platform (Backend modernization from Spring Boot to FastAPI)."
-              tech="React (MUI), FastAPI, MySQL, Redis, SQLAlchemy, Alembic"
-              bullets={[
-                "Contributing to migration from legacy Spring Boot backend to a modular FastAPI platform (103 endpoints across 20 routers).",
-                "Delivered a 47-page React/MUI admin UX supporting dynamic form configuration, dashboards, and workflow management.",
-                "Shipped feature-flagged applicant lifecycle flows including signup/login, email verification, draft save/resume, and submission APIs.",
-                "Implemented observability endpoints, Redis-backed status rate limiting, and upload cleanup tracking with correlation-ID logging.",
+                "Engineered a monolithic FastAPI layer interfacing with PostgreSQL to enforce strict ACID compliance across cart mutations.",
+                "Implemented an event-driven architecture using distributed RQ workers and Redis for idempotent payment reconciliation.",
+                "Delivered a cross-platform presentation layer using Flutter, utilizing S3/MinIO for scalable object storage.",
               ]}
             />
             <Project
               title="Medical Advisor"
-              subtitle="Published production healthcare platform enabling ambulance requests, scheduling, subscriptions, and real-time support via mobile and web admin systems."
+              subtitle="Mission-Critical Healthcare API (Published)"
+              tech="Python, FastAPI, PostgreSQL, Redis, Firebase/GCP, Docker"
+              bullets={[
+                "Architected a FastAPI microservice integrating strict JWT authentication and Google Play Integrity nonces.",
+                "Engineered an asynchronous dual-write pipeline synchronizing PostgreSQL transaction state to Firestore for real-time WebSockets.",
+                "Configured Redis for in-memory caching of high-frequency read paths, deployed via Docker containers on Render.",
+              ]}
               link={{ href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor", label: "Play Store" }}
-              tech="Flutter (Android/iOS), Flutter Web, FastAPI, PostgreSQL, Firebase Auth/Firestore/Storage, Redis, Google Maps"
-              bullets={[
-                "Built a multi-app architecture comprising Flutter mobile apps, a Flutter Web admin dashboard, and a FastAPI backend backed by PostgreSQL.",
-                "Maintained 66 backend endpoints across 5 router groups (/admin, /user, /auth, /health, /integrity) for request lifecycle and operations workflows.",
-                "Implemented Firebase ID Token authentication for users and JWT-based auth with role enforcement for admin APIs.",
-                "Integrated Google Play Integrity with secure nonce generation, 5-minute TTL validation, and live request tracking refreshed every 15 seconds to block unauthorized access.",
-                "Designed core service workflows for requests, scheduling, profiles, and support, using Postgres as the source of truth with selective Firestore dual-writes for real-time UI sync.",
-                "Added Redis caching for advertisements and global settings with 5-minute TTLs, significantly reducing database read load.",
-                "Integrated Firebase Storage for secure image and document uploads, exposing controlled access via admin APIs.",
-                "Built admin-facing APIs for status management, search, pagination, support chats, and operational configuration with production-ready CORS and environment isolation.",
-              ]}
             />
             <Project
-              title="Personal Portfolio Platform"
-              subtitle="Published full-stack portfolio platform with backend controls for secure lead capture and operational reliability."
-              tech="Next.js (App Router), Node.js, Express, Prisma, PostgreSQL, TypeScript"
+              title="TFG Verify"
+              subtitle="AI-Powered Background Verification (BGV) Platform (Published)"
+              tech="Next.js 16, Python, FastAPI, MongoDB, PyTesseract, GenAI"
               bullets={[
-                "Built a Next.js App Router frontend with modular components and static export for lightweight, fast deployments.",
-                "Developed a Node/Express API backed by Prisma and PostgreSQL to handle contact submissions and backend workflows.",
-                "Implemented per-IP rate limiting (20 requests per 15 minutes) to protect contact endpoints from abuse.",
-                "Added TLS/CA-based secure Postgres connectivity and resilient email notifications using Resend.",
-                "Configured environment-based CORS policies and deployment-ready infrastructure for reliable production hosting.",
+                "Engineered an AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers to compute dense vector embeddings.",
+                "Architected a Next.js 16 SSR frontend, leveraging Turbopack for module resolution and Recharts for rendering normalized thresholds.",
+                "Configured a MongoDB (Motor) data layer to support high-throughput, unstructured document ingestion and ML feature persistence.",
               ]}
+              link={{ href: "https://tfgverify.com/", label: "tfgverify.com" }}
             />
             <Project
-              title="GroConnect"
-              subtitle="Published professional networking platform for profiles, peers, and curated opportunities."
-              link={{ href: "https://groconnect.in", label: "groconnect.in" }}
-              tech="Python, Flask, MongoDB, HTML/CSS, JavaScript, Bootstrap"
+              title="TFG SecureBank"
+              subtitle="Metadata-Driven Applicant Modernization (Published)"
+              tech="Java 17, Spring Boot, MySQL (JPA), Apache POI, PDFBox"
               bullets={[
-                "Implemented onboarding, profile creation, and peer-connection workflows using Flask and MongoDB.",
-                "Built responsive UI modules, improving engagement across mobile and desktop.",
-                "Designed scalable data models and optimized MongoDB queries for fast search and retrieval.",
-                "Reduced page load time by refactoring layouts and removing redundant network calls.",
+                "Engineered a Spring Boot 3.x (Java 17) backend exposing 70 RESTful endpoints, secured via custom stateless JWT filters and strict RBAC.",
+                "Integrated Apache POI for dynamic execution of Excel-based rule templates and Apache PDFBox to generate immutable document artifacts.",
+                "Designed a normalized MySQL (JPA/Hibernate) schema utilizing EAV (Entity-Attribute-Value) patterns to serialize dynamic form metadata.",
+              ]}
+              link={{ href: "https://tfgsecurebank.com/", label: "tfgsecurebank.com" }}
+            />
+            <Project
+              title="TFG Website"
+              subtitle="Corporate Marketing Presence (Published)"
+              tech="Next.js, React, Flask, MySQL, Bootstrap/Tailwind"
+              bullets={[
+                "Led the modernization from a legacy static framework to a Next.js architecture (tfg_website_next) for enhanced SEO and performance.",
+                "Integrated frontend forms with the existing Flask API backend (tfg_website_server) while preserving legacy static HTML routes as fallbacks.",
+                "Achieved zero downtime during the corporate platform transition, maintaining the global firm's professional stature.",
               ]}
             />
           </Section>

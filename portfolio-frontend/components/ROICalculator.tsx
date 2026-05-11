@@ -110,7 +110,7 @@ export default function ROICalculator() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 bottom-10 hidden h-72 w-72 rounded-full bg-white/70 blur-3xl sm:block"
+        className="pointer-events-none absolute -right-40 bottom-10 hidden h-72 w-72 rounded-full bg-brand-surface/70 blur-3xl sm:block"
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -130,7 +130,7 @@ export default function ROICalculator() {
                     key={preset.id}
                     type="button"
                     onClick={() => applyPreset(preset)}
-                    className="rounded-full border border-brand-charcoal/15 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-brand-navy transition hover:border-brand-blue hover:text-brand-blue"
+                    className="rounded-full border border-brand-charcoal/15 bg-brand-surface px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-brand-navy transition hover:border-brand-blue hover:text-brand-blue"
                   >
                     {preset.label}
                   </button>
@@ -177,7 +177,7 @@ export default function ROICalculator() {
               {formatter.format(annualSavings)}
             </p>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-lg border border-brand-charcoal/10 bg-white px-3 py-2">
+              <div className="rounded-lg border border-brand-charcoal/10 bg-brand-surface px-3 py-2">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">
                   Monthly
                 </p>
@@ -185,7 +185,7 @@ export default function ROICalculator() {
                   {formatter.format(monthlySavings)}
                 </p>
               </div>
-              <div className="rounded-lg border border-brand-charcoal/10 bg-white px-3 py-2">
+              <div className="rounded-lg border border-brand-charcoal/10 bg-brand-surface px-3 py-2">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">
                   Hours / Year
                 </p>
@@ -193,7 +193,7 @@ export default function ROICalculator() {
                   {yearlyHoursRecovered}
                 </p>
               </div>
-              <div className="rounded-lg border border-brand-charcoal/10 bg-white px-3 py-2">
+              <div className="rounded-lg border border-brand-charcoal/10 bg-brand-surface px-3 py-2">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">
                   FTE Equivalent
                 </p>

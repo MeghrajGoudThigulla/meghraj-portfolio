@@ -11,52 +11,52 @@ export type HeroMetricCard = {
   detail: string;
 };
 
-export const HERO_EYEBROW = "Backend-first engineering delivery";
+export const HERO_EYEBROW = "Senior AI Developer & Aspiring Tech Consultant";
 
 export const HERO_HEADLINE =
-  "I build production systems that cut delivery friction and improve reliability.";
+  "I build scalable intelligence. Translating deep tech into strategic business outcomes.";
 
 export const HERO_PROOF_LINE =
-  "286 backend APIs shipped, including 273 FastAPI endpoints, with 61+ SQLAlchemy models and 30+ migrations.";
+  "Delivered 6 enterprise-grade systems integrating scalable APIs, AI/ML pipelines, and modern architectures.";
 
 export const HERO_TRUST_BADGES: HeroTrustBadge[] = [
   {
-    id: "apis_delivered",
-    title: "286 APIs",
-    detail: "Across 4 systems",
+    id: "projects_shipped",
+    title: "6 Projects",
+    detail: "Enterprise-Grade",
     proofRef: "cases",
   },
   {
-    id: "fastapi_footprint",
-    title: "273 FastAPI",
-    detail: "Across 3 services",
+    id: "ai_driven",
+    title: "AI Integrations",
+    detail: "Next-Gen Intelligence",
     proofRef: "cases",
   },
   {
-    id: "data_layer_scale",
-    title: "61+ Models / 30+ Migrations",
-    detail: "SQLAlchemy + Alembic",
+    id: "tech_stack",
+    title: "Full-Stack + ML",
+    detail: "Python, Next.js, Flutter",
     proofRef: "skills",
   },
 ];
 
 export const HERO_METRIC_CARDS: HeroMetricCard[] = [
   {
-    label: "Total APIs",
-    value: "286",
+    label: "Scalable Platforms",
+    value: "6+",
     detail:
-      "Combined REST endpoints across DEALSMART, SecureBank, Medical Advisor, and NexaTest.",
+      "Engineered high-performance systems from e-commerce to healthcare and internal ops.",
   },
   {
-    label: "FastAPI Footprint",
-    value: "273",
+    label: "AI & Data Solutions",
+    value: "Intelligent",
     detail:
-      "FastAPI endpoints across DEALSMART, SecureBank, and Medical Advisor.",
+      "Integrating cutting-edge AI models and machine learning pipelines into production.",
   },
   {
-    label: "Data Layer",
-    value: "61+ / 30+",
+    label: "Tech Consulting",
+    value: "Strategic",
     detail:
-      "SQLAlchemy models and Alembic migrations maintained across active services.",
+      "Bridging the gap between complex technical architectures and high-level business goals.",
   },
 ];

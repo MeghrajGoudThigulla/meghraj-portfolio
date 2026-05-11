@@ -10,14 +10,15 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          navy: "#0b1426",
-          charcoal: "#334155",
-          blue: "#0b74b5",
-          gold: "#b45309",
-          bg: "#f6f8fc",
-          surface: "#ffffff",
-          border: "#dbe4f1",
-          muted: "#eef3fb",
+          navy: "#FFFFFF",
+          charcoal: "#94A3B8",
+          blue: "#38BDF8",
+          gold: "#F59E0B",
+          bg: "#0B0F19",
+          surface: "#111827",
+          border: "#1E293B",
+          muted: "#1E293B",
+          accent: "#8B5CF6"
         },
       },
       fontFamily: {
@@ -25,8 +26,9 @@ const config: Config = {
         sans: ["var(--font-inter)", "sans-serif"],
       },
       boxShadow: {
-        "elev-1": "0 10px 28px -18px rgba(11, 20, 38, 0.45)",
-        "elev-2": "0 24px 48px -28px rgba(11, 20, 38, 0.55)",
+        "elev-1": "0 10px 30px -15px rgba(0, 0, 0, 0.8)",
+        "elev-2": "0 25px 50px -12px rgba(0, 0, 0, 0.9)",
+        "glass": "inset 0 0 0 1px rgba(255, 255, 255, 0.1)",
       },
       borderRadius: {
         xl: "0.9rem",

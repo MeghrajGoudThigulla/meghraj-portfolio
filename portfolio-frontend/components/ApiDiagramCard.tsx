@@ -104,7 +104,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
   const gradId = `${idPrefix}-grad`;
 
   return (
-    <div className="mt-2 overflow-x-auto rounded-xl border border-brand-border bg-white shadow-sm">
+    <div className="mt-2 overflow-x-auto rounded-xl border border-brand-border bg-brand-surface shadow-sm">
       <svg
         viewBox={`0 0 ${SVG_WIDTH} ${svgHeight}`}
         className="h-auto min-w-[720px] w-full sm:min-w-0"

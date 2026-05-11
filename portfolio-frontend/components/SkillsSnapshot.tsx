@@ -35,7 +35,7 @@ export default function SkillsSnapshot() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-28 bottom-4 h-60 w-60 rounded-full bg-white/70 blur-3xl"
+        className="pointer-events-none absolute -right-28 bottom-4 h-60 w-60 rounded-full bg-brand-surface/70 blur-3xl"
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -47,7 +47,7 @@ export default function SkillsSnapshot() {
           {skillGroups.map((group) => (
             <article
               key={group.label}
-              className="card fade-up space-y-3 border-brand-border bg-white/95 px-4 py-5"
+              className="card fade-up space-y-3 border-brand-border bg-brand-surface/95 px-4 py-5"
             >
               <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                 {group.label}

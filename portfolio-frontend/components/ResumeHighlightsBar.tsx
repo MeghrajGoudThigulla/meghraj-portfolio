@@ -14,7 +14,7 @@ export default function ResumeHighlightsBar() {
   return (
     <section
       aria-label="Resume highlights"
-      className="resume-highlights rounded-2xl border border-brand-charcoal/10 bg-white px-4 py-4 shadow-sm"
+      className="resume-highlights rounded-2xl border border-brand-charcoal/10 bg-brand-surface px-4 py-4 shadow-sm"
     >
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {resumeHighlights.map((highlight) => (
