@@ -11,52 +11,55 @@ export type HeroMetricCard = {
   detail: string;
 };
 
-export const HERO_EYEBROW = "Senior AI Developer & Aspiring Tech Consultant";
+export const HERO_EYEBROW = "AI Product Builder & Aspiring Technical Consultant";
 
 export const HERO_HEADLINE =
-  "I build scalable intelligence. Translating deep tech into strategic business outcomes.";
+  "I translate complex systems into practical, high-value digital solutions.";
 
 export const HERO_PROOF_LINE =
-  "Delivered 6 enterprise-grade systems integrating scalable APIs, AI/ML pipelines, and modern architectures.";
+  "I engineer scalable frontend, backend, and database architectures across AI automation, healthcare tech, compliance verification, and fintech systems.";
 
 export const HERO_TRUST_BADGES: HeroTrustBadge[] = [
   {
     id: "projects_shipped",
-    title: "6 Projects",
-    detail: "Enterprise-Grade",
-    proofRef: "cases",
+    title: "6 Shipped Platforms",
+    detail: "From ideation to production",
+    proofRef: "projects",
   },
   {
     id: "ai_driven",
-    title: "AI Integrations",
-    detail: "Next-Gen Intelligence",
-    proofRef: "cases",
+    title: "AI Automation",
+    detail: "Intelligent pipeline workflows",
+    proofRef: "projects",
   },
   {
     id: "tech_stack",
-    title: "Full-Stack + ML",
-    detail: "Python, Next.js, Flutter",
+    title: "Relational Execution",
+    detail: "Type-safe database structures",
     proofRef: "skills",
   },
 ];
 
 export const HERO_METRIC_CARDS: HeroMetricCard[] = [
   {
-    label: "Scalable Platforms",
-    value: "6+",
-    detail:
-      "Engineered high-performance systems from e-commerce to healthcare and internal ops.",
+    label: "Backend Architecture",
+    value: "286",
+    detail: "Production-ready API endpoints successfully shipped and integrated.",
   },
   {
-    label: "AI & Data Solutions",
-    value: "Intelligent",
-    detail:
-      "Integrating cutting-edge AI models and machine learning pipelines into production.",
+    label: "Data Schema Control",
+    // Note: 61+ models, 30+ schema migrations
+    value: "61+",
+    detail: "Database models designed, query-optimized, and migrated in PostgreSQL & Mongo.",
   },
   {
-    label: "Tech Consulting",
-    value: "Strategic",
-    detail:
-      "Bridging the gap between complex technical architectures and high-level business goals.",
+    label: "UI/UX High-Fidelity pages",
+    value: "96+",
+    detail: "Interactive, clean admin dashboards and user interfaces developed.",
+  },
+  {
+    label: "Mobile screens flow",
+    value: "80+",
+    detail: "Seamless mobile screen layouts built using Flutter and Dart.",
   },
 ];

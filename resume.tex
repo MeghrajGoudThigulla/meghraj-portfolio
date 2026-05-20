@@ -1,0 +1,144 @@
+\documentclass{resume}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage[left=0.38in,top=0.38in,right=0.38in,bottom=0.38in]{geometry}
+
+\name{Thigulla Meghraj Goud}
+
+\address{
+\href{https://api.whatsapp.com/send/?phone=917997221772}{+91 79972 21772} \quad
+\href{mailto:meghraj.thigulla@outlook.com}{meghraj.thigulla@outlook.com} \quad
+\href{https://www.linkedin.com/in/meghraj-goud-thigulla}{LinkedIn} \quad
+\href{https://meghraj-portfolio.web.app/}{Portfolio} \quad
+\href{https://github.com/MeghrajGoudThigulla}{GitHub} \quad
+\href{https://linktr.ee/meghraj_goud_thigulla}{Certificates}
+}
+
+\begin{document}
+\sloppy
+
+%----------------------------------------------------------------------------------------
+% EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{EXPERIENCE}
+
+\textbf{Senior AI Developer \& Full Stack Engineer} \hfill July 2024--Present \\
+Threshing Floor Group, Hyderabad \hfill \href{https://www.tfgorg.com}{www.tfgorg.com}
+\begin{list}{$\cdot$}{\leftmargin=1.5em}
+\itemsep -0.5em \vspace{-0.5em}
+\item Architecting scalable intelligence and building production systems that bridge complex deep-tech models with strategic business outcomes.
+\item Engineered 6 high-performance platforms spanning Next.js, React, Flutter, and FastAPI, integrating modern ML pipelines and robust API layers.
+\item Designed cloud-native environments with PostgreSQL/Supabase, integrating Redis rate limiting, Row-Level Security, and scalable background workers.
+\item Translated ambiguous technical constraints into shippable milestones, acting as a technical consultant to align engineering output with executive goals.
+\end{list}
+
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+% SYSTEM SCALE SNAPSHOT
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{SYSTEM SCALE SNAPSHOT}
+\begin{list}{$\cdot$}{\leftmargin=1.5em}
+\itemsep -0.5em \vspace{-0.5em}
+\item \textbf{286 total backend API endpoints} designed and optimized across 4 live production systems.
+\item \textbf{61+ SQLAlchemy models} engineered with 30+ seamless database schema migrations.
+\item \textbf{80+ mobile screens and 96+ admin/web interfaces} built using modern design standards.
+\item Production-grade integration of \textbf{Redis rate limiting, asynchronous webhook queues, and structured logging}.
+\end{list}
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+% PROJECTS
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{PROJECTS}
+
+\textbf{TFG Verify | AI-Powered Background Verification Platform} \hfill \href{https://tfgverify.com/}{tfgverify.com} \\
+\textit{Next.js 16, Python, FastAPI, MongoDB, PyTesseract, GenAI}
+\begin{list}{$\cdot$}{\leftmargin=1.5em}
+\itemsep -0.5em \vspace{-0.5em}
+\item Engineered an AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers to compute dense vector embeddings.
+\item Architected a Next.js 16 SSR frontend, leveraging Turbopack for module resolution and Recharts for rendering normalized thresholds.
+\item Configured a MongoDB (Motor) data layer to support high-throughput, unstructured document ingestion and ML feature persistence.
+\end{list}
+
+\textbf{Medical Advisor | Mission-Critical Healthcare API} \hfill \href{https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor}{Play Store} \\
+\textit{Python, FastAPI, PostgreSQL, Redis, Firebase/GCP, Docker}
+\begin{list}{$\cdot$}{\leftmargin=1.5em}
+\itemsep -0.5em \vspace{-0.5em}
+\item Architected a FastAPI microservice integrating strict JWT authentication and Google Play Integrity nonces.
+\item Engineered an asynchronous dual-write pipeline synchronizing PostgreSQL transaction state to Firestore for real-time WebSockets.
+\item Configured Redis for in-memory caching of high-frequency read paths, deployed via Docker containers on Render.
+\end{list}
+
+\textbf{TFG SecureBank | Metadata-Driven Applicant Modernization} \hfill \href{https://tfgsecurebank.com/}{tfgsecurebank.com} \\
+\textit{Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, Redis, WeasyPrint}
+\begin{list}{$\cdot$}{\leftmargin=1.5em}
+\itemsep -0.5em \vspace{-0.5em}
+\item Architected a multi-tenant FastAPI backend exposing 70 RESTful endpoints, dynamically routed between PostgreSQL/Supabase and legacy MySQL backends.
+\item Engineered a dynamic rules engine using openpyxl and xlcalculator to parse and execute complex credit validation matrices directly from Excel templates.
+\item Integrated WeasyPrint and Jinja2 templates to compile and output dynamic, tamper-proof, legally binding loan agreement PDF documents.
+\end{list}
+
+\textbf{TFG Corporate Website | Corporate Marketing Presence} \hfill \href{https://tfgroup.ai/en}{tfgroup.ai} \\
+\textit{Next.js, React, Flask, MySQL, Bootstrap/Tailwind}
+\begin{list}{$\cdot$}{\leftmargin=1.5em}
+\itemsep -0.5em \vspace{-0.5em}
+\item Led the modernization from a legacy static framework to a Next.js architecture (tfg\_website\_next) for enhanced SEO and performance.
+\item Integrated frontend forms with the existing Flask API backend (tfg\_website\_server) while preserving legacy static HTML routes as fallbacks.
+\item Achieved zero downtime during the corporate platform transition, maintaining the global firm's professional stature.
+\end{list}
+
+\textbf{DealsMart | Enterprise Commerce Platform} \hfill \textit{Internal / Pre-release} \\
+\textit{Flutter, FastAPI, PostgreSQL, Redis, RQ workers, S3/MinIO}
+\begin{list}{$\cdot$}{\leftmargin=1.5em}
+\itemsep -0.5em \vspace{-0.5em}
+\item Engineered a monolithic FastAPI layer interfacing with PostgreSQL to enforce strict ACID compliance across cart mutations.
+\item Implemented an event-driven architecture using distributed RQ workers and Redis for idempotent payment reconciliation.
+\item Delivered a cross-platform presentation layer using Flutter, utilizing S3/MinIO for scalable object storage.
+\end{list}
+
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+% SKILLS
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{SKILLS}
+\begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}} l }
+Languages & Python, Dart, JavaScript, TypeScript, C++ \\
+Backend Frameworks & FastAPI, Flask, Express \\
+Frontend \& Mobile & Flutter (Android/iOS), React (MUI), Next.js \\
+Databases & PostgreSQL, MySQL, MongoDB, Redis, Firestore \\
+Architecture & REST API Design, RBAC, JWT, Rate Limiting, Caching, Background Workers \\
+DevOps \& Tooling & Docker, Alembic, SQLAlchemy, Prisma, Git \\
+\end{tabular}
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+% EDUCATION
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{EDUCATION}
+
+\textbf{Bachelor of Technology in Information Technology} \hfill 2020--2024 \\
+Vignana Bharathi Institute of Technology (VBIT), Ghatkesar
+\end{rSection}
+
+%----------------------------------------------------------------------------------------
+% LEADERSHIP HIGHLIGHTS
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{LEADERSHIP HIGHLIGHTS}
+\begin{list}{$\cdot$}{\leftmargin=1.5em}
+\itemsep -0.5em \vspace{-0.5em}
+\item \textbf{Organizing Committee, VIBHA 2K24:} Coordinated logistics and cross-team execution for a 2,500+ attendee campus festival.
+\item \textbf{Co-Founder, Sama Sangathan:} Led women’s safety and empowerment initiatives through workshops and awareness programs impacting 500+ students.
+\end{list}
+\end{rSection}
+
+\end{document}

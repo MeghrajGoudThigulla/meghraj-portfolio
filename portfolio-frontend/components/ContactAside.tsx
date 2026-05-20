@@ -30,7 +30,7 @@ export default function ContactAside() {
       </ul>
       <div className="grid gap-3 sm:grid-cols-2">
         {[
-          { label: "Response time", value: "Within 1 business day" },
+          { label: "Response time", value: "Within 2-3 business days" },
           { label: "Focus areas", value: "MVPs, performance, data flows" },
         ].map((item) => (
           <div

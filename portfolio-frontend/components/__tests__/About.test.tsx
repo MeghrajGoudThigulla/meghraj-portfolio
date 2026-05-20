@@ -7,10 +7,10 @@ describe("About", () => {
     render(<About />);
 
     expect(
-      screen.getByRole("heading", { name: "Full-stack engineer focused on scalable systems." }),
+      screen.getByRole("heading", { name: "Product-Minded Systems Engineer & Consulting Catalyst" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Value Statement")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "How I operate" })).toBeInTheDocument();
-    expect(screen.getByText("Ops & ROI Focus")).toBeInTheDocument();
+    expect(screen.getByText("Core Positioning")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Operating Philosophy" })).toBeInTheDocument();
+    expect(screen.getByText("AI Integration & ML")).toBeInTheDocument();
   });
 });

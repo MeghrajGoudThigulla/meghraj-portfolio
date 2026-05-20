@@ -147,7 +147,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
           fontSize="13"
           fontWeight="700"
           fill="#0f172a"
-          fontFamily="Inter, sans-serif"
+          fontFamily="var(--font-dm-sans), sans-serif"
         >
           {ellipsize(diagram.clientLabel, 40)}
         </text>
@@ -178,7 +178,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
           fontSize="13"
           fontWeight="700"
           fill={theme.gatewayText}
-          fontFamily="Inter, sans-serif"
+          fontFamily="var(--font-dm-sans), sans-serif"
         >
           {ellipsize(diagram.gatewayLabel, 42)}
         </text>
@@ -208,7 +208,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
           fontSize="11"
           fontWeight="700"
           fill="#475569"
-          fontFamily="Inter, sans-serif"
+          fontFamily="var(--font-dm-sans), sans-serif"
           letterSpacing="0.8px"
         >
           ROUTE GROUPS
@@ -236,7 +236,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
                   fontSize="11"
                   fontWeight="600"
                   fill="#1e293b"
-                  fontFamily="Inter, sans-serif"
+                  fontFamily="var(--font-dm-sans), sans-serif"
                 >
                   {ellipsize(item)}
                 </text>
@@ -271,7 +271,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
           fontSize="12"
           fontWeight="700"
           fill={theme.dataHeading}
-          fontFamily="Inter, sans-serif"
+          fontFamily="var(--font-dm-sans), sans-serif"
           letterSpacing="0.8px"
         >
           DATA AND CONTROL LAYER
@@ -283,7 +283,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
           fontSize="12"
           fontWeight="600"
           fill="#0f172a"
-          fontFamily="Inter, sans-serif"
+          fontFamily="var(--font-dm-sans), sans-serif"
         >
           {ellipsize(diagram.dataLayerLabel, 72)}
         </text>
@@ -295,7 +295,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
             fontSize="11"
             fontWeight="500"
             fill="#334155"
-            fontFamily="Inter, sans-serif"
+            fontFamily="var(--font-dm-sans), sans-serif"
           >
             {ellipsize(diagram.controlLabel, 78)}
           </text>

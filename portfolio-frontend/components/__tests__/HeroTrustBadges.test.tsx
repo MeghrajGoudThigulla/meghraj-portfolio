@@ -58,7 +58,7 @@ describe("HeroTrustBadges telemetry", () => {
     });
     trackMetricMock.mockClear();
 
-    await user.click(screen.getByRole("button", { name: /286 APIs/i }));
+    await user.click(screen.getByRole("button", { name: /6 Shipped Platforms/i }));
 
     const engagementEvents = trackMetricMock.mock.calls
       .map(([payload]) => payload as { eventName?: string; meta?: Record<string, unknown> })
@@ -68,8 +68,8 @@ describe("HeroTrustBadges telemetry", () => {
       expect.arrayContaining([
         expect.objectContaining({
           meta: expect.objectContaining({
-            badgeId: "apis_delivered-click",
-            proofRef: "cases",
+            badgeId: "projects_shipped-click",
+            proofRef: "projects",
             trigger: "click",
           }),
         }),

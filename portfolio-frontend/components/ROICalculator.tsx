@@ -19,21 +19,21 @@ const ROI_BASELINE = {
 const ROI_PRESETS = [
   {
     id: "startup",
-    label: "Startup",
+    label: "Startup Scale",
     hoursSaved: 4,
     hourlyRate: 60,
     note: "Lean team with manual operations",
   },
   {
     id: "ops_team",
-    label: "Ops Team",
+    label: "Ops & Scaling Team",
     hoursSaved: 10,
     hourlyRate: 95,
     note: "Cross-functional workflows and approvals",
   },
   {
     id: "consulting_team",
-    label: "Consulting Team",
+    label: "Consulting Operations",
     hoursSaved: 14,
     hourlyRate: 125,
     note: "Billable-hour efficiency focus",
@@ -101,125 +101,139 @@ export default function ROICalculator() {
 
   return (
     <section
-      className="relative overflow-hidden border-y border-brand-charcoal/10 bg-gradient-to-b from-white to-sky-50 py-20 sm:py-24 lg:py-28"
+      className="relative overflow-hidden bg-brand-bg border-b border-brand-border/40 py-20 sm:py-24 lg:py-28"
       id="roi"
     >
+      {/* Glow overlays */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 top-16 hidden h-64 w-64 rounded-full bg-sky-100/60 blur-3xl sm:block"
+        className="pointer-events-none absolute -left-32 top-16 hidden h-72 w-72 rounded-full bg-brand-blue/5 blur-[120px] sm:block"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 bottom-10 hidden h-72 w-72 rounded-full bg-brand-surface/70 blur-3xl sm:block"
+        className="pointer-events-none absolute -right-40 bottom-10 hidden h-80 w-80 rounded-full bg-brand-accent/5 blur-[130px] sm:block"
       />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         <SectionHeading
-          title="Project ROI calculator"
-          description="Model the annual savings from automation, refactoring, or process improvements. Adjust inputs to match your environment."
+          title="Project ROI Calculator"
+          description="Quantify the annual savings from automation, relayout migrations, relational refactoring, or process improvements."
+          eyebrow="Calculators"
         />
 
-        <div className="card fade-up grid gap-6 p-5 lg:grid-cols-[1.2fr,0.8fr] lg:gap-8">
-          <div className="space-y-6">
+        <div className="card fade-up grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.2fr,0.8fr] lg:gap-8 border-brand-border/60 bg-brand-surface/40 backdrop-blur-md shadow-glass mt-12">
+          {/* Controls column */}
+          <div className="space-y-8">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                Quick presets
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400 mb-3">
+                Quick Benchmarks
               </p>
-              <div className="mt-2 flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2.5">
                 {ROI_PRESETS.map((preset) => (
                   <button
                     key={preset.id}
                     type="button"
                     onClick={() => applyPreset(preset)}
-                    className="rounded-full border border-brand-charcoal/15 bg-brand-surface px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-brand-navy transition hover:border-brand-blue hover:text-brand-blue"
+                    className="rounded-full border border-brand-border bg-brand-surface/75 px-4 py-2 text-xs font-bold uppercase tracking-[0.08em] text-brand-charcoal hover:border-brand-blue hover:text-brand-blue transition duration-300 shadow-sm"
                   >
                     {preset.label}
                   </button>
                 ))}
               </div>
-              <p className="mt-3 text-xs text-slate-500">
-                Presets help you benchmark quickly before fine-tuning inputs.
+              <p className="mt-3 text-xs text-brand-charcoal">
+                Benchmarks estimate typical administrative, coordination, and rework bottlenecks.
               </p>
             </div>
 
-            <SliderInput
-              id="roi-hours-saved"
-              label="Hours saved per week"
-              value={hoursSaved}
-              min={0}
-              max={40}
-              step={1}
-              onChange={(val) => setHoursSaved(val)}
-            />
-            <SliderInput
-              id="roi-hourly-rate"
-              label="Blended hourly rate (USD)"
-              value={hourlyRate}
-              min={20}
-              max={250}
-              step={5}
-              onChange={(val) => setHourlyRate(val)}
-            />
-            <p className="text-sm text-slate-500">
-              Tip: For consulting teams, include people-hours saved from
-              automated reporting, fewer context switches, and reduced rework.
-            </p>
-            <p className="rounded-lg border border-brand-charcoal/10 bg-brand-bg px-3 py-2 text-xs text-brand-charcoal">
-              Assumption: 52 work weeks/year, blended rates, and direct hours
-              recovered from recurring workflows.
-            </p>
+            <div className="space-y-6">
+              <SliderInput
+                id="roi-hours-saved"
+                label="Hours saved per week"
+                value={hoursSaved}
+                min={0}
+                max={40}
+                step={1}
+                onChange={(val) => setHoursSaved(val)}
+              />
+              <SliderInput
+                id="roi-hourly-rate"
+                label="Blended hourly rate (USD)"
+                value={hourlyRate}
+                min={20}
+                max={250}
+                step={5}
+                onChange={(val) => setHourlyRate(val)}
+              />
+            </div>
+            
+            <div className="rounded-xl border border-brand-border/60 bg-brand-surface/30 p-4 space-y-2">
+              <p className="text-xs text-brand-charcoal">
+                Tip: Include hours lost to manual PDF reporting, data entry synchronization, document fraud checks, and offline status coordination.
+              </p>
+              <p className="text-[10px] uppercase font-bold tracking-[0.1em] text-slate-500">
+                Formula: Hours Saved × Hourly Rate × 52 Weeks/Year.
+              </p>
+            </div>
           </div>
 
-          <div className="flex flex-col justify-center rounded-xl border border-brand-charcoal/10 bg-brand-bg px-5 py-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
-              Estimated annual savings
-            </p>
-            <p className="mt-3 text-4xl font-bold text-brand-blue lg:text-5xl">
-              {formatter.format(annualSavings)}
-            </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-lg border border-brand-charcoal/10 bg-brand-surface px-3 py-2">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">
-                  Monthly
-                </p>
-                <p className="mt-1 text-base font-semibold text-brand-navy">
-                  {formatter.format(monthlySavings)}
-                </p>
+          {/* Results column */}
+          <div className="flex flex-col justify-between rounded-2xl border border-brand-border/60 bg-brand-surface/60 p-6 shadow-sm">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
+                Estimated Annual Savings
+              </p>
+              <p className="mt-3 text-4xl font-extrabold text-brand-blue lg:text-5xl font-serif text-glow leading-none">
+                {formatter.format(annualSavings)}
+              </p>
+              
+              <div className="mt-6 grid gap-3 grid-cols-3">
+                <div className="rounded-xl border border-brand-border bg-brand-surface/50 px-3 py-3 text-center">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                    Monthly
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-brand-navy">
+                    {formatter.format(monthlySavings)}
+                  </p>
+                </div>
+                
+                <div className="rounded-xl border border-brand-border bg-brand-surface/50 px-3 py-3 text-center">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                    Hours / Year
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-brand-navy">
+                    {yearlyHoursRecovered}
+                  </p>
+                </div>
+                
+                <div className="rounded-xl border border-brand-border bg-brand-surface/50 px-3 py-3 text-center">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                    FTEs Recovered
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-brand-navy">
+                    {fteEquivalent}
+                  </p>
+                </div>
               </div>
-              <div className="rounded-lg border border-brand-charcoal/10 bg-brand-surface px-3 py-2">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">
-                  Hours / Year
-                </p>
-                <p className="mt-1 text-base font-semibold text-brand-navy">
-                  {yearlyHoursRecovered}
-                </p>
-              </div>
-              <div className="rounded-lg border border-brand-charcoal/10 bg-brand-surface px-3 py-2">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-slate-500">
-                  FTE Equivalent
-                </p>
-                <p className="mt-1 text-base font-semibold text-brand-navy">
-                  {fteEquivalent}
-                </p>
-              </div>
+              
+              <p className="mt-6 text-sm leading-relaxed text-brand-charcoal">
+                An automation pilot saving {hoursSaved} hr/week at a blended rate of {formatter.format(hourlyRate)}/hr recovers significant billable capacity, proving payback inside a single quarter.
+              </p>
+              
+              <ul className="mt-5 space-y-2.5 text-xs text-brand-charcoal">
+                <li className="flex gap-2.5 items-start">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-blue" />
+                  <span>Aligns technical project scoping directly with financial accountability.</span>
+                </li>
+                <li className="flex gap-2.5 items-start">
+                  <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-blue" />
+                  <span>Provides clear business leverage for CTO and CEO stakeholders.</span>
+                </li>
+              </ul>
             </div>
-            <p className="mt-3 max-w-prose text-base leading-relaxed text-brand-charcoal">
-              Based on {hoursSaved} hours saved each week at a blended rate of{" "}
-              {formatter.format(hourlyRate)} / hr. Use this to anchor stakeholder
-              discussions in tangible outcomes.
-            </p>
-            <ul className="mt-4 space-y-2 text-sm text-brand-charcoal">
-              <li className="flex gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>Helps prioritize initiatives and quantify payback.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>Pairs with the contact form to scope a pilot.</span>
-              </li>
-            </ul>
+
             <Link
               href="/#contact"
-              className="btn btn-primary mt-5 w-full sm:w-fit"
+              className="btn btn-primary mt-6 w-full text-xs font-bold tracking-[0.12em] py-3.5"
               onClick={() =>
                 trackMetric({
                   eventName: "roi_estimate_cta_click",
@@ -233,7 +247,7 @@ export default function ROICalculator() {
                 })
               }
             >
-              Use this estimate in a discovery call
+              Consult On System Scope
             </Link>
           </div>
         </div>
@@ -262,27 +276,34 @@ function SliderInput({
   onChange,
 }: SliderInputProps) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       <div className="flex items-center justify-between">
         <label
           htmlFor={id}
-          className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-500"
+          className="text-xs font-bold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-300"
         >
           {label}
         </label>
-        <span className="text-sm font-semibold text-brand-navy">{value}</span>
+        <span className="text-sm font-bold text-brand-navy font-serif">{value}</span>
       </div>
-      <input
-        id={id}
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-brand-blue"
-      />
-      <div className="flex justify-between text-xs text-slate-500">
+      
+      <div className="relative flex items-center">
+        <input
+          id={id}
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className="w-full h-1.5 bg-brand-border rounded-lg appearance-none cursor-pointer accent-brand-blue"
+          style={{
+            background: `linear-gradient(to right, #38BDF8 0%, #38BDF8 ${((value - min) / (max - min)) * 100}%, var(--brand-border) ${((value - min) / (max - min)) * 100}%, var(--brand-border) 100%)`
+          }}
+        />
+      </div>
+      
+      <div className="flex justify-between text-[10px] font-semibold text-slate-500">
         <span>{min}</span>
         <span>{max}</span>
       </div>

@@ -67,7 +67,7 @@ describe("ROICalculator", () => {
     const user = userEvent.setup();
 
     render(<ROICalculator />);
-    await user.click(screen.getByRole("button", { name: "Ops Team" }));
+    await user.click(screen.getByRole("button", { name: "Ops & Scaling Team" }));
 
     expect(trackMetricMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -87,7 +87,7 @@ describe("ROICalculator", () => {
     const user = userEvent.setup();
 
     render(<ROICalculator />);
-    await user.click(screen.getByRole("link", { name: "Use this estimate in a discovery call" }));
+    await user.click(screen.getByRole("link", { name: "Consult On System Scope" }));
 
     expect(trackMetricMock).toHaveBeenCalledWith(
       expect.objectContaining({

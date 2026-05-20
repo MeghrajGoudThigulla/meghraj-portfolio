@@ -12,7 +12,7 @@ describe("Footer", () => {
 
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "/#about");
     expect(screen.getByRole("link", { name: "Skills" })).toHaveAttribute("href", "/#skills");
-    expect(screen.getByRole("link", { name: "Case Studies" })).toHaveAttribute("href", "/#cases");
+    expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute("href", "/#projects");
     expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/#contact");
   });
 

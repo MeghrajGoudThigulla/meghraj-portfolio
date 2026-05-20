@@ -1,16 +1,20 @@
-type CaseStudySummaryRowProps = {
+type ProjectSummaryRowProps = {
   problem: string;
   stack: string;
   scale: string;
   impact: string;
 };
 
-export default function CaseStudySummaryRow({
+/**
+ * ProjectSummaryRow displays a highly structured 4-column snapshot of a project's
+ * engineering challenges, technical architecture, deployment scale, and delivery outcome.
+ */
+export default function ProjectSummaryRow({
   problem,
   stack,
   scale,
   impact,
-}: CaseStudySummaryRowProps) {
+}: ProjectSummaryRowProps) {
   const summaryItems = [
     { label: "Problem", value: problem },
     { label: "Architecture", value: stack },
@@ -21,7 +25,7 @@ export default function CaseStudySummaryRow({
   return (
     <div className="rounded-2xl border border-brand-border bg-gradient-to-br from-brand-surface to-brand-bg p-3 shadow-glass sm:p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-        Case Snapshot
+        Project Snapshot
       </p>
       <div className="mt-3 grid gap-2.5 sm:mt-4 sm:gap-3 sm:grid-cols-2">
         {summaryItems.map((item, index) => (
@@ -37,7 +41,7 @@ export default function CaseStudySummaryRow({
                 {item.label}
               </p>
             </div>
-            <p className="mt-2 text-sm leading-relaxed text-slate-300 sm:mt-3">{item.value}</p>
+            <p className="mt-2 text-sm leading-relaxed text-brand-charcoal sm:mt-3">{item.value}</p>
           </div>
         ))}
       </div>

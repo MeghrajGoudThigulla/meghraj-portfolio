@@ -80,9 +80,11 @@ function createSectionAnchors() {
     "afterbegin",
     `
       <section id="about"></section>
+      <section id="strengths"></section>
       <section id="skills"></section>
-      <section id="cases"></section>
+      <section id="projects"></section>
       <section id="roi"></section>
+      <section id="journey"></section>
       <section id="contact"></section>
     `,
   );
@@ -152,12 +154,15 @@ describe("MobileNav", () => {
     await user.click(screen.getByRole("button", { name: "Open navigation menu" }));
 
     expect(screen.getByRole("link", { name: "About" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Skills" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Case Studies" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Strengths" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Capabilities" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Projects" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "ROI" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Journey" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Contact" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "GitHub" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Resume" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Consult With Me" })).toBeInTheDocument();
   });
 
   it("highlights active section based on intersection updates", async () => {
@@ -176,7 +181,7 @@ describe("MobileNav", () => {
     observers[0].trigger([makeIntersectionEntry(skillsSection)]);
 
     await waitFor(() => {
-      expect(screen.getByRole("link", { name: "Skills" })).toHaveAttribute(
+      expect(screen.getByRole("link", { name: "Capabilities" })).toHaveAttribute(
         "aria-current",
         "location",
       );
@@ -190,7 +195,7 @@ describe("MobileNav", () => {
     await user.click(screen.getByRole("button", { name: "Open navigation menu" }));
 
     const firstFocusable = screen.getByRole("button", { name: "Close navigation menu" });
-    const lastFocusable = screen.getByRole("link", { name: "Resume" });
+    const lastFocusable = screen.getByRole("link", { name: "Consult With Me" });
 
     firstFocusable.focus();
     await user.tab({ shift: true });

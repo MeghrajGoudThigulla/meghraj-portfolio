@@ -34,9 +34,9 @@ describe("Hero", () => {
   it("renders primary and secondary CTA hierarchy", () => {
     render(<Hero />);
 
-    expect(screen.getByRole("link", { name: "Contact Me" })).toHaveAttribute("href", "/#contact");
-    expect(screen.getByRole("link", { name: "View Case Studies" })).toHaveAttribute("href", "/#cases");
-    expect(screen.getByRole("link", { name: "View Resume" })).toHaveAttribute("href", "/resume");
+    expect(screen.getByRole("link", { name: "Consult With Me" })).toHaveAttribute("href", "/#contact");
+    expect(screen.getByRole("link", { name: "View Projects" })).toHaveAttribute("href", "/#projects");
+    expect(screen.getByRole("link", { name: "Review Technical Résumé →" })).toHaveAttribute("href", "/resume");
   });
 
   it("renders trust badges for scale, stack, and domain proof", () => {

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import CaseStudies from "../CaseStudies";
+import Projects from "../Projects";
 
 vi.mock("next/link", () => ({
   default: ({
@@ -18,13 +18,13 @@ vi.mock("next/link", () => ({
   ),
 }));
 
-describe("CaseStudies", () => {
+describe("Projects", () => {
   it("renders summary rows and keeps external details links", () => {
-    render(<CaseStudies />);
+    render(<Projects />);
 
-    expect(screen.getAllByText("Case Snapshot").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Project Snapshot").length).toBeGreaterThan(0);
     expect(screen.getAllByRole("button", { name: "Show architecture details" }).length).toBeGreaterThan(0);
-    const detailLinks = screen.getAllByRole("link", { name: "View details →" });
+    const detailLinks = screen.getAllByRole("link", { name: "View Project Scope →" });
     expect(detailLinks.length).toBeGreaterThan(0);
 
     const externalPlayStoreLink = detailLinks.find(

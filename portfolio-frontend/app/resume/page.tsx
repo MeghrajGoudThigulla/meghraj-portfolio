@@ -69,10 +69,6 @@ export default function ResumePage() {
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>273 FastAPI endpoints across 3 services</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
                 <span>61+ SQLAlchemy models with 30+ schema migrations</span>
               </li>
               <li className="flex gap-3">
@@ -88,14 +84,15 @@ export default function ResumePage() {
 
           <Section title="PROJECTS">
             <Project
-              title="DealsMart"
-              subtitle="Enterprise Commerce Platform (Published)"
-              tech="Flutter, FastAPI, PostgreSQL, Redis, RQ workers, S3/MinIO"
+              title="TFG Verify"
+              subtitle="AI-Powered Background Verification (BGV) Platform (Published)"
+              tech="Next.js 16, Python, FastAPI, MongoDB, PyTesseract, GenAI"
               bullets={[
-                "Engineered a monolithic FastAPI layer interfacing with PostgreSQL to enforce strict ACID compliance across cart mutations.",
-                "Implemented an event-driven architecture using distributed RQ workers and Redis for idempotent payment reconciliation.",
-                "Delivered a cross-platform presentation layer using Flutter, utilizing S3/MinIO for scalable object storage.",
+                "Engineered an AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers to compute dense vector embeddings.",
+                "Architected a Next.js 16 SSR frontend, leveraging Turbopack for module resolution and Recharts for rendering normalized thresholds.",
+                "Configured a MongoDB (Motor) data layer to support high-throughput, unstructured document ingestion and ML feature persistence.",
               ]}
+              link={{ href: "https://tfgverify.com/", label: "tfgverify.com" }}
             />
             <Project
               title="Medical Advisor"
@@ -109,35 +106,35 @@ export default function ResumePage() {
               link={{ href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor", label: "Play Store" }}
             />
             <Project
-              title="TFG Verify"
-              subtitle="AI-Powered Background Verification (BGV) Platform (Published)"
-              tech="Next.js 16, Python, FastAPI, MongoDB, PyTesseract, GenAI"
-              bullets={[
-                "Engineered an AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers to compute dense vector embeddings.",
-                "Architected a Next.js 16 SSR frontend, leveraging Turbopack for module resolution and Recharts for rendering normalized thresholds.",
-                "Configured a MongoDB (Motor) data layer to support high-throughput, unstructured document ingestion and ML feature persistence.",
-              ]}
-              link={{ href: "https://tfgverify.com/", label: "tfgverify.com" }}
-            />
-            <Project
               title="TFG SecureBank"
               subtitle="Metadata-Driven Applicant Modernization (Published)"
-              tech="Java 17, Spring Boot, MySQL (JPA), Apache POI, PDFBox"
+              tech="Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, Redis, WeasyPrint"
               bullets={[
-                "Engineered a Spring Boot 3.x (Java 17) backend exposing 70 RESTful endpoints, secured via custom stateless JWT filters and strict RBAC.",
-                "Integrated Apache POI for dynamic execution of Excel-based rule templates and Apache PDFBox to generate immutable document artifacts.",
-                "Designed a normalized MySQL (JPA/Hibernate) schema utilizing EAV (Entity-Attribute-Value) patterns to serialize dynamic form metadata.",
+                "Architected a multi-tenant FastAPI backend exposing 70 RESTful endpoints, dynamically routed between PostgreSQL/Supabase and legacy MySQL backends.",
+                "Engineered a dynamic rules engine using openpyxl and xlcalculator to parse and execute complex credit validation matrices directly from Excel templates.",
+                "Integrated WeasyPrint and Jinja2 templates to compile and output dynamic, tamper-proof, legally binding loan agreement PDF documents.",
               ]}
               link={{ href: "https://tfgsecurebank.com/", label: "tfgsecurebank.com" }}
             />
             <Project
-              title="TFG Website"
+              title="TFG Corporate Website"
               subtitle="Corporate Marketing Presence (Published)"
               tech="Next.js, React, Flask, MySQL, Bootstrap/Tailwind"
               bullets={[
                 "Led the modernization from a legacy static framework to a Next.js architecture (tfg_website_next) for enhanced SEO and performance.",
                 "Integrated frontend forms with the existing Flask API backend (tfg_website_server) while preserving legacy static HTML routes as fallbacks.",
                 "Achieved zero downtime during the corporate platform transition, maintaining the global firm's professional stature.",
+              ]}
+              link={{ href: "https://tfgroup.ai/en", label: "tfgroup.ai" }}
+            />
+            <Project
+              title="DealsMart"
+              subtitle="Enterprise Commerce Platform (Internal / Pre-release)"
+              tech="Flutter, FastAPI, PostgreSQL, Redis, RQ workers, S3/MinIO"
+              bullets={[
+                "Engineered a monolithic FastAPI layer interfacing with PostgreSQL to enforce strict ACID compliance across cart mutations.",
+                "Implemented an event-driven architecture using distributed RQ workers and Redis for idempotent payment reconciliation.",
+                "Delivered a cross-platform presentation layer using Flutter, utilizing S3/MinIO for scalable object storage.",
               ]}
             />
           </Section>
@@ -146,7 +143,7 @@ export default function ResumePage() {
             <SkillGroup
               items={[
                 { label: "Languages", value: "Python, Dart, JavaScript, TypeScript, C++" },
-                { label: "Backend Frameworks", value: "FastAPI, Flask, Express, Spring Boot" },
+                { label: "Backend Frameworks", value: "FastAPI, Flask, Express" },
                 { label: "Frontend & Mobile", value: "Flutter (Android/iOS), React (MUI), Next.js" },
                 { label: "Databases", value: "PostgreSQL, MySQL, MongoDB, Redis, Firestore" },
                 { label: "Architecture", value: "REST API Design, RBAC, JWT, Rate Limiting, Caching, Background Workers, Transaction Management" },

@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import CaseStudyDetailsToggle from "../CaseStudyDetailsToggle";
+import { MotionConfig } from "framer-motion";
+import ProjectDetailsToggle from "../ProjectDetailsToggle";
 
 const trackMetricMock = vi.fn();
 
@@ -9,7 +10,15 @@ vi.mock("@/lib/metrics", () => ({
   trackMetric: (payload: unknown) => trackMetricMock(payload),
 }));
 
-describe("CaseStudyDetailsToggle", () => {
+vi.mock("framer-motion", async () => {
+  const actual = await vi.importActual("framer-motion");
+  return {
+    ...actual,
+    useReducedMotion: () => true,
+  };
+});
+
+describe("ProjectDetailsToggle", () => {
   beforeEach(() => {
     window.sessionStorage.clear();
     trackMetricMock.mockReset();
@@ -18,10 +27,12 @@ describe("CaseStudyDetailsToggle", () => {
   it("toggles details with accessible expanded state", async () => {
     const user = userEvent.setup();
     render(
-      <CaseStudyDetailsToggle
-        caseTitle="Commerce Platform Buildout"
-        actionItems={["Built APIs", "Added workers"]}
-      />,
+      <MotionConfig reducedMotion="always">
+        <ProjectDetailsToggle
+          projectTitle="Commerce Platform Buildout"
+          actionItems={["Built APIs", "Added workers"]}
+        />
+      </MotionConfig>,
     );
 
     const toggleButton = screen.getByRole("button", { name: "Show architecture details" });
@@ -36,10 +47,10 @@ describe("CaseStudyDetailsToggle", () => {
     expect(screen.getByText("Built APIs")).toBeInTheDocument();
     expect(trackMetricMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        eventName: "case_expand",
+        eventName: "project_expand",
         meta: expect.objectContaining({
-          caseId: "commerce-platform-buildout",
-          caseTitle: "Commerce Platform Buildout",
+          projectId: "commerce-platform-buildout",
+          projectTitle: "Commerce Platform Buildout",
         }),
       }),
     );

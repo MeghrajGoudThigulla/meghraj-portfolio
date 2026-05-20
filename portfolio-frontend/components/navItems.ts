@@ -7,9 +7,11 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   { href: "#about", label: "About", group: "section" },
-  { href: "#skills", label: "Skills", group: "section" },
-  { href: "#cases", label: "Case Studies", group: "section" },
+  { href: "#strengths", label: "Strengths", group: "section" },
+  { href: "#skills", label: "Capabilities", group: "section" },
+  { href: "#projects", label: "Projects", group: "section" },
   { href: "#roi", label: "ROI", group: "section" },
+  { href: "#journey", label: "Journey", group: "section" },
   { href: "#contact", label: "Contact", group: "section" },
   {
     href: "https://github.com/MeghrajGoudThigulla",

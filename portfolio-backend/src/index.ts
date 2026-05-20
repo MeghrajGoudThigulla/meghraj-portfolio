@@ -410,8 +410,14 @@ app.get("/", (_req, res) => {
   res.send("Consulting Portfolio API Active");
 });
 
-app.get("/health", (_req, res) => {
-  res.status(200).json({ status: "ok" });
+app.get("/health", async (_req, res) => {
+  try {
+    await pool.query("SELECT 1");
+    res.status(200).json({ status: "ok", database: "healthy" });
+  } catch (error) {
+    console.error("Health check database query failed", error);
+    res.status(500).json({ status: "error", message: "Database connection failed" });
+  }
 });
 
 app.post("/api/contact", async (req, res) => {
@@ -611,6 +617,18 @@ if (process.env.NODE_ENV !== "test") {
     dedupeCleanupIntervalHours * 60 * 60 * 1000,
   );
   cleanupTimer.unref();
+
+  // Internal Keep-Alive Ticker: executes SELECT 1 every 12 hours while backend is active
+  const KEEP_ALIVE_INTERVAL = 12 * 60 * 60 * 1000;
+  const keepAliveTimer = setInterval(async () => {
+    try {
+      await pool.query("SELECT 1");
+      console.log("[keep-alive] Periodic database ping successful.");
+    } catch (error) {
+      console.error("[keep-alive] Periodic database ping failed:", error);
+    }
+  }, KEEP_ALIVE_INTERVAL);
+  keepAliveTimer.unref();
 
   app.listen(PORT, () => {
     console.log(`API running on port ${PORT}`);

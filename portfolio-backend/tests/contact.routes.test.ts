@@ -68,7 +68,16 @@ describe("backend route coverage", () => {
     const response = await request(app).get("/health");
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual({ status: "ok" });
+    expect(response.body).toEqual({ status: "ok", database: "healthy" });
+  });
+
+  it("GET /health returns 500 when database query fails", async () => {
+    queryMock.mockRejectedValueOnce(new Error("Database connection timed out"));
+    const app = await loadApp();
+    const response = await request(app).get("/health");
+
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({ status: "error", message: "Database connection failed" });
   });
 
   it("POST /api/contact accepts valid payload and trims fields", async () => {

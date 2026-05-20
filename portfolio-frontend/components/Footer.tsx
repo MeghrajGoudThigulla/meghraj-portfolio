@@ -3,7 +3,7 @@ import Link from "next/link";
 const quickLinks = [
   { href: "/#about", label: "About" },
   { href: "/#skills", label: "Skills" },
-  { href: "/#cases", label: "Case Studies" },
+  { href: "/#projects", label: "Projects" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -40,10 +40,6 @@ export default function Footer() {
           </p>
           <p className="text-xl font-semibold text-brand-navy">
             Backend-first engineering systems for fintech and operations teams.
-          </p>
-          <p className="max-w-prose text-sm text-brand-charcoal">
-            Built for recruiter scanability and technical deep-dives. Metrics,
-            case studies, and contact workflows are tracked for iteration.
           </p>
         </div>
 

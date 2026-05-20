@@ -1,67 +1,110 @@
-import SectionHeading from "./SectionHeading";
+'use client';
 
-const skillGroups = [
+import { motion, Variants } from 'framer-motion';
+import SectionHeading from './SectionHeading';
+
+const SKILL_GROUPS = [
   {
-    label: "Languages",
-    items: ["Python", "Dart", "TypeScript", "JavaScript", "C++"],
+    label: "Frontend Systems",
+    items: ["React", "Next.js", "Flutter", "Dart", "Tailwind CSS", "UI/UX Implementation", "Responsive Views"],
+    color: "group-hover:border-blue-500/30"
   },
   {
-    label: "Frameworks",
-    items: ["FastAPI", "Flask", "Express", "Spring Boot", "Flutter", "React (MUI)", "Next.js"],
+    label: "Backend & Databases",
+    items: ["FastAPI", "Python", "Express", "Node.js", "PostgreSQL", "MySQL", "Redis", "REST APIs", "Prisma"],
+    color: "group-hover:border-purple-500/30"
   },
   {
-    label: "Databases",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Firestore"],
+    label: "AI, ML & Automation",
+    items: ["AI Workflows", "LLM Integration", "Sentence Transformers", "OCR processing", "pyTesseract", "Semantic Matching"],
+    color: "group-hover:border-pink-500/30"
   },
   {
-    label: "Architecture",
-    items: ["REST API Design", "RBAC", "JWT", "Rate Limiting", "Caching", "Background Workers"],
+    label: "DevOps & Deployment",
+    items: ["AWS", "Firebase", "Docker", "NGINX", "Linux", "Git", "GitHub Actions", "Firebase App Hosting"],
+    color: "group-hover:border-emerald-500/30"
   },
   {
-    label: "Tooling",
-    items: ["SQLAlchemy", "Alembic", "Prisma", "Docker", "Git", "Firebase Admin"],
-  },
+    label: "Product & Domains",
+    items: ["Admin Dashboards", "Verification Systems", "Healthcare Tech", "Lending Systems", "E-commerce Workflows"],
+    color: "group-hover:border-amber-500/30"
+  }
 ];
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08
+    }
+  }
+};
+
+const cardVariants: Variants = {
+  hidden: { y: 15, opacity: 0 },
+  visible: { 
+    y: 0, 
+    opacity: 1,
+    transition: { type: "spring", stiffness: 100, damping: 15 }
+  }
+};
+
+const badgeVariants: Variants = {
+  hidden: { scale: 0.9, opacity: 0 },
+  visible: { 
+    scale: 1, 
+    opacity: 1,
+    transition: { type: "spring", stiffness: 150, damping: 12 }
+  }
+};
 
 export default function SkillsSnapshot() {
   return (
     <section
-      className="section-shell section-band-muted relative"
+      className="section-shell relative bg-brand-bg border-y border-brand-border/40"
       id="skills"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-24 top-6 h-64 w-64 rounded-full bg-sky-100/60 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-28 bottom-4 h-60 w-60 rounded-full bg-brand-surface/70 blur-3xl"
-      />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="absolute right-10 top-1/3 -z-10 h-72 w-72 rounded-full bg-brand-blue/5 blur-[120px] pointer-events-none" />
+      <div className="absolute left-10 bottom-1/3 -z-10 h-72 w-72 rounded-full bg-brand-accent/5 blur-[120px] pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         <SectionHeading
-          title="Skills snapshot for fast recruiter scan."
-          description="Grouped by what I build with most often in production systems."
+          title="Production-Ready Technology Capabilities"
+          description="Grouped by what I build with most often across enterprise full-stack deployments and AI-assisted workflows."
           eyebrow="Capabilities"
         />
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {skillGroups.map((group) => (
-            <article
+
+        <motion.div 
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {SKILL_GROUPS.map((group) => (
+            <motion.article
               key={group.label}
-              className="card fade-up space-y-3 border-brand-border bg-brand-surface/95 px-4 py-5"
+              variants={cardVariants}
+              className={`card card-hover p-6 sm:p-7 border border-brand-border/50 bg-brand-surface/40 backdrop-blur-md shadow-glass flex flex-col group`}
             >
-              <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+              <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400 mb-5 pb-3 border-b border-brand-border/50 group-hover:text-brand-blue transition-colors">
                 {group.label}
               </h3>
+              
               <div className="flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <span key={item} className="badge-accent">
+                  <motion.span 
+                    key={item} 
+                    variants={badgeVariants}
+                    className="rounded-full border border-brand-blue/15 bg-brand-surface/75 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-brand-charcoal hover:border-brand-blue/40 hover:text-brand-blue transition-all duration-300 shadow-sm"
+                  >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

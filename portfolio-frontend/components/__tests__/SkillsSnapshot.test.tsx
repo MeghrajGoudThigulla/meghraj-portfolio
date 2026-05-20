@@ -7,10 +7,10 @@ describe("SkillsSnapshot", () => {
     render(<SkillsSnapshot />);
 
     expect(
-      screen.getByRole("heading", { name: "Skills snapshot for fast recruiter scan." }),
+      screen.getByRole("heading", { name: "Production-Ready Technology Capabilities" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Languages")).toBeInTheDocument();
-    expect(screen.getByText("Frameworks")).toBeInTheDocument();
+    expect(screen.getByText("Frontend Systems")).toBeInTheDocument();
+    expect(screen.getByText("Backend & Databases")).toBeInTheDocument();
     expect(screen.getByText("FastAPI")).toBeInTheDocument();
   });
 });

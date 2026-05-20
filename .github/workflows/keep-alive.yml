@@ -1,0 +1,19 @@
+name: keep-alive
+
+on:
+  schedule:
+    - cron: '0 */12 * * *' # Runs every 12 hours
+  workflow_dispatch:      # Allows manual trigger in the Actions tab
+
+jobs:
+  ping:
+    name: Ping health endpoint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send keep-alive ping
+        run: |
+          if [ -z "${{ secrets.BACKEND_API_URL }}" ]; then
+            echo "Error: BACKEND_API_URL secret is not set in this repository."
+            exit 1
+          fi
+          curl -f "${{ secrets.BACKEND_API_URL }}/health"

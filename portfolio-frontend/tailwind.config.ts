@@ -10,20 +10,21 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          navy: "#FFFFFF",
-          charcoal: "#94A3B8",
-          blue: "#38BDF8",
+          navy: "rgb(var(--brand-navy-rgb))",
+          charcoal: "rgb(var(--brand-charcoal-rgb))",
+          blue: "rgb(var(--brand-blue-rgb))",
           gold: "#F59E0B",
-          bg: "#0B0F19",
-          surface: "#111827",
-          border: "#1E293B",
-          muted: "#1E293B",
-          accent: "#8B5CF6"
+          bg: "rgb(var(--brand-bg-rgb))",
+          surface: "rgb(var(--brand-surface-rgb))",
+          border: "rgb(var(--brand-border-rgb))",
+          muted: "rgb(var(--brand-muted-rgb))",
+          accent: "rgb(var(--brand-accent-rgb))"
         },
       },
       fontFamily: {
-        serif: ["var(--font-playfair)", "serif"],
-        sans: ["var(--font-inter)", "sans-serif"],
+        serif: ["var(--font-space-grotesk)", "sans-serif"],
+        sans: ["var(--font-dm-sans)", "sans-serif"],
+        mono: ["var(--font-jetbrains-mono)", "monospace"],
       },
       boxShadow: {
         "elev-1": "0 10px 30px -15px rgba(0, 0, 0, 0.8)",
