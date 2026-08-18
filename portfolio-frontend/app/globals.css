@@ -5,6 +5,7 @@
 :root {
   --brand-bg-rgb: 248 250 252;
   --brand-surface-rgb: 255 255 255;
+  --brand-elevated-rgb: 255 255 255;
   --brand-border-rgb: 226 232 240;
   --brand-muted-rgb: 241 245 249;
   --brand-navy-rgb: 15 23 42;
@@ -14,6 +15,7 @@
 
   --brand-bg: rgb(var(--brand-bg-rgb));
   --brand-surface: rgb(var(--brand-surface-rgb));
+  --brand-elevated: rgb(var(--brand-elevated-rgb));
   --brand-border: rgb(var(--brand-border-rgb));
   --brand-muted: rgb(var(--brand-muted-rgb));
   --brand-navy: rgb(var(--brand-navy-rgb));
@@ -21,10 +23,10 @@
   --brand-blue: rgb(var(--brand-blue-rgb));
   --brand-accent: rgb(var(--brand-accent-rgb));
 
-  --body-bg-image: 
-    radial-gradient(circle at 10% -15%, rgba(2, 132, 199, 0.06), transparent 45%),
-    radial-gradient(circle at 85% 15%, rgba(124, 58, 237, 0.04), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(241, 245, 249, 0.4), #F8FAFC 100%);
+  --body-bg-image:
+    radial-gradient(circle at 10% -15%, rgba(2, 132, 199, 0.05), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(124, 58, 237, 0.035), transparent 40%),
+    linear-gradient(180deg, #f8fafc 0%, #ffffff 52%, #f8fafc 100%);
   color-scheme: light;
   --bottom-ui-height: 0px;
   --section-y: 5rem;
@@ -32,17 +34,19 @@
 }
 
 .dark {
-  --brand-bg-rgb: 11 15 25;
-  --brand-surface-rgb: 17 24 39;
-  --brand-border-rgb: 30 41 59;
+  --brand-bg-rgb: 9 13 22;
+  --brand-surface-rgb: 15 23 42;
+  --brand-elevated-rgb: 20 30 52;
+  --brand-border-rgb: 51 65 85;
   --brand-muted-rgb: 30 41 59;
-  --brand-navy-rgb: 255 255 255;
-  --brand-charcoal-rgb: 148 163 184;
+  --brand-navy-rgb: 248 250 252;
+  --brand-charcoal-rgb: 203 213 225;
   --brand-blue-rgb: 56 189 248;
   --brand-accent-rgb: 139 92 246;
 
   --brand-bg: rgb(var(--brand-bg-rgb));
   --brand-surface: rgb(var(--brand-surface-rgb));
+  --brand-elevated: rgb(var(--brand-elevated-rgb));
   --brand-border: rgb(var(--brand-border-rgb));
   --brand-muted: rgb(var(--brand-muted-rgb));
   --brand-navy: rgb(var(--brand-navy-rgb));
@@ -50,10 +54,10 @@
   --brand-blue: rgb(var(--brand-blue-rgb));
   --brand-accent: rgb(var(--brand-accent-rgb));
 
-  --body-bg-image: 
-    radial-gradient(circle at 10% -15%, rgba(56, 189, 248, 0.12), transparent 45%),
-    radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.08), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.5), #0B0F19 100%);
+  --body-bg-image:
+    radial-gradient(circle at 10% -15%, rgba(56, 189, 248, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.055), transparent 40%),
+    linear-gradient(180deg, #090d16 0%, #0f172a 52%, #090d16 100%);
   color-scheme: dark;
 }
 
@@ -68,7 +72,6 @@ body {
   background-attachment: fixed;
 }
 
-/* Elegant Scrollbars */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -84,7 +87,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #38BDF8;
+  background: var(--brand-blue);
 }
 
 a {
@@ -96,20 +99,21 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #38BDF8;
-  outline-offset: 2px;
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 3px;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  @apply font-serif text-brand-navy tracking-tight;
+  @apply font-sans text-brand-navy tracking-tight;
+  font-family: var(--font-space-grotesk), sans-serif;
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.3);
-  color: #FFFFFF;
+  background: rgba(var(--brand-blue-rgb), 0.3);
+  color: #ffffff;
 }
 
 @layer components {
@@ -126,15 +130,15 @@ h4 {
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold uppercase tracking-[0.1em] transition-all duration-300;
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] transition-all duration-200;
   }
 
   .btn-primary {
-    @apply bg-gradient-to-r from-brand-blue via-sky-500 to-brand-accent text-white shadow-elev-1 hover:-translate-y-0.5 hover:shadow-elev-2 hover:scale-[1.02] active:scale-[0.98];
+    @apply bg-gradient-to-r from-brand-blue to-brand-accent text-white shadow-elev-1 hover:-translate-y-0.5 hover:shadow-elev-2 active:translate-y-0;
   }
 
   .btn-secondary {
-    @apply border border-brand-border bg-brand-surface/60 backdrop-blur-sm text-brand-navy shadow-glass hover:-translate-y-0.5 hover:border-brand-blue/50 hover:bg-brand-surface hover:text-brand-blue hover:scale-[1.02] active:scale-[0.98];
+    @apply border border-brand-border bg-brand-surface text-brand-navy shadow-sm hover:-translate-y-0.5 hover:border-brand-blue/50 hover:bg-brand-elevated hover:text-brand-blue active:translate-y-0;
   }
 
   .btn-ghost {
@@ -142,72 +146,59 @@ h4 {
   }
 
   .btn-sm {
-    @apply px-4 py-2 text-xs tracking-[0.12em];
+    @apply px-4 py-2 text-xs tracking-[0.1em];
   }
 
   .card {
-    @apply rounded-2xl border border-brand-border/60 bg-brand-surface/60 backdrop-blur-md shadow-glass relative overflow-hidden;
+    @apply rounded-2xl border border-brand-border/70 bg-brand-surface/80 backdrop-blur-md shadow-glass relative overflow-hidden;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-elev-2 hover:border-brand-blue/40;
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-elev-2 hover:border-brand-blue/40;
   }
 
   .badge-accent {
-    @apply rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-brand-blue;
+    @apply rounded-full border border-brand-blue/30 bg-brand-blue/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-brand-blue;
   }
 }
 
 @layer utilities {
   .fade-up {
-    animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .fade-in {
-    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fadeIn 0.5s ease-out both;
   }
 
-  .stagger-1 {
-    animation-delay: 0.08s;
-  }
+  .stagger-1 { animation-delay: 0.06s; }
+  .stagger-2 { animation-delay: 0.12s; }
+  .stagger-3 { animation-delay: 0.18s; }
+  .stagger-4 { animation-delay: 0.24s; }
 
-  .stagger-2 {
-    animation-delay: 0.16s;
-  }
-
-  .stagger-3 {
-    animation-delay: 0.24s;
-  }
-
-  .stagger-4 {
-    animation-delay: 0.32s;
-  }
-
-  /* Custom Glow Effects */
   .text-glow {
-    text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    text-shadow: 0 0 16px rgba(56, 189, 248, 0.22);
   }
 
   .border-glow-hover {
-    @apply relative after:absolute after:inset-0 after:rounded-2xl after:border after:border-transparent after:transition-all after:duration-500;
-  }
-  .border-glow-hover:hover::after {
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+    @apply relative after:absolute after:inset-0 after:rounded-2xl after:border after:border-transparent after:transition-all after:duration-300;
   }
 
-  /* Animated glowing dot */
+  .border-glow-hover:hover::after {
+    border-color: rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.08);
+  }
+
   .glow-dot {
     @apply absolute w-1.5 h-1.5 rounded-full bg-brand-blue;
-    box-shadow: 0 0 10px #38BDF8, 0 0 20px #38BDF8;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.65);
   }
 
-  /* Shimmer gradient overlay */
   .skeleton-shimmer {
     background: linear-gradient(
       90deg,
       var(--brand-muted) 25%,
-      rgba(var(--brand-blue-rgb), 0.1) 37%,
+      rgba(var(--brand-blue-rgb), 0.08) 37%,
       var(--brand-muted) 63%
     );
     background-size: 200% 100%;
@@ -216,38 +207,22 @@ h4 {
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 
   .fade-up,
   .fade-in,
@@ -255,4 +230,3 @@ h4 {
     animation: none;
   }
 }
-
