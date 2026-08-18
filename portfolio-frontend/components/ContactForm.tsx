@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import SectionHeading from "./SectionHeading";
 import ContactAside from "./ContactAside";
 import ContactFields from "./ContactFields";
@@ -40,12 +41,12 @@ export default function ContactForm() {
 
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm lg:col-span-2">
                 <a href="mailto:meghraj.thigulla@outlook.com" className="font-semibold text-brand-blue underline-offset-4 hover:text-brand-accent hover:underline">Email directly</a>
-                <a href="/#projects" className="font-semibold text-brand-blue underline-offset-4 hover:text-brand-accent hover:underline">Review selected work</a>
+                <Link href="/#projects" className="font-semibold text-brand-blue underline-offset-4 hover:text-brand-accent hover:underline">Review selected work</Link>
               </div>
 
               {status === "success" ? (
                 <div role="status" aria-live="polite" className="lg:col-span-2 rounded-xl border border-green-500/40 bg-green-50 px-4 py-3 text-sm leading-6 text-green-800">
-                  Message received. I’ll review the context and get back to you with a practical next step.
+                  Message received. I&apos;ll review the context and get back to you with a practical next step.
                 </div>
               ) : null}
               {status === "error" && error ? (
