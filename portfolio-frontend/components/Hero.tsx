@@ -14,129 +14,113 @@ import {
 
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08
-    }
-  }
+  visible: { transition: { staggerChildren: 0.06 } },
 };
 
 const textVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  hidden: { opacity: 0, y: 14 },
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 15 }
-  }
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { type: "spring", stiffness: 80, damping: 15 }
-  }
+  hidden: { opacity: 0, y: 12 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
 };
 
 export default function Hero() {
   return (
-    <section className="section-shell relative overflow-hidden bg-brand-bg min-h-[90vh] flex items-center py-16 sm:py-24 lg:py-32 border-b border-brand-border/40">
-      {/* Dynamic Glowing Mesh backdrop */}
+    <section className="section-shell relative flex min-h-[86vh] items-center overflow-hidden border-b border-brand-border/40 bg-brand-bg py-16 sm:py-24 lg:py-28">
       <AnimatedGridBackground />
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div 
-          className="grid gap-12 lg:grid-cols-[1.15fr,0.85fr] lg:items-center"
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="grid gap-12 lg:grid-cols-[1.2fr,0.8fr] lg:items-center lg:gap-16"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {/* Main Copy Area */}
-          <div className="flex flex-col gap-6">
-            <motion.p 
+          <div className="flex max-w-3xl flex-col gap-6">
+            <motion.p
               variants={textVariants}
-              className="max-w-prose text-xs font-semibold uppercase tracking-[0.18em] text-brand-blue text-glow"
+              className="max-w-prose text-xs font-semibold uppercase tracking-[0.16em] text-brand-blue"
             >
               {HERO_EYEBROW}
             </motion.p>
-            
-            <motion.h1 
+
+            <motion.h1
               variants={textVariants}
-              className="text-4xl font-extrabold leading-[1.08] text-brand-navy sm:text-5xl lg:text-6xl tracking-tight"
+              className="max-w-4xl text-4xl font-bold leading-[1.05] tracking-[-0.035em] text-brand-navy sm:text-5xl lg:text-6xl xl:text-7xl"
             >
               {HERO_HEADLINE}
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               variants={textVariants}
-              className="max-w-prose text-base leading-relaxed text-brand-charcoal lg:text-xl font-normal"
+              className="max-w-2xl text-base leading-7 text-brand-charcoal sm:text-lg lg:text-xl"
             >
               {HERO_PROOF_LINE}
             </motion.p>
-            
-            <motion.div 
-              variants={textVariants}
-              className="w-full max-w-xl rounded-2xl border border-brand-border/60 bg-brand-surface/40 backdrop-blur-md p-4 shadow-glass sm:p-5 mt-4"
-            >
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-                Strategic Partnerships & Scopes
-              </p>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/#contact"
-                  className="btn btn-primary px-6 py-3 text-xs tracking-[0.12em] font-bold shadow-md transition-all"
-                >
-                  Consult With Me
-                </Link>
-                <Link
-                  href="/#projects"
-                  className="btn btn-secondary px-6 py-3 text-xs tracking-[0.12em] font-semibold transition-all"
-                >
-                  View Projects
-                </Link>
-              </div>
-              
-              <Link 
-                href="/resume" 
-                className="mt-4 inline-flex text-xs font-bold uppercase tracking-[0.08em] text-brand-accent hover:text-brand-blue hover:underline underline-offset-4 transition-colors"
+
+            <motion.div variants={textVariants} className="flex flex-wrap items-center gap-3 pt-2">
+              <Link
+                href="/#projects"
+                className="btn btn-primary px-6 py-3.5 text-xs font-bold"
               >
-                Review Technical Résumé →
+                View My Work
+              </Link>
+              <Link
+                href="/resume"
+                className="btn btn-secondary px-6 py-3.5 text-xs font-semibold"
+              >
+                Download Résumé
+              </Link>
+              <Link
+                href="/#contact"
+                className="btn btn-ghost px-2 py-3.5 text-xs font-semibold"
+              >
+                Get In Touch →
               </Link>
             </motion.div>
-            
-            <motion.div variants={textVariants}>
+
+            <motion.div variants={textVariants} className="pt-2">
               <HeroTrustBadges badges={HERO_TRUST_BADGES} />
             </motion.div>
           </div>
 
-          {/* Metric Snapshot Card Panel */}
-          <motion.div 
+          <motion.div
             variants={cardVariants}
-            className="rounded-2xl border border-brand-border/60 bg-brand-surface/50 backdrop-blur-md p-5 shadow-glass sm:p-6 lg:mt-0"
+            className="rounded-2xl border border-brand-border/70 bg-brand-surface/80 p-5 shadow-glass backdrop-blur-md sm:p-6"
           >
-            <div className="mb-6 border-b border-brand-border/50 pb-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-brand-blue">
-                Impact Snapshot
+            <div className="mb-5 border-b border-brand-border/60 pb-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-blue">
+                Engineering Impact
               </p>
-              <p className="mt-2 text-xs leading-relaxed text-brand-charcoal">
-                Factual engineering metrics showing scale, relational design, and production delivery.
+              <p className="mt-2 text-sm leading-6 text-brand-charcoal">
+                Production metrics that show the scale and ownership behind the work.
               </p>
             </div>
-            
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               {HERO_METRIC_CARDS.map((metric) => (
                 <div
                   key={metric.label}
-                  className="card card-hover border-glow-hover bg-brand-surface/60 border border-brand-border/40 border-l-4 border-l-brand-blue px-4 py-3.5 rounded-xl shadow-sm transition duration-300 hover:shadow-md hover:border-l-brand-accent"
+                  className="card card-hover border-glow-hover border-l-2 border-l-brand-blue px-4 py-3.5"
                 >
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">
                     {metric.label}
                   </p>
-                  <p className="mt-1 text-2xl font-bold leading-none text-brand-navy font-serif">
+                  <p className="mt-1 text-2xl font-bold leading-none tracking-tight text-brand-navy">
                     {metric.value}
                   </p>
-                  <p className="mt-2 text-xs leading-relaxed text-brand-charcoal">
+                  <p className="mt-2 text-xs leading-5 text-brand-charcoal">
                     {metric.detail}
                   </p>
                 </div>
