@@ -14,7 +14,7 @@ export default function SectionHeading({
   className,
 }: SectionHeadingProps) {
   const containerClassName = [
-    "mb-10 flex max-w-3xl flex-col gap-3 lg:mb-12",
+    "mb-9 flex max-w-3xl flex-col gap-3 sm:mb-10 lg:mb-12",
     className,
   ]
     .filter(Boolean)
@@ -23,16 +23,18 @@ export default function SectionHeading({
   return (
     <div className={containerClassName} id={anchor}>
       {eyebrow ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          {eyebrow}
-        </p>
+        <div className="flex items-center gap-3">
+          <span className="h-px w-8 bg-brand-blue" aria-hidden="true" />
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">
+            {eyebrow}
+          </p>
+        </div>
       ) : null}
-      <span aria-hidden className="h-0.5 w-12 rounded-full bg-brand-blue/70" />
-      <h2 className="text-3xl font-bold leading-[1.1] text-brand-navy sm:text-4xl lg:text-5xl">
+      <h2 className="max-w-2xl text-3xl font-bold leading-[1.08] text-brand-navy sm:text-4xl lg:text-[2.75rem]">
         {title}
       </h2>
       {description ? (
-        <p className="max-w-prose text-base leading-relaxed text-brand-charcoal/95 lg:text-lg">
+        <p className="max-w-2xl text-sm leading-7 text-brand-charcoal sm:text-base lg:text-lg">
           {description}
         </p>
       ) : null}
