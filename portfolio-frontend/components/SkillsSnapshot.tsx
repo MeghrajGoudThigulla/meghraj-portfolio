@@ -4,102 +4,62 @@ import { motion, Variants } from 'framer-motion';
 import SectionHeading from './SectionHeading';
 
 const SKILL_GROUPS = [
-  {
-    label: "Frontend Systems",
-    items: ["React", "Next.js", "Flutter", "Dart", "Tailwind CSS", "UI/UX Implementation", "Responsive Views"],
-    color: "group-hover:border-blue-500/30"
-  },
-  {
-    label: "Backend & Databases",
-    items: ["FastAPI", "Python", "Express", "Node.js", "PostgreSQL", "MySQL", "Redis", "REST APIs", "Prisma"],
-    color: "group-hover:border-purple-500/30"
-  },
-  {
-    label: "AI, ML & Automation",
-    items: ["AI Workflows", "LLM Integration", "Sentence Transformers", "OCR processing", "pyTesseract", "Semantic Matching"],
-    color: "group-hover:border-pink-500/30"
-  },
-  {
-    label: "DevOps & Deployment",
-    items: ["AWS", "Firebase", "Docker", "NGINX", "Linux", "Git", "GitHub Actions", "Firebase App Hosting"],
-    color: "group-hover:border-emerald-500/30"
-  },
-  {
-    label: "Product & Domains",
-    items: ["Admin Dashboards", "Verification Systems", "Healthcare Tech", "Lending Systems", "E-commerce Workflows"],
-    color: "group-hover:border-amber-500/30"
-  }
+  { label: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Flutter', 'Dart', 'Tailwind CSS'] },
+  { label: 'Backend', items: ['Python', 'FastAPI', 'Node.js', 'Express', 'REST APIs', 'Prisma'] },
+  { label: 'Data & Infrastructure', items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Firebase', 'Docker'] },
+  { label: 'AI & Automation', items: ['LLM Integration', 'NLP', 'OCR', 'Semantic Matching', 'AI Workflows'] },
+  { label: 'Delivery', items: ['Git', 'GitHub Actions', 'AWS', 'Render', 'NGINX', 'Linux'] },
+  { label: 'Product Domains', items: ['Healthcare', 'Lending', 'Verification', 'E-commerce', 'Admin Platforms'] },
 ];
 
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08
-    }
-  }
+  visible: { transition: { staggerChildren: 0.06 } },
 };
 
 const cardVariants: Variants = {
-  hidden: { y: 15, opacity: 0 },
-  visible: { 
-    y: 0, 
-    opacity: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15 }
-  }
-};
-
-const badgeVariants: Variants = {
-  hidden: { scale: 0.9, opacity: 0 },
-  visible: { 
-    scale: 1, 
-    opacity: 1,
-    transition: { type: "spring", stiffness: 150, damping: 12 }
-  }
+  hidden: { y: 12, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export default function SkillsSnapshot() {
   return (
-    <section
-      className="section-shell relative bg-brand-bg border-y border-brand-border/40"
-      id="skills"
-    >
-      <div className="absolute right-10 top-1/3 -z-10 h-72 w-72 rounded-full bg-brand-blue/5 blur-[120px] pointer-events-none" />
-      <div className="absolute left-10 bottom-1/3 -z-10 h-72 w-72 rounded-full bg-brand-accent/5 blur-[120px] pointer-events-none" />
-
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+    <section className="section-shell border-y border-brand-border/40 bg-brand-bg" id="skills">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          title="Production-Ready Technology Capabilities"
-          description="Grouped by what I build with most often across enterprise full-stack deployments and AI-assisted workflows."
-          eyebrow="Capabilities"
+          title="Engineering Capabilities"
+          description="A focused view of the technologies I use to design, build, ship, and maintain production software."
+          eyebrow="TECH STACK"
         />
 
-        <motion.div 
-          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12"
+        <motion.div
+          className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-80px' }}
         >
-          {SKILL_GROUPS.map((group) => (
+          {SKILL_GROUPS.map((group, index) => (
             <motion.article
               key={group.label}
               variants={cardVariants}
-              className={`card card-hover p-6 sm:p-7 border border-brand-border/50 bg-brand-surface/40 backdrop-blur-md shadow-glass flex flex-col group`}
+              className="card card-hover p-5 sm:p-6"
             >
-              <h3 className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400 mb-5 pb-3 border-b border-brand-border/50 group-hover:text-brand-blue transition-colors">
-                {group.label}
-              </h3>
-              
-              <div className="flex flex-wrap gap-2">
+              <div className="flex items-center justify-between gap-4">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">
+                  0{index + 1}
+                </span>
+                <span className="h-px flex-1 bg-brand-border" />
+              </div>
+              <h3 className="mt-5 text-lg font-semibold text-brand-navy">{group.label}</h3>
+              <div className="mt-4 flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <motion.span 
-                    key={item} 
-                    variants={badgeVariants}
-                    className="rounded-full border border-brand-blue/15 bg-brand-surface/75 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-brand-charcoal hover:border-brand-blue/40 hover:text-brand-blue transition-all duration-300 shadow-sm"
+                  <span
+                    key={item}
+                    className="rounded-lg border border-brand-border bg-brand-muted/60 px-2.5 py-1.5 font-mono text-[10px] font-medium text-brand-charcoal transition-colors hover:border-brand-blue/40 hover:text-brand-blue"
                   >
                     {item}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
             </motion.article>
