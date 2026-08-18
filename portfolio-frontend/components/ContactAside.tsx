@@ -1,59 +1,43 @@
 export default function ContactAside() {
   return (
-    <aside
-      aria-label="Contact planning guide"
-      className="space-y-5 rounded-xl border border-brand-charcoal/10 bg-brand-bg px-4 py-5"
-    >
-      <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
-          What helps me respond fast
-        </p>
-        <h3 className="mt-2 text-xl font-semibold text-brand-navy">
-          Share the key inputs and I will reply with a clear next step.
-        </h3>
-        <p className="mt-2 max-w-prose text-sm leading-relaxed text-brand-charcoal">
-          I typically respond within one business day with a short plan, scope questions, and timelines.
-        </p>
+    <aside aria-label="Contact planning guide" className="card p-6 sm:p-7 lg:p-8">
+      <div className="flex items-center gap-3">
+        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">NEXT STEP</span>
+        <span className="h-px flex-1 bg-brand-border" />
       </div>
-      <ul className="space-y-3 text-sm text-brand-charcoal">
+
+      <h3 className="mt-6 text-2xl font-semibold leading-tight text-brand-navy">
+        Give me enough context to understand the problem.
+      </h3>
+      <p className="mt-3 text-sm leading-6 text-brand-charcoal">
+        A short description is enough. The useful details are the workflow, constraints, and outcome you are trying to reach.
+      </p>
+
+      <ul className="mt-7 space-y-4 text-sm text-brand-charcoal">
         {[
-          "Team size and stakeholders involved.",
-          "Target metric (cost, latency, adoption, compliance).",
-          "Current stack or infrastructure constraints.",
-          "Timeline or launch milestone.",
-        ].map((item) => (
+          "What are you trying to build or improve?",
+          "What is currently slow, manual, fragile, or expensive?",
+          "What stack, timeline, or infrastructure constraints matter?",
+          "What would a successful outcome look like?",
+        ].map((item, index) => (
           <li key={item} className="flex gap-3">
-            <span className="mt-1 h-2 w-2 rounded-full bg-brand-blue" />
-            <span>{item}</span>
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-blue/10 font-mono text-[9px] font-semibold text-brand-blue">
+              {index + 1}
+            </span>
+            <span className="leading-6">{item}</span>
           </li>
         ))}
       </ul>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {[
-          { label: "Response time", value: "Within 2-3 business days" },
-          { label: "Focus areas", value: "MVPs, performance, data flows" },
-        ].map((item) => (
-          <div
-            key={item.label}
-            className="rounded-xl border border-brand-charcoal/10 bg-brand-surface px-4 py-3"
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-              {item.label}
-            </p>
-            <p className="mt-2 text-sm font-semibold text-brand-navy">
-              {item.value}
-            </p>
-          </div>
-        ))}
-      </div>
-      <div className="rounded-xl border border-brand-charcoal/10 bg-brand-surface px-4 py-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-          Typical first call output
-        </p>
-        <p className="mt-2 text-sm text-brand-charcoal">
-          A scoped problem statement, baseline assumptions, and a delivery plan
-          with risks and milestones.
-        </p>
+
+      <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+        <div className="rounded-xl border border-brand-border bg-brand-muted/50 px-4 py-3">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Response</p>
+          <p className="mt-1.5 text-sm font-semibold text-brand-navy">Within one business day</p>
+        </div>
+        <div className="rounded-xl border border-brand-border bg-brand-muted/50 px-4 py-3">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Focus</p>
+          <p className="mt-1.5 text-sm font-semibold text-brand-navy">Product & engineering systems</p>
+        </div>
       </div>
     </aside>
   );
