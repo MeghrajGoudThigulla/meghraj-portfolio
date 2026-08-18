@@ -103,7 +103,7 @@ export default function MobileNav() {
 
             <div className="border-t border-brand-border/60 pt-6">
               <Link href="/#contact" className="btn btn-primary w-full py-3.5 text-xs" onClick={closeMenu}>
-                Let's Connect
+                Let&apos;s Connect
               </Link>
             </div>
           </div>
