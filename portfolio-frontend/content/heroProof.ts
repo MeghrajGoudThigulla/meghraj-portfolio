@@ -11,55 +11,54 @@ export type HeroMetricCard = {
   detail: string;
 };
 
-export const HERO_EYEBROW = "AI Product Builder & Aspiring Technical Consultant";
+export const HERO_EYEBROW = "AI & Technical Consultant · Full-Stack Engineer";
 
 export const HERO_HEADLINE =
-  "I translate complex systems into practical, high-value digital solutions.";
+  "I adapt quickly, solve difficult problems, and build practical software systems.";
 
 export const HERO_PROOF_LINE =
-  "I engineer scalable frontend, backend, and database architectures across AI automation, healthcare tech, compliance verification, and fintech systems.";
+  "I work across AI/ML, Python, Flutter, JavaScript, backend systems, infrastructure, and product R&D to turn unfamiliar requirements into software that can actually ship.";
 
 export const HERO_TRUST_BADGES: HeroTrustBadge[] = [
   {
-    id: "projects_shipped",
-    title: "6 Shipped Platforms",
-    detail: "From ideation to production",
+    id: "adaptive",
+    title: "Highly Adaptive",
+    detail: "R&D-first approach to unfamiliar problems",
+    proofRef: "about",
+  },
+  {
+    id: "production",
+    title: "Production Experience",
+    detail: "AI, healthcare, fintech & automation systems",
     proofRef: "projects",
   },
   {
-    id: "ai_driven",
-    title: "AI Automation",
-    detail: "Intelligent pipeline workflows",
-    proofRef: "projects",
-  },
-  {
-    id: "tech_stack",
-    title: "Relational Execution",
-    detail: "Type-safe database structures",
-    proofRef: "skills",
+    id: "ownership",
+    title: "Hands-On Ownership",
+    detail: "Build, debug, deploy, publish & support",
+    proofRef: "journey",
   },
 ];
 
 export const HERO_METRIC_CARDS: HeroMetricCard[] = [
   {
-    label: "Backend Architecture",
-    value: "286",
-    detail: "Production-ready API endpoints successfully shipped and integrated.",
+    label: "Production APIs",
+    value: "280+",
+    detail: "REST endpoints built and integrated across production systems.",
   },
   {
-    label: "Data Schema Control",
-    // Note: 61+ models, 30+ schema migrations
-    value: "61+",
-    detail: "Database models designed, query-optimized, and migrated in PostgreSQL & Mongo.",
+    label: "Technical Knowledge Transfer",
+    value: "8+",
+    detail: "Team members onboarded through hands-on platform KT.",
   },
   {
-    label: "UI/UX High-Fidelity pages",
-    value: "96+",
-    detail: "Interactive, clean admin dashboards and user interfaces developed.",
+    label: "Core Engineering",
+    value: "AI + Backend",
+    detail: "Python, ML, APIs, databases, automation, and system debugging.",
   },
   {
-    label: "Mobile screens flow",
-    value: "80+",
-    detail: "Seamless mobile screen layouts built using Flutter and Dart.",
+    label: "Mobile Delivery",
+    value: "Flutter",
+    detail: "Cross-platform applications plus Android and iOS publishing.",
   },
 ];

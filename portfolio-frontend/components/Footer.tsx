@@ -4,6 +4,7 @@ const quickLinks = [
   { href: "/#projects", label: "Projects" },
   { href: "/#journey", label: "Experience" },
   { href: "/#skills", label: "Skills" },
+  { href: "/#about", label: "About" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -24,7 +25,7 @@ export default function Footer() {
               Meghraj Goud<span className="text-brand-blue">.</span>
             </Link>
             <p className="mt-4 max-w-xl text-base leading-7 text-brand-charcoal">
-              Full-stack engineer building production web, mobile, backend, and data systems with a focus on practical product outcomes.
+              AI & technical consultant building practical software across AI/ML, backend systems, Flutter, infrastructure, and product R&D.
             </p>
             <p className="mt-4 text-xs font-medium uppercase tracking-[0.12em] text-slate-400">
               Hyderabad, India · Remote / Hybrid
@@ -35,27 +36,17 @@ export default function Footer() {
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">Explore</p>
             <ul className="mt-4 grid gap-2.5 text-sm font-semibold">
               {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-brand-charcoal hover:text-brand-blue">{link.label}</Link>
-                </li>
+                <li key={link.href}><Link href={link.href} className="text-brand-charcoal hover:text-brand-blue">{link.label}</Link></li>
               ))}
             </ul>
           </nav>
 
           <nav aria-label="Professional profiles">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">Profiles</p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">Connect</p>
             <ul className="mt-4 grid gap-2.5 text-sm font-semibold">
               {profileLinks.map((link) => (
                 <li key={link.href}>
-                  <a
-                    href={link.href}
-                    target={link.href.startsWith("http") ? "_blank" : undefined}
-                    rel={link.href.startsWith("http") ? "noreferrer" : undefined}
-                    aria-label={link.ariaLabel}
-                    className="text-brand-charcoal hover:text-brand-blue"
-                  >
-                    {link.label}
-                  </a>
+                  <a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noreferrer" : undefined} aria-label={link.ariaLabel} className="text-brand-charcoal hover:text-brand-blue">{link.label}</a>
                 </li>
               ))}
             </ul>
