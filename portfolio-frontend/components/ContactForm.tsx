@@ -40,7 +40,7 @@ export default function ContactForm() {
               </div>
 
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm lg:col-span-2">
-                <a href="mailto:meghraj.thigulla@outlook.com" className="font-semibold text-brand-blue underline-offset-4 hover:text-brand-accent hover:underline">Email directly</a>
+                <Link href="mailto:meghraj.thigulla@outlook.com" className="font-semibold text-brand-blue underline-offset-4 hover:text-brand-accent hover:underline">Email directly</Link>
                 <Link href="/#projects" className="font-semibold text-brand-blue underline-offset-4 hover:text-brand-accent hover:underline">Review selected work</Link>
               </div>
 
