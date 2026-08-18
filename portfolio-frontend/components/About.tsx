@@ -4,22 +4,10 @@ import { motion, Variants, useReducedMotion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 
 const STRENGTHS = [
-  {
-    title: "AI Integration & ML",
-    detail: "Designing intelligent workflows, NLP solutions, semantic search, and computer vision models into robust production environments.",
-  },
-  {
-    title: "Technical Strategy",
-    detail: "Bridging the gap between engineering and business, translating technical ambiguity into clear, actionable, risk-mitigated roadmaps.",
-  },
-  {
-    title: "Scalable Architecture",
-    detail: "Delivering cloud-native infrastructures, clean API gateways, relational database migrations, and asynchronous background worker queues.",
-  },
-  {
-    title: "Operational Discipline",
-    detail: "Translating customer pain points and process bottlenecks into shippable software milestones with predictable delivery cycles.",
-  },
+  { title: "AI Integration", detail: "Production workflows using OCR, semantic matching, NLP, and intelligent automation." },
+  { title: "System Architecture", detail: "API design, relational data models, caching, background workers, and secure service boundaries." },
+  { title: "Product Thinking", detail: "Translate ambiguous requirements into practical milestones, workflows, and measurable outcomes." },
+  { title: "Operational Delivery", detail: "Build, ship, monitor, and iterate on software with an emphasis on reliability and maintainability." },
 ];
 
 export default function About() {
@@ -27,154 +15,68 @@ export default function About() {
 
   const containerVariants: Variants = {
     hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.15
-      }
-    }
+    visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.06 } },
   };
 
-  const cardVariants: Variants = {
-    hidden: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 25 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: shouldReduceMotion ? { duration: 0.05 } : { type: "spring" as const, stiffness: 80, damping: 14 }
-    }
-  };
-
-  const itemGridVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.08
-      }
-    }
-  };
-
-  const strengthItemVariants: Variants = {
-    hidden: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: shouldReduceMotion ? { duration: 0.05 } : { type: "spring" as const, stiffness: 100, damping: 12 }
-    }
-  };
-
-  const listVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.1
-      }
-    }
-  };
-
-  const listItemVariants: Variants = {
-    hidden: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -10 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: shouldReduceMotion ? { duration: 0.05 } : { type: "spring" as const, stiffness: 100, damping: 12 }
-    }
+  const itemVariants: Variants = {
+    hidden: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 },
+    visible: { opacity: 1, y: 0, transition: shouldReduceMotion ? { duration: 0.05 } : { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
   };
 
   return (
-    <section
-      className="section-shell relative bg-brand-bg py-20 sm:py-24 lg:py-28"
-      id="about"
-    >
-      {/* Decorative glows */}
-      <div className="absolute right-0 top-10 -z-10 h-72 w-72 rounded-full bg-brand-blue/5 blur-[120px] pointer-events-none" />
-      <div className="absolute left-0 bottom-6 -z-10 h-60 w-60 rounded-full bg-brand-accent/5 blur-[100px] pointer-events-none" />
-
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+    <section className="section-shell bg-brand-bg" id="about">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          title="Product-Minded Systems Engineer & Consulting Catalyst"
-          description="I specialize in architecting high-performance digital products, bridging deep technical execution with high-level strategic business outcomes."
-          eyebrow="Profile"
+          eyebrow="PROFILE"
+          title="Product-minded full-stack engineer focused on production systems."
+          description="I work across frontend, backend, mobile, and data layers to turn product requirements into secure software that can actually be shipped and maintained."
         />
 
-        <motion.div 
-          className="grid gap-8 lg:grid-cols-[1.15fr,0.85fr] lg:gap-10 mt-12"
+        <motion.div
+          className="mt-10 grid gap-4 lg:grid-cols-[1.15fr,0.85fr] lg:gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-80px' }}
         >
-          {/* Main Info Card */}
-          <motion.div 
-            variants={cardVariants}
-            className="card p-6 sm:p-8 border border-brand-border/60 bg-brand-surface/40 backdrop-blur-md shadow-glass flex flex-col justify-between"
-          >
-            <div className="rounded-xl border border-brand-border/60 bg-brand-surface/75 px-5 py-5 mb-6">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">
-                Core Positioning
-              </p>
-              <p className="mt-2 text-base leading-relaxed text-brand-charcoal lg:text-lg">
-                I design and deploy AI-driven, secure full-stack platforms across diverse sectors with measurable outcomes:
-                optimizing operational efficiency, integrating intelligent pipelines, and translating
-                complex technical capabilities into clear, readable strategic ROI.
-              </p>
+          <motion.article variants={itemVariants} className="card p-6 sm:p-8">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">01</span>
+              <span className="h-px flex-1 bg-brand-border" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-slate-400">How I work</span>
             </div>
-            
-            <motion.div 
-              variants={itemGridVariants}
-              className="grid gap-4 sm:grid-cols-2"
-            >
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-brand-charcoal sm:text-xl">
+              My focus is the space between product intent and technical execution. I design the APIs, data models, interfaces, and workflows needed to move an idea from specification to a dependable production system.
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {STRENGTHS.map((item) => (
-                <motion.div
-                  key={item.title}
-                  variants={strengthItemVariants}
-                  className="rounded-xl border border-brand-border bg-brand-surface/50 p-4 transition-all duration-300 hover:border-brand-blue/30"
-                >
-                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-brand-blue mb-2">
-                    {item.title}
-                  </p>
-                  <p className="text-xs leading-relaxed text-brand-charcoal">
-                    {item.detail}
-                  </p>
-                </motion.div>
+                <div key={item.title} className="rounded-xl border border-brand-border bg-brand-muted/50 p-4">
+                  <h3 className="text-sm font-semibold text-brand-navy">{item.title}</h3>
+                  <p className="mt-2 text-xs leading-5 text-brand-charcoal">{item.detail}</p>
+                </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </motion.article>
 
-          {/* Operating Principles Card */}
-          <motion.div 
-            variants={cardVariants}
-            className="card p-6 sm:p-8 border border-brand-border/60 bg-brand-surface/40 backdrop-blur-md shadow-glass flex flex-col justify-center"
-          >
-            <h3 className="text-xl font-bold text-brand-navy tracking-tight mb-6">
-              Operating Philosophy
-            </h3>
-            
-            <motion.ul 
-              variants={listVariants}
-              className="space-y-6 text-sm leading-relaxed text-brand-charcoal"
-            >
-              <motion.li variants={listItemVariants} className="flex gap-4">
-                <span className="mt-1.5 h-2 w-2 rounded-full bg-brand-accent shrink-0 shadow-[0_0_8px_rgba(139,92,246,0.8)]" />
-                <div>
-                  <strong className="text-brand-navy block mb-1">Consultative Diagnosis</strong>
-                  Understand real-world user operational pain points and workflow blockages before proposing system design parameters.
+          <motion.aside variants={itemVariants} className="card p-6 sm:p-8">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">02</span>
+              <span className="h-px flex-1 bg-brand-border" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-slate-400">Principles</span>
+            </div>
+            <div className="mt-7 space-y-6">
+              {[
+                ['Start with the workflow', 'Understand the real operational problem before choosing a framework or architecture.'],
+                ['Prefer clear boundaries', 'Use typed contracts, explicit responsibilities, and predictable data flows.'],
+                ['Optimize for shipping', 'Choose pragmatic solutions that can be tested, deployed, monitored, and improved.'],
+              ].map(([title, detail]) => (
+                <div key={title} className="border-l-2 border-brand-blue/60 pl-4">
+                  <h3 className="text-sm font-semibold text-brand-navy">{title}</h3>
+                  <p className="mt-1.5 text-xs leading-5 text-brand-charcoal">{detail}</p>
                 </div>
-              </motion.li>
-              <motion.li variants={listItemVariants} className="flex gap-4">
-                <span className="mt-1.5 h-2 w-2 rounded-full bg-brand-accent shrink-0 shadow-[0_0_8px_rgba(139,92,246,0.8)]" />
-                <div>
-                  <strong className="text-brand-navy block mb-1">Architectural Predictability</strong>
-                  Deliver battle-tested type safety, clean data contracts, API definitions, and comprehensive test gates.
-                </div>
-              </motion.li>
-              <motion.li variants={listItemVariants} className="flex gap-4">
-                <span className="mt-1.5 h-2 w-2 rounded-full bg-brand-accent shrink-0 shadow-[0_0_8px_rgba(139,92,246,0.8)]" />
-                <div>
-                  <strong className="text-brand-navy block mb-1">Transparent Translation</strong>
-                  Bridge deep infrastructure decisions into clear, strategic value reports for non-technical stakeholders.
-                </div>
-              </motion.li>
-            </motion.ul>
-          </motion.div>
+              ))}
+            </div>
+          </motion.aside>
         </motion.div>
       </div>
     </section>
