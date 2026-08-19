@@ -1,26 +1,21 @@
 'use client';
 
 import { motion, Variants, useReducedMotion } from 'framer-motion';
-import { Compass, Layers, MousePointerClick, Zap, Cpu, MessageSquare } from 'lucide-react';
+import { Compass, Bug, Search, BrainCircuit, MessageSquare, Users } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 
 const STRENGTHS = [
-  { icon: Compass, title: 'Product Understanding', description: 'Turn business bottlenecks into clear workflows, technical requirements, and practical delivery milestones.' },
-  { icon: Layers, title: 'System Architecture', description: 'Design service boundaries, relational data models, caching, queues, and APIs around real product constraints.' },
-  { icon: MousePointerClick, title: 'UI/UX Thinking', description: 'Build interfaces that make complex workflows understandable, responsive, accessible, and efficient.' },
-  { icon: Zap, title: 'Technical Execution', description: 'Ship production software with React, Next.js, FastAPI, Flutter, PostgreSQL, Node.js, and related tooling.' },
-  { icon: Cpu, title: 'AI & Automation', description: 'Use OCR, semantic processing, background jobs, and AI integrations to remove repetitive operational work.' },
-  { icon: MessageSquare, title: 'Technical Communication', description: 'Explain architectural trade-offs and implementation decisions clearly to both technical and non-technical teams.' },
+  { icon: Compass, title: 'Adaptability', description: 'Get productive in unfamiliar systems by understanding the environment, constraints, and real problem before choosing an implementation.' },
+  { icon: Search, title: 'R&D First', description: 'Explore uncertain requirements, compare approaches, test assumptions, and reduce unnecessary implementation risk before building.' },
+  { icon: Bug, title: 'Difficult Debugging', description: 'Work through stubborn application, API, deployment, and integration failures when the obvious fix is not the real fix.' },
+  { icon: BrainCircuit, title: 'AI for Leverage', description: 'Use AI to reduce repetitive cognitive work and create more room for engineering judgment, R&D, debugging, and product decisions.' },
+  { icon: MessageSquare, title: 'Clear Technical Communication', description: 'Translate technical decisions into language that works for clients, stakeholders, developers, and people entering an unfamiliar codebase.' },
+  { icon: Users, title: 'Enable the Team', description: 'Share system knowledge, support difficult tickets, assign work, and help other engineers become productive faster.' },
 ];
 
 export default function ConsultingStrengths() {
   const shouldReduceMotion = useReducedMotion();
-
-  const containerVariants: Variants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.05 } },
-  };
-
+  const containerVariants: Variants = { hidden: {}, visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.05 } } };
   const itemVariants: Variants = {
     hidden: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 },
     visible: { opacity: 1, y: 0, transition: shouldReduceMotion ? { duration: 0.05 } : { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
@@ -31,17 +26,10 @@ export default function ConsultingStrengths() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="ENGINEERING APPROACH"
-          title="How I approach complex product work."
-          description="The capabilities behind the projects: understanding the problem, designing the system, shipping the interface, and communicating the trade-offs."
+          title="Adapt first. Understand the problem. Then build."
+          description="My strongest work happens where the requirements are unfamiliar, the system is difficult, or the obvious solution is not good enough."
         />
-
-        <motion.div
-          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-        >
+        <motion.div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-80px' }}>
           {STRENGTHS.map((strength, index) => {
             const Icon = strength.icon;
             return (
