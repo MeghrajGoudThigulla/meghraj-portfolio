@@ -11,7 +11,7 @@ export type HeroMetricCard = {
   detail: string;
 };
 
-export const HERO_EYEBROW = "AI & Technical Consultant · Full-Stack Engineer";
+export const HERO_EYEBROW = "Senior AI Developer · AI & Technical Consultant";
 
 export const HERO_HEADLINE =
   "I adapt quickly, solve difficult problems, and build practical software systems.";
@@ -29,7 +29,7 @@ export const HERO_TRUST_BADGES: HeroTrustBadge[] = [
   {
     id: "production",
     title: "Production Experience",
-    detail: "AI, healthcare, fintech & automation systems",
+    detail: "AI, healthcare, finance & automation systems",
     proofRef: "projects",
   },
   {
@@ -48,7 +48,7 @@ export const HERO_METRIC_CARDS: HeroMetricCard[] = [
   },
   {
     label: "Technical Knowledge Transfer",
-    value: "8+",
+    value: "8",
     detail: "Team members onboarded through hands-on platform KT.",
   },
   {
