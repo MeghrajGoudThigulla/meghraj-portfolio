@@ -22,40 +22,56 @@ export type Project = {
 
 const projectsData: Project[] = [
   {
-    title: "TFG Verify",
-    subtitle: "AI-Powered HRTech Onboarding Ecosystem",
-    status: "Published",
-    problem: "Legacy background verification systems suffered from manual parsing bottlenecks, high candidate turnaround times, and limited post-hiring HRMS workflows.",
+    title: "IYOV AI",
+    subtitle: "AI-Powered Business Operations Platform",
+    status: "Internal / Pre-release",
+    problem: "Business operations span onboarding, employee workflows, payroll, verification, and other rule-heavy processes that become difficult to manage consistently as requirements grow.",
     action: [
-      "Engineered an NLP parsing engine using SpaCy and Sentence Transformers with configurable confidence thresholds.",
-      "Designed the employee lifecycle portal across Hiring, Verification, Onboarding, Payroll, and Attendance.",
-      "Integrated Quest Diagnostics and LabCorp testing services into candidate verification workflows.",
-      "Restructured API-based pricing tiers for SME adoption against established BGV competitors."
+      "Developed production features across the platform while working closely with stakeholders on custom requirements.",
+      "Built the payroll module around India-specific legal and payroll requirements, with the design being extended toward additional countries.",
+      "Performed R&D and competitive analysis to evaluate practical approaches for new product capabilities.",
+      "Supported infrastructure, deployments, product demonstrations, technical communication, and knowledge transfer alongside feature development."
     ],
-    result: "Automated candidate screening with deterministic ML evaluation and integrated verification workflows.",
-    metrics: ["SpaCy NLP", "Face Recognition", "Quest/LabCorp APIs"],
-    stack: "Next.js 16, Python, FastAPI, MongoDB, PyTesseract, GenAI",
-    apiDiagram: { theme: "assessment", clientLabel: "Next.js BGV Dashboard", gatewayLabel: "FastAPI Inference Gateway", routeGroups: ["cv_parsing", "ocr_validation", "fraud_detection"], dataLayerLabel: "MongoDB + S3", controlLabel: "AI Semantic Matching" },
-    sourcePath: "/Users/tfg-admin/dev/projects/tfg-verify",
-    detailsHref: "https://tfgverify.com/",
+    result: "A growing automation platform with payroll and operational workflows designed to turn complex business processes into structured software.",
+    metrics: ["Payroll Automation", "AI / R&D", "Product Ownership"],
+    stack: "Python, FastAPI, Flutter, PostgreSQL, Redis, Firebase, AI/ML",
+    apiDiagram: { theme: "assessment", clientLabel: "Flutter + Web Interfaces", gatewayLabel: "Application API Layer", routeGroups: ["employee", "payroll", "automation", "integrations"], dataLayerLabel: "PostgreSQL + Redis", controlLabel: "Authentication & Rules" },
+    sourcePath: "/Users/tfg-admin/dev/projects/IYOV-AI",
   },
   {
     title: "Medical Advisor",
-    subtitle: "Mission-Critical Healthcare Coordination API",
+    subtitle: "Healthcare Coordination Platform",
     status: "Published",
-    problem: "Emergency dispatch centers required real-time patient vital updates and hardened request validation against payload tampering or spoofing.",
+    problem: "Healthcare coordination requires reliable mobile workflows, protected APIs, real-time information, and resilient handling of operational data.",
     action: [
-      "Architected a FastAPI security gateway using Google Play Integrity nonces to verify edge payloads.",
-      "Engineered an asynchronous dual-write pipeline across PostgreSQL and Firestore for real-time vitals.",
-      "Configured Redis caching and Dockerized microservices deployed on Render.",
-      "Integrated asynchronous AI document parsing to reduce clinical administration overhead."
+      "Contributed across Flutter mobile, FastAPI backend, PostgreSQL, Firebase, Redis, and supporting infrastructure.",
+      "Worked on secure authentication and request-validation flows for production mobile workflows.",
+      "Helped ship the platform and troubleshoot deployment and integration issues across the stack.",
+      "Became a key knowledge-transfer resource, giving hands-on KT to 8 team members working with the platform."
     ],
-    result: "A resilient healthcare dispatcher with low-latency synchronization and cryptographic request enforcement.",
-    metrics: ["Play Integrity", "Dual-Write Sync", "RBAC"],
-    stack: "Python, FastAPI, PostgreSQL, Redis, Firebase/GCP, Docker",
-    apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients", gatewayLabel: "FastAPI Security Gateway", routeGroups: ["auth", "medical_data", "field_ops"], dataLayerLabel: "Postgres + Firestore", controlLabel: "JWT & RBAC" },
+    result: "A production healthcare platform that also became an internal technical onboarding reference for new team members.",
+    metrics: ["Flutter + FastAPI", "PostgreSQL + Redis", "8 KT Sessions"],
+    stack: "Flutter, Python, FastAPI, PostgreSQL, Redis, Firebase, Docker",
+    apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients", gatewayLabel: "FastAPI Service Layer", routeGroups: ["auth", "medical_data", "field_ops"], dataLayerLabel: "PostgreSQL + Firebase + Redis", controlLabel: "Auth & RBAC" },
     sourcePath: "/Users/tfg-admin/dev/projects/MEDICAL_ADVISOR",
     detailsHref: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor",
+  },
+  {
+    title: "TFGenAPI",
+    subtitle: "Backend Platform Built from Scratch",
+    status: "Internal / Pre-release",
+    problem: "Building a reusable backend platform from the ground up requires clear API boundaries, dependable data flows, maintainable architecture, and practical decisions under incomplete requirements.",
+    action: [
+      "Built the platform from scratch, owning the backend implementation and the difficult technical decisions needed to make it usable in production workflows.",
+      "Designed and implemented REST APIs around evolving product requirements and integration needs.",
+      "Used R&D and debugging to investigate unfamiliar technical problems instead of forcing a predetermined implementation.",
+      "Worked across development, infrastructure, and stakeholder requirements to move large tickets toward completion."
+    ],
+    result: "A backend foundation built to support evolving product requirements while keeping the implementation practical and maintainable.",
+    metrics: ["Built from Scratch", "REST APIs", "R&D + Debugging"],
+    stack: "Python, FastAPI, PostgreSQL, REST APIs, Redis, Docker",
+    apiDiagram: { theme: "banking", clientLabel: "Web / Mobile Clients", gatewayLabel: "FastAPI API Gateway", routeGroups: ["auth", "core_api", "business_rules", "integrations"], dataLayerLabel: "PostgreSQL + Redis", controlLabel: "Validation & Access Control" },
+    sourcePath: "/Users/tfg-admin/dev/projects/TFGenAPI",
   },
   {
     title: "TFG SecureBank",
@@ -66,7 +82,7 @@ const projectsData: Project[] = [
       "Architected a multi-tenant FastAPI backend with SQLAlchemy and Alembic across PostgreSQL/Supabase and legacy MySQL.",
       "Engineered an asynchronous rules engine for Excel-based credit validation matrices.",
       "Secured 70+ banking APIs with JWT filters, granular RBAC, and audit events.",
-      "Generated tamper-resistant loan agreement PDFs dynamically with WeasyPrint and Jinja2."
+      "Generated loan agreement PDFs dynamically with WeasyPrint and Jinja2."
     ],
     result: "A flexible multi-tenant loan engine that maps forms, executes server-side rules, and preserves security records.",
     metrics: ["70+ APIs", "Multi-Tenant", "RBAC + Audit"],
@@ -76,37 +92,20 @@ const projectsData: Project[] = [
     detailsHref: "https://tfgsecurebank.com/",
   },
   {
-    title: "TFG Corporate Website",
-    subtitle: "High-Performance Next.js Migration",
-    status: "Published",
-    problem: "Legacy formats lacked search scannability and exposed risks from hardcoded database and SMTP configuration.",
-    action: [
-      "Modernized the corporate website into an SEO-optimized Next.js experience with zero production downtime.",
-      "Refactored committed credentials and connection keys into secure environment configuration.",
-      "Isolated local test workflows from production databases and assets."
-    ],
-    result: "A performant Next.js site with stronger SEO, environment validation, and production-safe development workflows.",
-    metrics: ["Next.js", "SEO", "Environment Safety"],
-    stack: "Next.js, Flask, SQLite / MySQL, environment variables, Tailwind",
-    apiDiagram: { theme: "assessment", clientLabel: "Next.js Web Client", gatewayLabel: "Flask API Gateway", routeGroups: ["subscribe", "contact", "auth/login", "verify"], dataLayerLabel: "MySQL / SQLite", controlLabel: "Environment Guards" },
-    sourcePath: "/Users/tfg-admin/dev/projects/tfg-org-com",
-    detailsHref: "https://tfgroup.ai/en",
-  },
-  {
     title: "DealsMart",
-    subtitle: "High-Scale Monolithic Retail Platform",
+    subtitle: "Commerce Platform",
     status: "Internal / Pre-release",
-    problem: "Inventory synchronization and payment verification suffered from consistency and race-condition issues in distributed deployments.",
+    problem: "Inventory synchronization and payment verification required stronger transactional consistency and reliable background processing.",
     action: [
       "Migrated document structures into normalized PostgreSQL models for stronger transactional guarantees.",
-      "Built a FastAPI orchestration layer backed by Redis and distributed RQ workers for payment reconciliation.",
+      "Built a FastAPI orchestration layer backed by Redis and background workers for payment reconciliation.",
       "Delivered Flutter mobile and Flutter Web administration surfaces.",
       "Integrated S3/MinIO object storage for scalable media uploads."
     ],
-    result: "A deterministic commerce backend designed around transactional inventory and idempotent payment processing.",
-    metrics: ["PostgreSQL", "RQ Workers", "Flutter + Web Admin"],
+    result: "A commerce backend designed around transactional inventory, background processing, and reliable payment workflows.",
+    metrics: ["PostgreSQL", "Background Workers", "Flutter + Web Admin"],
     stack: "Flutter, FastAPI, PostgreSQL, Redis, RQ, S3/MinIO",
-    apiDiagram: { theme: "commerce", clientLabel: "Customer App + Web Admin", gatewayLabel: "FastAPI REST Gateway", routeGroups: ["catalog", "cart & checkout", "returns", "support_chat"], dataLayerLabel: "PostgreSQL + Redis + RQ", controlLabel: "JWT & Audit Logs" },
+    apiDiagram: { theme: "commerce", clientLabel: "Customer App + Web Admin", gatewayLabel: "FastAPI REST Gateway", routeGroups: ["catalog", "cart & checkout", "returns", "support_chat"], dataLayerLabel: "PostgreSQL + Redis + Workers", controlLabel: "JWT & Audit Logs" },
     sourcePath: "/Users/tfg-admin/dev/projects/DEALSMART",
   }
 ];
@@ -119,12 +118,12 @@ const projectVariants: Variants = {
 
 export default function Projects() {
   return (
-    <section className="section-shell relative bg-brand-bg border-b border-brand-border/40" id="projects">
+    <section className="section-shell relative border-b border-brand-border/40 bg-brand-bg" id="projects">
       <div aria-hidden className="pointer-events-none absolute -left-32 top-10 h-72 w-72 rounded-full bg-brand-blue/5 blur-[120px]" />
       <div aria-hidden className="pointer-events-none absolute -right-32 bottom-8 h-80 w-80 rounded-full bg-brand-accent/5 blur-[130px]" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Selected Engineering Work" description="Production systems and product builds that demonstrate architecture, backend ownership, security, and delivery depth." eyebrow="Portfolio Projects" />
+        <SectionHeading title="Selected Engineering Work" description="The three projects I want people to remember first, followed by additional production work that shows the breadth of my engineering experience." eyebrow="PORTFOLIO PROJECTS" />
 
         <motion.div className="mt-10 grid gap-8" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
           {projectsData.map((project, index) => {
