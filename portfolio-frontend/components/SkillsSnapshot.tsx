@@ -4,12 +4,12 @@ import { motion, Variants } from 'framer-motion';
 import SectionHeading from './SectionHeading';
 
 const SKILL_GROUPS = [
-  { label: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Flutter', 'Dart', 'Tailwind CSS'] },
-  { label: 'Backend', items: ['Python', 'FastAPI', 'Node.js', 'Express', 'REST APIs', 'Prisma'] },
-  { label: 'Data & Infrastructure', items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Firebase', 'Docker'] },
-  { label: 'AI & Automation', items: ['LLM Integration', 'NLP', 'OCR', 'Semantic Matching', 'AI Workflows'] },
-  { label: 'Delivery', items: ['Git', 'GitHub Actions', 'AWS', 'Render', 'NGINX', 'Linux'] },
-  { label: 'Product Domains', items: ['Healthcare', 'Lending', 'Verification', 'E-commerce', 'Admin Platforms'] },
+  { label: 'Core Engineering', items: ['Python', 'Flutter', 'Dart', 'JavaScript', 'AI / ML'] },
+  { label: 'Backend & APIs', items: ['FastAPI', 'Node.js', 'Express', 'REST APIs', 'Prisma'] },
+  { label: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'] },
+  { label: 'Data & Platforms', items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Firebase', 'Supabase'] },
+  { label: 'Cloud & Delivery', items: ['AWS', 'GCP', 'Docker', 'Render', 'Git', 'GitHub Actions', 'Linux'] },
+  { label: 'AI, R&D & Web3', items: ['LLM Integration', 'NLP', 'Machine Learning', 'Solidity', 'Web3.js', 'IPFS'] },
 ];
 
 const containerVariants = {
@@ -28,7 +28,7 @@ export default function SkillsSnapshot() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Engineering Capabilities"
-          description="A focused view of the technologies I use to design, build, ship, and maintain production software."
+          description="A practical view of the technologies I use across AI/ML, application development, backend systems, infrastructure, and product R&D."
           eyebrow="TECH STACK"
         />
 
@@ -40,24 +40,15 @@ export default function SkillsSnapshot() {
           viewport={{ once: true, margin: '-80px' }}
         >
           {SKILL_GROUPS.map((group, index) => (
-            <motion.article
-              key={group.label}
-              variants={cardVariants}
-              className="card card-hover p-5 sm:p-6"
-            >
+            <motion.article key={group.label} variants={cardVariants} className="card card-hover p-5 sm:p-6">
               <div className="flex items-center justify-between gap-4">
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">
-                  0{index + 1}
-                </span>
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">0{index + 1}</span>
                 <span className="h-px flex-1 bg-brand-border" />
               </div>
               <h3 className="mt-5 text-lg font-semibold text-brand-navy">{group.label}</h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-lg border border-brand-border bg-brand-muted/60 px-2.5 py-1.5 font-mono text-[10px] font-medium text-brand-charcoal transition-colors hover:border-brand-blue/40 hover:text-brand-blue"
-                  >
+                  <span key={item} className="rounded-lg border border-brand-border bg-brand-muted/60 px-2.5 py-1.5 font-mono text-[10px] font-medium text-brand-charcoal transition-colors hover:border-brand-blue/40 hover:text-brand-blue">
                     {item}
                   </span>
                 ))}
