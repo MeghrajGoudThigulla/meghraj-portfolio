@@ -3,14 +3,17 @@ import { describe, expect, it } from "vitest";
 import About from "../About";
 
 describe("About", () => {
-  it("renders value statement and operating model blocks", () => {
+  it("renders the adaptive engineering profile and operating principles", () => {
     render(<About />);
 
     expect(
-      screen.getByRole("heading", { name: "Product-Minded Systems Engineer & Consulting Catalyst" }),
+      screen.getByRole("heading", {
+        name: "An adaptive engineer who makes difficult technical work easier to move through.",
+      }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Core Positioning")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Operating Philosophy" })).toBeInTheDocument();
-    expect(screen.getByText("AI Integration & ML")).toBeInTheDocument();
+    expect(screen.getByText("How I work")).toBeInTheDocument();
+    expect(screen.getByText("Working principles")).toBeInTheDocument();
+    expect(screen.getByText("Adaptive R&D")).toBeInTheDocument();
+    expect(screen.getByText("Use AI for leverage")).toBeInTheDocument();
   });
 });
