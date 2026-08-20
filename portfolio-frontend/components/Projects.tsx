@@ -9,105 +9,115 @@ import SectionHeading from './SectionHeading';
 export type Project = {
   title: string;
   subtitle: string;
-  status: "Published" | "Internal / Pre-release";
+  status: "Production / Internal" | "Internal / Pre-release" | "Published";
   problem: string;
   action: string[];
   result: string;
   metrics: string[];
   stack: string;
   apiDiagram: ApiDiagramModel;
-  sourcePath: string;
   detailsHref?: string;
 };
 
 const projectsData: Project[] = [
   {
-    title: "IYOV AI",
-    subtitle: "AI-Powered Business Operations Platform",
-    status: "Internal / Pre-release",
-    problem: "Business operations span onboarding, employee workflows, payroll, verification, and other rule-heavy processes that become difficult to manage consistently as requirements grow.",
+    title: "TFGenAPI",
+    subtitle: "Verification & Custom API Platform",
+    status: "Production / Internal",
+    problem: "Verification products need dependable API boundaries, provider integrations, asynchronous workflows, security controls, and enough flexibility to evolve with business requirements.",
     action: [
-      "Developed production features across the platform while working closely with stakeholders on custom requirements.",
-      "Built the payroll module around India-specific legal and payroll requirements, with the design being extended toward additional countries.",
-      "Performed R&D and competitive analysis to evaluate practical approaches for new product capabilities.",
-      "Supported infrastructure, deployments, product demonstrations, technical communication, and knowledge transfer alongside feature development."
+      "Built the platform from scratch and owned difficult backend modules and technical decisions across evolving requirements.",
+      "Developed REST APIs and integrations while working through unfamiliar technical problems with R&D and iterative debugging.",
+      "Worked across backend development, infrastructure issues, stakeholder requirements, and large tickets that needed end-to-end ownership.",
+      "Used the platform as a practical engineering environment for solving complex verification and automation problems."
     ],
-    result: "A growing automation platform with payroll and operational workflows designed to turn complex business processes into structured software.",
-    metrics: ["Payroll Automation", "AI / R&D", "Product Ownership"],
-    stack: "Python, FastAPI, Flutter, PostgreSQL, Redis, Firebase, AI/ML",
+    result: "A reusable backend foundation for verification and custom API workflows, built to support evolving product requirements without turning every change into a new system.",
+    metrics: ["Built from Scratch", "Backend Ownership", "R&D + Debugging"],
+    stack: "Python, FastAPI, PostgreSQL, Redis, REST APIs, Next.js, TypeScript",
+    apiDiagram: { theme: "banking", clientLabel: "Web + API Consumers", gatewayLabel: "FastAPI Service Layer", routeGroups: ["verification", "custom_apis", "workflows", "integrations"], dataLayerLabel: "PostgreSQL + Redis", controlLabel: "Validation & Access Control" },
+  },
+  {
+    title: "IYOV AI",
+    subtitle: "AI-Powered HR & Business Operations Platform",
+    status: "Internal / Pre-release",
+    problem: "HR operations combine employee workflows, verification, payroll, compliance, and other rule-heavy processes where correctness and maintainability matter as requirements grow.",
+    action: [
+      "Developed production features across the platform while working directly with stakeholders on custom requirements.",
+      "Mainly built the payroll module around India-specific legal and payroll requirements, with the design being extended toward additional countries.",
+      "Performed R&D, competitive analysis, product demonstrations, infrastructure work, and technical communication alongside feature development.",
+      "Worked across difficult tickets, deployments, integrations, and knowledge transfer rather than limiting the role to feature coding."
+    ],
+    result: "A growing HR automation platform with payroll and operational workflows that turn complex business rules into structured software.",
+    metrics: ["Payroll Ownership", "AI / R&D", "Product + Infrastructure"],
+    stack: "Python, FastAPI, Flutter, Next.js, TypeScript, PostgreSQL, Redis, AI/ML",
     apiDiagram: { theme: "assessment", clientLabel: "Flutter + Web Interfaces", gatewayLabel: "Application API Layer", routeGroups: ["employee", "payroll", "automation", "integrations"], dataLayerLabel: "PostgreSQL + Redis", controlLabel: "Authentication & Rules" },
-    sourcePath: "/Users/tfg-admin/dev/projects/IYOV-AI",
+  },
+  {
+    title: "TFG SecureBank",
+    subtitle: "Digital Loan Processing Platform",
+    status: "Production / Internal",
+    problem: "Financial workflows require secure applicant journeys, backend validation, document handling, tenant-aware access, and reliable communication across web and mobile surfaces.",
+    action: [
+      "Worked across backend services and product workflows for a multi-surface loan-processing platform.",
+      "Contributed to API development, business logic, integrations, and difficult implementation work across the system.",
+      "Worked with FastAPI, PostgreSQL, React, Flutter, Firebase, and supporting infrastructure across development surfaces.",
+      "Used debugging and R&D to resolve integration and deployment issues while moving large tickets toward completion."
+    ],
+    result: "A multi-surface financial platform connecting applicant workflows, backend services, web interfaces, and mobile experiences.",
+    metrics: ["FinTech Domain", "Web + Mobile", "Backend Engineering"],
+    stack: "Python, FastAPI, React, Vite, Flutter, PostgreSQL, Supabase, Firebase",
+    apiDiagram: { theme: "banking", clientLabel: "React Web + Flutter App", gatewayLabel: "FastAPI Service Layer", routeGroups: ["applicant", "loan_workflows", "documents", "notifications"], dataLayerLabel: "PostgreSQL + Supabase", controlLabel: "Auth & Role Controls" },
+    detailsHref: "https://tfgsecurebank.com/",
   },
   {
     title: "Medical Advisor",
     subtitle: "Healthcare Coordination Platform",
     status: "Published",
-    problem: "Healthcare coordination requires reliable mobile workflows, protected APIs, real-time information, and resilient handling of operational data.",
+    problem: "Healthcare coordination requires dependable mobile workflows, protected APIs, real-time information, and resilient handling of operational data.",
     action: [
       "Contributed across Flutter mobile, FastAPI backend, PostgreSQL, Firebase, Redis, and supporting infrastructure.",
-      "Worked on secure authentication and request-validation flows for production mobile workflows.",
+      "Worked on authentication, request-validation, production workflows, and cross-stack debugging.",
       "Helped ship the platform and troubleshoot deployment and integration issues across the stack.",
       "Became a key knowledge-transfer resource, giving hands-on KT to 8 team members working with the platform."
     ],
     result: "A production healthcare platform that also became an internal technical onboarding reference for new team members.",
-    metrics: ["Flutter + FastAPI", "PostgreSQL + Redis", "8 KT Sessions"],
+    metrics: ["Flutter + FastAPI", "Production Platform", "8 KT Sessions"],
     stack: "Flutter, Python, FastAPI, PostgreSQL, Redis, Firebase, Docker",
     apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients", gatewayLabel: "FastAPI Service Layer", routeGroups: ["auth", "medical_data", "field_ops"], dataLayerLabel: "PostgreSQL + Firebase + Redis", controlLabel: "Auth & RBAC" },
-    sourcePath: "/Users/tfg-admin/dev/projects/MEDICAL_ADVISOR",
     detailsHref: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor",
   },
   {
-    title: "TFGenAPI",
-    subtitle: "Backend Platform Built from Scratch",
-    status: "Internal / Pre-release",
-    problem: "Building a reusable backend platform from the ground up requires clear API boundaries, dependable data flows, maintainable architecture, and practical decisions under incomplete requirements.",
-    action: [
-      "Built the platform from scratch, owning the backend implementation and the difficult technical decisions needed to make it usable in production workflows.",
-      "Designed and implemented REST APIs around evolving product requirements and integration needs.",
-      "Used R&D and debugging to investigate unfamiliar technical problems instead of forcing a predetermined implementation.",
-      "Worked across development, infrastructure, and stakeholder requirements to move large tickets toward completion."
-    ],
-    result: "A backend foundation built to support evolving product requirements while keeping the implementation practical and maintainable.",
-    metrics: ["Built from Scratch", "REST APIs", "R&D + Debugging"],
-    stack: "Python, FastAPI, PostgreSQL, REST APIs, Redis, Docker",
-    apiDiagram: { theme: "banking", clientLabel: "Web / Mobile Clients", gatewayLabel: "FastAPI API Gateway", routeGroups: ["auth", "core_api", "business_rules", "integrations"], dataLayerLabel: "PostgreSQL + Redis", controlLabel: "Validation & Access Control" },
-    sourcePath: "/Users/tfg-admin/dev/projects/TFGenAPI",
-  },
-  {
-    title: "TFG SecureBank",
-    subtitle: "Multi-Tenant Applicant Loan API Gateway",
-    status: "Published",
-    problem: "Banking onboarding required dynamic forms, tenant-isolated routing, real-time validation, and transparent audit trails without manual code changes.",
-    action: [
-      "Architected a multi-tenant FastAPI backend with SQLAlchemy and Alembic across PostgreSQL/Supabase and legacy MySQL.",
-      "Engineered an asynchronous rules engine for Excel-based credit validation matrices.",
-      "Secured 70+ banking APIs with JWT filters, granular RBAC, and audit events.",
-      "Generated loan agreement PDFs dynamically with WeasyPrint and Jinja2."
-    ],
-    result: "A flexible multi-tenant loan engine that maps forms, executes server-side rules, and preserves security records.",
-    metrics: ["70+ APIs", "Multi-Tenant", "RBAC + Audit"],
-    stack: "Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, Redis, WeasyPrint, Docker",
-    apiDiagram: { theme: "banking", clientLabel: "React Web + FCM", gatewayLabel: "FastAPI Route Gateway", routeGroups: ["applicant/auth", "rule_engine", "dynamic_forms", "observability"], dataLayerLabel: "PostgreSQL + Redis", controlLabel: "Tenant JWT & RBAC" },
-    sourcePath: "/Users/tfg-admin/dev/projects/tfg-securebank/tfg-securebank_api",
-    detailsHref: "https://tfgsecurebank.com/",
-  },
-  {
     title: "DealsMart",
-    subtitle: "Commerce Platform",
+    subtitle: "Full-Stack Commerce Platform",
     status: "Internal / Pre-release",
-    problem: "Inventory synchronization and payment verification required stronger transactional consistency and reliable background processing.",
+    problem: "Commerce workflows need reliable catalog, inventory, payments, orders, background processing, and administration across multiple product surfaces.",
     action: [
-      "Migrated document structures into normalized PostgreSQL models for stronger transactional guarantees.",
-      "Built a FastAPI orchestration layer backed by Redis and background workers for payment reconciliation.",
-      "Delivered Flutter mobile and Flutter Web administration surfaces.",
-      "Integrated S3/MinIO object storage for scalable media uploads."
+      "Worked across the Flutter customer application, Flutter Web administration surface, and FastAPI backend.",
+      "Built backend workflows around PostgreSQL, Redis, background jobs, payment processing, and object storage.",
+      "Worked on transactional data flows, integrations, and the difficult modules required to move the product beyond a basic CRUD application.",
+      "Used R&D and debugging to resolve implementation issues across mobile, backend, database, and infrastructure layers."
     ],
-    result: "A commerce backend designed around transactional inventory, background processing, and reliable payment workflows.",
-    metrics: ["PostgreSQL", "Background Workers", "Flutter + Web Admin"],
-    stack: "Flutter, FastAPI, PostgreSQL, Redis, RQ, S3/MinIO",
-    apiDiagram: { theme: "commerce", clientLabel: "Customer App + Web Admin", gatewayLabel: "FastAPI REST Gateway", routeGroups: ["catalog", "cart & checkout", "returns", "support_chat"], dataLayerLabel: "PostgreSQL + Redis + Workers", controlLabel: "JWT & Audit Logs" },
-    sourcePath: "/Users/tfg-admin/dev/projects/DEALSMART",
-  }
+    result: "A multi-surface commerce system spanning customer experiences, administration, transactional backend workflows, and supporting infrastructure.",
+    metrics: ["Flutter + Web Admin", "FastAPI", "Payments + Background Jobs"],
+    stack: "Flutter, FastAPI, PostgreSQL, Redis, RQ, Razorpay, S3/MinIO",
+    apiDiagram: { theme: "commerce", clientLabel: "Customer App + Web Admin", gatewayLabel: "FastAPI REST Gateway", routeGroups: ["catalog", "cart & checkout", "orders", "support"], dataLayerLabel: "PostgreSQL + Redis + Workers", controlLabel: "JWT & Audit Logs" },
+  },
+  {
+    title: "IYOV AI Mobile",
+    subtitle: "Cross-Platform Employee Application",
+    status: "Production / Internal",
+    problem: "A business platform needs a dependable mobile experience that can consume evolving backend capabilities while remaining maintainable across Android and iOS.",
+    action: [
+      "Developed Flutter mobile features and integrated them with the wider IYOV platform.",
+      "Handled Android and iOS publishing workflows as part of shipping the product.",
+      "Worked through mobile-specific debugging, API integration, R&D, and release issues.",
+      "Used the mobile application as another surface for turning product requirements into production-ready workflows."
+    ],
+    result: "A cross-platform mobile surface for the IYOV ecosystem, supported through development and real release operations across Android and iOS.",
+    metrics: ["Flutter", "Android + iOS", "Release Ownership"],
+    stack: "Flutter, Dart, Firebase, REST APIs, Android, iOS",
+    apiDiagram: { theme: "assessment", clientLabel: "Flutter Android + iOS", gatewayLabel: "IYOV API Layer", routeGroups: ["employee", "attendance", "leave", "payroll"], dataLayerLabel: "Platform Services", controlLabel: "Auth & Mobile Security" },
+  },
 ];
 
 const containerVariants = { hidden: {}, visible: { transition: { staggerChildren: 0.08 } } };
@@ -123,7 +133,11 @@ export default function Projects() {
       <div aria-hidden className="pointer-events-none absolute -right-32 bottom-8 h-80 w-80 rounded-full bg-brand-accent/5 blur-[130px]" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Selected Engineering Work" description="The three projects I want people to remember first, followed by additional production work that shows the breadth of my engineering experience." eyebrow="PORTFOLIO PROJECTS" />
+        <SectionHeading
+          title="Selected Engineering Work"
+          description="Production and internal systems I've worked across, ordered by the depth of ownership and technical responsibility they demonstrate. Proprietary projects are described at a high level without exposing private source code."
+          eyebrow="ENGINEERING WORK"
+        />
 
         <motion.div className="mt-10 grid gap-8" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
           {projectsData.map((project, index) => {
@@ -162,7 +176,11 @@ export default function Projects() {
 
                     <div className="mt-7 flex flex-wrap items-center gap-4">
                       <ProjectDetailsToggle projectTitle={project.title} actionItems={project.action} />
-                      {project.detailsHref && <Link href={detailsHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noreferrer" : undefined} className="btn btn-secondary btn-sm">View Live Project →</Link>}
+                      {project.detailsHref ? (
+                        <Link href={detailsHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noreferrer" : undefined} className="btn btn-secondary btn-sm">View Live Project →</Link>
+                      ) : (
+                        <Link href="/#contact" className="btn btn-secondary btn-sm">Discuss the Work →</Link>
+                      )}
                     </div>
                   </div>
 
@@ -170,7 +188,7 @@ export default function Projects() {
                     <div className="flex h-full flex-col gap-5">
                       <div>
                         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-blue">03 / Architecture</p>
-                        <p className="mt-2 text-sm leading-6 text-brand-charcoal">The system surface and technology choices behind the product.</p>
+                        <p className="mt-2 text-sm leading-6 text-brand-charcoal">A high-level view of the system surface and technology choices. Proprietary implementation details are intentionally omitted.</p>
                       </div>
                       <div className="rounded-2xl border border-brand-border bg-brand-surface p-3 shadow-sm"><ApiDiagramCard idPrefix={`project-${index}`} diagram={project.apiDiagram} /></div>
                       <div className="mt-auto rounded-2xl border border-brand-border bg-brand-surface p-4">
