@@ -7,8 +7,8 @@ describe("SkillsSnapshot", () => {
     render(<SkillsSnapshot />);
     expect(screen.getByRole("heading", { name: "Engineering Capabilities" })).toBeInTheDocument();
     expect(screen.getByText("Frontend")).toBeInTheDocument();
-    expect(screen.getByText("Backend")).toBeInTheDocument();
+    expect(screen.getByText("Backend & APIs")).toBeInTheDocument();
     expect(screen.getByText("FastAPI")).toBeInTheDocument();
-    expect(screen.getByText("AI & Automation")).toBeInTheDocument();
+    expect(screen.getByText("AI / ML")).toBeInTheDocument();
   });
 });
