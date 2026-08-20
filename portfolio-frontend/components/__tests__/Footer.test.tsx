@@ -11,9 +11,10 @@ describe("Footer", () => {
     render(<Footer />);
 
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "/#about");
-    expect(screen.getByRole("link", { name: "Skills" })).toHaveAttribute("href", "/#skills");
+    expect(screen.getByRole("link", { name: "Approach" })).toHaveAttribute("href", "/#strengths");
+    expect(screen.getByRole("link", { name: "Capabilities" })).toHaveAttribute("href", "/#skills");
     expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute("href", "/#projects");
-    expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/#contact");
+    expect(screen.getByRole("link", { name: "Start a Conversation" })).toHaveAttribute("href", "/#contact");
   });
 
   it("renders profile links with descriptive labels", () => {
