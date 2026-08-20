@@ -66,12 +66,12 @@ export default function Home() {
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         <Hero />
-        <Projects />
-        <ExperienceTimeline />
-        <SkillsSnapshot />
         <About />
         <ConsultingStrengths />
         <ServicesSection />
+        <Projects />
+        <ExperienceTimeline />
+        <SkillsSnapshot />
         <ROICalculator />
         <ContactForm />
       </main>
