@@ -87,7 +87,7 @@ describe("ROICalculator", () => {
     const user = userEvent.setup();
 
     render(<ROICalculator />);
-    await user.click(screen.getByRole("link", { name: "Consult On System Scope" }));
+    await user.click(screen.getByRole("link", { name: "Discuss the problem" }));
 
     expect(trackMetricMock).toHaveBeenCalledWith(
       expect.objectContaining({
