@@ -1,11 +1,12 @@
 import Link from "next/link";
 
 const quickLinks = [
+  { href: "/#about", label: "About" },
+  { href: "/#strengths", label: "Approach" },
+  { href: "/#services", label: "Services" },
   { href: "/#projects", label: "Projects" },
   { href: "/#journey", label: "Experience" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/#about", label: "About" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/#skills", label: "Capabilities" },
 ];
 
 const profileLinks = [
@@ -21,7 +22,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[1.35fr,0.65fr,0.65fr] lg:gap-12">
           <div>
-            <Link href="/#top" className="text-sm font-bold tracking-[0.06em] text-brand-navy hover:text-brand-blue">
+            <Link href="/#top" className="text-sm font-bold tracking-[0.06em] text-brand-navy hover:text-brand-blue" aria-label="Meghraj Goud home">
               Meghraj Goud<span className="text-brand-blue">.</span>
             </Link>
             <p className="mt-4 max-w-xl text-base leading-7 text-brand-charcoal">
@@ -30,6 +31,9 @@ export default function Footer() {
             <p className="mt-4 text-xs font-medium uppercase tracking-[0.12em] text-slate-400">
               Hyderabad, India · Remote / Hybrid
             </p>
+            <Link href="/#contact" className="btn btn-primary mt-6 inline-flex text-xs font-bold tracking-[0.08em]">
+              Start a Conversation
+            </Link>
           </div>
 
           <nav aria-label="Footer quick links">
@@ -55,7 +59,10 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-brand-border pt-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Meghraj Goud.</p>
-          <Link href="/#top" className="font-semibold text-brand-blue hover:text-brand-accent">Back to top ↑</Link>
+          <div className="flex items-center gap-4">
+            <Link href="/resume" className="font-semibold text-brand-charcoal hover:text-brand-blue">Résumé</Link>
+            <Link href="/#top" className="font-semibold text-brand-blue hover:text-brand-accent">Back to top ↑</Link>
+          </div>
         </div>
       </div>
     </footer>
