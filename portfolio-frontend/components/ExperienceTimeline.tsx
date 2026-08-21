@@ -16,7 +16,7 @@ const TIMELINE_EVENTS = [
       'Built TFGenAPI from scratch and contribute to difficult backend, R&D, and infrastructure problems across the product portfolio.',
       'Developed the IYOV AI payroll module, translating India-specific legal and payroll requirements into an automated product workflow.',
       'Helped ship Medical Advisor and became a key technical onboarding resource, delivering knowledge transfer to 8 team members.',
-      'Manage production deployments and Android/iOS publishing while supporting stakeholder-driven customizations and technical troubleshooting.'
+      'Manage production deployments, AWS/GCP pipelines, and release publishing (Apple App Store & Google Play) for 4+ Flutter mobile apps (Portal, HRMS, LMS, and Care Navigator).'
     ]
   },
   {

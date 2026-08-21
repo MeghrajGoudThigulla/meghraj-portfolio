@@ -103,20 +103,20 @@ const projectsData: Project[] = [
     apiDiagram: { theme: "commerce", clientLabel: "Customer App + Web Admin", gatewayLabel: "FastAPI REST Gateway", routeGroups: ["catalog", "cart & checkout", "orders", "support"], dataLayerLabel: "PostgreSQL + Redis + Workers", controlLabel: "JWT & Audit Logs" },
   },
   {
-    title: "IYOV AI Mobile",
-    subtitle: "Cross-Platform Employee Application",
+    title: "TFG Mobile App Suite",
+    subtitle: "Cross-Platform Operational Applications",
     status: "Production / Internal",
-    problem: "A business platform needs a dependable mobile experience that can consume evolving backend capabilities while remaining maintainable across Android and iOS.",
+    problem: "Growing business operations require a suite of dedicated, reliable mobile experiences (Employee Portal, HRMS, LMS, and Care Navigator) that consume backend services and remain maintainable across iOS and Android platforms.",
     action: [
-      "Developed Flutter mobile features and integrated them with the wider IYOV platform.",
-      "Handled Android and iOS publishing workflows as part of shipping the product.",
-      "Worked through mobile-specific debugging, API integration, R&D, and release issues.",
-      "Used the mobile application as another surface for turning product requirements into production-ready workflows."
+      "Developed Flutter features and handled integration across multiple operational mobile products.",
+      "Managed Android and iOS App Store/Play Store publishing pipelines, provisioning, and releases.",
+      "Debugged mobile-specific integration issues, API syncs, local storage persistence, and push notifications.",
+      "Authored technical solutions across Employee Portal, HRMS, and LMS mobile surfaces to match business requirements."
     ],
-    result: "A cross-platform mobile surface for the IYOV ecosystem, supported through development and real release operations across Android and iOS.",
-    metrics: ["Flutter", "Android + iOS", "Release Ownership"],
-    stack: "Flutter, Dart, Firebase, REST APIs, Android, iOS",
-    apiDiagram: { theme: "assessment", clientLabel: "Flutter Android + iOS", gatewayLabel: "IYOV API Layer", routeGroups: ["employee", "attendance", "leave", "payroll"], dataLayerLabel: "Platform Services", controlLabel: "Auth & Mobile Security" },
+    result: "Published and maintained a suite of 4+ custom mobile applications, establishing reliable release pipelines and consistent borrower/employee client features.",
+    metrics: ["4+ Flutter Apps", "App/Play Store Releases", "Cross-Platform Delivery"],
+    stack: "Flutter, Dart, Riverpod, GoRouter, Firebase, REST APIs, iOS, Android",
+    apiDiagram: { theme: "assessment", clientLabel: "Flutter Android + iOS", gatewayLabel: "IYOV API Layer", routeGroups: ["portal / employee", "hrms / operations", "lms / training", "notifications"], dataLayerLabel: "Platform Services", controlLabel: "Auth & Mobile Security" },
   },
 ];
 

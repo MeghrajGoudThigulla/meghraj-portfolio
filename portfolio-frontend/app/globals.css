@@ -2,22 +2,120 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --brand-bg-rgb: 248 250 252;
+  --brand-surface-rgb: 255 255 255;
+  --brand-elevated-rgb: 255 255 255;
+  --brand-border-rgb: 226 232 240;
+  --brand-muted-rgb: 241 245 249;
+  --brand-navy-rgb: 15 23 42;
+  --brand-charcoal-rgb: 71 85 105;
+  --brand-blue-rgb: 2 132 199;
+  --brand-accent-rgb: 124 58 237;
+
+  --brand-bg: rgb(var(--brand-bg-rgb));
+  --brand-surface: rgb(var(--brand-surface-rgb));
+  --brand-elevated: rgb(var(--brand-elevated-rgb));
+  --brand-border: rgb(var(--brand-border-rgb));
+  --brand-muted: rgb(var(--brand-muted-rgb));
+  --brand-navy: rgb(var(--brand-navy-rgb));
+  --brand-charcoal: rgb(var(--brand-charcoal-rgb));
+  --brand-blue: rgb(var(--brand-blue-rgb));
+  --brand-accent: rgb(var(--brand-accent-rgb));
+
+  --body-bg-image:
+    radial-gradient(circle at 10% -15%, rgba(2, 132, 199, 0.05), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(124, 58, 237, 0.035), transparent 40%),
+    linear-gradient(180deg, #f8fafc 0%, #ffffff 52%, #f8fafc 100%);
+  color-scheme: light;
+  --bottom-ui-height: 0px;
+  --section-y: 5rem;
+  --section-y-lg: 7rem;
+}
+
+.dark {
+  --brand-bg-rgb: 9 13 22;
+  --brand-surface-rgb: 15 23 42;
+  --brand-elevated-rgb: 20 30 52;
+  --brand-border-rgb: 30 41 59;
+  --brand-muted-rgb: 30 41 59;
+  --brand-navy-rgb: 248 250 252;
+  --brand-charcoal-rgb: 203 213 225;
+  --brand-blue-rgb: 56 189 248;
+  --brand-accent-rgb: 139 92 246;
+
+  --brand-bg: rgb(var(--brand-bg-rgb));
+  --brand-surface: rgb(var(--brand-surface-rgb));
+  --brand-elevated: rgb(var(--brand-elevated-rgb));
+  --brand-border: rgb(var(--brand-border-rgb));
+  --brand-muted: rgb(var(--brand-muted-rgb));
+  --brand-navy: rgb(var(--brand-navy-rgb));
+  --brand-charcoal: rgb(var(--brand-charcoal-rgb));
+  --brand-blue: rgb(var(--brand-blue-rgb));
+  --brand-accent: rgb(var(--brand-accent-rgb));
+
+  --body-bg-image:
+    radial-gradient(circle at 10% -15%, rgba(56, 189, 248, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.055), transparent 40%),
+    linear-gradient(180deg, #090d16 0%, #0f172a 52%, #090d16 100%);
+  color-scheme: dark;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    background-color: var(--brand-bg);
   }
 
   body {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    @apply bg-brand-bg text-brand-charcoal font-sans;
+    background-image: var(--body-bg-image);
+    background-attachment: fixed;
   }
 
   ::selection {
     @apply bg-brand-blue/20 text-brand-navy;
   }
 
-  :focus-visible {
-    @apply outline-none ring-2 ring-brand-blue ring-offset-2 ring-offset-brand-bg;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--brand-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-border);
+    border: 2px solid var(--brand-bg);
+    border-radius: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-blue);
+  }
+
+  a {
+    @apply text-brand-blue hover:text-brand-accent transition-colors duration-200;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-sans text-brand-navy tracking-tight;
+    font-family: var(--font-space-grotesk), sans-serif;
   }
 }
 
@@ -63,6 +161,65 @@
   }
 }
 
+@layer utilities {
+  .fade-up {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out both;
+  }
+
+  .stagger-1 { animation-delay: 0.06s; }
+  .stagger-2 { animation-delay: 0.12s; }
+  .stagger-3 { animation-delay: 0.18s; }
+  .stagger-4 { animation-delay: 0.24s; }
+
+  .text-glow {
+    text-shadow: 0 0 16px rgba(56, 189, 248, 0.22);
+  }
+
+  .border-glow-hover {
+    @apply relative after:absolute after:inset-0 after:rounded-2xl after:border after:border-transparent after:transition-all after:duration-300;
+  }
+
+  .border-glow-hover:hover::after {
+    border-color: rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.08);
+  }
+
+  .glow-dot {
+    @apply absolute w-1.5 h-1.5 rounded-full bg-brand-blue;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.65);
+  }
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--brand-muted) 25%,
+      rgba(var(--brand-blue-rgb), 0.08) 37%,
+      var(--brand-muted) 63%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite linear;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -75,5 +232,6 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    animation: none !important;
   }
 }
