@@ -34,7 +34,7 @@ const projectsData: Project[] = [
     result: "A reusable backend foundation for verification and custom API workflows, built to support evolving product requirements without turning every change into a new system.",
     metrics: ["Built from Scratch", "Backend Ownership", "R&D + Debugging"],
     stack: "Python, FastAPI, PostgreSQL, Redis, REST APIs, Next.js, TypeScript",
-    apiDiagram: { theme: "banking", clientLabel: "Web + API Consumers", gatewayLabel: "FastAPI Service Layer", routeGroups: ["verification", "custom_apis", "workflows", "integrations"], dataLayerLabel: "PostgreSQL + Redis", controlLabel: "Validation & Access Control" },
+    apiDiagram: { theme: "banking", clientLabel: "Enterprise Dashboard & API Consumers", gatewayLabel: "FastAPI Route Handlers", routeGroups: ["identity & ocr", "consent flows", "workflows & webhooks", "billing & audits"], dataLayerLabel: "PostgreSQL RLS + Redis Queue", controlLabel: "Organization RBAC & Hash API Keys" },
   },
   {
     title: "IYOV AI",
@@ -50,7 +50,7 @@ const projectsData: Project[] = [
     result: "A growing HR automation platform with payroll and operational workflows that turn complex business rules into structured software.",
     metrics: ["Payroll Ownership", "AI / R&D", "Product + Infrastructure"],
     stack: "Python, FastAPI, Flutter, Next.js, TypeScript, PostgreSQL, Redis, AI/ML",
-    apiDiagram: { theme: "assessment", clientLabel: "Flutter + Web Interfaces", gatewayLabel: "Application API Layer", routeGroups: ["employee", "payroll", "automation", "integrations"], dataLayerLabel: "PostgreSQL + Redis", controlLabel: "Authentication & Rules" },
+    apiDiagram: { theme: "assessment", clientLabel: "Flutter Mobile + Recruiter Web", gatewayLabel: "FastAPI REST Service", routeGroups: ["ai_screening", "jobs & ATS", "interviews", "bgv_verification"], dataLayerLabel: "MongoDB Database", controlLabel: "OAuth2 Password Flow" },
   },
   {
     title: "TFG SecureBank",
@@ -66,7 +66,7 @@ const projectsData: Project[] = [
     result: "A multi-surface financial platform connecting applicant workflows, backend services, web interfaces, and mobile experiences.",
     metrics: ["FinTech Domain", "Web + Mobile", "Backend Engineering"],
     stack: "Python, FastAPI, React, Vite, Flutter, PostgreSQL, Supabase, Firebase",
-    apiDiagram: { theme: "banking", clientLabel: "React Web + Flutter App", gatewayLabel: "FastAPI Service Layer", routeGroups: ["applicant", "loan_workflows", "documents", "notifications"], dataLayerLabel: "PostgreSQL + Supabase", controlLabel: "Auth & Role Controls" },
+    apiDiagram: { theme: "banking", clientLabel: "React Vite Web + Flutter Mobile", gatewayLabel: "FastAPI Application API", routeGroups: ["auth", "products", "applications", "file_uploads"], dataLayerLabel: "PostgreSQL on Supabase", controlLabel: "Multitenancy & Session Security" },
     detailsHref: "https://tfgsecurebank.com/",
   },
   {
@@ -83,7 +83,7 @@ const projectsData: Project[] = [
     result: "A production healthcare platform that also became an internal technical onboarding reference for new team members.",
     metrics: ["Flutter + FastAPI", "Production Platform", "8 KT Sessions"],
     stack: "Flutter, Python, FastAPI, PostgreSQL, Redis, Firebase, Docker",
-    apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients", gatewayLabel: "FastAPI Service Layer", routeGroups: ["auth", "medical_data", "field_ops"], dataLayerLabel: "PostgreSQL + Firebase + Redis", controlLabel: "Auth & RBAC" },
+    apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients + Admin Web", gatewayLabel: "FastAPI Sync Gateway", routeGroups: ["admin_sync", "firestore_dual_write", "ai_medgemma_pipeline", "backfill_jobs"], dataLayerLabel: "PostgreSQL + Firestore + Redis", controlLabel: "Firebase Auth & MedGemma Queue" },
     detailsHref: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor",
   },
   {
@@ -100,7 +100,7 @@ const projectsData: Project[] = [
     result: "A multi-surface commerce system spanning customer experiences, administration, transactional backend workflows, and supporting infrastructure.",
     metrics: ["Flutter + Web Admin", "FastAPI", "Payments + Background Jobs"],
     stack: "Flutter, FastAPI, PostgreSQL, Redis, RQ, Razorpay, S3/MinIO",
-    apiDiagram: { theme: "commerce", clientLabel: "Customer App + Web Admin", gatewayLabel: "FastAPI REST Gateway", routeGroups: ["catalog", "cart & checkout", "orders", "support"], dataLayerLabel: "PostgreSQL + Redis + Workers", controlLabel: "JWT & Audit Logs" },
+    apiDiagram: { theme: "commerce", clientLabel: "Flutter App + Flutter Web Admin", gatewayLabel: "FastAPI REST Server", routeGroups: ["catalog & cart", "checkout & razorpay", "orders & returns", "support chat"], dataLayerLabel: "PostgreSQL + Redis + Firebase Storage", controlLabel: "JWT Session & MSG91 OTP" },
   },
   {
     title: "TFG Mobile App Suite",
@@ -116,7 +116,7 @@ const projectsData: Project[] = [
     result: "Published and maintained a suite of 4+ custom mobile applications, establishing reliable release pipelines and consistent borrower/employee client features.",
     metrics: ["4+ Flutter Apps", "App/Play Store Releases", "Cross-Platform Delivery"],
     stack: "Flutter, Dart, Riverpod, GoRouter, Firebase, REST APIs, iOS, Android",
-    apiDiagram: { theme: "assessment", clientLabel: "Flutter Android + iOS", gatewayLabel: "IYOV API Layer", routeGroups: ["portal / employee", "hrms / operations", "lms / training", "notifications"], dataLayerLabel: "Platform Services", controlLabel: "Auth & Mobile Security" },
+    apiDiagram: { theme: "assessment", clientLabel: "4+ Flutter Mobile Clients", gatewayLabel: "FastAPI Operational API", routeGroups: ["employee portal", "hrms mobile", "lms mobile", "care navigator"], dataLayerLabel: "SQLite Local + Firebase Push", controlLabel: "Token Sync & Device Biometrics" },
   },
 ];
 
