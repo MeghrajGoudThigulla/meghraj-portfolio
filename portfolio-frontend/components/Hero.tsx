@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, Variants } from "framer-motion";
 import HeroTrustBadges from "./HeroTrustBadges";
 import AnimatedGridBackground from "./AnimatedGridBackground";
+import CountUp from "./CountUp";
 import {
   HERO_EYEBROW,
   HERO_HEADLINE,
@@ -82,7 +83,9 @@ export default function Hero() {
                   <span className="pt-1 font-mono text-[10px] text-slate-400 transition-transform duration-300 group-hover:translate-x-1.5">0{index + 1}</span>
                   <div>
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <p className="text-2xl font-bold tracking-[-0.03em] text-brand-navy transition-all duration-300 group-hover:text-brand-blue group-hover:text-glow">{metric.value}</p>
+                      <p className="text-2xl font-bold tracking-[-0.03em] text-brand-navy transition-all duration-300 group-hover:text-brand-blue group-hover:text-glow">
+                        <CountUp value={metric.value} />
+                      </p>
                       <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">{metric.label}</p>
                     </div>
                     <p className="mt-1.5 text-xs leading-5 text-brand-charcoal">{metric.detail}</p>
