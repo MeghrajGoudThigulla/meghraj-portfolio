@@ -117,6 +117,44 @@
     @apply font-sans text-brand-navy tracking-tight;
     font-family: var(--font-space-grotesk), sans-serif;
   }
+
+  /* Range slider thumb & track overrides */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--brand-blue);
+    border: 2px solid var(--brand-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    background: var(--brand-accent);
+    box-shadow: 0 0 12px rgba(2, 132, 199, 0.3);
+  }
+  input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(0.92);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--brand-blue);
+    border: 2px solid var(--brand-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.25);
+    background: var(--brand-accent);
+    box-shadow: 0 0 12px rgba(2, 132, 199, 0.3);
+  }
+  input[type="range"]::-moz-range-thumb:active {
+    transform: scale(0.92);
+  }
 }
 
 @layer components {
@@ -133,7 +171,13 @@
   }
 
   .btn-primary {
-    @apply bg-brand-blue text-white shadow-elev-1 hover:-translate-y-0.5 hover:bg-brand-accent hover:shadow-elev-2 active:translate-y-0;
+    background-size: 200% 100%;
+    background-image: linear-gradient(90deg, var(--brand-blue) 0%, var(--brand-accent) 50%, var(--brand-blue) 100%);
+    background-position: 0% 50%;
+    @apply text-white shadow-elev-1 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-elev-2 active:translate-y-0;
+  }
+  .btn-primary:hover {
+    background-position: 100% 50%;
   }
 
   .btn-secondary {

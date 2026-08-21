@@ -60,9 +60,9 @@ export default function ExperienceTimeline() {
             const Icon = event.icon;
             const isEven = index % 2 === 0;
             return (
-              <motion.div key={event.role} variants={eventVariants} className="relative mb-10 last:mb-0 sm:mb-14">
-                <div className="absolute left-4 top-5 z-10 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-brand-border bg-brand-surface text-brand-blue sm:left-1/2">
-                  <Icon className="h-4 w-4" aria-hidden="true" />
+              <motion.div key={event.role} variants={eventVariants} className="group/timeline relative mb-10 last:mb-0 sm:mb-14">
+                <div className="absolute left-4 top-5 z-10 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-brand-border bg-brand-surface text-brand-blue sm:left-1/2 transition-all duration-300 group-hover/timeline:scale-115 group-hover/timeline:border-brand-blue group-hover/timeline:bg-brand-blue/5 group-hover/timeline:shadow-[0_0_14px_rgba(2,132,199,0.22)]">
+                  <Icon className="h-4 w-4 transition-transform duration-300 group-hover/timeline:rotate-[8deg]" aria-hidden="true" />
                 </div>
                 <div className={`ml-12 sm:ml-0 sm:w-[calc(50%-2rem)] ${isEven ? 'sm:mr-auto' : 'sm:ml-auto'}`}>
                   <article className="card card-hover p-6 sm:p-7">

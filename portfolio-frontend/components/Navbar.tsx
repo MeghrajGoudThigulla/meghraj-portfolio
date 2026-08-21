@@ -18,8 +18,9 @@ export default function Navbar() {
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-3 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-charcoal/80 lg:flex">
           {desktopSectionItems.map((item) => (
-            <Link key={item.href} href={`/${item.href}`} className="rounded-lg px-2.5 py-1.5 transition-all duration-300 hover:bg-brand-surface/60 hover:text-brand-blue">
+            <Link key={item.href} href={`/${item.href}`} className="group relative px-2.5 py-1.5 transition-colors duration-200 hover:text-brand-blue">
               {item.label}
+              <span className="absolute bottom-0 left-2.5 right-2.5 h-0.5 scale-x-0 bg-brand-blue transition-transform duration-300 origin-center group-hover:scale-x-100" />
             </Link>
           ))}
         </nav>

@@ -48,9 +48,14 @@ export default function SkillsSnapshot() {
               <h3 className="mt-5 text-lg font-semibold text-brand-navy">{group.label}</h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <span key={item} className="rounded-lg border border-brand-border bg-brand-muted/60 px-2.5 py-1.5 font-mono text-[10px] font-medium text-brand-charcoal transition-colors hover:border-brand-blue/40 hover:text-brand-blue">
+                  <motion.span
+                    key={item}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    transition={{ type: "spring", stiffness: 450, damping: 15 }}
+                    className="rounded-lg border border-brand-border bg-brand-muted/60 px-2.5 py-1.5 font-mono text-[10px] font-medium text-brand-charcoal cursor-default transition-all duration-150 hover:border-brand-blue/45 hover:bg-brand-blue/5 hover:text-brand-blue hover:shadow-[0_3px_10px_rgba(2,132,199,0.08)]"
+                  >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </motion.article>
