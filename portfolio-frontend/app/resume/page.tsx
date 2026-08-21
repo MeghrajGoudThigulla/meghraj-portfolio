@@ -54,9 +54,9 @@ export default function ResumePage() {
               timeline="July 2024–Present"
               bullets={[
                 "Architecting scalable intelligence and building production systems that bridge complex deep-tech models with strategic business outcomes.",
-                "Engineered 6 high-performance platforms spanning Next.js, React, Flutter, and FastAPI, integrating modern ML pipelines and robust API layers.",
+                "Engineered 7 high-performance platforms spanning Next.js, React, Flutter, and FastAPI, integrating modern ML pipelines and robust API layers.",
                 "Designed cloud-native environments with PostgreSQL/Supabase, integrating Redis rate limiting, Row-Level Security, and scalable background workers.",
-                "Translated ambiguous technical constraints into shippable milestones, acting as a technical consultant to align engineering output with executive goals.",
+                "Managed release cycles, App Store / Play Store publishing, and deployment pipelines for a suite of 4+ custom Flutter apps (Employee Portal, HRMS, LMS, Care Navigator).",
               ]}
             />
           </Section>
@@ -65,7 +65,7 @@ export default function ResumePage() {
             <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>286 total backend API endpoints across 4 systems</span>
+                <span>286 total backend API endpoints across 6+ systems</span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
@@ -77,22 +77,42 @@ export default function ResumePage() {
               </li>
               <li className="flex gap-3">
                 <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>Redis rate limiting, async webhook workers, and transactional DB writes</span>
+                <span>App Store and Play Store release ownership for 4 distinct operational Flutter apps</span>
               </li>
             </ul>
           </Section>
 
           <Section title="PROJECTS">
             <Project
-              title="TFG Verify"
-              subtitle="AI-Powered Background Verification (BGV) Platform (Published)"
-              tech="Next.js 16, Python, FastAPI, MongoDB, PyTesseract, GenAI"
+              title="TFGenAPI (TFG Verify)"
+              subtitle="AI-Powered Background Verification (BGV) Platform (Production / Internal)"
+              tech="Next.js 16, Python, FastAPI, MongoDB, PyTesseract, Sentence Transformers"
               bullets={[
+                "Built the verification API platform from scratch, owning database design and cross-layer integration components.",
                 "Engineered an AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers to compute dense vector embeddings.",
-                "Architected a Next.js 16 SSR frontend, leveraging Turbopack for module resolution and Recharts for rendering normalized thresholds.",
                 "Configured a MongoDB (Motor) data layer to support high-throughput, unstructured document ingestion and ML feature persistence.",
               ]}
               link={{ href: "https://tfgverify.com/", label: "tfgverify.com" }}
+            />
+            <Project
+              title="IYOV AI"
+              subtitle="AI-Powered HR & Business Operations Platform (Internal / Pre-release)"
+              tech="Python, FastAPI, Flutter, Next.js, PostgreSQL, Redis, AI/ML"
+              bullets={[
+                "Developed the core payroll module from scratch, translating complex India tax and compliance laws into automated formulas.",
+                "Built background job queues using Redis to handle payroll batches, document processing, and bulk worker notifications.",
+                "Collaborated with business stakeholders to convert ambiguous operational requirements into shippable platform milestones.",
+              ]}
+            />
+            <Project
+              title="TFG Mobile App Suite"
+              subtitle="Cross-Platform Operational Applications (Production / Internal)"
+              tech="Flutter, Dart, Riverpod, GoRouter, Firebase, REST APIs, iOS, Android"
+              bullets={[
+                "Authored features and managed App Store / Play Store release cycles for 4+ Flutter apps (Employee Portal, HRMS, LMS, Care Navigator).",
+                "Debugged cross-platform API syncs, JWT session handlers, local storage caches, and push notification channels.",
+                "Established unified build configurations and automated pipelines, reducing time-to-market for mobile hotfixes.",
+              ]}
             />
             <Project
               title="Medical Advisor"
@@ -101,7 +121,7 @@ export default function ResumePage() {
               bullets={[
                 "Architected a FastAPI microservice integrating strict JWT authentication and Google Play Integrity nonces.",
                 "Engineered an asynchronous dual-write pipeline synchronizing PostgreSQL transaction state to Firestore for real-time WebSockets.",
-                "Configured Redis for in-memory caching of high-frequency read paths, deployed via Docker containers on Render.",
+                "Acted as the onboarding lead, delivering technical training and knowledge transfer to 8 engineering team members.",
               ]}
               link={{ href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor", label: "Play Store" }}
             />
@@ -117,17 +137,6 @@ export default function ResumePage() {
               link={{ href: "https://tfgsecurebank.com/", label: "tfgsecurebank.com" }}
             />
             <Project
-              title="TFG Corporate Website"
-              subtitle="Corporate Marketing Presence (Published)"
-              tech="Next.js, React, Flask, MySQL, Bootstrap/Tailwind"
-              bullets={[
-                "Led the modernization from a legacy static framework to a Next.js architecture (tfg_website_next) for enhanced SEO and performance.",
-                "Integrated frontend forms with the existing Flask API backend (tfg_website_server) while preserving legacy static HTML routes as fallbacks.",
-                "Achieved zero downtime during the corporate platform transition, maintaining the global firm's professional stature.",
-              ]}
-              link={{ href: "https://tfgroup.ai/en", label: "tfgroup.ai" }}
-            />
-            <Project
               title="DealsMart"
               subtitle="Enterprise Commerce Platform (Internal / Pre-release)"
               tech="Flutter, FastAPI, PostgreSQL, Redis, RQ workers, S3/MinIO"
@@ -136,6 +145,17 @@ export default function ResumePage() {
                 "Implemented an event-driven architecture using distributed RQ workers and Redis for idempotent payment reconciliation.",
                 "Delivered a cross-platform presentation layer using Flutter, utilizing S3/MinIO for scalable object storage.",
               ]}
+            />
+            <Project
+              title="TFG Corporate Website (GroConnect)"
+              subtitle="Corporate Marketing Presence (Published)"
+              tech="Next.js, React, Flask, MySQL, Bootstrap/Tailwind"
+              bullets={[
+                "Led the modernization from a legacy static framework to a Next.js architecture (tfg_website_next) for enhanced SEO and performance.",
+                "Integrated frontend forms with the existing Flask API backend (tfg_website_server) while preserving legacy static HTML routes as fallbacks.",
+                "Achieved zero downtime during the corporate platform transition, maintaining the global firm's professional stature.",
+              ]}
+              link={{ href: "https://tfgroup.ai/en", label: "tfgroup.ai" }}
             />
           </Section>
 

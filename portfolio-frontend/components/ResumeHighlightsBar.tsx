@@ -7,6 +7,7 @@ const resumeHighlights: ResumeHighlight[] = [
   { label: "APIs Delivered", value: "286" },
   { label: "Data Models", value: "61+" },
   { label: "Migrations", value: "30+" },
+  { label: "Mobile Apps", value: "4+" },
 ];
 
 export default function ResumeHighlightsBar() {
