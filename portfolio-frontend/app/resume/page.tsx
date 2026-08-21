@@ -23,24 +23,27 @@ export default function ResumePage() {
       <div className="resume-shell mx-auto flex max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
         <ResumeStickyActions />
 
-        <header className="resume-header flex flex-col items-center gap-3 rounded-2xl border border-brand-charcoal/10 bg-brand-surface px-4 py-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-          <div className="text-center sm:text-left">
-            <h1 className="text-3xl font-bold text-brand-navy lg:text-4xl">
+        <header className="resume-header relative flex flex-col items-center gap-4 rounded-2xl border border-brand-border bg-brand-surface px-6 py-6 shadow-glass sm:flex-row sm:items-center sm:justify-between overflow-hidden">
+          {/* Vertical left accent bar */}
+          <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-b from-brand-blue via-cyan-400 to-brand-accent" />
+          
+          <div className="text-center sm:text-left pl-2 sm:pl-3">
+            <h1 className="text-3xl font-bold text-brand-navy lg:text-4xl tracking-tight">
               THIGULLA MEGHRAJ GOUD
             </h1>
-            <p className="mt-2 flex flex-wrap justify-center gap-3 text-sm text-brand-charcoal sm:justify-start">
+            <div className="mt-3.5 flex flex-wrap justify-center gap-2 sm:justify-start">
               {contactLinks.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="hover:text-brand-blue"
+                  className="rounded-lg border border-brand-border bg-brand-bg/50 px-2.5 py-1.5 text-xs font-semibold text-brand-charcoal transition-all hover:border-brand-blue/30 hover:bg-brand-surface hover:text-brand-blue hover:shadow-sm"
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                 >
                   {item.label}
                 </Link>
               ))}
-            </p>
+            </div>
           </div>
         </header>
 
@@ -212,11 +215,11 @@ export default function ResumePage() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="resume-section rounded-2xl border border-brand-charcoal/10 bg-brand-surface px-4 py-5 shadow-sm lg:px-6 lg:py-6">
-      <h2 className="text-xl font-semibold uppercase tracking-[0.14em] text-brand-navy">
+    <section className="resume-section card p-5 sm:p-6 lg:p-8 hover:border-brand-blue/30 transition-all duration-300 shadow-sm group/section">
+      <h2 className="text-xl font-bold uppercase tracking-[0.14em] text-brand-navy border-b border-brand-border/60 pb-3 transition-colors group-hover/section:text-brand-blue group-hover/section:border-brand-blue/30">
         {title}
       </h2>
-      <div className="mt-4 space-y-4">{children}</div>
+      <div className="mt-5 space-y-5">{children}</div>
     </section>
   );
 }
@@ -233,19 +236,19 @@ function Role({
   bullets: string[];
 }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-3 group/role">
       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
         <div>
-          <p className="text-lg font-semibold text-brand-navy">{title}</p>
-          <p className="text-sm font-medium text-slate-600">{place}</p>
+          <p className="text-lg font-bold text-brand-navy transition-colors group-hover/role:text-brand-blue">{title}</p>
+          <p className="text-sm font-semibold text-slate-500">{place}</p>
         </div>
-        <p className="text-sm font-semibold text-brand-blue">{timeline}</p>
+        <p className="text-sm font-bold text-brand-blue sm:text-right shrink-0">{timeline}</p>
       </div>
       {bullets.length > 0 ? (
         <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
           {bullets.map((item) => (
-            <li key={item} className="flex gap-3">
-              <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+            <li key={item} className="flex gap-3 items-start group/bullet">
+              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue/50 transition-all duration-300 group-hover/bullet:scale-125 group-hover/bullet:bg-brand-blue" />
               <span>{item}</span>
             </li>
           ))}
@@ -269,28 +272,28 @@ function Project({
   link?: { href: string; label: string };
 }) {
   return (
-    <div className="space-y-2">
+    <div className="space-y-3 group/item border-b border-brand-border/40 pb-4 last:border-b-0 last:pb-0">
       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-        <p className="text-lg font-semibold text-brand-navy">{title}</p>
+        <p className="text-lg font-bold text-brand-navy transition-colors group-hover/item:text-brand-blue">{title}</p>
         {link ? (
           <Link
             href={link.href}
-            className="text-sm font-semibold text-brand-blue hover:text-brand-navy"
+            className="text-sm font-bold text-brand-blue hover:text-brand-navy transition-colors"
             target="_blank"
             rel="noreferrer"
           >
-            {link.label}
+            {link.label} →
           </Link>
         ) : null}
       </div>
       <p className="text-sm italic text-brand-charcoal lg:text-base">{subtitle}</p>
-      <p className="text-sm font-semibold text-slate-600">
+      <div className="inline-flex flex-wrap items-center gap-1.5 text-xs font-semibold text-slate-500 bg-brand-bg px-2.5 py-1.5 rounded-lg border border-brand-border/60">
         Tech: <span className="font-normal text-brand-charcoal">{tech}</span>
-      </p>
-      <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
+      </div>
+      <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base mt-2">
         {bullets.map((item) => (
-          <li key={item} className="flex gap-3">
-            <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+          <li key={item} className="flex gap-3 items-start group/bullet">
+            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue/50 transition-all duration-300 group-hover/bullet:scale-125 group-hover/bullet:bg-brand-blue" />
             <span>{item}</span>
           </li>
         ))}
@@ -309,12 +312,12 @@ function SkillGroup({
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded border border-brand-charcoal/10 bg-brand-bg px-3 py-3"
+          className="rounded-xl border border-brand-border bg-brand-bg/50 px-4 py-3.5 transition-all duration-300 hover:border-brand-blue/25 hover:bg-brand-surface hover:shadow-sm"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">
+          <p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-500">
             {item.label}
           </p>
-          <p className="mt-1 text-sm text-brand-charcoal lg:text-base">
+          <p className="mt-1 text-sm text-brand-charcoal lg:text-base font-medium">
             {item.value}
           </p>
         </div>
