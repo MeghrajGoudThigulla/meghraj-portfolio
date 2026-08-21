@@ -33,10 +33,10 @@ export default function ConsultingStrengths() {
           {STRENGTHS.map((strength, index) => {
             const Icon = strength.icon;
             return (
-              <motion.article key={strength.title} variants={itemVariants} className="card card-hover p-5 sm:p-6">
+              <motion.article key={strength.title} variants={itemVariants} className="group/strength card card-hover p-5 sm:p-6">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-brand-border bg-brand-surface text-brand-blue">
-                    <Icon className="h-5 w-5" strokeWidth={1.7} aria-hidden="true" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-brand-border bg-brand-surface text-brand-blue transition-all duration-300 group-hover/strength:scale-110 group-hover/strength:bg-brand-blue group-hover/strength:text-white group-hover/strength:border-transparent group-hover/strength:shadow-[0_0_12px_rgba(2,132,199,0.3)]">
+                    <Icon className="h-5 w-5 transition-transform duration-500 group-hover/strength:rotate-[15deg]" strokeWidth={1.7} aria-hidden="true" />
                   </div>
                   <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">0{index + 1}</span>
                 </div>

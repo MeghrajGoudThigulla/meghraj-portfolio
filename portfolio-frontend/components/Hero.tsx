@@ -51,9 +51,15 @@ export default function Hero() {
             </motion.p>
 
             <motion.div variants={textVariants} className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href="/#projects" className="btn btn-primary px-6 py-3.5 text-xs font-bold">View my work</Link>
-              <Link href="/#contact" className="btn btn-secondary px-6 py-3.5 text-xs font-semibold">Work with me</Link>
-              <Link href="/resume" className="px-2 py-3.5 text-xs font-semibold text-brand-charcoal underline decoration-brand-border underline-offset-4 transition-colors hover:text-brand-blue hover:decoration-brand-blue">Résumé</Link>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 450, damping: 14 }}>
+                <Link href="/#projects" className="btn btn-primary px-6 py-3.5 text-xs font-bold">View my work</Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 450, damping: 14 }}>
+                <Link href="/#contact" className="btn btn-secondary px-6 py-3.5 text-xs font-semibold">Work with me</Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.06, x: 2 }} whileTap={{ scale: 0.94 }} transition={{ type: "spring", stiffness: 450, damping: 14 }}>
+                <Link href="/resume" className="inline-block px-2 py-3.5 text-xs font-semibold text-brand-charcoal underline decoration-brand-border underline-offset-4 transition-colors hover:text-brand-blue hover:decoration-brand-blue">Résumé</Link>
+              </motion.div>
             </motion.div>
 
             <motion.div variants={textVariants} className="mt-10 max-w-3xl">
@@ -72,11 +78,11 @@ export default function Hero() {
 
             <div className="mt-7 divide-y divide-brand-border/80 border-y border-brand-border/80">
               {HERO_METRIC_CARDS.map((metric, index) => (
-                <div key={metric.label} className="group grid grid-cols-[auto_1fr] gap-4 py-5 transition-colors hover:bg-brand-muted/30">
-                  <span className="pt-1 font-mono text-[10px] text-slate-400">0{index + 1}</span>
+                <div key={metric.label} className="group relative grid grid-cols-[auto_1fr] gap-4 py-5 pl-4 -ml-4 transition-all duration-300 hover:bg-brand-muted/30 rounded-xl border-l-2 border-transparent hover:border-brand-blue/60">
+                  <span className="pt-1 font-mono text-[10px] text-slate-400 transition-transform duration-300 group-hover:translate-x-1.5">0{index + 1}</span>
                   <div>
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <p className="text-2xl font-bold tracking-[-0.03em] text-brand-navy">{metric.value}</p>
+                      <p className="text-2xl font-bold tracking-[-0.03em] text-brand-navy transition-all duration-300 group-hover:text-brand-blue group-hover:text-glow">{metric.value}</p>
                       <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">{metric.label}</p>
                     </div>
                     <p className="mt-1.5 text-xs leading-5 text-brand-charcoal">{metric.detail}</p>
