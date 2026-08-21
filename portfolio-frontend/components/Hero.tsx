@@ -14,7 +14,7 @@ import {
 
 const containerVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
+  visible: { transition: { staggerChildren: 0.07 } },
 };
 
 const textVariants: Variants = {
@@ -23,57 +23,68 @@ const textVariants: Variants = {
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] } },
 };
 
 export default function Hero() {
   return (
-    <section className="section-shell relative flex min-h-[86vh] items-center overflow-hidden border-b border-brand-border/40 bg-brand-bg py-16 sm:py-24 lg:py-28">
+    <section className="relative flex min-h-[82vh] items-center overflow-hidden border-b border-brand-border/50 bg-brand-bg py-16 sm:py-24 lg:min-h-[88vh] lg:py-28">
       <AnimatedGridBackground />
+      <div aria-hidden className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-brand-blue/10 blur-[140px]" />
+      <div aria-hidden className="pointer-events-none absolute -left-48 bottom-0 h-80 w-80 rounded-full bg-brand-accent/10 blur-[130px]" />
 
       <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div className="grid gap-12 lg:grid-cols-[1.2fr,0.8fr] lg:items-center lg:gap-16" variants={containerVariants} initial="hidden" animate="visible">
-          <div className="flex max-w-3xl flex-col gap-6">
-            <motion.p variants={textVariants} className="max-w-prose text-xs font-semibold uppercase tracking-[0.16em] text-brand-blue">
-              {HERO_EYEBROW}
-            </motion.p>
+        <motion.div className="grid gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.75fr)] lg:items-end lg:gap-20" variants={containerVariants} initial="hidden" animate="visible">
+          <div className="flex max-w-4xl flex-col">
+            <motion.div variants={textVariants} className="flex items-center gap-3">
+              <span aria-hidden className="h-px w-10 bg-brand-blue" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-blue">{HERO_EYEBROW}</p>
+            </motion.div>
 
-            <motion.h1 variants={textVariants} className="max-w-4xl text-4xl font-bold leading-[1.05] tracking-[-0.035em] text-brand-navy sm:text-5xl lg:text-6xl xl:text-7xl">
+            <motion.h1 variants={textVariants} className="mt-7 max-w-4xl text-[clamp(3rem,7vw,6.75rem)] font-bold leading-[0.94] tracking-[-0.055em] text-brand-navy">
               {HERO_HEADLINE}
             </motion.h1>
 
-            <motion.p variants={textVariants} className="max-w-2xl text-base leading-7 text-brand-charcoal sm:text-lg lg:text-xl">
+            <motion.p variants={textVariants} className="mt-7 max-w-2xl text-base leading-7 text-brand-charcoal sm:text-lg sm:leading-8 lg:text-xl">
               {HERO_PROOF_LINE}
             </motion.p>
 
-            <motion.div variants={textVariants} className="flex flex-wrap items-center gap-3 pt-2">
-              <Link href="/#projects" className="btn btn-primary px-6 py-3.5 text-xs font-bold">View My Work</Link>
-              <Link href="/#contact" className="btn btn-secondary px-6 py-3.5 text-xs font-semibold">Work With Me</Link>
-              <Link href="/resume" className="btn btn-ghost px-2 py-3.5 text-xs font-semibold">Résumé →</Link>
+            <motion.div variants={textVariants} className="mt-8 flex flex-wrap items-center gap-3">
+              <Link href="/#projects" className="btn btn-primary px-6 py-3.5 text-xs font-bold">View my work</Link>
+              <Link href="/#contact" className="btn btn-secondary px-6 py-3.5 text-xs font-semibold">Work with me</Link>
+              <Link href="/resume" className="px-2 py-3.5 text-xs font-semibold text-brand-charcoal underline decoration-brand-border underline-offset-4 transition-colors hover:text-brand-blue hover:decoration-brand-blue">Résumé</Link>
             </motion.div>
 
-            <motion.div variants={textVariants} className="pt-2">
+            <motion.div variants={textVariants} className="mt-10 max-w-3xl">
               <HeroTrustBadges badges={HERO_TRUST_BADGES} />
             </motion.div>
           </div>
 
-          <motion.div variants={cardVariants} className="rounded-2xl border border-brand-border/70 bg-brand-surface/80 p-5 shadow-glass backdrop-blur-md sm:p-6">
-            <div className="mb-5 border-b border-brand-border/60 pb-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand-blue">Proof of Work</p>
-              <p className="mt-2 text-sm leading-6 text-brand-charcoal">A few signals of the production work behind the portfolio.</p>
+          <motion.aside variants={cardVariants} className="border-t border-brand-border pt-6 lg:border-l lg:border-t-0 lg:pl-8">
+            <div className="flex items-baseline justify-between gap-4">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">Selected signals</p>
+                <p className="mt-2 text-sm leading-6 text-brand-charcoal">A few concrete indicators of the work behind the title.</p>
+              </div>
+              <span aria-hidden className="font-mono text-[10px] text-slate-400">01—04</span>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              {HERO_METRIC_CARDS.map((metric) => (
-                <div key={metric.label} className="card card-hover border-glow-hover border-l-2 border-l-brand-blue px-4 py-3.5">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-400">{metric.label}</p>
-                  <p className="mt-1 text-2xl font-bold leading-none tracking-tight text-brand-navy">{metric.value}</p>
-                  <p className="mt-2 text-xs leading-5 text-brand-charcoal">{metric.detail}</p>
+            <div className="mt-7 divide-y divide-brand-border/80 border-y border-brand-border/80">
+              {HERO_METRIC_CARDS.map((metric, index) => (
+                <div key={metric.label} className="group grid grid-cols-[auto_1fr] gap-4 py-5 transition-colors hover:bg-brand-muted/30">
+                  <span className="pt-1 font-mono text-[10px] text-slate-400">0{index + 1}</span>
+                  <div>
+                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <p className="text-2xl font-bold tracking-[-0.03em] text-brand-navy">{metric.value}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">{metric.label}</p>
+                    </div>
+                    <p className="mt-1.5 text-xs leading-5 text-brand-charcoal">{metric.detail}</p>
+                  </div>
                 </div>
               ))}
             </div>
-          </motion.div>
+          </motion.aside>
         </motion.div>
       </div>
     </section>
