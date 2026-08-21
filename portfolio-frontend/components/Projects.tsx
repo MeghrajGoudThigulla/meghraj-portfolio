@@ -161,11 +161,17 @@ export default function Projects() {
 
                     <div className="mt-6 flex flex-wrap gap-2">
                       {project.metrics.map((metric, idx) => (
-                        <span key={metric} className={`rounded-lg px-2.5 py-1.5 font-mono text-[10px] font-medium transition-colors ${
+                        <span key={metric} className={`rounded-lg px-2.5 py-1.5 font-mono text-[10px] font-medium transition-all duration-300 ${
                           idx === 0
-                            ? "border border-brand-blue/30 bg-brand-blue/10 text-brand-blue font-semibold"
-                            : "border border-brand-border bg-brand-muted/50 text-brand-charcoal"
+                            ? "border border-brand-blue/35 bg-gradient-to-r from-brand-blue/8 to-cyan-500/8 text-brand-blue font-bold shadow-[0_2px_10px_rgba(2,132,199,0.04)] flex items-center gap-1.5"
+                            : "border border-brand-border bg-brand-muted/30 text-brand-charcoal hover:border-brand-blue/20 hover:bg-brand-surface hover:text-brand-navy"
                         } sm:text-[11px]`}>
+                          {idx === 0 && (
+                            <span className="relative flex h-1.5 w-1.5 shrink-0">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-blue"></span>
+                            </span>
+                          )}
                           {metric}
                         </span>
                       ))}
@@ -195,7 +201,7 @@ export default function Projects() {
                         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-blue">04 / Stack</p>
                         <div className="mt-2.5 flex flex-wrap gap-1.5">
                           {project.stack.split(", ").map((tech) => (
-                            <span key={tech} className="rounded-md border border-brand-border/80 bg-brand-bg/50 px-2 py-1 font-mono text-[10px] font-medium text-brand-charcoal transition-colors hover:border-brand-blue/30 hover:text-brand-blue">
+                            <span key={tech} className="rounded-md border border-brand-border/80 bg-brand-bg/50 px-2.5 py-1.5 font-mono text-[10px] font-medium text-brand-charcoal transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:rotate-1 hover:border-brand-blue/40 hover:bg-brand-surface hover:text-brand-blue hover:shadow-sm">
                               {tech}
                             </span>
                           ))}

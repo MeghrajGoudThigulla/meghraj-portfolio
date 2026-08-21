@@ -108,25 +108,27 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
         <rect x="0" y="0" width={SVG_WIDTH} height={svgHeight} className="fill-transparent" />
 
         {/* Client Box */}
-        <rect
-          x={250}
-          y={20}
-          rx={10}
-          width={260}
-          height={42}
-          className="fill-brand-surface stroke-brand-border transition-colors duration-300"
-        />
-        <text
-          x={380}
-          y={45}
-          textAnchor="middle"
-          fontSize="12"
-          fontWeight="750"
-          className="fill-brand-navy transition-colors duration-300"
-          fontFamily="var(--font-dm-sans), sans-serif"
-        >
-          {ellipsize(diagram.clientLabel, 40)}
-        </text>
+        <g className="group/client cursor-default">
+          <rect
+            x={250}
+            y={20}
+            rx={10}
+            width={260}
+            height={42}
+            className="fill-brand-surface stroke-brand-border transition-colors duration-300 group-hover/client:stroke-brand-blue group-hover/client:fill-brand-blue/5"
+          />
+          <text
+            x={380}
+            y={45}
+            textAnchor="middle"
+            fontSize="12"
+            fontWeight="750"
+            className="fill-brand-navy transition-colors duration-300 group-hover/client:fill-brand-blue"
+            fontFamily="var(--font-dm-sans), sans-serif"
+          >
+            {ellipsize(diagram.clientLabel, 40)}
+          </text>
+        </g>
 
         {/* Link from Client to Gateway */}
         <line
@@ -140,25 +142,27 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
         />
 
         {/* Gateway Box */}
-        <rect
-          x={220}
-          y={84}
-          rx={10}
-          width={320}
-          height={44}
-          className={`${theme.gateway} transition-colors duration-300`}
-        />
-        <text
-          x={380}
-          y={110}
-          textAnchor="middle"
-          fontSize="12.5"
-          fontWeight="750"
-          className="fill-brand-navy transition-colors duration-300"
-          fontFamily="var(--font-dm-sans), sans-serif"
-        >
-          {ellipsize(diagram.gatewayLabel, 42)}
-        </text>
+        <g className="group/gateway cursor-default">
+          <rect
+            x={220}
+            y={84}
+            rx={10}
+            width={320}
+            height={44}
+            className={`${theme.gateway} transition-colors duration-300 group-hover/gateway:stroke-brand-blue group-hover/gateway:fill-brand-blue/5`}
+          />
+          <text
+            x={380}
+            y={110}
+            textAnchor="middle"
+            fontSize="12.5"
+            fontWeight="750"
+            className="fill-brand-navy transition-colors duration-300 group-hover/gateway:fill-brand-blue"
+            fontFamily="var(--font-dm-sans), sans-serif"
+          >
+            {ellipsize(diagram.gatewayLabel, 42)}
+          </text>
+        </g>
 
         {/* Link from Gateway to Modules Block */}
         <line
@@ -197,14 +201,14 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
             const x = PADDING_X + colIndex * (moduleBoxW + MODULE_GAP_X);
             const y = modulesY + 28 + rowIndex * (MODULE_BOX_H + MODULE_GAP_Y);
             return (
-              <g key={`${item}-${rowIndex}-${colIndex}`}>
+              <g key={`${item}-${rowIndex}-${colIndex}`} className="group/module cursor-default">
                 <rect
                   x={x}
                   y={y}
                   rx={6}
                   width={moduleBoxW}
                   height={MODULE_BOX_H}
-                  className={`${theme.moduleItem} transition-colors duration-300`}
+                  className={`${theme.moduleItem} transition-colors duration-300 group-hover/module:stroke-brand-blue group-hover/module:fill-brand-blue/5`}
                 />
                 <text
                   x={x + moduleBoxW / 2}
@@ -212,7 +216,7 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
                   textAnchor="middle"
                   fontSize="10.5"
                   fontWeight="600"
-                  className="fill-brand-navy transition-colors duration-300"
+                  className="fill-brand-navy transition-colors duration-300 group-hover/module:fill-brand-blue"
                   fontFamily="var(--font-dm-sans), sans-serif"
                 >
                   {ellipsize(item)}
@@ -234,49 +238,51 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
         />
 
         {/* Data & Control Layer Box */}
-        <rect
-          x={120}
-          y={dataY}
-          rx={12}
-          width={520}
-          height={dataH}
-          className={`${theme.data} transition-colors duration-300`}
-        />
-        <text
-          x={380}
-          y={dataY + 22}
-          textAnchor="middle"
-          fontSize="10.5"
-          fontWeight="700"
-          className="fill-slate-400 dark:fill-slate-500 font-mono tracking-wider"
-          letterSpacing="0.8px"
-        >
-          DATA AND CONTROL LAYER
-        </text>
-        <text
-          x={380}
-          y={dataY + 42}
-          textAnchor="middle"
-          fontSize="12.5"
-          fontWeight="750"
-          className="fill-brand-navy transition-colors duration-300"
-          fontFamily="var(--font-dm-sans), sans-serif"
-        >
-          {ellipsize(diagram.dataLayerLabel, 72)}
-        </text>
-        {diagram.controlLabel ? (
+        <g className="group/data cursor-default">
+          <rect
+            x={120}
+            y={dataY}
+            rx={12}
+            width={520}
+            height={dataH}
+            className={`${theme.data} transition-colors duration-300 group-hover/data:stroke-brand-blue group-hover/data:fill-brand-blue/5`}
+          />
           <text
             x={380}
-            y={dataY + 62}
+            y={dataY + 22}
             textAnchor="middle"
             fontSize="10.5"
-            fontWeight="500"
-            className="fill-brand-charcoal transition-colors duration-300"
+            fontWeight="700"
+            className="fill-slate-400 dark:fill-slate-500 font-mono tracking-wider"
+            letterSpacing="0.8px"
+          >
+            DATA AND CONTROL LAYER
+          </text>
+          <text
+            x={380}
+            y={dataY + 42}
+            textAnchor="middle"
+            fontSize="12.5"
+            fontWeight="750"
+            className="fill-brand-navy transition-colors duration-300 group-hover/data:fill-brand-blue"
             fontFamily="var(--font-dm-sans), sans-serif"
           >
-            {ellipsize(diagram.controlLabel, 78)}
+            {ellipsize(diagram.dataLayerLabel, 72)}
           </text>
-        ) : null}
+          {diagram.controlLabel ? (
+            <text
+              x={380}
+              y={dataY + 62}
+              textAnchor="middle"
+              fontSize="10.5"
+              fontWeight="500"
+              className="fill-brand-charcoal transition-colors duration-300 group-hover/data:fill-brand-blue/80"
+              fontFamily="var(--font-dm-sans), sans-serif"
+            >
+              {ellipsize(diagram.controlLabel, 78)}
+            </text>
+          ) : null}
+        </g>
       </svg>
     </div>
   );
