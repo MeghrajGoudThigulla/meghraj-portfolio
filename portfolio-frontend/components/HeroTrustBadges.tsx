@@ -73,6 +73,10 @@ export default function HeroTrustBadges({ badges }: HeroTrustBadgesProps) {
                   trigger: "click",
                 },
               });
+              const element = document.getElementById(badge.proofRef);
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+              }
             }}
             onFocus={() => {
               trackMetric({
