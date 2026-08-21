@@ -1,9 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import ApiDiagramCard, { type ApiDiagramModel } from './ApiDiagramCard';
-import ProjectDetailsToggle from './ProjectDetailsToggle';
 import SectionHeading from './SectionHeading';
 import TiltCard from './TiltCard';
 
@@ -142,9 +140,6 @@ export default function Projects() {
 
         <motion.div className="mt-10 grid gap-8" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
           {projectsData.map((project, index) => {
-            const detailsHref = project.detailsHref ?? "/#contact";
-            const isExternal = detailsHref.startsWith("http");
-
             return (
               <TiltCard as="article" key={project.title} variants={projectVariants} className="group relative overflow-hidden rounded-3xl border border-brand-border/70 bg-brand-surface/80 shadow-glass border-glow-hover card">
                 <div aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-blue via-sky-400 to-brand-accent opacity-70 transition-opacity group-hover:opacity-100" />
@@ -187,14 +182,6 @@ export default function Projects() {
                       </div>
                     </div>
 
-                    <div className="mt-7 flex flex-wrap items-center gap-4">
-                      <ProjectDetailsToggle projectTitle={project.title} actionItems={project.action} />
-                      {project.detailsHref ? (
-                        <Link href={detailsHref} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noreferrer" : undefined} className="btn btn-secondary btn-sm">View Live Project →</Link>
-                      ) : (
-                        <Link href="/#contact" className="btn btn-secondary btn-sm">Discuss the Work →</Link>
-                      )}
-                    </div>
                   </div>
 
                   <div className="border-t border-brand-border bg-brand-muted/30 p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8">
