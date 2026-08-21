@@ -5,6 +5,7 @@ import { motion, Variants } from 'framer-motion';
 import ApiDiagramCard, { type ApiDiagramModel } from './ApiDiagramCard';
 import ProjectDetailsToggle from './ProjectDetailsToggle';
 import SectionHeading from './SectionHeading';
+import TiltCard from './TiltCard';
 
 export type Project = {
   title: string;
@@ -145,7 +146,7 @@ export default function Projects() {
             const isExternal = detailsHref.startsWith("http");
 
             return (
-              <motion.article key={project.title} variants={projectVariants} className="group relative overflow-hidden rounded-3xl border border-brand-border/70 bg-brand-surface/80 shadow-glass transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/40 hover:shadow-elev-2 border-glow-hover">
+              <TiltCard as="article" key={project.title} variants={projectVariants} className="group relative overflow-hidden rounded-3xl border border-brand-border/70 bg-brand-surface/80 shadow-glass border-glow-hover card">
                 <div aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-blue via-sky-400 to-brand-accent opacity-70 transition-opacity group-hover:opacity-100" />
 
                 <div className="grid lg:grid-cols-[1fr,0.72fr]">
@@ -216,7 +217,7 @@ export default function Projects() {
                     </div>
                   </div>
                 </div>
-              </motion.article>
+              </TiltCard>
             );
           })}
         </motion.div>

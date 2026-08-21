@@ -3,6 +3,7 @@ import { Space_Grotesk, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import MetricsTracker from "@/components/MetricsTracker";
 import SkipLink from "@/components/SkipLink";
+import CursorSparks from "@/components/CursorSparks";
 import { SEO_COPY } from "./seo";
 
 const spaceGrotesk = Space_Grotesk({
@@ -58,6 +59,7 @@ export default function RootLayout({
       >
         <SkipLink />
         <MetricsTracker />
+        <CursorSparks />
         {children}
       </body>
     </html>
