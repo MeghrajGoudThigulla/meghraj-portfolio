@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import MobileNav from "./MobileNav";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { navItems } from "./navItems";
@@ -8,10 +9,26 @@ import { navItems } from "./navItems";
 export default function Navbar() {
   const desktopSectionItems = navItems.filter((item) => item.group === "section");
   const desktopUtilityItems = navItems.filter((item) => item.group !== "section");
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 15);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-brand-border/60 bg-brand-bg/75 backdrop-blur-md shadow-glass">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
+    <header className={`sticky top-0 z-30 border-b transition-all duration-300 ease-out ${
+      scrolled 
+        ? "border-brand-border bg-brand-bg/92 shadow-[0_1px_0_rgba(255,255,255,0.06)_inset,0_8px_30px_rgba(0,0,0,0.12)] backdrop-blur-lg"
+        : "border-brand-border/40 bg-brand-bg/70 shadow-none backdrop-blur-md"
+    }`}>
+      <div className={`mx-auto flex max-w-7xl items-center justify-between px-4 transition-all duration-300 ${
+        scrolled ? "py-2.5 sm:px-6 lg:px-8" : "py-4 sm:px-6 lg:px-8"
+      }`}>
         <Link href="/#top" className="text-base font-bold tracking-[0.08em] text-brand-navy hover:text-brand-blue transition-colors font-serif" aria-label="Meghraj Goud home">
           Meghraj Goud
         </Link>
