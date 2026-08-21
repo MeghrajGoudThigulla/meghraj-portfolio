@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import MobileNav from "../MobileNav";
+import { navSectionIds } from "../navItems";
 
 vi.mock("next/link", () => ({
   default: ({ href, children, ...rest }: { href: string; children: React.ReactNode; [key: string]: unknown }) => <a href={href} {...rest}>{children}</a>,
@@ -24,7 +25,7 @@ class MockIntersectionObserver implements IntersectionObserver {
 }
 
 function createSectionAnchors() {
-  document.body.insertAdjacentHTML("afterbegin", `<section id="about"></section><section id="strengths"></section><section id="skills"></section><section id="projects"></section><section id="roi"></section><section id="journey"></section><section id="contact"></section>`);
+  document.body.insertAdjacentHTML("afterbegin", navSectionIds.map((id) => `<section id="${id}"></section>`).join(""));
 }
 function makeIntersectionEntry(element: Element): IntersectionObserverEntry {
   return { boundingClientRect: element.getBoundingClientRect(), intersectionRatio: 0.8, intersectionRect: element.getBoundingClientRect(), isIntersecting: true, rootBounds: null, target: element, time: performance.now() };
