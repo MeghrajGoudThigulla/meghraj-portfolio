@@ -198,10 +198,43 @@
 
   .card {
     @apply rounded-2xl border border-brand-border/80 bg-brand-surface;
+    box-shadow: 
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 4px 12px rgba(15, 23, 42, 0.02),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  .dark .card {
+    border-color: rgba(255, 255, 255, 0.08);
+    background-color: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(20px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 0 rgba(56, 189, 248, 0.03),
+      0 4px 20px rgba(0, 0, 0, 0.28);
   }
 
   .card-hover {
-    @apply transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-brand-blue/30 hover:shadow-elev-1;
+    @apply transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-brand-blue/40;
+    box-shadow: 
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 4px 12px rgba(15, 23, 42, 0.02),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  .card-hover:hover {
+    box-shadow: 
+      0 12px 32px rgba(15, 23, 42, 0.07),
+      0 2px 4px rgba(15, 23, 42, 0.03),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  .dark .card-hover:hover {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 rgba(56, 189, 248, 0.05),
+      0 16px 36px rgba(0, 0, 0, 0.38),
+      0 2px 8px rgba(56, 189, 248, 0.06);
   }
 }
 
