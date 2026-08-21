@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import MobileNav from "./MobileNav";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { navItems } from "./navItems";
+import Magnetic from "./Magnetic";
 
 export default function Navbar() {
   const desktopSectionItems = navItems.filter((item) => item.group === "section");
@@ -35,30 +36,39 @@ export default function Navbar() {
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-3 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-charcoal/80 lg:flex">
           {desktopSectionItems.map((item) => (
-            <Link key={item.href} href={`/${item.href}`} className="group relative px-2.5 py-1.5 transition-colors duration-200 hover:text-brand-blue">
-              {item.label}
-              <span className="absolute bottom-0 left-2.5 right-2.5 h-0.5 scale-x-0 bg-brand-blue transition-transform duration-300 origin-center group-hover:scale-x-100" />
-            </Link>
+            <Magnetic key={item.href} radius={18} strength={0.22}>
+              <Link href={`/${item.href}`} className="group relative px-2.5 py-1.5 transition-colors duration-200 hover:text-brand-blue block">
+                {item.label}
+                <span className="absolute bottom-0 left-2.5 right-2.5 h-0.5 scale-x-0 bg-brand-blue transition-transform duration-300 origin-center group-hover:scale-x-100" />
+              </Link>
+            </Magnetic>
           ))}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
           {desktopUtilityItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`hidden lg:inline-flex ${item.group === "primary" ? "btn btn-secondary btn-sm font-bold border border-brand-border/80 hover:border-brand-blue/30" : "text-xs font-bold uppercase tracking-[0.1em] text-brand-blue hover:text-brand-accent transition-colors"}`}
-              target={item.isExternal ? "_blank" : undefined}
-              rel={item.isExternal ? "noreferrer" : undefined}
-            >
-              {item.label}
-            </Link>
+            <Magnetic key={item.href} radius={22} strength={0.2}>
+              <Link
+                href={item.href}
+                className={`hidden lg:inline-flex ${item.group === "primary" ? "btn btn-secondary btn-sm font-bold border border-brand-border/80 hover:border-brand-blue/30" : "text-xs font-bold uppercase tracking-[0.1em] text-brand-blue hover:text-brand-accent transition-colors"}`}
+                target={item.isExternal ? "_blank" : undefined}
+                rel={item.isExternal ? "noreferrer" : undefined}
+              >
+                {item.label}
+              </Link>
+            </Magnetic>
           ))}
-          <ThemeSwitcher />
+          <Magnetic radius={18} strength={0.25}>
+            <div className="inline-block">
+              <ThemeSwitcher />
+            </div>
+          </Magnetic>
           <MobileNav />
-          <Link href="/#contact" className="btn btn-primary btn-sm font-bold tracking-[0.08em] px-4 py-2">
-            Start a Conversation
-          </Link>
+          <Magnetic radius={24} strength={0.22}>
+            <Link href="/#contact" className="btn btn-primary btn-sm font-bold tracking-[0.08em] px-4 py-2 block">
+              Start a Conversation
+            </Link>
+          </Magnetic>
         </div>
       </div>
     </header>
