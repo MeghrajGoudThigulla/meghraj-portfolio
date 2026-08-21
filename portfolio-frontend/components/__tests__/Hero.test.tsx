@@ -14,9 +14,9 @@ describe("Hero", () => {
 
   it("renders primary, work, and resume CTA hierarchy", () => {
     render(<Hero />);
-    expect(screen.getByRole("link", { name: "View My Work" })).toHaveAttribute("href", "/#projects");
-    expect(screen.getByRole("link", { name: "Work With Me" })).toHaveAttribute("href", "/#contact");
-    expect(screen.getByRole("link", { name: "Résumé →" })).toHaveAttribute("href", "/resume");
+    expect(screen.getByRole("link", { name: "View my work" })).toHaveAttribute("href", "/#projects");
+    expect(screen.getByRole("link", { name: "Work with me" })).toHaveAttribute("href", "/#contact");
+    expect(screen.getByRole("link", { name: "Résumé" })).toHaveAttribute("href", "/resume");
   });
 
   it("renders adaptive positioning and trust badges", () => {

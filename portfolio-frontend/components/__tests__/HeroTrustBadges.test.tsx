@@ -31,7 +31,7 @@ describe("HeroTrustBadges telemetry", () => {
     render(<HeroTrustBadges badges={badges} />);
     await waitFor(() => expect(trackMetricMock).toHaveBeenCalled());
     trackMetricMock.mockClear();
-    await user.click(screen.getByRole("button", { name: /Production Experience/i }));
+    await user.click(screen.getByRole("button", { name: /Production-minded/i }));
     const engagementEvents = trackMetricMock.mock.calls.map(([payload]) => payload as { eventName?: string; meta?: Record<string, unknown> }).filter((payload) => payload.eventName === "hero_trust_badge_engaged");
     expect(engagementEvents).toEqual(expect.arrayContaining([
       expect.objectContaining({ meta: expect.objectContaining({ badgeId: "production-click", proofRef: "projects", trigger: "click" }) }),
