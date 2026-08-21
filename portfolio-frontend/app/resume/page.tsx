@@ -147,15 +147,25 @@ export default function ResumePage() {
               ]}
             />
             <Project
-              title="TFG Corporate Website (GroConnect)"
+              title="TFG Corporate Website"
               subtitle="Corporate Marketing Presence (Published)"
-              tech="Next.js, React, Flask, MySQL, Bootstrap/Tailwind"
+              tech="Next.js, React, Flask, MySQL, Bootstrap"
               bullets={[
-                "Led the modernization from a legacy static framework to a Next.js architecture (tfg_website_next) for enhanced SEO and performance.",
-                "Integrated frontend forms with the existing Flask API backend (tfg_website_server) while preserving legacy static HTML routes as fallbacks.",
-                "Achieved zero downtime during the corporate platform transition, maintaining the global firm's professional stature.",
+                "Led the modernization from a legacy static structure to a Next.js framework (tfg_website_next) for enhanced performance and SEO.",
+                "Integrated contact and subscription routes with the Flask API backend (tfg_website_server) while preserving static HTML fallbacks.",
+                "Maintained high reliability and zero downtime during the platform migration for the global firm."
               ]}
               link={{ href: "https://tfgroup.ai/en", label: "tfgroup.ai" }}
+            />
+            <Project
+              title="GroConnect"
+              subtitle="AI-Powered IT Solutions & Training Platform (Published)"
+              tech="HTML5, CSS3, JavaScript, PHP, Node.js"
+              bullets={[
+                "Developed the public client web portal showcasing custom software, DevOps, cloud migrations, and corporate IT services.",
+                "Wired secure dynamic forms to a local PHP/Node contact server with transactional notifications and logs.",
+                "Designed and built landing zones for the GroC-Training sub-platform, supporting 30-day corporate AI training enrollment."
+              ]}
             />
           </Section>
 
