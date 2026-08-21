@@ -145,7 +145,7 @@ export default function Projects() {
             const isExternal = detailsHref.startsWith("http");
 
             return (
-              <motion.article key={project.title} variants={projectVariants} className="group relative overflow-hidden rounded-3xl border border-brand-border/70 bg-brand-surface/80 shadow-glass transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/40 hover:shadow-elev-2">
+              <motion.article key={project.title} variants={projectVariants} className="group relative overflow-hidden rounded-3xl border border-brand-border/70 bg-brand-surface/80 shadow-glass transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/40 hover:shadow-elev-2 border-glow-hover">
                 <div aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-blue via-sky-400 to-brand-accent opacity-70 transition-opacity group-hover:opacity-100" />
 
                 <div className="grid lg:grid-cols-[1fr,0.72fr]">
@@ -156,11 +156,23 @@ export default function Projects() {
                         <h3 className="mt-2 text-2xl font-bold leading-tight text-brand-navy sm:text-3xl lg:text-4xl">{project.title}</h3>
                         <p className="mt-2 text-sm font-medium text-brand-charcoal sm:text-base">{project.subtitle}</p>
                       </div>
-                      <span className={project.status === "Published" ? "badge-accent" : "rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-amber-500"}>{project.status}</span>
+                      <span className={`rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] ${
+                        project.status === "Published"
+                          ? "border-brand-blue/30 bg-brand-blue/10 text-brand-blue"
+                          : "border-amber-500/30 bg-amber-500/10 text-amber-500"
+                      }`}>{project.status}</span>
                     </div>
 
                     <div className="mt-6 flex flex-wrap gap-2">
-                      {project.metrics.map((metric) => <span key={metric} className="rounded-lg border border-brand-border bg-brand-muted/50 px-2.5 py-1.5 font-mono text-[10px] font-medium text-brand-charcoal sm:text-[11px]">{metric}</span>)}
+                      {project.metrics.map((metric, idx) => (
+                        <span key={metric} className={`rounded-lg px-2.5 py-1.5 font-mono text-[10px] font-medium transition-colors ${
+                          idx === 0
+                            ? "border border-brand-blue/30 bg-brand-blue/10 text-brand-blue font-semibold"
+                            : "border border-brand-border bg-brand-muted/50 text-brand-charcoal"
+                        } sm:text-[11px]`}>
+                          {metric}
+                        </span>
+                      ))}
                     </div>
 
                     <div className="mt-8 space-y-6">
@@ -193,7 +205,13 @@ export default function Projects() {
                       <div className="rounded-2xl border border-brand-border bg-brand-surface p-3 shadow-sm"><ApiDiagramCard idPrefix={`project-${index}`} diagram={project.apiDiagram} /></div>
                       <div className="mt-auto rounded-2xl border border-brand-border bg-brand-surface p-4">
                         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-blue">04 / Stack</p>
-                        <p className="mt-2 text-sm leading-6 text-brand-charcoal">{project.stack}</p>
+                        <div className="mt-2.5 flex flex-wrap gap-1.5">
+                          {project.stack.split(", ").map((tech) => (
+                            <span key={tech} className="rounded-md border border-brand-border/80 bg-brand-bg/50 px-2 py-1 font-mono text-[10px] font-medium text-brand-charcoal transition-colors hover:border-brand-blue/30 hover:text-brand-blue">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
