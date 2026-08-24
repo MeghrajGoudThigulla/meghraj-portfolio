@@ -2,6 +2,7 @@
 
 import { motion, Variants } from 'framer-motion';
 import SectionHeading from './SectionHeading';
+import TiltCard from './TiltCard';
 
 const SKILL_GROUPS = [
   { label: 'Core Engineering', items: ['Python', 'Flutter', 'Dart', 'JavaScript', 'AI / ML'] },
@@ -40,12 +41,12 @@ export default function SkillsSnapshot() {
           viewport={{ once: true, margin: '-80px' }}
         >
           {SKILL_GROUPS.map((group, index) => (
-            <motion.article key={group.label} variants={cardVariants} className="card card-hover p-5 sm:p-6">
+            <TiltCard as="article" key={group.label} variants={cardVariants} className="card card-hover p-5 sm:p-6" max={5} liftScale={1.01}>
               <div className="flex items-center justify-between gap-4">
                 <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">0{index + 1}</span>
                 <span className="h-px flex-1 bg-brand-border" />
               </div>
-              <h3 className="mt-5 text-lg font-semibold text-brand-navy">{group.label}</h3>
+              <h3 className="mt-5 text-lg font-bold text-brand-navy group-hover:text-brand-blue transition-colors">{group.label}</h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {group.items.map((item) => (
                   <motion.span
@@ -58,7 +59,7 @@ export default function SkillsSnapshot() {
                   </motion.span>
                 ))}
               </div>
-            </motion.article>
+            </TiltCard>
           ))}
         </motion.div>
       </div>
