@@ -1,114 +1,116 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-
-type Dot = {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-};
+import { useEffect, useRef } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 export default function AnimatedGridBackground() {
-  const [dots, setDots] = useState<Dot[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    // Generate random dots safely on the client side only to prevent SSR mismatches
-    const generated = Array.from({ length: 15 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 4 + 2,
-      duration: Math.random() * 20 + 20,
-      delay: Math.random() * -20,
-    }));
-    
-    const timer = setTimeout(() => {
-      setDots(generated);
-    }, 0);
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
-    const container = document.getElementById('grid-bg-container');
-    if (!container) return () => clearTimeout(timer);
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    // GPU-accelerated mouse positioning without triggering React re-renders
+    let animationFrameId: number;
+    let dots: { x: number; y: number; baseRadius: number; currentRadius: number }[] = [];
+    const dotSpacing = 32;
+
+    const initDots = () => {
+      const w = canvas.width = container.offsetWidth;
+      const h = canvas.height = container.offsetHeight;
+      dots = [];
+
+      for (let x = dotSpacing / 2; x < w; x += dotSpacing) {
+        for (let y = dotSpacing / 2; y < h; y += dotSpacing) {
+          dots.push({
+            x,
+            y,
+            baseRadius: 1,
+            currentRadius: 1,
+          });
+        }
+      }
+    };
+
+    initDots();
+
+    const handleResize = () => {
+      initDots();
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      container.style.setProperty('--mouse-x', `${x}px`);
-      container.style.setProperty('--mouse-y', `${y}px`);
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.x = e.clientX - rect.left;
+      mouseRef.current.y = e.clientY - rect.top;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('mousemove', handleMouseMove);
+    const handleMouseLeave = () => {
+      mouseRef.current.x = -1000;
+      mouseRef.current.y = -1000;
     };
-  }, []);
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseleave', handleMouseLeave);
+
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const mouse = mouseRef.current;
+
+      dots.forEach((dot) => {
+        const dx = mouse.x - dot.x;
+        const dy = mouse.y - dot.y;
+        const dist = Math.hypot(dx, dy);
+        const maxDist = 180;
+
+        let targetRadius = dot.baseRadius;
+        let opacity = 0.08;
+        let color = 'rgba(148, 163, 184, '; // Slate color base
+
+        if (dist < maxDist && !prefersReducedMotion) {
+          const factor = 1 - dist / maxDist;
+          targetRadius = dot.baseRadius + factor * 2.8;
+          opacity = 0.08 + factor * 0.45;
+          // Morph color towards Sky Blue/Teal when hovered
+          color = factor > 0.5 ? 'rgba(56, 189, 248, ' : 'rgba(45, 212, 191, ';
+        }
+
+        // Smoothly interpolate radius to avoid jitter
+        dot.currentRadius += (targetRadius - dot.currentRadius) * 0.15;
+
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, dot.currentRadius, 0, Math.PI * 2);
+        ctx.fillStyle = `${color}${opacity})`;
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [prefersReducedMotion]);
 
   return (
-    <div id="grid-bg-container" className="absolute inset-0 -z-10 overflow-hidden bg-brand-bg">
-      {/* Dynamic Grid Overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, #38BDF8 1px, transparent 1px),
-            linear-gradient(to bottom, #38BDF8 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-          maskImage: 'radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 60% 50% at 50% 50%, #000 70%, transparent 100%)',
-        }}
-      />
-
-      {/* Radial Gradient Mesh Glows (using Blue and Teal/Green accents) */}
+    <div ref={containerRef} className="absolute inset-0 -z-10 overflow-hidden bg-brand-bg">
+      <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none block" />
+      
+      {/* Decorative background radial color glows (Blue/Teal gradient halos) */}
       <div className="absolute top-[-10%] left-[-10%] h-[60%] w-[60%] rounded-full bg-brand-blue/15 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] h-[65%] w-[65%] rounded-full bg-brand-accent/10 blur-[130px] pointer-events-none" />
       <div className="absolute top-[30%] left-[45%] h-[40%] w-[40%] rounded-full bg-brand-blue/5 blur-[100px] pointer-events-none" />
-
-      {/* Floating Animated Nodes */}
-      <div className="absolute inset-0 pointer-events-none">
-        {dots.map((dot) => (
-          <motion.div
-            key={dot.id}
-            className="absolute rounded-full"
-            style={{
-              left: `${dot.x}%`,
-              top: `${dot.y}%`,
-              width: dot.size,
-              height: dot.size,
-              background: dot.id % 2 === 0 ? '#38BDF8' : '#2DD4BF',
-              boxShadow: dot.id % 2 === 0 
-                ? '0 0 10px rgba(56, 189, 248, 0.8), 0 0 20px rgba(56, 189, 248, 0.4)' 
-                : '0 0 10px rgba(45, 212, 191, 0.8), 0 0 20px rgba(45, 212, 191, 0.4)',
-            }}
-            animate={{
-              y: [0, -40, 0],
-              x: [0, Math.sin(dot.id) * 30, 0],
-              opacity: [0.1, 0.7, 0.1],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: dot.duration,
-              repeat: Infinity,
-              delay: dot.delay,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Interactive cursor tracking grid spotlight glow (CSS Radial Gradient overlay) */}
-      <div 
-        className="absolute inset-0 pointer-events-none mix-blend-screen opacity-35 transition-opacity duration-300"
-        style={{
-          background: 'radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 30%), rgba(56, 189, 248, 0.15), transparent 80%)',
-        }}
-      />
     </div>
   );
 }

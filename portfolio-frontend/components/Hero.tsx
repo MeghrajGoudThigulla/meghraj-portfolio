@@ -43,11 +43,15 @@ export default function Hero() {
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-blue">{HERO_EYEBROW}</p>
             </motion.div>
 
-            <motion.h1 variants={textVariants} className="mt-7 max-w-4xl text-[clamp(3rem,7vw,6.75rem)] font-bold leading-[0.94] tracking-[-0.055em] text-brand-navy">
+            <motion.h1 variants={textVariants} className="mt-7 max-w-4xl text-[clamp(3rem,7vw,6.75rem)] font-black leading-[0.94] tracking-[-0.055em] text-brand-navy">
               {HERO_HEADLINE}
             </motion.h1>
 
-            <motion.p variants={textVariants} className="mt-7 max-w-2xl text-base leading-7 text-brand-charcoal sm:text-lg sm:leading-8 lg:text-xl">
+            <motion.p 
+              variants={textVariants} 
+              className="mt-7 max-w-2xl leading-relaxed text-brand-charcoal"
+              style={{ fontSize: "clamp(0.95rem, 0.92rem + 0.18vw, 1.15rem)" }}
+            >
               {HERO_PROOF_LINE}
             </motion.p>
 

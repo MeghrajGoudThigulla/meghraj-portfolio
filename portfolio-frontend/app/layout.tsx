@@ -4,7 +4,9 @@ import "./globals.css";
 import MetricsTracker from "@/components/MetricsTracker";
 import SkipLink from "@/components/SkipLink";
 import CursorSparks from "@/components/CursorSparks";
+import CustomCursor from "@/components/CustomCursor";
 import { SEO_COPY } from "./seo";
+import { ToastProvider } from "@/components/Toast";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -57,10 +59,13 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-brand-bg text-brand-charcoal antialiased font-sans`}
       >
-        <SkipLink />
-        <MetricsTracker />
-        <CursorSparks />
-        {children}
+        <ToastProvider>
+          <SkipLink />
+          <MetricsTracker />
+          <CursorSparks />
+          <CustomCursor />
+          {children}
+        </ToastProvider>
       </body>
     </html>
   );

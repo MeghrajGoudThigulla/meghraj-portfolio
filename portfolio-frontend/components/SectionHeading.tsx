@@ -30,11 +30,17 @@ export default function SectionHeading({
           </p>
         </div>
       ) : null}
-      <h2 className="max-w-2xl text-3xl font-bold leading-[1.08] text-brand-navy sm:text-4xl lg:text-[2.75rem]">
+      <h2 
+        className="max-w-2xl font-black leading-[1.08] text-brand-navy tracking-tight"
+        style={{ fontSize: "clamp(1.85rem, 1.55rem + 1.35vw, 3.1rem)" }}
+      >
         {title}
       </h2>
       {description ? (
-        <p className="max-w-2xl text-sm leading-7 text-brand-charcoal sm:text-base lg:text-lg">
+        <p 
+          className="max-w-2xl leading-relaxed text-brand-charcoal"
+          style={{ fontSize: "clamp(0.88rem, 0.85rem + 0.12vw, 1.05rem)" }}
+        >
           {description}
         </p>
       ) : null}

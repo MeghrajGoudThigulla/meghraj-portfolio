@@ -2,6 +2,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ContactForm from "../ContactForm";
+import { ToastProvider } from "../Toast";
 
 const trackMetricMock = vi.fn();
 vi.mock("@/lib/metrics", () => ({ trackMetric: (payload: unknown) => trackMetricMock(payload) }));
@@ -29,7 +30,11 @@ describe("ContactForm", () => {
     const user = userEvent.setup();
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
-    render(<ContactForm />);
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
 
     await user.click(screen.getByRole("button", { name: "Start the conversation" }));
     expect(await screen.findByText("Please fix the highlighted fields and submit again.")).toBeInTheDocument();
@@ -41,7 +46,11 @@ describe("ContactForm", () => {
 
   it("validates email format on blur", async () => {
     const user = userEvent.setup();
-    render(<ContactForm />);
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
     await user.type(screen.getByLabelText("Email"), "invalid-email");
     await user.tab();
     expect(await screen.findByText("Enter a valid email address.")).toBeInTheDocument();
@@ -51,7 +60,11 @@ describe("ContactForm", () => {
     const user = userEvent.setup();
     const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200 } as Response);
     vi.stubGlobal("fetch", fetchMock);
-    render(<ContactForm />);
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
 
     await fillContactForm(user, {
       name: " Meghraj ",
@@ -79,7 +92,11 @@ describe("ContactForm", () => {
     const user = userEvent.setup();
     const fetchMock = vi.fn().mockResolvedValue({ ok: false, status: 500 } as Response);
     vi.stubGlobal("fetch", fetchMock);
-    render(<ContactForm />);
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
     await fillContactForm(user, { name: "Meghraj", email: "meghraj@example.com", message: "Need support with a project." });
     await user.click(screen.getByRole("button", { name: "Start the conversation" }));
     expect(await screen.findByText("Unable to send right now. Please try again or email directly.")).toBeInTheDocument();

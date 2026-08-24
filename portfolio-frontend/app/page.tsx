@@ -66,13 +66,21 @@ export default function Home() {
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         <Hero />
+        <div className="section-divider" />
         <About />
+        <div className="section-divider" />
         <ConsultingStrengths />
+        <div className="section-divider" />
         <ServicesSection />
+        <div className="section-divider" />
         <Projects />
+        <div className="section-divider" />
         <ExperienceTimeline />
+        <div className="section-divider" />
         <SkillsSnapshot />
+        <div className="section-divider" />
         <ROICalculator />
+        <div className="section-divider" />
         <ContactForm />
       </main>
       <Footer />

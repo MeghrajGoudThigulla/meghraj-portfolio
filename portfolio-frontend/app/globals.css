@@ -158,6 +158,13 @@
 }
 
 @layer components {
+  .section-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, var(--brand-border) 50%, transparent);
+    opacity: 0.55;
+  }
+
   .section-band {
     @apply border-y border-brand-border bg-brand-surface/70 backdrop-blur-md shadow-glass;
   }

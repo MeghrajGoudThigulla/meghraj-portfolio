@@ -87,35 +87,27 @@ export default function ResumePage() {
 
           <Section title="PROJECTS">
             <Project
-              title="TFGenAPI (TFG Verify)"
-              subtitle="AI-Powered Background Verification (BGV) Platform (Production / Internal)"
+              title="TFGenAPI"
+              subtitle="Verification & Custom API Platform (Production / Internal)"
               tech="Next.js 16, Python, FastAPI, MongoDB, PyTesseract, Sentence Transformers"
               bullets={[
                 "Built the verification API platform from scratch, owning database design and cross-layer integration components.",
                 "Engineered an AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers to compute dense vector embeddings.",
                 "Configured a MongoDB (Motor) data layer to support high-throughput, unstructured document ingestion and ML feature persistence.",
               ]}
-              link={{ href: "https://tfgverify.com/", label: "tfgverify.com" }}
+              link={{ href: "https://tfgenapi.ai/", label: "tfgenapi.ai" }}
             />
             <Project
               title="IYOV AI"
-              subtitle="AI-Powered HR & Business Operations Platform (Internal / Pre-release)"
-              tech="Python, FastAPI, Flutter, Next.js, PostgreSQL, Redis, AI/ML"
+              subtitle="AI Powered Workforce Management Ecosystem (Web & Mobile Suite) (Internal / Pre-release)"
+              tech="Python, FastAPI, Flutter, Riverpod, GoRouter, Next.js, PostgreSQL, Redis, Firebase"
               bullets={[
-                "Developed the core payroll module from scratch, translating complex India tax and compliance laws into automated formulas.",
+                "Developed the core India tax and compliance payroll module from scratch, translating complex operational rules into automated formulas.",
+                "Authored features and managed App Store / Play Store release cycles for the 4+ companion Flutter apps (Employee Portal, HRMS, LMS, Care Navigator).",
                 "Built background job queues using Redis to handle payroll batches, document processing, and bulk worker notifications.",
-                "Collaborated with business stakeholders to convert ambiguous operational requirements into shippable platform milestones.",
+                "Established unified mobile build configurations and automated pipelines, reducing time-to-market for critical mobile hotfixes."
               ]}
-            />
-            <Project
-              title="TFG Mobile App Suite"
-              subtitle="Cross-Platform Operational Applications (Production / Internal)"
-              tech="Flutter, Dart, Riverpod, GoRouter, Firebase, REST APIs, iOS, Android"
-              bullets={[
-                "Authored features and managed App Store / Play Store release cycles for 4+ Flutter apps (Employee Portal, HRMS, LMS, Care Navigator).",
-                "Debugged cross-platform API syncs, JWT session handlers, local storage caches, and push notification channels.",
-                "Established unified build configurations and automated pipelines, reducing time-to-market for mobile hotfixes.",
-              ]}
+              link={{ href: "https://iyov.ai/", label: "iyov.ai" }}
             />
             <Project
               title="Medical Advisor"
@@ -126,10 +118,10 @@ export default function ResumePage() {
                 "Engineered an asynchronous dual-write pipeline synchronizing PostgreSQL transaction state to Firestore for real-time WebSockets.",
                 "Acted as the onboarding lead, delivering technical training and knowledge transfer to 8 engineering team members.",
               ]}
-              link={{ href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor", label: "Play Store" }}
+              link={{ href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor&pcampaignid=web_share", label: "Play Store" }}
             />
             <Project
-              title="TFG SecureBank"
+              title="TFG SecureBanking"
               subtitle="Metadata-Driven Applicant Modernization (Published)"
               tech="Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, Redis, WeasyPrint"
               bullets={[
@@ -169,6 +161,7 @@ export default function ResumePage() {
                 "Wired secure dynamic forms to a local PHP/Node contact server with transactional notifications and logs.",
                 "Designed and built landing zones for the GroC-Training sub-platform, supporting 30-day corporate AI training enrollment."
               ]}
+              link={{ href: "https://groconnect.co.in/", label: "groconnect.co.in" }}
             />
           </Section>
 
