@@ -4,10 +4,11 @@
 Position the brand around engineering depth, architecture, and real system ownership. Technically credible; never invent experience, projects, metrics, clients, or achievements.
 
 ## Design System
-- Dark theme is the default; preserve the existing light/dark theme switch and CSS custom-property tokens in `portfolio-frontend/app/globals.css`.
-- Use the existing blue/teal accents, controlled gradients, and card/surface treatments. Follow nearby component patterns instead of applying glass effects indiscriminately.
-- Fonts are loaded in `portfolio-frontend/app/layout.tsx`: `Space Grotesk` for headings, `DM Sans` for body text, and `JetBrains Mono` for technical text.
+- Dark, high-contrast theme is the default; preserve the existing light/dark theme switch and CSS custom-property tokens in `portfolio-frontend/app/globals.css`.
+- Controlled gradients, blue/teal accents, and glassmorphism for cards, layered components, and nav. Follow nearby component patterns for consistency.
+- Fonts are loaded in `portfolio-frontend/app/layout.tsx`: headings `Space Grotesk` or `Unbounded`; body `DM Sans` or `Inter`; code/technical `JetBrains Mono`.
 - Reuse the existing Tailwind theme utilities and shared UI components before adding new styling primitives.
+- Apply typography and glass styling to new UI by default.
 
 ## Project Map
 - `portfolio-frontend/` is a Next.js App Router site configured for static export. Firebase Hosting serves the generated `out/` directory.
