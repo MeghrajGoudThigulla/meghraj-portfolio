@@ -83,10 +83,10 @@ export default function ApiDiagramCard({ idPrefix, diagram }: ApiDiagramCardProp
   const markerId = `${idPrefix}-arrow`;
 
   return (
-    <div className="mt-2 overflow-x-auto rounded-xl border border-brand-border/60 bg-brand-bg/30 shadow-inner">
+    <div className="mt-2 w-full min-w-0 overflow-x-auto rounded-xl border border-brand-border/60 bg-brand-bg/30 shadow-inner">
       <svg
         viewBox={`0 0 ${SVG_WIDTH} ${svgHeight}`}
-        className="h-auto min-w-[720px] w-full sm:min-w-0"
+        className="h-auto w-full min-w-[560px]"
         role="img"
         aria-label={`${diagram.gatewayLabel} API architecture diagram`}
       >

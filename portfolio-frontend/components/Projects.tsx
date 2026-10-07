@@ -157,7 +157,7 @@ export default function Projects() {
         <motion.div className="mt-10 grid gap-8" variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}>
           {projectsData.map((project, index) => {
             return (
-              <TiltCard as="article" key={project.title} variants={projectVariants} className="group relative overflow-hidden rounded-3xl border border-brand-border/70 bg-brand-surface/80 shadow-glass border-glow-hover card">
+              <TiltCard as="article" key={project.title} variants={projectVariants} className="group relative overflow-hidden rounded-3xl border border-brand-border/70 bg-brand-surface/80 shadow-glass border-glow-hover card min-w-0">
                 <div aria-hidden className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-blue via-sky-400 to-brand-accent opacity-70 transition-opacity group-hover:opacity-100" />
                 
                 {/* Ambient glow orb inside project card */}
@@ -173,8 +173,8 @@ export default function Projects() {
                   }}
                 />
 
-                <div className="grid lg:grid-cols-[1fr,0.72fr] relative z-10">
-                  <div className="p-6 sm:p-8 lg:p-10">
+                <div className="grid lg:grid-cols-[1fr,0.72fr] relative z-10 min-w-0">
+                  <div className="p-6 sm:p-8 lg:p-10 min-w-0">
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div>
                         <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-blue">0{index + 1} / Case Study</p>
@@ -238,13 +238,13 @@ export default function Projects() {
 
                   </div>
 
-                  <div className="border-t border-brand-border bg-brand-muted/30 p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8">
-                    <div className="flex h-full flex-col gap-5">
+                  <div className="border-t border-brand-border bg-brand-muted/30 p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8 min-w-0">
+                    <div className="flex h-full flex-col gap-5 min-w-0">
                       <div>
                         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-blue">03 / Architecture</p>
                         <p className="mt-2 text-sm leading-6 text-brand-charcoal">A high-level view of the system surface and technology choices. Proprietary implementation details are intentionally omitted.</p>
                       </div>
-                      <div className="rounded-2xl border border-brand-border bg-brand-surface p-3 shadow-sm"><ApiDiagramCard idPrefix={`project-${index}`} diagram={project.apiDiagram} /></div>
+                      <div className="rounded-2xl border border-brand-border bg-brand-surface p-3 shadow-sm min-w-0"><ApiDiagramCard idPrefix={`project-${index}`} diagram={project.apiDiagram} /></div>
                       <div className="mt-auto rounded-2xl border border-brand-border bg-brand-surface p-4">
                         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-blue">04 / Stack</p>
                         <div className="mt-2.5 flex flex-wrap gap-1.5">
