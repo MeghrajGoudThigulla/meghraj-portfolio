@@ -143,7 +143,7 @@ const projectVariants: Variants = {
 
 export default function Projects() {
   return (
-    <section className="section-shell relative border-b border-brand-border/40 bg-brand-bg" id="projects">
+    <section className="section-shell relative overflow-hidden border-b border-brand-border/40 bg-brand-bg" id="projects">
       <div aria-hidden className="pointer-events-none absolute -left-32 top-10 h-72 w-72 rounded-full bg-brand-blue/5 blur-[120px]" />
       <div aria-hidden className="pointer-events-none absolute -right-32 bottom-8 h-80 w-80 rounded-full bg-brand-accent/5 blur-[130px]" />
 

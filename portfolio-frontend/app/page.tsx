@@ -62,9 +62,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="bg-brand-bg text-brand-charcoal" id="top">
+    <div className="bg-brand-bg text-brand-charcoal overflow-x-clip" id="top">
       <Navbar />
-      <main id="main-content" tabIndex={-1}>
+      <main id="main-content" tabIndex={-1} className="overflow-x-clip">
         <Hero />
         <div className="section-divider" />
         <About />
