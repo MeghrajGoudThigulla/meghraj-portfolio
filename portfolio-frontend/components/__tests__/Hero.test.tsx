@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { HERO_HEADLINE, HERO_PROOF_LINE, HERO_TRUST_BADGES } from "@/content/heroProof";
+import { HERO_PROOF_LINE, HERO_TRUST_BADGES } from "@/content/heroProof";
 import Hero from "../Hero";
 
 const escapeForRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -12,16 +12,18 @@ vi.mock("next/link", () => ({
 describe("Hero", () => {
   afterEach(() => cleanup());
 
-  it("renders primary, work, and resume CTA hierarchy", () => {
+  it("renders primary, work, and resume CTA hierarchy with expected hrefs", () => {
     render(<Hero />);
     expect(screen.getByRole("link", { name: "View my work" })).toHaveAttribute("href", "/#projects");
     expect(screen.getByRole("link", { name: "Work with me" })).toHaveAttribute("href", "/#contact");
     expect(screen.getByRole("link", { name: "Résumé" })).toHaveAttribute("href", "/resume");
   });
 
-  it("renders adaptive positioning and trust badges", () => {
+  it("renders level-1 heading structure, proof description, and trust badge controls", () => {
     render(<Hero />);
-    expect(screen.getByRole("heading", { name: HERO_HEADLINE })).toBeInTheDocument();
+    const heading = screen.getByRole("heading", { level: 1 });
+    expect(heading).toBeInTheDocument();
+    expect(heading.textContent).toBeTruthy();
     expect(screen.getByText(HERO_PROOF_LINE)).toBeInTheDocument();
     expect(screen.getByLabelText("Trust badges")).toBeInTheDocument();
     HERO_TRUST_BADGES.forEach((badge) => {

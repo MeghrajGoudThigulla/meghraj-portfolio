@@ -7,7 +7,7 @@ describe("Footer", () => {
     cleanup();
   });
 
-  it("renders section quick links", () => {
+  it("renders section quick links with valid hrefs", () => {
     render(<Footer />);
 
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "/#about");
@@ -17,21 +17,24 @@ describe("Footer", () => {
     expect(screen.getByRole("link", { name: "Start a Conversation" })).toHaveAttribute("href", "/#contact");
   });
 
-  it("renders profile links with descriptive labels", () => {
+  it("renders profile links with descriptive labels, correct targets, and rel attributes", () => {
     render(<Footer />);
 
     expect(screen.getByRole("link", { name: "Email Meghraj" })).toHaveAttribute(
       "href",
       "mailto:meghraj.thigulla@outlook.com",
     );
-    expect(screen.getByRole("link", { name: "Open Meghraj GitHub profile" })).toHaveAttribute(
-      "href",
-      "https://github.com/MeghrajGoudThigulla",
-    );
-    expect(screen.getByRole("link", { name: "Open Meghraj LinkedIn profile" })).toHaveAttribute(
-      "href",
-      "https://www.linkedin.com/in/meghraj-goud-thigulla",
-    );
+
+    const githubLink = screen.getByRole("link", { name: "Open Meghraj GitHub profile" });
+    expect(githubLink).toHaveAttribute("href", "https://github.com/MeghrajGoudThigulla");
+    expect(githubLink).toHaveAttribute("target", "_blank");
+    expect(githubLink).toHaveAttribute("rel", "noopener noreferrer");
+
+    const linkedinLink = screen.getByRole("link", { name: "Open Meghraj LinkedIn profile" });
+    expect(linkedinLink).toHaveAttribute("href", "https://www.linkedin.com/in/meghraj-goud-thigulla");
+    expect(linkedinLink).toHaveAttribute("target", "_blank");
+    expect(linkedinLink).toHaveAttribute("rel", "noopener noreferrer");
+
     expect(screen.getByRole("link", { name: "Open Meghraj resume" })).toHaveAttribute(
       "href",
       "/resume",

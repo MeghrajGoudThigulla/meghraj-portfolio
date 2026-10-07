@@ -85,7 +85,7 @@ export default function Footer() {
                       <a
                         href={link.href}
                         target={link.href.startsWith("http") ? "_blank" : undefined}
-                        rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                        rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                         aria-label={link.ariaLabel}
                         className="flex h-9 w-9 items-center justify-center rounded-xl border border-brand-border bg-brand-surface/60 text-brand-charcoal transition-all hover:border-brand-blue/30 hover:bg-brand-surface hover:text-brand-blue hover:shadow-sm"
                       >
@@ -119,7 +119,7 @@ export default function Footer() {
                   <a
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
-                    rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="text-brand-charcoal hover:text-brand-blue transition-colors"
                   >
                     {link.label}
