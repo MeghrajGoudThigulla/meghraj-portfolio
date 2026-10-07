@@ -43,7 +43,7 @@ export const HERO_TRUST_BADGES: HeroTrustBadge[] = [
 export const HERO_METRIC_CARDS: HeroMetricCard[] = [
   {
     label: "Production APIs",
-    value: "280+",
+    value: "286",
     detail: "REST endpoints built and integrated across production systems.",
   },
   {
