@@ -1,21 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import ResumeHighlightsBar from "@/components/ResumeHighlightsBar";
 import ResumeStickyActions from "@/components/ResumeStickyActions";
+import { resumeData } from "@/data/resume";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Résumé | Meghraj Goud",
   description:
-    "Printable résumé for Meghraj Goud highlighting full-stack delivery, security, and leadership.",
+    "Printable résumé for Meghraj Goud highlighting full-stack delivery, AI/ML, and backend infrastructure.",
+  alternates: {
+    canonical: "/resume",
+  },
 };
-
-const contactLinks = [
-  { href: "tel:+917997221772", label: "+91 79972 21772" },
-  { href: "mailto:meghraj.thigulla@outlook.com", label: "meghraj.thigulla@outlook.com" },
-  { href: "https://www.linkedin.com/in/meghraj-goud-thigulla", label: "LinkedIn" },
-  { href: "https://meghraj-portfolio.web.app/", label: "Portfolio" },
-  { href: "https://github.com/MeghrajGoudThigulla", label: "GitHub" },
-  { href: "https://linktr.ee/meghraj_goud_thigulla", label: "Certificates" },
-];
 
 export default function ResumePage() {
   return (
@@ -26,19 +21,19 @@ export default function ResumePage() {
         <header className="resume-header relative flex flex-col items-center gap-4 rounded-2xl border border-brand-border bg-brand-surface px-6 py-6 shadow-glass sm:flex-row sm:items-center sm:justify-between overflow-hidden">
           {/* Vertical left accent bar */}
           <div className="absolute left-0 inset-y-0 w-1.5 bg-gradient-to-b from-brand-blue via-cyan-400 to-brand-accent" />
-          
+
           <div className="text-center sm:text-left pl-2 sm:pl-3">
             <h1 className="text-3xl font-bold text-brand-navy lg:text-4xl tracking-tight">
-              THIGULLA MEGHRAJ GOUD
+              {resumeData.name}
             </h1>
             <div className="mt-3.5 flex flex-wrap justify-center gap-2 sm:justify-start">
-              {contactLinks.map((item) => (
+              {resumeData.contactLinks.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   className="rounded-lg border border-brand-border bg-brand-bg/50 px-2.5 py-1.5 text-xs font-semibold text-brand-charcoal transition-all hover:border-brand-blue/30 hover:bg-brand-surface hover:text-brand-blue hover:shadow-sm"
                   target={item.href.startsWith("http") ? "_blank" : undefined}
-                  rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 >
                   {item.label}
                 </Link>
@@ -47,154 +42,155 @@ export default function ResumePage() {
           </div>
         </header>
 
-        <ResumeHighlightsBar />
-
         <main id="main-content" tabIndex={-1} className="resume-content grid gap-6">
           <Section title="EXPERIENCE">
-            <Role
-              title="Senior AI Developer & Full Stack Engineer"
-              place="Threshing Floor Group, Hyderabad • www.tfgorg.com"
-              timeline="July 2024–Present"
-              bullets={[
-                "Architecting scalable intelligence and building production systems that bridge complex deep-tech models with strategic business outcomes.",
-                "Engineered 7 high-performance platforms spanning Next.js, React, Flutter, and FastAPI, integrating modern ML pipelines and robust API layers.",
-                "Designed cloud-native environments with PostgreSQL/Supabase, integrating Redis rate limiting, Row-Level Security, and scalable background workers.",
-                "Managed release cycles, App Store / Play Store publishing, and deployment pipelines for a suite of 4+ custom Flutter apps (Employee Portal, HRMS, LMS, Care Navigator).",
-              ]}
-            />
-          </Section>
-
-          <Section title="SYSTEM SCALE SNAPSHOT">
-            <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
-              <li className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>286 total backend API endpoints across 6+ systems</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>61+ SQLAlchemy models with 30+ schema migrations</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>80+ mobile screens and 96+ admin/web pages delivered</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
-                <span>App Store and Play Store release ownership for 4 distinct operational Flutter apps</span>
-              </li>
-            </ul>
-          </Section>
-
-          <Section title="PROJECTS">
-            <Project
-              title="TFGenAPI"
-              subtitle="Verification & Custom API Platform (Production / Internal)"
-              tech="Next.js 16, Python, FastAPI, MongoDB, PyTesseract, Sentence Transformers"
-              bullets={[
-                "Built the verification API platform from scratch, owning database design and cross-layer integration components.",
-                "Engineered an AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers to compute dense vector embeddings.",
-                "Configured a MongoDB (Motor) data layer to support high-throughput, unstructured document ingestion and ML feature persistence.",
-              ]}
-              link={{ href: "https://tfgenapi.ai/", label: "tfgenapi.ai" }}
-            />
-            <Project
-              title="IYOV AI"
-              subtitle="AI Powered Workforce Management Ecosystem (Web & Mobile Suite) (Internal / Pre-release)"
-              tech="Python, FastAPI, Flutter, Riverpod, GoRouter, Next.js, PostgreSQL, Redis, Firebase"
-              bullets={[
-                "Developed the core India tax and compliance payroll module from scratch, translating complex operational rules into automated formulas.",
-                "Authored features and managed App Store / Play Store release cycles for the 4+ companion Flutter apps (Employee Portal, HRMS, LMS, Care Navigator).",
-                "Built background job queues using Redis to handle payroll batches, document processing, and bulk worker notifications.",
-                "Established unified mobile build configurations and automated pipelines, reducing time-to-market for critical mobile hotfixes."
-              ]}
-              link={{ href: "https://iyov.ai/", label: "iyov.ai" }}
-            />
-            <Project
-              title="Medical Advisor"
-              subtitle="Mission-Critical Healthcare API (Published)"
-              tech="Python, FastAPI, PostgreSQL, Redis, Firebase/GCP, Docker"
-              bullets={[
-                "Architected a FastAPI microservice integrating strict JWT authentication and Google Play Integrity nonces.",
-                "Engineered an asynchronous dual-write pipeline synchronizing PostgreSQL transaction state to Firestore for real-time WebSockets.",
-                "Acted as the onboarding lead, delivering technical training and knowledge transfer to 8 engineering team members.",
-              ]}
-              link={{ href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor&pcampaignid=web_share", label: "Play Store" }}
-            />
-            <Project
-              title="TFG SecureBanking"
-              subtitle="Metadata-Driven Applicant Modernization (Published)"
-              tech="Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, Redis, WeasyPrint"
-              bullets={[
-                "Architected a multi-tenant FastAPI backend exposing 70 RESTful endpoints, dynamically routed between PostgreSQL/Supabase and legacy MySQL backends.",
-                "Engineered a dynamic rules engine using openpyxl and xlcalculator to parse and execute complex credit validation matrices directly from Excel templates.",
-                "Integrated WeasyPrint and Jinja2 templates to compile and output dynamic, tamper-proof, legally binding loan agreement PDF documents.",
-              ]}
-              link={{ href: "https://tfgsecurebank.com/", label: "tfgsecurebank.com" }}
-            />
-            <Project
-              title="DealsMart"
-              subtitle="Enterprise Commerce Platform (Internal / Pre-release)"
-              tech="Flutter, FastAPI, PostgreSQL, Redis, RQ workers, S3/MinIO"
-              bullets={[
-                "Engineered a monolithic FastAPI layer interfacing with PostgreSQL to enforce strict ACID compliance across cart mutations.",
-                "Implemented an event-driven architecture using distributed RQ workers and Redis for idempotent payment reconciliation.",
-                "Delivered a cross-platform presentation layer using Flutter, utilizing S3/MinIO for scalable object storage.",
-              ]}
-            />
-            <Project
-              title="TFG Corporate Website"
-              subtitle="Corporate Marketing Presence (Published)"
-              tech="Next.js, React, Flask, MySQL, Bootstrap"
-              bullets={[
-                "Led the modernization from a legacy static structure to a Next.js framework (tfg_website_next) for enhanced performance and SEO.",
-                "Integrated contact and subscription routes with the Flask API backend (tfg_website_server) while preserving static HTML fallbacks.",
-                "Maintained high reliability and zero downtime during the platform migration for the global firm."
-              ]}
-              link={{ href: "https://tfgroup.ai/en", label: "tfgroup.ai" }}
-            />
-            <Project
-              title="GroConnect"
-              subtitle="AI-Powered IT Solutions & Training Platform (Published)"
-              tech="HTML5, CSS3, JavaScript, PHP, Node.js"
-              bullets={[
-                "Developed the public client web portal showcasing custom software, DevOps, cloud migrations, and corporate IT services.",
-                "Wired secure dynamic forms to a local PHP/Node contact server with transactional notifications and logs.",
-                "Designed and built landing zones for the GroC-Training sub-platform, supporting 30-day corporate AI training enrollment."
-              ]}
-              link={{ href: "https://groconnect.co.in/", label: "groconnect.co.in" }}
-            />
+            <div className="space-y-3 group/role">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                <div>
+                  <h3 className="text-lg font-bold text-brand-navy transition-colors group-hover/role:text-brand-blue">
+                    {resumeData.experience.title}
+                  </h3>
+                  <p className="text-sm font-semibold text-slate-500">
+                    {resumeData.experience.company}
+                    {" \u2022 "}
+                    <a
+                      href={resumeData.experience.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-blue hover:underline"
+                    >
+                      {resumeData.experience.companyDisplay}
+                    </a>
+                  </p>
+                </div>
+                <p className="text-sm font-bold text-brand-blue sm:text-right shrink-0">
+                  {resumeData.experience.period}
+                </p>
+              </div>
+              <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
+                {resumeData.experience.bullets.map((bullet) => (
+                  <li key={bullet} className="flex gap-3 items-start group/bullet">
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue/50 transition-all duration-300 group-hover/bullet:scale-125 group-hover/bullet:bg-brand-blue" />
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Section>
 
           <Section title="SKILLS">
-            <SkillGroup
-              items={[
-                { label: "Languages", value: "Python, Dart, JavaScript, TypeScript, C++" },
-                { label: "Backend Frameworks", value: "FastAPI, Flask, Express" },
-                { label: "Frontend & Mobile", value: "Flutter (Android/iOS), React (MUI), Next.js" },
-                { label: "Databases", value: "PostgreSQL, MySQL, MongoDB, Redis, Firestore" },
-                { label: "Architecture", value: "REST API Design, RBAC, JWT, Rate Limiting, Caching, Background Workers, Transaction Management" },
-                { label: "DevOps & Tooling", value: "Docker, Alembic, SQLAlchemy, Prisma, Git" },
-              ]}
-            />
+            <div className="grid gap-3 sm:grid-cols-2">
+              {resumeData.skills.map((item) => (
+                <div
+                  key={item.category}
+                  className="rounded-xl border border-brand-border bg-brand-bg/50 px-4 py-3.5 transition-all duration-300 hover:border-brand-blue/25 hover:bg-brand-surface hover:shadow-sm"
+                >
+                  <p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-500">
+                    {item.category}
+                  </p>
+                  <p className="mt-1 text-sm text-brand-charcoal lg:text-base font-medium">
+                    {item.skills}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          <Section title="PROJECTS">
+            <div className="space-y-6">
+              {resumeData.projects.map((project) => (
+                <div
+                  key={project.title}
+                  className="space-y-3 group/item border-b border-brand-border/40 pb-5 last:border-b-0 last:pb-0"
+                >
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                    <div>
+                      <h3 className="text-lg font-bold text-brand-navy transition-colors group-hover/item:text-brand-blue">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm italic text-brand-charcoal lg:text-base">
+                        {project.subtitle}
+                      </p>
+                    </div>
+                    {project.url && project.urlLabel ? (
+                      <a
+                        href={project.url}
+                        className="text-sm font-bold text-brand-blue hover:text-brand-navy transition-colors shrink-0"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {project.urlLabel} &rarr;
+                      </a>
+                    ) : null}
+                  </div>
+                  <div className="inline-flex flex-wrap items-center gap-1.5 text-xs font-semibold text-slate-500 bg-brand-bg px-2.5 py-1.5 rounded-lg border border-brand-border/60">
+                    Tech: <span className="font-normal text-brand-charcoal">{project.tech}</span>
+                  </div>
+                  <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base mt-2">
+                    {project.bullets.map((bullet) => (
+                      <li key={bullet} className="flex gap-3 items-start group/bullet">
+                        <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue/50 transition-all duration-300 group-hover/bullet:scale-125 group-hover/bullet:bg-brand-blue" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+
+              <div className="rounded-xl border border-brand-border/60 bg-brand-bg/40 p-4 sm:p-5 space-y-3">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-brand-navy">
+                  Additional Projects
+                </h3>
+                <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal">
+                  {resumeData.additionalProjects.map((item) => (
+                    <li key={item.title} className="flex gap-2.5 items-start">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue/50" />
+                      <div>
+                        {item.url ? (
+                          <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-bold text-brand-navy hover:text-brand-blue underline decoration-brand-border hover:decoration-brand-blue"
+                          >
+                            {item.title}
+                          </a>
+                        ) : (
+                          <span className="font-bold text-brand-navy">{item.title}</span>
+                        )}
+                        <span className="text-slate-500"> ({item.tech}; {item.details})</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </Section>
 
           <Section title="EDUCATION">
-            <Role
-              title="Bachelor of Technology in Information Technology"
-              place="Vignana Bharathi Institute of Technology (VBIT), Ghatkesar"
-              timeline="2020–2024"
-              bullets={[]}
-            />
+            <div className="space-y-1">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                <h3 className="text-lg font-bold text-brand-navy">
+                  {resumeData.education.degree}
+                </h3>
+                <p className="text-sm font-bold text-brand-blue sm:text-right shrink-0">
+                  {resumeData.education.period}
+                </p>
+              </div>
+              <p className="text-sm font-semibold text-slate-500">
+                {resumeData.education.institution}
+              </p>
+            </div>
           </Section>
 
-          <Section title="LEADERSHIP HIGHLIGHTS">
+          <Section title="CERTIFICATIONS">
             <ul className="space-y-3 text-sm leading-relaxed text-brand-charcoal lg:text-base">
-              {activities.map((item) => (
-                <li key={item.title} className="flex gap-3">
-                  <span className="mt-2 h-2 w-2 rounded-full bg-brand-blue" />
+              {resumeData.certifications.map((cert) => (
+                <li key={cert.issuer} className="flex gap-3 items-start group/cert">
+                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue/50 transition-all duration-300 group-hover/cert:scale-125 group-hover/cert:bg-brand-blue" />
                   <div>
-                    <p className="font-semibold text-brand-navy">{item.title}</p>
-                    <p>{item.detail}</p>
+                    <span className="font-bold text-brand-navy">{cert.issuer}: </span>
+                    <span>{cert.items.join("; ")}</span>
                   </div>
                 </li>
               ))}
@@ -216,118 +212,3 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </section>
   );
 }
-
-function Role({
-  title,
-  place,
-  timeline,
-  bullets,
-}: {
-  title: string;
-  place: string;
-  timeline: string;
-  bullets: string[];
-}) {
-  return (
-    <div className="space-y-3 group/role">
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-        <div>
-          <p className="text-lg font-bold text-brand-navy transition-colors group-hover/role:text-brand-blue">{title}</p>
-          <p className="text-sm font-semibold text-slate-500">{place}</p>
-        </div>
-        <p className="text-sm font-bold text-brand-blue sm:text-right shrink-0">{timeline}</p>
-      </div>
-      {bullets.length > 0 ? (
-        <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base">
-          {bullets.map((item) => (
-            <li key={item} className="flex gap-3 items-start group/bullet">
-              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue/50 transition-all duration-300 group-hover/bullet:scale-125 group-hover/bullet:bg-brand-blue" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-    </div>
-  );
-}
-
-function Project({
-  title,
-  subtitle,
-  tech,
-  bullets,
-  link,
-}: {
-  title: string;
-  subtitle: string;
-  tech: string;
-  bullets: string[];
-  link?: { href: string; label: string };
-}) {
-  return (
-    <div className="space-y-3 group/item border-b border-brand-border/40 pb-4 last:border-b-0 last:pb-0">
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-        <p className="text-lg font-bold text-brand-navy transition-colors group-hover/item:text-brand-blue">{title}</p>
-        {link ? (
-          <Link
-            href={link.href}
-            className="text-sm font-bold text-brand-blue hover:text-brand-navy transition-colors"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {link.label} →
-          </Link>
-        ) : null}
-      </div>
-      <p className="text-sm italic text-brand-charcoal lg:text-base">{subtitle}</p>
-      <div className="inline-flex flex-wrap items-center gap-1.5 text-xs font-semibold text-slate-500 bg-brand-bg px-2.5 py-1.5 rounded-lg border border-brand-border/60">
-        Tech: <span className="font-normal text-brand-charcoal">{tech}</span>
-      </div>
-      <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base mt-2">
-        {bullets.map((item) => (
-          <li key={item} className="flex gap-3 items-start group/bullet">
-            <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-blue/50 transition-all duration-300 group-hover/bullet:scale-125 group-hover/bullet:bg-brand-blue" />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function SkillGroup({
-  items,
-}: {
-  items: { label: string; value: string }[];
-}) {
-  return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      {items.map((item) => (
-        <div
-          key={item.label}
-          className="rounded-xl border border-brand-border bg-brand-bg/50 px-4 py-3.5 transition-all duration-300 hover:border-brand-blue/25 hover:bg-brand-surface hover:shadow-sm"
-        >
-          <p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-500">
-            {item.label}
-          </p>
-          <p className="mt-1 text-sm text-brand-charcoal lg:text-base font-medium">
-            {item.value}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-const activities = [
-  {
-    title: "Organizing Committee, VIBHA 2K24",
-    detail:
-      "Coordinated logistics and cross-team execution for a 2,500+ attendee campus festival.",
-  },
-  {
-    title: "Co-Founder, Sama Sangathan",
-    detail:
-      "Led women’s safety and empowerment initiatives through workshops and awareness programs impacting 500+ students.",
-  },
-];
