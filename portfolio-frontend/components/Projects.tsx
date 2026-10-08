@@ -11,8 +11,16 @@ export type ProjectLink = {
   href: string;
 };
 
+export type ProjectCategory =
+  | "Verification & Platform"
+  | "AI & HR"
+  | "FinTech"
+  | "Healthcare"
+  | "Commerce";
+
 export type Project = {
   title: string;
+  category: ProjectCategory;
   subtitle: string;
   status: "Production / Internal" | "Internal / Pre-release" | "Published";
   problem: string;
@@ -27,6 +35,7 @@ export type Project = {
 const projectsData: Project[] = [
   {
     title: "TFGenAPI",
+    category: "Verification & Platform",
     subtitle: "Verification & Custom API Platform",
     status: "Production / Internal",
     problem: "Verification products need dependable API boundaries, provider integrations, asynchronous workflows, security controls, and enough flexibility to evolve with business requirements.",
@@ -44,94 +53,99 @@ const projectsData: Project[] = [
   },
   {
     title: "IYOV AI",
-    subtitle: "AI Powered Workforce Management Ecosystem",
+    category: "AI & HR",
+    subtitle: "AI-Powered Workforce Management Ecosystem",
     status: "Internal / Pre-release",
     problem: "HR and business operations combine complex employee pipelines, verification, payroll, compliance, and multi-surface applications where correctness and real-time synchronization matter at scale.",
     action: [
-      "Developed the core India tax and compliance payroll module from scratch, translating complex operational rules into automated formulas.",
-      "Authored features and managed App Store / Play Store release cycles for the 4+ companion Flutter apps (Employee Portal, HRMS, LMS, Care Navigator).",
-      "Built background job queues using Redis to handle payroll batches, document processing, and bulk worker notifications.",
-      "Established unified mobile build configurations and automated pipelines, reducing time-to-market for critical mobile hotfixes."
+      "Built the India tax and compliance payroll module from scratch, automating complex statutory rules into payroll formulas.",
+      "Automated payroll batches, document processing, and bulk worker notifications with Redis-backed job queues.",
+      "Designed PostgreSQL and Supabase data layers with Row-Level Security, Redis rate limiting, and Celery webhook workers.",
+      "Integrated candidate evaluation pipelines and third-party provider APIs into production FastAPI services."
     ],
     result: "An AI-powered workforce management ecosystem with payroll, LMS, portal, and employee workflows that sync across web and mobile platforms.",
-    metrics: ["Workforce Ecosystem", "Payroll Ownership", "Mobile Releases"],
-    stack: "Python, FastAPI, Flutter, Riverpod, Next.js, TypeScript, PostgreSQL, Redis",
-    apiDiagram: { theme: "assessment", clientLabel: "Flutter Mobile Suite + Recruiter Web", gatewayLabel: "FastAPI REST Service", routeGroups: ["candidate screening", "ats pipeline", "interview workflows", "background check"], dataLayerLabel: "MongoDB + PostgreSQL", controlLabel: "OAuth2 & Token Sync" },
+    metrics: ["Workforce Ecosystem", "Payroll Ownership", "Asynchronous Queues"],
+    stack: "Python, FastAPI, Next.js, TypeScript, PostgreSQL, Redis, Celery",
+    apiDiagram: { theme: "assessment", clientLabel: "Recruiter Web & Admin Dashboard", gatewayLabel: "FastAPI REST Service", routeGroups: ["candidate screening", "ats pipeline", "interview workflows", "background check"], dataLayerLabel: "PostgreSQL + Redis Queue", controlLabel: "OAuth2 & Token Sync" },
     links: [
       { label: "Web Portal", href: "https://iyov.ai/" },
+      { label: "CRM Portal", href: "https://crm.iyov.ai/crm" },
+    ]
+  },
+  {
+    title: "TFG SecureBank",
+    category: "FinTech",
+    subtitle: "Digital Fintech Application",
+    status: "Production / Internal",
+    problem: "Financial workflows require secure applicant journeys, backend validation, document handling, tenant-aware access, and reliable communication across web and mobile surfaces.",
+    action: [
+      "Architected a multi-tenant FastAPI backend with 70 REST endpoints, routing between PostgreSQL/Supabase and legacy MySQL.",
+      "Created a rules engine with openpyxl and xlcalculator that executes credit validation matrices directly from spreadsheet models.",
+      "Generated tamper-proof loan agreement PDFs with WeasyPrint and Jinja2 templates.",
+      "Managed system migrations and resolved production infrastructure failures directly on live instances."
+    ],
+    result: "A multi-surface financial platform connecting applicant workflows, backend services, web interfaces, and mobile experiences.",
+    metrics: ["FinTech Domain", "70 REST Endpoints", "Backend Engineering"],
+    stack: "Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, Redis, WeasyPrint",
+    apiDiagram: { theme: "banking", clientLabel: "React Web + Mobile Client", gatewayLabel: "FastAPI Application API", routeGroups: ["auth", "products", "applications", "file_uploads"], dataLayerLabel: "PostgreSQL on Supabase", controlLabel: "Multitenancy & Session Security" },
+    links: [{ label: "Live Platform", href: "https://tfgsecurebank.com/" }]
+  },
+  {
+    title: "Medical Advisor",
+    category: "Healthcare",
+    subtitle: "Mission-Critical Healthcare API",
+    status: "Published",
+    problem: "Healthcare coordination requires dependable mobile workflows, protected APIs, real-time information, and resilient handling of operational data.",
+    action: [
+      "Architected a FastAPI microservice secured with strict JWT authentication and Google Play Integrity nonces.",
+      "Designed an asynchronous dual-write pipeline syncing PostgreSQL transaction state to Firestore for real-time WebSockets.",
+      "Trained and onboarded 8 engineers as technical lead for knowledge transfer.",
+      "Debugged system integrations, JWT session handlers, and device sync APIs."
+    ],
+    result: "A production healthcare platform that also became an internal technical onboarding reference for new team members.",
+    metrics: ["FastAPI Microservice", "Dual-Write Sync", "8 KT Sessions"],
+    stack: "Python, FastAPI, PostgreSQL, Redis, Firebase/GCP, Docker",
+    apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients + Admin Web", gatewayLabel: "FastAPI Sync Gateway", routeGroups: ["admin sync", "realtime dual-write", "ai inference", "data pipelines"], dataLayerLabel: "PostgreSQL + Firestore + Redis", controlLabel: "Firebase Auth & Inference Queue" },
+    links: [{ label: "Google Play Store", href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor&pcampaignid=web_share" }]
+  },
+  {
+    title: "DealsMart",
+    category: "Commerce",
+    subtitle: "Enterprise Commerce Platform",
+    status: "Internal / Pre-release",
+    problem: "Enterprise commerce requiring strict transactional integrity across cart mutations and asynchronous payment reconciliation.",
+    action: [
+      "Engineered monolithic FastAPI backend interfacing with PostgreSQL to enforce strict ACID compliance across cart mutations.",
+      "Implemented event-driven architecture using distributed RQ workers and Redis for idempotent payment reconciliation.",
+      "Delivered cross-platform presentation layer using Flutter with object storage integration."
+    ],
+    result: "ACID-compliant cart processing and resilient, idempotent payment reconciliation workflows.",
+    metrics: ["ACID Cart Mutations", "Payment Reconciliation", "Pre-release"],
+    stack: "Flutter, FastAPI, PostgreSQL, Redis, RQ workers",
+    apiDiagram: { theme: "commerce", clientLabel: "Flutter Client App", gatewayLabel: "FastAPI REST Service", routeGroups: ["cart mutations", "checkout flow", "payment webhook", "order history"], dataLayerLabel: "PostgreSQL + Redis Queue", controlLabel: "ACID Transactions & RQ Workers" },
+  },
+  {
+    title: "IYOV AI Mobile",
+    category: "AI & HR",
+    subtitle: "Multi-App Mobile Suite (Android & iOS)",
+    status: "Published",
+    problem: "Multi-app workforce operations across portals, HRMS, LMS, and care management require unified release cycles and synchronized mobile build pipelines.",
+    action: [
+      "Owned App Store and Play Store releases and deployment pipelines for 4+ Flutter apps (Employee Portal, HRMS, LMS, Care Navigator).",
+      "Unified mobile build configurations and automated pipelines, shortening turnaround for critical hotfixes.",
+      "Maintained cross-platform presentation layers with FastAPI backends and real-time state synchronization."
+    ],
+    result: "Published and maintained a suite of 4+ companion Flutter applications across Apple App Store and Google Play.",
+    metrics: ["4+ Flutter Apps", "Store Ownership", "Automated Pipelines"],
+    stack: "Flutter, Dart, Riverpod, GoRouter, Fastlane, GitHub Actions",
+    apiDiagram: { theme: "assessment", clientLabel: "iOS & Android Flutter Apps", gatewayLabel: "FastAPI Gateway", routeGroups: ["employee portal", "hrms mobile", "lms player", "care navigator"], dataLayerLabel: "Local State (Riverpod) + Remote Sync", controlLabel: "Play Integrity & Store Build Pipelines" },
+    links: [
       { label: "Portal App (Play Store)", href: "https://play.google.com/store/apps/details?id=ai.iyov.jobs&pcampaignid=web_share" },
       { label: "HRMS App (Play Store)", href: "https://play.google.com/store/apps/details?id=ai.iyov.hrms&pcampaignid=web_share" },
       { label: "HRMS App (App Store)", href: "https://apps.apple.com/in/app/iyov-hrms/id6798589436" },
       { label: "Employee App (Play Store)", href: "https://play.google.com/store/apps/details?id=ai.iyov.employee&pcampaignid=web_share" },
       { label: "LMS App (App Store)", href: "https://apps.apple.com/in/app/iyov-lms/id6800318336" },
-      { label: "CRM Portal", href: "https://crm.iyov.ai/crm" },
     ]
-  },
-  {
-    title: "TFG SecureBanking",
-    subtitle: "Digital Loan Processing Platform",
-    status: "Production / Internal",
-    problem: "Financial workflows require secure applicant journeys, backend validation, document handling, tenant-aware access, and reliable communication across web and mobile surfaces.",
-    action: [
-      "Architected a multi-tenant FastAPI backend exposing 70 RESTful endpoints, dynamically routed between PostgreSQL/Supabase and legacy MySQL backends.",
-      "Created a rules engine with openpyxl and xlcalculator that executes credit validation matrices directly from spreadsheet models.",
-      "Integrated WeasyPrint and Jinja2 templates to compile and output dynamic, tamper-proof, legally binding loan agreement PDF documents.",
-      "Managed system migrations and resolved production infrastructure failures directly on live instances."
-    ],
-    result: "A multi-surface financial platform connecting applicant workflows, backend services, web interfaces, and mobile experiences.",
-    metrics: ["FinTech Domain", "Web + Mobile", "Backend Engineering"],
-    stack: "Python, FastAPI, React, Vite, Flutter, PostgreSQL, Supabase, Firebase",
-    apiDiagram: { theme: "banking", clientLabel: "React Vite Web + Flutter Mobile", gatewayLabel: "FastAPI Application API", routeGroups: ["auth", "products", "applications", "file_uploads"], dataLayerLabel: "PostgreSQL on Supabase", controlLabel: "Multitenancy & Session Security" },
-    links: [{ label: "Live Platform", href: "https://tfgsecurebank.com/" }]
-  },
-  {
-    title: "Medical Advisor",
-    subtitle: "Healthcare Coordination Platform",
-    status: "Published",
-    problem: "Healthcare coordination requires dependable mobile workflows, protected APIs, real-time information, and resilient handling of operational data.",
-    action: [
-      "Architected a FastAPI microservice integrating strict JWT authentication and Google Play Integrity nonces.",
-      "Engineered an asynchronous dual-write pipeline synchronizing PostgreSQL transaction state to Firestore for real-time WebSockets.",
-      "Acted as the onboarding lead, delivering technical training and knowledge transfer to 8 engineering team members.",
-      "Debugged system integrations, JWT session handlers, and device sync APIs."
-    ],
-    result: "A production healthcare platform that also became an internal technical onboarding reference for new team members.",
-    metrics: ["Flutter + FastAPI", "Production Platform", "8 KT Sessions"],
-    stack: "Flutter, Python, FastAPI, PostgreSQL, Redis, Firebase, Docker",
-    apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients + Admin Web", gatewayLabel: "FastAPI Sync Gateway", routeGroups: ["admin sync", "realtime dual-write", "ai inference", "data pipelines"], dataLayerLabel: "PostgreSQL + Firestore + Redis", controlLabel: "Firebase Auth & Inference Queue" },
-    links: [{ label: "Google Play Store", href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor&pcampaignid=web_share" }]
-  },
-  {
-    title: "TFG Corporate Website",
-    subtitle: "Corporate Marketing Presence",
-    status: "Published",
-    problem: "Corporate branding and communication requires a highly responsive, localized web presence with smooth animations, integrated contact routes, and SEO optimization.",
-    action: [
-      "Led the modernization from a legacy static structure to a Next.js framework for enhanced performance and SEO.",
-      "Integrated contact and subscription routes with the Flask API backend while preserving static HTML fallbacks.",
-      "Maintained high reliability, localizations, and zero downtime during the platform migration for the global firm."
-    ],
-    result: "A modernized corporate web presence with full localization and seamless API routing for client engagement.",
-    metrics: ["Next.js Migration", "SEO & Performance", "Localization"],
-    stack: "Next.js, React, Flask, MySQL, Bootstrap",
-    apiDiagram: { theme: "banking", clientLabel: "Localized Web Client", gatewayLabel: "Next.js Server API", routeGroups: ["contact_form", "newsletter", "office_details", "locales"], dataLayerLabel: "MySQL Database", controlLabel: "Static Export Delivery" },
-    links: [{ label: "Live Website", href: "https://tfgroup.ai/en" }]
-  },
-  {
-    title: "GroConnect",
-    subtitle: "AI-Powered IT Solutions & Training Platform",
-    status: "Published",
-    problem: "IT training and solution platforms require responsive client portals, secure registration forms, and reliable transaction pipelines.",
-    action: [
-      "Developed the public client web portal showcasing custom software, DevOps, cloud migrations, and corporate IT services.",
-      "Wired secure dynamic forms to a local PHP/Node contact server with transactional notifications and logs.",
-      "Designed and built landing zones for the GroC-Training sub-platform, supporting 30-day corporate AI training enrollment."
-    ],
-    result: "An IT solution and training landing portal with secure form submissions and structured AI program registrations.",
-    metrics: ["IT Portal", "Dynamic Registrations", "AI Training Hub"],
-    stack: "HTML5, CSS3, JavaScript, PHP, Node.js",
-    apiDiagram: { theme: "commerce", clientLabel: "Client Browser", gatewayLabel: "Node.js / PHP Handler", routeGroups: ["solutions", "training_register", "contact_direct", "logs"], dataLayerLabel: "Local File Logs", controlLabel: "Form Encryption" },
-    links: [{ label: "Live Portal", href: "https://groconnect.co.in/" }]
   }
 ];
 
@@ -177,17 +191,28 @@ export default function Projects() {
                   <div className="p-6 sm:p-8 lg:p-10 min-w-0">
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div>
-                        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-blue">0{index + 1} / Case Study</p>
+                        <div className="flex items-center gap-2.5">
+                          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-blue">0{index + 1} / Case Study</p>
+                          <span className="text-slate-400 font-mono text-[10px]" aria-hidden="true">•</span>
+                          <span className="rounded-md border border-brand-blue/30 bg-brand-blue/8 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-brand-blue">
+                            {project.category}
+                          </span>
+                        </div>
                         <h3 className="mt-2 text-2xl font-bold leading-tight text-brand-navy sm:text-3xl lg:text-4xl">{project.title}</h3>
                         <p className="mt-2 text-sm font-medium text-brand-charcoal sm:text-base">{project.subtitle}</p>
                       </div>
-                      <span className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.08em] ${
-                        project.status === "Published"
-                          ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                          : project.status === "Internal / Pre-release"
-                          ? "border-indigo-500/30 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400"
-                          : "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-500"
-                      }`}>{project.status}</span>
+                      <div className="flex flex-col items-end gap-1.5">
+                        <span className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.08em] ${
+                          project.status === "Published"
+                            ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                            : project.status === "Internal / Pre-release"
+                            ? "border-indigo-500/30 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400"
+                            : "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-500"
+                        }`}>{project.status}</span>
+                        {project.status !== "Published" && (
+                          <span className="font-mono text-[10px] text-slate-500">Proprietary / Private</span>
+                        )}
+                      </div>
                     </div>
 
                     <div className="mt-6 flex flex-wrap gap-2">
@@ -271,6 +296,60 @@ export default function Projects() {
             );
           })}
         </motion.div>
+
+        {/* Compact Additional Projects Row */}
+        <div className="mt-8 rounded-2xl border border-brand-border/70 bg-brand-surface/70 p-5 sm:p-6 shadow-sm">
+          <div className="flex items-center gap-3 border-b border-brand-border/50 pb-3">
+            <h3 className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand-blue">
+              Additional Systems & Migrations
+            </h3>
+            <span className="font-mono text-[10px] text-slate-400">Production / Support</span>
+          </div>
+          <ul className="mt-3 divide-y divide-brand-border/40 text-sm leading-relaxed text-brand-charcoal">
+            <li className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4">
+              <div>
+                <a
+                  href="https://tfgroup.ai/en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-brand-navy hover:text-brand-blue underline decoration-brand-border/70 hover:decoration-brand-blue"
+                >
+                  TFG Corporate Website
+                </a>
+                <span className="text-slate-500"> — Next.js, Flask; zero-downtime migration from legacy static site</span>
+              </div>
+              <a
+                href="https://tfgroup.ai/en"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold text-brand-blue hover:underline shrink-0"
+              >
+                tfgroup.ai ↗
+              </a>
+            </li>
+            <li className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4">
+              <div>
+                <a
+                  href="https://groconnect.co.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-brand-navy hover:text-brand-blue underline decoration-brand-border/70 hover:decoration-brand-blue"
+                >
+                  GroConnect
+                </a>
+                <span className="text-slate-500"> — PHP, Node.js; client portal and AI training platform</span>
+              </div>
+              <a
+                href="https://groconnect.co.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold text-brand-blue hover:underline shrink-0"
+              >
+                groconnect.co.in ↗
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   );

@@ -35,10 +35,10 @@ The landing page displays 6 selected engineering systems reflecting real-world b
 
 1. **TFGenAPI** — Verification & custom API gateway featuring PyTesseract OCR, Sentence Transformers embeddings, and FastAPI.
 2. **IYOV AI** — Workforce Management Ecosystem merging FastAPI backend processes and the custom companion Flutter mobile app suite (HRMS, LMS, Portal, Employee).
-3. **TFG SecureBanking** — FinTech loan validation backend leveraging Python, FastAPI, and Supabase.
+3. **TFG SecureBank** — FinTech loan validation backend leveraging Python, FastAPI, and Supabase.
 4. **Medical Advisor** — Healthcare coordination API using dual-write sync pipelines (Postgres to Firestore).
-5. **TFG Corporate Website** — Responsive Next.js marketing hub migrated from legacy static stacks.
-6. **GroConnect** — IT solutions portal showcasing dynamic corporate training enrollment funnels.
+5. **DealsMart** — Enterprise commerce platform with ACID cart mutations and payment reconciliation.
+6. **IYOV AI Mobile** — Companion mobile suite across iOS and Android with automated release pipelines.
 
 ---
 
