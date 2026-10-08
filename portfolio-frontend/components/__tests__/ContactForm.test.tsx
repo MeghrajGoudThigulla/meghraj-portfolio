@@ -83,9 +83,44 @@ describe("ContactForm", () => {
       email: "meghraj@example.com",
       message: "Need help with API performance and rollout reliability.",
       segment: "Consulting",
+      website: "",
+      elapsedMs: expect.any(Number),
     });
     expect(await screen.findByText("Message received. I'll review the context and get back to you with a practical next step.")).toBeInTheDocument();
     expect(screen.getByRole("status")).toBeInTheDocument();
+  });
+
+  it("renders off-screen honeypot input for bot defense", () => {
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
+
+    const honeypot = screen.getByLabelText("Website");
+    expect(honeypot).toBeInTheDocument();
+    expect(honeypot).toHaveAttribute("name", "website");
+    expect(honeypot).toHaveAttribute("tabindex", "-1");
+    expect(honeypot).toHaveAttribute("autocomplete", "off");
+    const container = honeypot.closest("div");
+    expect(container).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("rejects fast submissions client-side when elapsed time is under threshold", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <ToastProvider>
+        <ContactForm minElapsedMs={10000} />
+      </ToastProvider>
+    );
+
+    await user.click(screen.getByRole("button", { name: "Start the conversation" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent("Please take a moment before submitting.");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("shows request failure feedback when backend returns a non-2xx response", async () => {

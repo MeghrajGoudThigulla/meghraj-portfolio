@@ -15,14 +15,20 @@ export type ContactFormStatus = "idle" | "sending" | "success" | "error";
 
 type UseContactFormOptions = {
   apiBase?: string;
+  minElapsedMs?: number;
 };
 
-export const useContactForm = ({ apiBase }: UseContactFormOptions) => {
+export const useContactForm = ({
+  apiBase,
+  minElapsedMs = process.env.NODE_ENV === "test" ? 0 : 2000,
+}: UseContactFormOptions = {}) => {
   const [formFields, setFormFields] = useState<ContactFields>({
     name: "",
     email: "",
     message: "",
   });
+  const [website, setWebsite] = useState("");
+  const formMountTimeRef = useRef(Date.now());
   const [fieldErrors, setFieldErrors] = useState<ContactValidationErrors>({});
   const [status, setStatus] = useState<ContactFormStatus>("idle");
   const [error, setError] = useState<string | null>(null);
@@ -78,6 +84,19 @@ export const useContactForm = ({ apiBase }: UseContactFormOptions) => {
       meta: { segment: "Consulting" },
     });
 
+    const elapsedMs = Date.now() - formMountTimeRef.current;
+    if (minElapsedMs > 0 && elapsedMs < minElapsedMs) {
+      setStatus("error");
+      setError("Please take a moment before submitting.");
+      trackMetric({
+        eventName: "contact_submit_error",
+        success: false,
+        durationMs: performance.now() - startedAt,
+        meta: { reason: "min_elapsed_time_violation" },
+      });
+      return;
+    }
+
     const validationErrors = validateContactFields(formFields);
     if (hasContactValidationErrors(validationErrors)) {
       setStatus("error");
@@ -113,6 +132,8 @@ export const useContactForm = ({ apiBase }: UseContactFormOptions) => {
           email: formFields.email.trim(),
           message: formFields.message.trim(),
           segment: "Consulting",
+          website: website.trim(),
+          elapsedMs,
         }),
       });
 
@@ -128,6 +149,7 @@ export const useContactForm = ({ apiBase }: UseContactFormOptions) => {
 
       setStatus("success");
       setFormFields({ name: "", email: "", message: "" });
+      setWebsite("");
       setFieldErrors({});
       trackMetric({
         eventName: "contact_submit_success",
@@ -143,7 +165,7 @@ export const useContactForm = ({ apiBase }: UseContactFormOptions) => {
         eventName: "contact_submit_error",
         success: false,
         durationMs: performance.now() - startedAt,
-        meta: { reason: "request_failed" },
+        meta: { reason: "network_error" },
       });
     }
   };
@@ -153,6 +175,8 @@ export const useContactForm = ({ apiBase }: UseContactFormOptions) => {
     fieldErrors,
     status,
     error,
+    website,
+    setWebsite,
     setFieldValue,
     handleFieldBlur,
     trackFormStart,

@@ -8,9 +8,24 @@ import ContactFields from "./ContactFields";
 import { useContactForm } from "./useContactForm";
 import { useToast } from "./Toast";
 
-export default function ContactForm() {
+type ContactFormProps = {
+  minElapsedMs?: number;
+};
+
+export default function ContactForm({ minElapsedMs }: ContactFormProps = {}) {
   const apiBase = process.env.NEXT_PUBLIC_RENDER_API_URL;
-  const { formFields, fieldErrors, status, error, setFieldValue, handleFieldBlur, trackFormStart, handleSubmit } = useContactForm({ apiBase });
+  const {
+    formFields,
+    fieldErrors,
+    status,
+    error,
+    website,
+    setWebsite,
+    setFieldValue,
+    handleFieldBlur,
+    trackFormStart,
+    handleSubmit,
+  } = useContactForm({ apiBase, minElapsedMs });
   const { success: toastSuccess, error: toastError } = useToast();
 
   useEffect(() => {
@@ -19,6 +34,8 @@ export default function ContactForm() {
     } else if (status === "error" && error) {
       if (error.includes("Please fix the highlighted fields")) {
         toastError("Form validation failed. Please check the highlighted fields.");
+      } else if (error.includes("Please take a moment before submitting")) {
+        toastError("Please take a moment before submitting.");
       } else if (error.includes("not configured yet")) {
         toastError("Contact API endpoint is not configured.");
       } else {
@@ -39,7 +56,15 @@ export default function ContactForm() {
               </div>
             ) : null}
             <form className="grid gap-5 lg:grid-cols-2" noValidate onSubmit={handleSubmit}>
-              <ContactFields formFields={formFields} fieldErrors={fieldErrors} setFieldValue={setFieldValue} handleFieldBlur={handleFieldBlur} trackFormStart={trackFormStart} />
+              <ContactFields
+                formFields={formFields}
+                fieldErrors={fieldErrors}
+                website={website}
+                setWebsite={setWebsite}
+                setFieldValue={setFieldValue}
+                handleFieldBlur={handleFieldBlur}
+                trackFormStart={trackFormStart}
+              />
               <div className="flex flex-col gap-3 lg:col-span-2 lg:flex-row lg:items-center lg:justify-between">
                 <div className="flex flex-col gap-1">
                   <p id="contact-response-sla" className="text-xs leading-5 text-slate-600 dark:text-slate-400">I review messages with the technical context in mind and reply with a practical next step.</p>

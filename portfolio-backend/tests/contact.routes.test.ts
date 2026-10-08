@@ -141,7 +141,7 @@ describe("backend route coverage", () => {
     expect(secondResponse.body).toEqual({ error: "Too many requests, try again later." });
   });
 
-  it("POST /api/contact returns success even if Resend fails", async () => {
+  it("POST /api/contact returns 202 accepted when Resend fails", async () => {
     const fetchMock = vi.fn().mockRejectedValue(new Error("resend unavailable"));
     const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     vi.stubGlobal("fetch", fetchMock);
@@ -149,14 +149,66 @@ describe("backend route coverage", () => {
     const app = await loadApp();
     const response = await request(app).post("/api/contact").send(validContactPayload);
 
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({ success: true, id: 101 });
-
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ success: true, id: 101, emailQueued: false });
+    expect(contactCreateMock).toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Email notification failed",
       expect.any(Error),
     );
+  });
+
+  it("POST /api/contact silently drops bot submission when honeypot website is filled", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const app = await loadApp();
+    const response = await request(app).post("/api/contact").send({
+      ...validContactPayload,
+      website: "https://spam-bot.xyz",
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ success: true });
+    expect(contactCreateMock).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("POST /api/contact silently drops bot submission when elapsedMs is under 2000", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const app = await loadApp();
+    const response = await request(app).post("/api/contact").send({
+      ...validContactPayload,
+      elapsedMs: 850,
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ success: true });
+    expect(contactCreateMock).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("POST /api/contact accepts valid payload with elapsedMs >= 2000", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 202,
+      text: async () => "",
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const app = await loadApp();
+    const response = await request(app).post("/api/contact").send({
+      ...validContactPayload,
+      website: "",
+      elapsedMs: 3200,
+    });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ success: true, id: 101 });
+    expect(contactCreateMock).toHaveBeenCalled();
+    expect(fetchMock).toHaveBeenCalled();
   });
 
   it("CORS allows configured origin on preflight", async () => {

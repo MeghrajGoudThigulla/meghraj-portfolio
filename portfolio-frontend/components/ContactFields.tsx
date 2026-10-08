@@ -8,6 +8,8 @@ import {
 type ContactFieldsProps = {
   formFields: ContactFields;
   fieldErrors: ContactValidationErrors;
+  website?: string;
+  setWebsite?: (value: string) => void;
   setFieldValue: (fieldName: ContactFieldName, fieldValue: string) => void;
   handleFieldBlur: (fieldName: ContactFieldName) => void;
   trackFormStart: () => void;
@@ -16,12 +18,31 @@ type ContactFieldsProps = {
 export default function ContactFields({
   formFields,
   fieldErrors,
+  website = "",
+  setWebsite,
   setFieldValue,
   handleFieldBlur,
   trackFormStart,
 }: ContactFieldsProps) {
   return (
     <>
+      {/* Honeypot field (hidden from real users, attractive to bots) */}
+      <div
+        className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden opacity-0 pointer-events-none"
+        aria-hidden="true"
+      >
+        <label htmlFor="contact-website">Website</label>
+        <input
+          id="contact-website"
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(event) => setWebsite?.(event.target.value)}
+        />
+      </div>
+
       <div className="space-y-2">
         <label
           className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600"

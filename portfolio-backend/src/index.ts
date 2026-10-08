@@ -119,6 +119,8 @@ type ContactPayload = {
   email: string;
   message: string;
   segment: string;
+  website?: string;
+  elapsedMs?: number;
 };
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -163,6 +165,13 @@ const normalizeContactPayload = (body: unknown): ContactPayload | null => {
   const message = typeof payload.message === "string" ? payload.message.trim() : "";
   const rawSegment = typeof payload.segment === "string" ? payload.segment.trim() : "";
   const segment = rawSegment || "Consulting";
+  const website = typeof payload.website === "string" ? payload.website.trim() : undefined;
+  const elapsedMs =
+    typeof payload.elapsedMs === "number" && Number.isFinite(payload.elapsedMs)
+      ? Math.round(payload.elapsedMs)
+      : typeof payload.elapsedMs === "string" && !isNaN(Number(payload.elapsedMs))
+      ? Math.round(Number(payload.elapsedMs))
+      : undefined;
 
   if (!name || !email || !message) {
     return null;
@@ -174,7 +183,7 @@ const normalizeContactPayload = (body: unknown): ContactPayload | null => {
     return null;
   }
 
-  return { name, email, message, segment };
+  return { name, email, message, segment, website, elapsedMs };
 };
 
 type MetricPayload = {
@@ -427,7 +436,14 @@ app.post("/api/contact", async (req, res) => {
   }
 
   try {
-    const { name, email, message, segment } = payload;
+    const { name, email, message, segment, website, elapsedMs } = payload;
+
+    // Honeypot / fast submit bot protection (silent 200 drop)
+    const isBot = Boolean(website) || (typeof elapsedMs === "number" && elapsedMs < 2000);
+    if (isBot) {
+      return res.status(200).json({ success: true });
+    }
+
     const ip = req.ip || "unknown";
     const rateLimit = applyRateLimit(`contact:${ip}`, rateLimitMax);
     if (!rateLimit.allowed) {
@@ -464,14 +480,22 @@ app.post("/api/contact", async (req, res) => {
         console.error("Failed to persist contact API metric", metricError);
       });
 
-    void sendResendEmail({
-      name,
-      email,
-      message,
-      segment,
-    }).catch((emailError) => {
+    let emailQueued = true;
+    try {
+      await sendResendEmail({
+        name,
+        email,
+        message,
+        segment,
+      });
+    } catch (emailError) {
       console.error("Email notification failed", emailError);
-    });
+      emailQueued = false;
+    }
+
+    if (!emailQueued) {
+      return res.status(202).json({ success: true, id: contact.id, emailQueued: false });
+    }
 
     return res.json({ success: true, id: contact.id });
   } catch (error) {
