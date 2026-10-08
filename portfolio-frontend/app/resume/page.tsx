@@ -50,7 +50,7 @@ export default function ResumePage() {
                   <h3 className="text-lg font-bold text-brand-navy transition-colors group-hover/role:text-brand-blue">
                     {resumeData.experience.title}
                   </h3>
-                  <p className="text-sm font-semibold text-slate-500">
+                  <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                     {resumeData.experience.company}
                     {" \u2022 "}
                     <a
@@ -85,7 +85,7 @@ export default function ResumePage() {
                   key={item.category}
                   className="rounded-xl border border-brand-border bg-brand-bg/50 px-4 py-3.5 transition-all duration-300 hover:border-brand-blue/25 hover:bg-brand-surface hover:shadow-sm"
                 >
-                  <p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-500">
+                  <p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-600 dark:text-slate-400">
                     {item.category}
                   </p>
                   <p className="mt-1 text-sm text-brand-charcoal lg:text-base font-medium">
@@ -123,7 +123,7 @@ export default function ResumePage() {
                       </a>
                     ) : null}
                   </div>
-                  <div className="inline-flex flex-wrap items-center gap-1.5 text-xs font-semibold text-slate-500 bg-brand-bg px-2.5 py-1.5 rounded-lg border border-brand-border/60">
+                  <div className="inline-flex flex-wrap items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 bg-brand-bg px-2.5 py-1.5 rounded-lg border border-brand-border/60">
                     Tech: <span className="font-normal text-brand-charcoal">{project.tech}</span>
                   </div>
                   <ul className="space-y-2 text-sm leading-relaxed text-brand-charcoal lg:text-base mt-2">
@@ -158,7 +158,7 @@ export default function ResumePage() {
                         ) : (
                           <span className="font-bold text-brand-navy">{item.title}</span>
                         )}
-                        <span className="text-slate-500"> ({item.tech}; {item.details})</span>
+                        <span className="text-slate-600 dark:text-slate-400"> ({item.tech}; {item.details})</span>
                       </div>
                     </li>
                   ))}
@@ -177,7 +177,7 @@ export default function ResumePage() {
                   {resumeData.education.period}
                 </p>
               </div>
-              <p className="text-sm font-semibold text-slate-500">
+              <p className="text-sm font-semibold text-slate-600 dark:text-slate-400">
                 {resumeData.education.institution}
               </p>
             </div>

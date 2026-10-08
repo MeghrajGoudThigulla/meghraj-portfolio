@@ -81,7 +81,7 @@ export default function ProjectDetailsToggle({
 
   return (
     <div className="rounded-2xl border border-brand-border bg-brand-surface p-3 shadow-sm sm:p-5">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 dark:text-slate-400">
         Execution Path
       </p>
       <button

@@ -19,7 +19,7 @@ export default function ResumeHighlightsBar() {
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {resumeHighlights.map((highlight) => (
           <li key={highlight.label} className="rounded-lg border border-brand-charcoal/10 bg-brand-bg px-3 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600 dark:text-slate-400">
               {highlight.label}
             </p>
             <p className="mt-2 text-xl font-bold text-brand-blue">{highlight.value}</p>

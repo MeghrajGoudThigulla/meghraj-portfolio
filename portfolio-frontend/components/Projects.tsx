@@ -193,7 +193,7 @@ export default function Projects() {
                       <div>
                         <div className="flex items-center gap-2.5">
                           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-blue">0{index + 1} / Case Study</p>
-                          <span className="text-slate-400 font-mono text-[10px]" aria-hidden="true">•</span>
+                          <span className="text-slate-500 dark:text-slate-400 font-mono text-[10px]" aria-hidden="true">•</span>
                           <span className="rounded-md border border-brand-blue/30 bg-brand-blue/8 px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-brand-blue">
                             {project.category}
                           </span>
@@ -210,7 +210,7 @@ export default function Projects() {
                             : "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-500"
                         }`}>{project.status}</span>
                         {project.status !== "Published" && (
-                          <span className="font-mono text-[10px] text-slate-500">Proprietary / Private</span>
+                          <span className="font-mono text-[10px] text-slate-600 dark:text-slate-400">Proprietary / Private</span>
                         )}
                       </div>
                     </div>
@@ -303,7 +303,7 @@ export default function Projects() {
             <h3 className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-brand-blue">
               Additional Systems & Migrations
             </h3>
-            <span className="font-mono text-[10px] text-slate-400">Production / Support</span>
+            <span className="font-mono text-[10px] text-slate-600 dark:text-slate-400">Production / Support</span>
           </div>
           <ul className="mt-3 divide-y divide-brand-border/40 text-sm leading-relaxed text-brand-charcoal">
             <li className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4">
@@ -316,7 +316,7 @@ export default function Projects() {
                 >
                   TFG Corporate Website
                 </a>
-                <span className="text-slate-500"> — Next.js, Flask; zero-downtime migration from legacy static site</span>
+                <span className="text-slate-600 dark:text-slate-400"> — Next.js, Flask; zero-downtime migration from legacy static site</span>
               </div>
               <a
                 href="https://tfgroup.ai/en"
@@ -337,7 +337,7 @@ export default function Projects() {
                 >
                   GroConnect
                 </a>
-                <span className="text-slate-500"> — PHP, Node.js; client portal and AI training platform</span>
+                <span className="text-slate-600 dark:text-slate-400"> — PHP, Node.js; client portal and AI training platform</span>
               </div>
               <a
                 href="https://groconnect.co.in/"

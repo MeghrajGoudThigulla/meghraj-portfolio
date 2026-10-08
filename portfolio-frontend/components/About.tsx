@@ -37,7 +37,7 @@ export default function About() {
           <motion.article variants={itemVariants}>
             <div className="flex items-center gap-3 border-b border-brand-border pb-4">
               <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">01</span>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">How I work</span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-600 dark:text-slate-400">How I work</span>
             </div>
             <p className="mt-7 max-w-2xl text-xl leading-8 tracking-[-0.015em] text-brand-navy sm:text-2xl sm:leading-9">
               I usually start with a client or stakeholder conversation, then move into R&D. Once I understand the constraints, I prefer to build the smallest practical solution, debug the hard parts, and keep improving it after it reaches production.
@@ -46,7 +46,7 @@ export default function About() {
             <div className="mt-10 divide-y divide-brand-border border-y border-brand-border">
               {STRENGTHS.map((item, index) => (
                 <div key={item.title} className="grid gap-3 py-5 sm:grid-cols-[5rem_1fr] sm:gap-6">
-                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">0{index + 1}</span>
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-600 dark:text-slate-400">0{index + 1}</span>
                   <div>
                     <h3 className="text-sm font-semibold text-brand-navy">{item.title}</h3>
                     <p className="mt-1.5 max-w-xl text-sm leading-6 text-brand-charcoal">{item.detail}</p>
@@ -59,7 +59,7 @@ export default function About() {
           <motion.aside variants={itemVariants} className="lg:pt-14">
             <div className="flex items-center gap-3 border-b border-brand-border pb-4">
               <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">02</span>
-              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">Working principles</span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-600 dark:text-slate-400">Working principles</span>
             </div>
             <div className="divide-y divide-brand-border">
               {PRINCIPLES.map(([title, detail], index) => (

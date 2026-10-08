@@ -42,7 +42,7 @@ export default function ContactForm() {
               <ContactFields formFields={formFields} fieldErrors={fieldErrors} setFieldValue={setFieldValue} handleFieldBlur={handleFieldBlur} trackFormStart={trackFormStart} />
               <div className="flex flex-col gap-3 lg:col-span-2 lg:flex-row lg:items-center lg:justify-between">
                 <div className="flex flex-col gap-1">
-                  <p id="contact-response-sla" className="text-xs leading-5 text-slate-500">I review messages with the technical context in mind and reply with a practical next step.</p>
+                  <p id="contact-response-sla" className="text-xs leading-5 text-slate-600 dark:text-slate-400">I review messages with the technical context in mind and reply with a practical next step.</p>
                   <p className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     <span>SSL Secure transmission directly to private API endpoint. No trackers.</span>

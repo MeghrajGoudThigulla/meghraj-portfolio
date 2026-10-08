@@ -66,7 +66,7 @@ export default function Footer() {
             <p className="mt-4 max-w-xl text-base leading-7 text-brand-charcoal">
               AI & technical consultant building practical software across AI/ML, backend systems, Flutter, infrastructure, and product R&D.
             </p>
-            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-slate-600 dark:text-slate-400">
               Hyderabad, India · Remote / Hybrid
             </p>
             <div className="mt-6 flex items-center gap-3">
@@ -129,7 +129,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-brand-border/60 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-brand-border/60 pt-6 text-xs text-slate-600 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Meghraj Goud. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link href="/resume" className="font-semibold text-brand-charcoal hover:text-brand-blue transition-colors">

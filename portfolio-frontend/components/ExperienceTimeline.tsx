@@ -68,7 +68,7 @@ export default function ExperienceTimeline() {
                   <article className="card card-hover p-6 sm:p-7">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-blue">{event.period}</span>
-                      <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-slate-400">{event.type === 'work' ? 'Professional' : 'Education'}</span>
+                      <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-slate-600 dark:text-slate-400">{event.type === 'work' ? 'Professional' : 'Education'}</span>
                     </div>
                     <h3 className="mt-4 text-xl font-semibold text-brand-navy sm:text-2xl">{event.role}</h3>
                     <p className="mt-1 text-sm font-medium text-brand-blue">{event.company}</p>

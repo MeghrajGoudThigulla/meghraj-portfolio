@@ -66,7 +66,7 @@ export default function MobileNav() {
               <div className="mb-7 flex items-center justify-between">
                 <div>
                   <p className="font-sans text-sm font-bold text-brand-navy">Meghraj Goud<span className="text-brand-blue">.</span></p>
-                  <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.15em] text-slate-400">Portfolio navigation</p>
+                  <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.15em] text-slate-600 dark:text-slate-400">Portfolio navigation</p>
                 </div>
                 <button type="button" className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-brand-border text-brand-navy transition hover:border-brand-blue hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40" aria-label="Close navigation menu" onClick={closeMenu}>
                   <span aria-hidden className="text-sm font-semibold">×</span>
@@ -75,7 +75,7 @@ export default function MobileNav() {
 
               <nav aria-label="Mobile primary navigation" className="space-y-6">
                 <div>
-                  <p className="px-3 mb-2 text-[9px] font-bold uppercase tracking-[0.15em] text-slate-500">Explore</p>
+                  <p className="px-3 mb-2 text-[9px] font-bold uppercase tracking-[0.15em] text-slate-600 dark:text-slate-400">Explore</p>
                   <div className="flex flex-col gap-1">
                     {sectionLinks.map((item, index) => {
                       const isActive = item.href.startsWith("#") && item.href === internalSectionHref;
@@ -89,7 +89,7 @@ export default function MobileNav() {
                 </div>
 
                 <div>
-                  <p className="px-3 mb-2 text-[9px] font-bold uppercase tracking-[0.15em] text-slate-500">Links</p>
+                  <p className="px-3 mb-2 text-[9px] font-bold uppercase tracking-[0.15em] text-slate-600 dark:text-slate-400">Links</p>
                   <div className="flex flex-col gap-1">
                     {utilityLinks.map((item) => (
                       <Link key={item.href} href={item.href} className="rounded-xl px-3 py-3 text-[11px] font-bold uppercase tracking-[0.12em] text-brand-charcoal transition-colors hover:bg-brand-muted hover:text-brand-blue" target={item.isExternal ? "_blank" : undefined} rel={item.isExternal ? "noreferrer" : undefined} onClick={closeMenu}>

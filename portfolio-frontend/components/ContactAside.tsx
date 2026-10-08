@@ -31,11 +31,11 @@ export default function ContactAside() {
 
       <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
         <div className="rounded-xl border border-brand-border bg-brand-muted/50 px-4 py-3">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Response</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600 dark:text-slate-400">Response</p>
           <p className="mt-1.5 text-sm font-semibold text-brand-navy">Within one business day</p>
         </div>
         <div className="rounded-xl border border-brand-border bg-brand-muted/50 px-4 py-3">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">Focus</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600 dark:text-slate-400">Focus</p>
           <p className="mt-1.5 text-sm font-semibold text-brand-navy">Product & engineering systems</p>
         </div>
       </div>

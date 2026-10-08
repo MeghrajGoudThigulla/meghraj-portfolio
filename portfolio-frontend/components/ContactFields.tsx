@@ -93,7 +93,7 @@ export default function ContactFields({
           placeholder="Describe the team, metrics, and urgency."
           name="message"
         />
-        <p id="contact-message-guidance" className="text-xs text-slate-500">
+        <p id="contact-message-guidance" className="text-xs text-slate-600 dark:text-slate-400">
           Include team context, key problem, and timeline so I can reply with a clear plan.
         </p>
         <FieldError id="contact-message-error" message={fieldErrors.message} />

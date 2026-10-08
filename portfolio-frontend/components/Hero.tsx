@@ -78,19 +78,19 @@ export default function Hero() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">Selected signals</p>
                 <p className="mt-2 text-sm leading-6 text-brand-charcoal">A few concrete indicators of the work behind the title.</p>
               </div>
-              <span aria-hidden className="font-mono text-[10px] text-slate-400">01—04</span>
+              <span aria-hidden className="font-mono text-[10px] text-slate-600 dark:text-slate-400">01—04</span>
             </div>
 
             <div className="mt-7 divide-y divide-brand-border/80 border-y border-brand-border/80">
               {HERO_METRIC_CARDS.map((metric, index) => (
                 <div key={metric.label} className="group relative grid grid-cols-[auto_1fr] gap-4 py-5 pl-4 -ml-4 transition-all duration-300 hover:bg-brand-muted/30 rounded-xl border-l-2 border-transparent hover:border-brand-blue/60">
-                  <span className="pt-1 font-mono text-[10px] text-slate-400 transition-transform duration-300 group-hover:translate-x-1.5">0{index + 1}</span>
+                  <span className="pt-1 font-mono text-[10px] text-slate-600 dark:text-slate-400 transition-transform duration-300 group-hover:translate-x-1.5">0{index + 1}</span>
                   <div>
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                       <p className="text-2xl font-bold tracking-[-0.03em] text-brand-navy transition-all duration-300 group-hover:text-brand-blue group-hover:text-glow">
                         <CountUp value={metric.value} />
                       </p>
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">{metric.label}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600 dark:text-slate-400">{metric.label}</p>
                     </div>
                     <p className="mt-1.5 text-xs leading-5 text-brand-charcoal">{metric.detail}</p>
                   </div>
