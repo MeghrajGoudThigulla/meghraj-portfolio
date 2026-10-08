@@ -14,6 +14,8 @@ export default function ResumeStickyActions() {
         <PrintButton
           label="Download PDF"
           className="btn btn-primary btn-sm"
+          pdfUrl="/Thigulla_Meghraj_Goud_Resume.pdf"
+          downloadName="Thigulla_Meghraj_Goud_Resume.pdf"
           onPrint={() => {
             trackMetric({
               eventName: "resume_print_click",
@@ -23,6 +25,14 @@ export default function ResumeStickyActions() {
             });
           }}
         />
+        <a
+          href="/Thigulla_Meghraj_Goud_Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-secondary btn-sm"
+        >
+          Open PDF
+        </a>
         <Link href="/" className="btn btn-secondary btn-sm">
           Back to Portfolio
         </Link>

@@ -39,6 +39,10 @@ describe("ResumeStickyActions", () => {
     render(<ResumeStickyActions />);
 
     expect(screen.getByRole("button", { name: "Download PDF" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Open PDF" })).toHaveAttribute(
+      "href",
+      "/Thigulla_Meghraj_Goud_Resume.pdf",
+    );
     expect(screen.getByRole("link", { name: "Back to Portfolio" })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/#contact");
   });

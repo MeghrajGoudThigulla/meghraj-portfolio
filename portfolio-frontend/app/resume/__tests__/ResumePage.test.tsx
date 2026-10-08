@@ -88,6 +88,7 @@ describe("ResumePage", () => {
 
     const quickActions = screen.getByRole("complementary", { name: /resume quick actions/i });
     expect(within(quickActions).getByRole("button", { name: /download pdf/i })).toBeInTheDocument();
+    expect(within(quickActions).getByRole("link", { name: /open pdf/i })).toHaveAttribute("href", "/Thigulla_Meghraj_Goud_Resume.pdf");
     expect(within(quickActions).getByRole("link", { name: /portfolio/i })).toHaveAttribute("href", "/");
     expect(within(quickActions).getByRole("link", { name: /contact/i })).toHaveAttribute("href", "/#contact");
   });
