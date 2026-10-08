@@ -11,7 +11,10 @@
     "lint:copy": "node --experimental-strip-types scripts/lint-copy.ts",
     "smoke": "node --experimental-strip-types ../scripts/smoke-test.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "firebase:login": "npx -y firebase-tools login",
+    "deploy": "npm run build && npx -y firebase-tools deploy --only hosting",
+    "deploy:preview": "npm run build && npx -y firebase-tools hosting:channel:deploy preview"
   },
   "dependencies": {
     "@types/three": "^0.186.0",
