@@ -11,30 +11,7 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import { SEO_COPY } from "./seo";
 
-const ROICalculator = dynamic(() => import("@/components/ROICalculator"), {
-  loading: () => (
-    <section id="roi" className="relative overflow-hidden border-y border-brand-border bg-brand-bg py-20 sm:py-24 lg:py-28" aria-label="Loading ROI calculator">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 flex flex-col items-center text-center">
-          <div className="mb-3 h-4 w-28 rounded-full skeleton-shimmer" />
-          <div className="mb-4 h-10 w-2/3 max-w-md rounded-lg skeleton-shimmer" />
-          <div className="h-5 w-5/6 max-w-lg rounded-md skeleton-shimmer" />
-        </div>
-        <div className="card grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.2fr,0.8fr] lg:gap-8">
-          <div className="space-y-8">
-            <div className="h-3 w-32 rounded skeleton-shimmer" />
-            <div className="h-2 w-full rounded skeleton-shimmer" />
-            <div className="h-2 w-full rounded skeleton-shimmer" />
-            <div className="h-20 w-full rounded-xl skeleton-shimmer" />
-          </div>
-          <div className="min-h-[320px] rounded-2xl border border-brand-border bg-brand-surface/60 p-6">
-            <div className="h-12 w-48 rounded-lg skeleton-shimmer" />
-          </div>
-        </div>
-      </div>
-    </section>
-  ),
-});
+
 
 const ContactForm = dynamic(() => import("@/components/ContactForm"), {
   loading: () => (
@@ -78,8 +55,6 @@ export default function Home() {
         <ExperienceTimeline />
         <div className="section-divider" />
         <SkillsSnapshot />
-        <div className="section-divider" />
-        <ROICalculator />
         <div className="section-divider" />
         <ContactForm />
       </main>
