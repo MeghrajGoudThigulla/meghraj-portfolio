@@ -2,6 +2,7 @@
 
 import { motion, Variants } from 'framer-motion';
 import ApiDiagramCard, { type ApiDiagramModel } from './ApiDiagramCard';
+import ProjectDetailsToggle from './ProjectDetailsToggle';
 import SectionHeading from './SectionHeading';
 import TiltCard from './TiltCard';
 
@@ -20,7 +21,6 @@ export type Project = {
   metrics: string[];
   stack: string;
   apiDiagram: ApiDiagramModel;
-  detailsHref?: string;
   links?: ProjectLink[];
 };
 
@@ -39,7 +39,7 @@ const projectsData: Project[] = [
     result: "A reusable backend foundation for verification and custom API workflows, built to support evolving product requirements without turning every change into a new system.",
     metrics: ["Built from Scratch", "Backend Ownership", "R&D + Debugging"],
     stack: "Python, FastAPI, PostgreSQL, Redis, REST APIs, Next.js, TypeScript",
-    apiDiagram: { theme: "banking", clientLabel: "Enterprise Dashboard & API Consumers", gatewayLabel: "FastAPI Route Handlers", routeGroups: ["identity & ocr", "consent flows", "workflows & webhooks", "billing & audits"], dataLayerLabel: "PostgreSQL RLS + Redis Queue", controlLabel: "Organization RBAC & Hash API Keys" },
+    apiDiagram: { theme: "banking", clientLabel: "Enterprise Dashboard & API Consumers", gatewayLabel: "FastAPI Route Handlers", routeGroups: ["identity verification", "user consent", "event webhooks", "billing & audit"], dataLayerLabel: "PostgreSQL RLS + Redis Queue", controlLabel: "Organization RBAC & Hash API Keys" },
     links: [{ label: "Live API Platform", href: "https://tfgenapi.ai/" }]
   },
   {
@@ -56,7 +56,7 @@ const projectsData: Project[] = [
     result: "An AI-powered workforce management ecosystem with payroll, LMS, portal, and employee workflows that sync across web and mobile platforms.",
     metrics: ["Workforce Ecosystem", "Payroll Ownership", "Mobile Releases"],
     stack: "Python, FastAPI, Flutter, Riverpod, Next.js, TypeScript, PostgreSQL, Redis",
-    apiDiagram: { theme: "assessment", clientLabel: "Flutter Mobile Suite + Recruiter Web", gatewayLabel: "FastAPI REST Service", routeGroups: ["ai_screening", "jobs & ATS", "interviews", "bgv_verification"], dataLayerLabel: "MongoDB + PostgreSQL", controlLabel: "OAuth2 & Token Sync" },
+    apiDiagram: { theme: "assessment", clientLabel: "Flutter Mobile Suite + Recruiter Web", gatewayLabel: "FastAPI REST Service", routeGroups: ["candidate screening", "ats pipeline", "interview workflows", "background check"], dataLayerLabel: "MongoDB + PostgreSQL", controlLabel: "OAuth2 & Token Sync" },
     links: [
       { label: "Web Portal", href: "https://iyov.ai/" },
       { label: "Portal App (Play Store)", href: "https://play.google.com/store/apps/details?id=ai.iyov.jobs&pcampaignid=web_share" },
@@ -74,7 +74,7 @@ const projectsData: Project[] = [
     problem: "Financial workflows require secure applicant journeys, backend validation, document handling, tenant-aware access, and reliable communication across web and mobile surfaces.",
     action: [
       "Architected a multi-tenant FastAPI backend exposing 70 RESTful endpoints, dynamically routed between PostgreSQL/Supabase and legacy MySQL backends.",
-      "Engineered a dynamic rules engine using openpyxl and xlcalculator to parse and execute complex credit validation matrices directly from Excel templates.",
+      "Created a rules engine with openpyxl and xlcalculator that executes credit validation matrices directly from spreadsheet models.",
       "Integrated WeasyPrint and Jinja2 templates to compile and output dynamic, tamper-proof, legally binding loan agreement PDF documents.",
       "Managed system migrations and resolved production infrastructure failures directly on live instances."
     ],
@@ -98,7 +98,7 @@ const projectsData: Project[] = [
     result: "A production healthcare platform that also became an internal technical onboarding reference for new team members.",
     metrics: ["Flutter + FastAPI", "Production Platform", "8 KT Sessions"],
     stack: "Flutter, Python, FastAPI, PostgreSQL, Redis, Firebase, Docker",
-    apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients + Admin Web", gatewayLabel: "FastAPI Sync Gateway", routeGroups: ["admin_sync", "firestore_dual_write", "ai_medgemma_pipeline", "backfill_jobs"], dataLayerLabel: "PostgreSQL + Firestore + Redis", controlLabel: "Firebase Auth & MedGemma Queue" },
+    apiDiagram: { theme: "healthcare", clientLabel: "Flutter Mobile Clients + Admin Web", gatewayLabel: "FastAPI Sync Gateway", routeGroups: ["admin sync", "realtime dual-write", "ai inference", "data pipelines"], dataLayerLabel: "PostgreSQL + Firestore + Redis", controlLabel: "Firebase Auth & Inference Queue" },
     links: [{ label: "Google Play Store", href: "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor&pcampaignid=web_share" }]
   },
   {
@@ -107,8 +107,8 @@ const projectsData: Project[] = [
     status: "Published",
     problem: "Corporate branding and communication requires a highly responsive, localized web presence with smooth animations, integrated contact routes, and SEO optimization.",
     action: [
-      "Led the modernization from a legacy static structure to a Next.js framework (tfg_website_next) for enhanced performance and SEO.",
-      "Integrated contact and subscription routes with the Flask API backend (tfg_website_server) while preserving static HTML fallbacks.",
+      "Led the modernization from a legacy static structure to a Next.js framework for enhanced performance and SEO.",
+      "Integrated contact and subscription routes with the Flask API backend while preserving static HTML fallbacks.",
       "Maintained high reliability, localizations, and zero downtime during the platform migration for the global firm."
     ],
     result: "A modernized corporate web presence with full localization and seamless API routing for client engagement.",
@@ -218,6 +218,15 @@ export default function Projects() {
                         <p className="mt-2 max-w-2xl text-sm font-medium leading-7 text-brand-navy sm:text-base">{project.result}</p>
                       </div>
                     </div>
+
+                    {project.action && project.action.length > 0 && (
+                      <div className="mt-6">
+                        <ProjectDetailsToggle
+                          projectTitle={project.title}
+                          actionItems={project.action}
+                        />
+                      </div>
+                    )}
 
                     {project.links && project.links.length > 0 && (
                       <div className="mt-8 flex flex-wrap gap-2">

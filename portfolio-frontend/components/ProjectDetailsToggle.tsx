@@ -68,7 +68,7 @@ export default function ProjectDetailsToggle({
       {actionItems.map((item, index) => (
         <li
           key={item}
-          className="flex gap-3 rounded-xl border border-brand-border/70 bg-gradient-to-r from-brand-muted/35 to-white px-2.5 py-2.5 sm:px-3 sm:py-3"
+          className="flex gap-3 rounded-xl border border-brand-border/70 bg-gradient-to-r from-brand-muted/35 to-brand-surface/60 px-2.5 py-2.5 sm:px-3 sm:py-3"
         >
           <span className="mt-0.5 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand-blue/12 text-[10px] font-bold text-brand-blue">
             {index + 1}
@@ -86,7 +86,7 @@ export default function ProjectDetailsToggle({
       </p>
       <button
         type="button"
-        className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-brand-blue/20 bg-brand-surface px-3 py-2 text-sm font-semibold text-brand-blue transition hover:border-brand-blue/35 hover:bg-sky-100/60 hover:text-brand-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
+        className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-brand-blue/20 bg-brand-surface px-3 py-2 text-sm font-semibold text-brand-blue transition hover:border-brand-blue/35 hover:bg-brand-blue/10 hover:text-brand-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40"
         aria-expanded={expanded}
         aria-controls={panelId}
         onClick={handleToggle}
