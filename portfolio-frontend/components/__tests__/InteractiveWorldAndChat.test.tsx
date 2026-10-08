@@ -3,6 +3,7 @@ import { describe, expect, it, vi, afterEach, beforeEach } from "vitest";
 import AssistantPromptBanner from "../AssistantPromptBanner";
 import TactileKeyboard from "../TactileKeyboard";
 import ChatInterface from "../ChatInterface";
+import WorldScene3D from "../WorldScene3D";
 
 describe("Interactive AI and 3D Showcase Components", () => {
   beforeEach(() => {
@@ -93,4 +94,44 @@ describe("Interactive AI and 3D Showcase Components", () => {
       expect(screen.getByText("Tell me about your scale")).toBeInTheDocument();
     });
   });
+
+  describe("WorldScene3D (/world)", () => {
+    it("renders boot loading screen and enters digital headquarters", () => {
+      render(<WorldScene3D />);
+      const enterBtn = screen.getByRole("button", { name: /ENTER OPERATIONS CENTER/i });
+      expect(enterBtn).toBeInTheDocument();
+
+      fireEvent.click(enterBtn);
+
+      // After entering, top header and zone navigation are rendered
+      expect(screen.getByRole("navigation", { name: /Zone Navigation/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /OPERATOR \[O\]/i })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /TERMINAL \[T\]/i })).toBeInTheDocument();
+    });
+
+    it("opens in-world Operator Console when operator button is clicked", () => {
+      render(<WorldScene3D />);
+      const enterBtn = screen.getByRole("button", { name: /ENTER OPERATIONS CENTER/i });
+      fireEvent.click(enterBtn);
+
+      const opBtn = screen.getByRole("button", { name: /OPERATOR \[O\]/i });
+      fireEvent.click(opBtn);
+
+      expect(screen.getByRole("complementary", { name: /Operator Console/i })).toBeInTheDocument();
+      expect(screen.getByPlaceholderText(/Ask about scale, architecture.../i)).toBeInTheDocument();
+    });
+
+    it("opens in-world Terminal Shell when terminal button is clicked", () => {
+      render(<WorldScene3D />);
+      const enterBtn = screen.getByRole("button", { name: /ENTER OPERATIONS CENTER/i });
+      fireEvent.click(enterBtn);
+
+      const termBtn = screen.getByRole("button", { name: /TERMINAL \[T\]/i });
+      fireEvent.click(termBtn);
+
+      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(screen.getByPlaceholderText(/type 'help' or 'sudo access/i)).toBeInTheDocument();
+    });
+  });
 });
+
