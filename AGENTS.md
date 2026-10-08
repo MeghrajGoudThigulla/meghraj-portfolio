@@ -23,6 +23,11 @@ Position the brand around engineering depth, architecture, and real system owner
 - Keep portfolio claims factual and supported by the existing project history. Do not add clients, outcomes, metrics, or technical ownership that cannot be verified.
 - For database changes, add a new Prisma migration; do not rewrite migrations that may already have been applied.
 
+## Testing Contract
+- CI protects the UX contract (roles, landmarks, heading hierarchy, aria states, link hrefs/rel attributes, API status codes/schemas), not editorial copy.
+- Tests must never assert hardcoded copy strings (>40 chars) or query by visible paragraph copy; import copy from shared data modules (`data/resume.ts`, `content/heroProof.ts`, `data/projects.ts`, etc.) or query by accessible role and `data-testid`.
+- Editorial copy changes alone must never cause CI tests to fail.
+
 ## Verification Commands
 From the repository root:
 
