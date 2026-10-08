@@ -69,7 +69,58 @@ const queryOperator = async (rawQuery) => {
     const contextText = searchResults
         .map((r) => `[Source: ${r.chunk.id}] ${r.chunk.title}: ${r.chunk.content}`)
         .join("\n\n");
-    // If Gemini API Key is present and not testing, attempt LLM completion
+    // 1. If Groq API Key is present and not testing, attempt Groq completion (ultra-low latency)
+    if (env_1.groqApiKey && process.env.NODE_ENV !== "test") {
+        try {
+            const systemPrompt = `You are "The Operator", a grounded portfolio technical assistant for Meghraj Goud (Senior AI Developer & Full Stack Engineer).
+Answer the user's question accurately, concisely, and factually using ONLY the provided context below.
+Do not invent facts, projects, or statistics. If the context does not contain the answer, politely abstain.
+
+CONTEXT:
+${contextText}
+
+Respond with valid JSON:
+{
+  "answer": "string (concise, factual explanation, max 3-4 sentences)",
+  "sourceIds": ["list of source IDs from the context used in your answer"]
+}`;
+            const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${env_1.groqApiKey}`,
+                },
+                body: JSON.stringify({
+                    model: "llama-3.3-70b-versatile",
+                    messages: [
+                        { role: "system", content: systemPrompt },
+                        { role: "user", content: query },
+                    ],
+                    response_format: { type: "json_object" },
+                    temperature: 0.2,
+                }),
+            });
+            if (groqRes.ok) {
+                const json = (await groqRes.json());
+                const textResponse = json.choices?.[0]?.message?.content;
+                if (textResponse) {
+                    const parsed = JSON.parse(textResponse);
+                    if (parsed.answer && Array.isArray(parsed.sourceIds)) {
+                        const validatedSources = parsed.sourceIds.filter((id) => allowedSourceIds.includes(id));
+                        return {
+                            answer: parsed.answer,
+                            sourceIds: validatedSources,
+                            confidence: Number(searchResults[0].score.toFixed(2)),
+                        };
+                    }
+                }
+            }
+        }
+        catch (groqError) {
+            console.warn("[operator] Groq LLM call failed, checking secondary providers", groqError);
+        }
+    }
+    // 2. If Gemini API Key is present and not testing, attempt Gemini completion
     if (env_1.geminiApiKey && process.env.NODE_ENV !== "test") {
         try {
             const prompt = `You are "The Operator", a grounded portfolio technical assistant for Meghraj Goud (Senior AI Developer & Full Stack Engineer).
@@ -105,7 +156,6 @@ Respond with valid JSON containing:
                 if (textResponse) {
                     const parsed = JSON.parse(textResponse);
                     if (parsed.answer && Array.isArray(parsed.sourceIds)) {
-                        // Strictly validate sourceIds against retrieved chunks
                         const validatedSources = parsed.sourceIds.filter((id) => allowedSourceIds.includes(id));
                         return {
                             answer: parsed.answer,
@@ -117,7 +167,7 @@ Respond with valid JSON containing:
             }
         }
         catch (llmError) {
-            console.warn("[operator] LLM call failed, falling back to deterministic grounding", llmError);
+            console.warn("[operator] Gemini LLM call failed, falling back to deterministic grounding", llmError);
         }
     }
     // Deterministic grounded response generation (offline / fallback / test mode)

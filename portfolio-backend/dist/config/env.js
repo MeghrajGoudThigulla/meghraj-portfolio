@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.geminiApiKey = exports.operatorEnabled = exports.alertTo = exports.resendFrom = exports.resendApiKey = exports.dedupeCleanupIntervalHours = exports.dedupeCleanupTtlDays = exports.dedupeKeyMaxLength = exports.roiEstimateClickDedupeWindowHours = exports.roiPresetDedupeWindowHours = exports.caseExpandDedupeWindowHours = exports.badgeImpressionDedupeWindowHours = exports.metricsRateLimitMax = exports.rateLimitMax = exports.rateLimitWindowMs = exports.allowedOrigins = exports.caCert = exports.base64LooksValid = exports.databaseUrl = exports.PORT = exports.isProduction = void 0;
+exports.geminiApiKey = exports.groqApiKey = exports.operatorEnabled = exports.alertTo = exports.resendFrom = exports.resendApiKey = exports.dedupeCleanupIntervalHours = exports.dedupeCleanupTtlDays = exports.dedupeKeyMaxLength = exports.roiEstimateClickDedupeWindowHours = exports.roiPresetDedupeWindowHours = exports.caseExpandDedupeWindowHours = exports.badgeImpressionDedupeWindowHours = exports.metricsRateLimitMax = exports.rateLimitMax = exports.rateLimitWindowMs = exports.allowedOrigins = exports.caCert = exports.base64LooksValid = exports.databaseUrl = exports.PORT = exports.isProduction = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.isProduction = process.env.NODE_ENV === "production";
@@ -57,4 +57,5 @@ exports.resendApiKey = process.env.RESEND_API_KEY;
 exports.resendFrom = process.env.RESEND_FROM;
 exports.alertTo = process.env.ALERT_TO;
 exports.operatorEnabled = process.env.OPERATOR_ENABLED !== "false";
+exports.groqApiKey = process.env.GROQ_API_KEY || "";
 exports.geminiApiKey = process.env.GEMINI_API_KEY || "";

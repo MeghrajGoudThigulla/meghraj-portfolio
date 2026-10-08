@@ -69,4 +69,5 @@ export const resendFrom = process.env.RESEND_FROM;
 export const alertTo = process.env.ALERT_TO;
 
 export const operatorEnabled = process.env.OPERATOR_ENABLED !== "false";
+export const groqApiKey = process.env.GROQ_API_KEY || "";
 export const geminiApiKey = process.env.GEMINI_API_KEY || "";
