@@ -54,7 +54,7 @@ export const HERO_METRIC_CARDS: HeroMetricCard[] = [
   },
   {
     label: "Knowledge Transfer",
-    value: "8+",
+    value: "8",
     detail: "Team members supported through hands-on platform KT.",
   },
   {

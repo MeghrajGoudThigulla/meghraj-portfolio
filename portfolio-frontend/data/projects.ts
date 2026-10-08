@@ -28,9 +28,9 @@ export type Project = {
 
 export type AdditionalProject = {
   title: string;
-  href: string;
+  href?: string;
   description: string;
-  linkText: string;
+  linkText?: string;
 };
 
 export const PROJECTS_SECTION_HEADER = {
@@ -54,8 +54,8 @@ export const projectsData: Project[] = [
     ],
     result: "A reusable backend foundation for verification and custom API workflows, built to support evolving product requirements without turning every change into a new system.",
     metrics: ["Built from Scratch", "Backend Ownership", "R&D + Debugging"],
-    stack: "Python, FastAPI, PostgreSQL, Redis, REST APIs, Next.js, TypeScript",
-    apiDiagram: { theme: "banking", clientLabel: "Enterprise Dashboard & API Consumers", gatewayLabel: "FastAPI Route Handlers", routeGroups: ["identity verification", "user consent", "event webhooks", "billing & audit"], dataLayerLabel: "PostgreSQL RLS + Redis Queue", controlLabel: "Organization RBAC & Hash API Keys" },
+    stack: "Next.js 16, Python, FastAPI, MongoDB, Redis, PyTesseract, Sentence Transformers",
+    apiDiagram: { theme: "banking", clientLabel: "Enterprise Dashboard & API Consumers", gatewayLabel: "FastAPI Route Handlers", routeGroups: ["identity verification", "user consent", "event webhooks", "billing & audit"], dataLayerLabel: "MongoDB + Redis Task Queue", controlLabel: "Organization RBAC & Hash API Keys" },
     links: [{ label: "Live API Platform", href: "https://tfgenapi.ai/" }]
   },
   {
@@ -165,8 +165,6 @@ export const ADDITIONAL_PROJECTS: AdditionalProject[] = [
   },
   {
     title: "GroConnect",
-    href: "https://groconnect.co.in/",
     description: "PHP, Node.js; client portal and AI training platform",
-    linkText: "groconnect.co.in ↗",
   },
 ];

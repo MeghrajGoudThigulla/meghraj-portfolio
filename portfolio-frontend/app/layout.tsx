@@ -7,6 +7,8 @@ import CursorSparks from "@/components/CursorSparks";
 import CustomCursor from "@/components/CustomCursor";
 import { defaultMetadata, personJsonLd } from "./seo";
 import { ToastProvider } from "@/components/Toast";
+import AudioVisualizerPill from "@/components/AudioVisualizerPill";
+import OperatorConsole from "@/components/OperatorConsole";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -67,6 +69,8 @@ export default function RootLayout({
           <MetricsTracker />
           <CursorSparks />
           <CustomCursor />
+          <OperatorConsole />
+          <AudioVisualizerPill />
           {children}
         </ToastProvider>
       </body>

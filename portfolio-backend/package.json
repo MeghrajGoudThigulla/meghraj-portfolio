@@ -8,6 +8,7 @@
     "build": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
+    "operator:eval": "ts-node scripts/operator-eval.ts",
     "migrate": "prisma migrate deploy",
     "prestart": "prisma migrate deploy",
     "start": "node --dns-result-order=ipv4first dist/index.js",

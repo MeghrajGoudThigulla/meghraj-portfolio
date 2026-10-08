@@ -232,15 +232,40 @@ describe("backend route coverage", () => {
     expect(response.headers["access-control-allow-origin"]).toBe("https://allowed.example.com");
   });
 
-  it("CORS blocks non-allowlisted origin on preflight", async () => {
+  it("CORS allows configured origin on actual request", async () => {
     const app = await loadApp();
     const response = await request(app)
+      .get("/health")
+      .set("Origin", "https://allowed.example.com");
+
+    expect(response.status).toBe(200);
+    expect(response.headers["access-control-allow-origin"]).toBe("https://allowed.example.com");
+  });
+
+  it("CORS rejects non-allowlisted origin without 500 server error", async () => {
+    const app = await loadApp();
+    const preflight = await request(app)
       .options("/api/contact")
-      .set("Origin", "https://blocked.example.com")
+      .set("Origin", "https://evil.example.com")
       .set("Access-Control-Request-Method", "POST");
 
-    expect(response.status).toBeGreaterThanOrEqual(400);
+    expect(preflight.status).not.toBe(500);
+    expect(preflight.headers["access-control-allow-origin"]).toBeUndefined();
+
+    const response = await request(app)
+      .get("/health")
+      .set("Origin", "https://evil.example.com");
+
+    expect(response.status).toBe(200);
     expect(response.headers["access-control-allow-origin"]).toBeUndefined();
+  });
+
+  it("permits requests with no origin (curl / server-to-server)", async () => {
+    const app = await loadApp();
+    const response = await request(app).get("/health");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ status: "ok", database: "healthy" });
   });
 
   it("POST /api/metrics rejects invalid payload with 400 and error property", async () => {

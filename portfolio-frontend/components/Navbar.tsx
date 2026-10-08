@@ -75,6 +75,32 @@ export default function Navbar() {
             </Magnetic>
           ))}
           <Magnetic radius={18} strength={0.25}>
+            <Link
+              href="/world"
+              className="hidden lg:inline-flex items-center gap-1.5 rounded-lg border border-cyan-500/40 bg-gradient-to-r from-cyan-950/40 to-sky-950/40 px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider text-cyan-300 hover:border-cyan-400 hover:text-white transition-all shadow-[0_0_12px_rgba(0,240,255,0.15)]"
+              aria-label="Explore 3D System World"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
+              <span>3D WORLD ◎</span>
+            </Link>
+          </Magnetic>
+          <Magnetic radius={18} strength={0.25}>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("open-operator-console"));
+                }
+              }}
+              className="hidden lg:inline-flex items-center gap-1.5 rounded-lg border border-cyan-500/30 bg-cyan-950/20 px-2.5 py-1 text-[11px] font-mono font-bold tracking-wider text-cyan-400 hover:border-cyan-400 hover:bg-cyan-950/40 transition-all cursor-pointer"
+              aria-label="Open Operator Dossier (⌘K)"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span>DOSSIER</span>
+              <kbd className="text-[9px] text-cyan-500/80">⌘K</kbd>
+            </button>
+          </Magnetic>
+          <Magnetic radius={18} strength={0.25}>
             <div className="inline-block">
               <ThemeSwitcher />
             </div>

@@ -6,7 +6,7 @@ export const SITE_URL = "https://meghraj-portfolio.web.app";
 export const SEO_COPY = {
   title: "Meghraj Goud | Senior AI Developer & Full Stack Engineer",
   description:
-    "Senior AI Developer and technical consultant building practical AI/ML, backend, Flutter, and full-stack systems with a strong focus on R&D, debugging, and production delivery.",
+    "Senior AI Developer building practical AI/ML, backend, and full-stack systems with strong focus on architecture, R&D, and production delivery.",
 } as const;
 
 export const defaultMetadata: Metadata = {

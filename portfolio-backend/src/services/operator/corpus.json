@@ -1,0 +1,79 @@
+[
+  {
+    "id": "profile_identity",
+    "category": "dossier_profile",
+    "title": "Professional Identity & Current Role",
+    "keywords": ["role", "title", "identity", "background", "company", "employer", "location", "who is", "meghraj"],
+    "content": "Thigulla Meghraj Goud (Meghraj) is a Senior AI Developer and Full Stack Engineer based in Hyderabad, India. Since July 2024, he works at Threshing Floor Group (TFG) Pvt Ltd, building production AI/ML services, backend architectures, and mobile applications."
+  },
+  {
+    "id": "profile_metrics",
+    "category": "dossier_profile",
+    "title": "Verified Production Milestones",
+    "keywords": ["metrics", "scale", "endpoints", "database models", "migrations", "screens", "apps", "numbers", "statistics"],
+    "content": "Across production systems, Meghraj has delivered backend infrastructure with 286 endpoints, 61+ database models, and 30+ Alembic/Prisma schema migrations. He has shipped 80+ mobile screens and 96+ web interfaces, owned App Store/Play Store deployments for 4+ Flutter apps, and led knowledge transfer for 8 engineers."
+  },
+  {
+    "id": "profile_education",
+    "category": "dossier_profile",
+    "title": "Education & Core Technical Foundation",
+    "keywords": ["education", "degree", "graduate", "graduation", "studied", "college", "university", "vbit", "btech", "qualification"],
+    "content": "Meghraj holds a Bachelor of Technology (B.Tech) in Information Technology from Vignana Bharathi Institute of Technology (VBIT), Hyderabad (2020 — 2024). His technical foundation covers distributed systems, databases, machine learning, and secure software development."
+  },
+  {
+    "id": "profile_availability",
+    "category": "dossier_profile",
+    "title": "Availability & Engagement Scope",
+    "keywords": ["hire", "availability", "consulting", "contact", "remote", "roles", "contract", "freelance"],
+    "content": "Meghraj is available for enterprise technical consulting and senior AI/backend engineering roles (Remote or Hybrid). Primary target areas include backend systems engineering, ML model serving gateways, and end-to-end mobile app delivery."
+  },
+  {
+    "id": "project_tfgenapi",
+    "category": "dossier_projects",
+    "title": "TFGenAPI — Verification & Custom API Platform",
+    "keywords": ["tfgenapi", "ocr", "embeddings", "pytesseract", "sentence transformers", "mongodb", "fastapi", "verification"],
+    "content": "TFGenAPI is a verification and custom API platform built from scratch. Meghraj engineered the AI inference pipeline utilizing PyTesseract for OCR and Sentence Transformers for dense vector embeddings, configured a Motor/MongoDB data layer for unstructured ingestion, and integrated Celery/Redis task queues for async processing. Stack: Next.js 16, Python, FastAPI, MongoDB, Redis, PyTesseract, Sentence Transformers."
+  },
+  {
+    "id": "project_iyov_ai",
+    "category": "dossier_projects",
+    "title": "IYOV AI — Workforce Management Ecosystem",
+    "keywords": ["iyov", "iyov ai", "payroll", "tax", "statutory", "flutter", "fastapi", "workforce", "compliance"],
+    "content": "IYOV AI is an AI-powered multi-tenant workforce management SaaS. Meghraj built the India statutory compliance and tax payroll engine from scratch, automated batch processing and worker notifications via Redis job queues, and published 4+ companion Flutter apps (Employee Portal, HRMS, LMS, Care Navigator) to the App Store and Google Play Store. Stack: Python, FastAPI, Flutter, Riverpod, Next.js, PostgreSQL, Redis."
+  },
+  {
+    "id": "project_securebank",
+    "category": "dossier_projects",
+    "title": "TFG SecureBank — Digital Fintech Application",
+    "keywords": ["securebank", "tfg securebank", "fintech", "banking", "rules engine", "credit matrix", "tamper-evident", "weasyprint"],
+    "content": "TFG SecureBank is a secure digital fintech application. Meghraj architected a multi-tenant FastAPI backend with 70 REST endpoints routing between PostgreSQL/Supabase and legacy MySQL. He created an automated credit validation rules engine using openpyxl and xlcalculator, and generated tamper-evident loan agreement documents with WeasyPrint. Stack: Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, Redis, WeasyPrint."
+  },
+  {
+    "id": "project_medical_advisor",
+    "category": "dossier_projects",
+    "title": "Medical Advisor — Healthcare Diagnostic Gateway",
+    "keywords": ["medical advisor", "healthcare", "diagnostic", "knowledge transfer", "kt", "mentorship"],
+    "content": "Medical Advisor is a clinical diagnostic and consultation gateway. Meghraj unified disparate model inference services into a resilient gateway and established the core platform architecture. This project served as the knowledge transfer entry point where Meghraj personally mentored and trained 8 engineers on platform systems."
+  },
+  {
+    "id": "project_dealsmart",
+    "category": "dossier_projects",
+    "title": "DealsMart — E-Commerce Retail Platform",
+    "keywords": ["dealsmart", "ecommerce", "retail", "caching", "catalog"],
+    "content": "DealsMart is a high-availability retail e-commerce platform. Meghraj designed the backend catalog services and product search caching layers to support heavy consumer traffic and high-throughput checkout workflows."
+  },
+  {
+    "id": "services_engineering",
+    "category": "dossier_services",
+    "title": "Engineering Capabilities & Core Stack",
+    "keywords": ["services", "skills", "stack", "languages", "python", "fastapi", "nextjs", "flutter", "react", "databases"],
+    "content": "Meghraj's core strengths span backend infrastructure (Python, FastAPI, Express, PostgreSQL, MySQL, MongoDB, Redis, Docker), client & mobile platforms (Flutter/Dart, Next.js, React, TypeScript), and practical AI/ML engineering (ONNX Runtime, PaddleOCR, PyTesseract, Sentence Transformers, model serving gateways)."
+  },
+  {
+    "id": "dossier_boundaries",
+    "category": "dossier_boundaries",
+    "title": "Public Information & Privacy Boundaries",
+    "keywords": ["phone", "whatsapp", "salary", "compensation", "confidential", "internal", "proprietary", "secrets"],
+    "content": "To protect client confidentiality and personal privacy: proprietary internal database schemas and unannounced partner contracts are strictly confidential; personal phone numbers are not published on the web; and rate/compensation discussions are conducted exclusively via direct private correspondence."
+  }
+]

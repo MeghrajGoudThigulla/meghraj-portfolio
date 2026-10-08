@@ -8,6 +8,8 @@ import ExperienceTimeline from "@/components/ExperienceTimeline";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
+import AssistantPromptBanner from "@/components/AssistantPromptBanner";
+import TactileKeyboard from "@/components/TactileKeyboard";
 import { SEO_COPY } from "./seo";
 
 
@@ -42,6 +44,8 @@ export default function Home() {
       <Navbar />
       <main id="main-content" tabIndex={-1} className="overflow-x-clip">
         <Hero />
+        <AssistantPromptBanner />
+        <TactileKeyboard />
         <div className="section-divider" />
         <About />
         <div className="section-divider" />

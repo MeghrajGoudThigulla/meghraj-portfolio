@@ -8,15 +8,20 @@
     "postbuild": "find out -name '*.map' -type f -delete 2>/dev/null || true",
     "start": "next start",
     "lint": "eslint",
+    "lint:copy": "node --experimental-strip-types scripts/lint-copy.ts",
+    "smoke": "node --experimental-strip-types ../scripts/smoke-test.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@types/three": "^0.186.0",
+    "firebase": "^13.0.0",
     "framer-motion": "^12.39.0",
     "lucide-react": "^1.16.0",
     "next": "16.1.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",

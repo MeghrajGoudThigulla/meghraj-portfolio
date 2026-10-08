@@ -32,6 +32,7 @@ export const useContactForm = ({
   const [fieldErrors, setFieldErrors] = useState<ContactValidationErrors>({});
   const [status, setStatus] = useState<ContactFormStatus>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [isWakingServer, setIsWakingServer] = useState(false);
   const formStartTrackedRef = useRef(false);
 
   const setFieldValue = (fieldName: ContactFieldName, fieldValue: string) => {
@@ -123,10 +124,21 @@ export const useContactForm = ({
       return;
     }
 
+    setStatus("sending");
+    setIsWakingServer(false);
+    setError(null);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 25000);
+    const wakingTimer = setTimeout(() => {
+      setIsWakingServer(true);
+    }, 4000);
+
     try {
       const response = await fetch(`${apiBase}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           name: formFields.name.trim(),
           email: formFields.email.trim(),
@@ -164,16 +176,31 @@ export const useContactForm = ({
         durationMs: performance.now() - startedAt,
         meta: { segment: "Consulting" },
       });
-    } catch (submitError) {
+    } catch (submitError: unknown) {
       console.error(submitError);
       setStatus("error");
-      setError("Unable to send right now. Please try again or email directly.");
-      trackMetric({
-        eventName: "contact_submit_error",
-        success: false,
-        durationMs: performance.now() - startedAt,
-        meta: { reason: "network_error" },
-      });
+      const isAbort = submitError instanceof Error && submitError.name === "AbortError";
+      if (isAbort) {
+        setError("Request timed out. The server may be waking up—please try again or email directly.");
+        trackMetric({
+          eventName: "contact_submit_error",
+          success: false,
+          durationMs: performance.now() - startedAt,
+          meta: { reason: "timeout" },
+        });
+      } else {
+        setError("Unable to send right now. Please try again or email directly.");
+        trackMetric({
+          eventName: "contact_submit_error",
+          success: false,
+          durationMs: performance.now() - startedAt,
+          meta: { reason: "network_error" },
+        });
+      }
+    } finally {
+      clearTimeout(timeoutId);
+      clearTimeout(wakingTimer);
+      setIsWakingServer(false);
     }
   };
 
@@ -182,6 +209,7 @@ export const useContactForm = ({
     fieldErrors,
     status,
     error,
+    isWakingServer,
     website,
     setWebsite,
     setFieldValue,

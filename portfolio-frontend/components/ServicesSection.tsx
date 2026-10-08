@@ -83,7 +83,7 @@ export default function ServicesSection() {
         />
 
         <motion.div
-          className="mt-12 divide-y divide-brand-border/60 border-y border-brand-border/60"
+          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -93,24 +93,41 @@ export default function ServicesSection() {
             <motion.div
               key={item.capability}
               variants={itemVariants}
-              className="group py-6 sm:py-8 grid gap-3 sm:grid-cols-[4rem_1fr_1.5fr] sm:gap-6 sm:items-baseline transition-colors hover:bg-brand-surface/40 px-2 sm:px-4 rounded-xl"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/20 bg-[#080B10]/80 p-6 shadow-xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-[0_12px_32px_rgba(0,0,0,0.6),0_0_20px_rgba(0,240,255,0.12)] hud-bracket"
             >
-              <span className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-brand-blue">
-                {item.number}
-              </span>
-              <h3 className="text-lg font-bold tracking-tight text-brand-navy group-hover:text-brand-blue transition-colors">
-                {item.capability}
-              </h3>
-              <p className="text-sm leading-relaxed text-brand-charcoal">
-                {item.evidenceText}
-                <a
-                  href={item.projectHref}
-                  className="font-semibold text-brand-blue hover:underline"
-                >
-                  {item.projectName}
-                </a>
-                .
-              </p>
+              <div>
+                <div className="flex items-center justify-between border-b border-cyan-950/60 pb-3 font-mono text-[10px]">
+                  <span className="font-bold text-cyan-400">
+                    SPEC-{item.number}{" // CAPABILITY"}
+                  </span>
+                  <span className="rounded bg-cyan-950/50 px-2 py-0.5 font-bold text-cyan-300">
+                    PRODUCTION
+                  </span>
+                </div>
+
+                <h3 className="mt-4 text-lg font-bold tracking-tight text-white group-hover:text-cyan-300 transition-colors font-sans">
+                  {item.capability}
+                </h3>
+
+                <p className="mt-3 text-xs leading-relaxed text-slate-300 font-sans">
+                  {item.evidenceText}
+                  <a
+                    href={item.projectHref}
+                    className="font-mono font-bold text-cyan-400 underline decoration-cyan-500/40 hover:text-cyan-300 hover:decoration-cyan-300 transition-colors"
+                  >
+                    {item.projectName}
+                  </a>
+                  .
+                </p>
+              </div>
+
+              <div className="mt-6 flex items-center justify-between border-t border-cyan-950/50 pt-3 font-mono text-[9px] text-slate-400">
+                <span className="text-emerald-400 flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  VERIFIED DEPLOYED
+                </span>
+                <span className="text-cyan-500/80 uppercase">0{item.number}</span>
+              </div>
             </motion.div>
           ))}
         </motion.div>

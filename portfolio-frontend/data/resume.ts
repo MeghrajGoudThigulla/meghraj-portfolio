@@ -125,7 +125,7 @@ export const resumeData: ResumeData = {
       ],
     },
     {
-      title: "TFG SecureBanking",
+      title: "TFG SecureBank",
       subtitle: "Digital Fintech Application",
       tech: "Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, Redis, WeasyPrint",
       url: "https://tfgsecurebank.com/",
@@ -133,7 +133,7 @@ export const resumeData: ResumeData = {
       bullets: [
         "Architected a multi-tenant FastAPI backend with 70 REST endpoints, routing between PostgreSQL/Supabase and legacy MySQL.",
         "Created a rules engine with openpyxl and xlcalculator that executes credit validation matrices directly from Excel templates.",
-        "Generated tamper-proof loan agreement PDFs with WeasyPrint and Jinja2 templates.",
+        "Generated tamper-evident loan agreement PDFs with WeasyPrint and Jinja2 templates.",
       ],
     },
     {
@@ -179,13 +179,11 @@ export const resumeData: ResumeData = {
       title: "GroConnect",
       tech: "PHP, Node.js",
       details: "client portal and AI training platform",
-      url: "https://groconnect.co.in/",
-      urlLabel: "groconnect.co.in",
     },
   ],
   education: {
     degree: "Bachelor of Technology in Information Technology",
-    period: "2020--2024",
+    period: "2020 — 2024",
     institution: "Vignana Bharathi Institute of Technology (VBIT), Ghatkesar",
   },
   certifications: [

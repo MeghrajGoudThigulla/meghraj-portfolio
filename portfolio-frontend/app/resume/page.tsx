@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ResumeStickyActions from "@/components/ResumeStickyActions";
+import ResumeHighlightsBar from "@/components/ResumeHighlightsBar";
 import { resumeData } from "@/data/resume";
 
 export const metadata: Metadata = {
-  title: "Résumé | Meghraj Goud",
+  title: "Résumé",
   description:
     "Printable résumé for Meghraj Goud highlighting full-stack delivery, AI/ML, and backend infrastructure.",
   alternates: {
@@ -41,6 +42,8 @@ export default function ResumePage() {
             </div>
           </div>
         </header>
+
+        <ResumeHighlightsBar />
 
         <main id="main-content" tabIndex={-1} className="resume-content grid gap-6">
           <Section title="EXPERIENCE">

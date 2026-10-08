@@ -45,7 +45,7 @@ export default function ContactFields({
 
       <div className="space-y-2">
         <label
-          className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600"
+          className="text-xs font-mono font-bold uppercase tracking-[0.14em] text-cyan-400"
           htmlFor="contact-name"
         >
           Name
@@ -59,8 +59,8 @@ export default function ContactFields({
           onFocus={trackFormStart}
           aria-invalid={Boolean(fieldErrors.name)}
           aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
-          className="w-full rounded-md border border-brand-charcoal/20 bg-brand-surface px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
-          placeholder="Your name"
+          className="w-full rounded-xl border border-cyan-500/30 bg-[#080B10] px-4 py-3 text-slate-100 font-mono text-sm outline-none transition-all placeholder:text-slate-600 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/60 focus:shadow-[0_0_15px_rgba(0,240,255,0.15)]"
+          placeholder="Client Identity"
           name="name"
         />
         <FieldError id="contact-name-error" message={fieldErrors.name} />
@@ -68,7 +68,7 @@ export default function ContactFields({
 
       <div className="space-y-2">
         <label
-          className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600"
+          className="text-xs font-mono font-bold uppercase tracking-[0.14em] text-cyan-400"
           htmlFor="contact-email"
         >
           Email
@@ -83,20 +83,25 @@ export default function ContactFields({
           onFocus={trackFormStart}
           aria-invalid={Boolean(fieldErrors.email)}
           aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
-          className="w-full rounded-md border border-brand-charcoal/20 bg-brand-surface px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
-          placeholder="you@company.com"
+          className="w-full rounded-xl border border-cyan-500/30 bg-[#080B10] px-4 py-3 text-slate-100 font-mono text-sm outline-none transition-all placeholder:text-slate-600 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/60 focus:shadow-[0_0_15px_rgba(0,240,255,0.15)]"
+          placeholder="vector@organization.com"
           name="email"
         />
         <FieldError id="contact-email-error" message={fieldErrors.email} />
       </div>
 
       <div className="lg:col-span-2 space-y-2">
-        <label
-          className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-600"
-          htmlFor="contact-message"
-        >
-          What problem are we solving?
-        </label>
+        <div className="flex items-center justify-between">
+          <label
+            className="text-xs font-mono font-bold uppercase tracking-[0.14em] text-cyan-400"
+            htmlFor="contact-message"
+          >
+            What problem are we solving?
+          </label>
+          <span className="font-mono text-[10px] text-slate-500">
+            {formFields.message.length} chars
+          </span>
+        </div>
         <textarea
           required
           id="contact-message"
@@ -110,8 +115,8 @@ export default function ContactFields({
               ? "contact-message-error contact-message-guidance"
               : "contact-message-guidance"
           }
-          className="min-h-[140px] w-full rounded-md border border-brand-charcoal/20 bg-brand-surface px-3 py-2 text-brand-navy outline-none transition focus:border-brand-blue"
-          placeholder="Describe the team, metrics, and urgency."
+          className="min-h-[140px] w-full rounded-xl border border-cyan-500/30 bg-[#080B10] px-4 py-3 text-slate-100 font-mono text-sm outline-none transition-all placeholder:text-slate-600 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/60 focus:shadow-[0_0_15px_rgba(0,240,255,0.15)]"
+          placeholder="System context, architecture bottleneck, throughput target, and timeline constraints."
           name="message"
         />
         <p id="contact-message-guidance" className="text-xs text-slate-600 dark:text-slate-400">
