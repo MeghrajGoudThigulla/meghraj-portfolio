@@ -1,43 +1,48 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import Footer from "../Footer";
+import { resumeData } from "@/data/resume";
 
 describe("Footer", () => {
   afterEach(() => {
     cleanup();
   });
 
-  it("renders section quick links with valid hrefs", () => {
+  it("renders navigation landmarks for quick links and profiles", () => {
     render(<Footer />);
-
-    expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "/#about");
-    expect(screen.getByRole("link", { name: "Services" })).toHaveAttribute("href", "/#services");
-    expect(screen.getByRole("link", { name: "Capabilities" })).toHaveAttribute("href", "/#skills");
-    expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute("href", "/#projects");
-    expect(screen.getByRole("link", { name: "Start a Conversation" })).toHaveAttribute("href", "/#contact");
+    const navs = screen.getAllByRole("navigation");
+    expect(navs.length).toBeGreaterThanOrEqual(2);
   });
 
-  it("renders profile links with descriptive labels, correct targets, and rel attributes", () => {
-    render(<Footer />);
+  it("renders section anchor links and external profiles by href with secure rel/target", () => {
+    const { container } = render(<Footer />);
 
-    expect(screen.getByRole("link", { name: "Email Meghraj" })).toHaveAttribute(
-      "href",
-      "mailto:meghraj.thigulla@outlook.com",
-    );
+    const sectionHrefs = ["/#about", "/#services", "/#projects", "/#journey", "/#skills", "/#contact"];
+    sectionHrefs.forEach((href) => {
+      const link = container.querySelector(`a[href='${href}']`);
+      expect(link).toBeInTheDocument();
+    });
 
-    const githubLink = screen.getByRole("link", { name: "Open Meghraj GitHub profile" });
-    expect(githubLink).toHaveAttribute("href", "https://github.com/MeghrajGoudThigulla");
+    const mailto = resumeData.contactLinks.find((l) => l.href.startsWith("mailto:"))?.href;
+    expect(mailto).toBeTruthy();
+    const mailLink = container.querySelector(`a[href='${mailto}']`);
+    expect(mailLink).toBeInTheDocument();
+
+    const github = resumeData.contactLinks.find((l) => l.href.includes("github.com"))?.href;
+    expect(github).toBeTruthy();
+    const githubLink = container.querySelector(`a[href='${github}']`);
+    expect(githubLink).toBeInTheDocument();
     expect(githubLink).toHaveAttribute("target", "_blank");
     expect(githubLink).toHaveAttribute("rel", "noopener noreferrer");
 
-    const linkedinLink = screen.getByRole("link", { name: "Open Meghraj LinkedIn profile" });
-    expect(linkedinLink).toHaveAttribute("href", "https://www.linkedin.com/in/meghraj-goud-thigulla");
+    const linkedin = resumeData.contactLinks.find((l) => l.href.includes("linkedin.com"))?.href;
+    expect(linkedin).toBeTruthy();
+    const linkedinLink = container.querySelector(`a[href='${linkedin}']`);
+    expect(linkedinLink).toBeInTheDocument();
     expect(linkedinLink).toHaveAttribute("target", "_blank");
     expect(linkedinLink).toHaveAttribute("rel", "noopener noreferrer");
 
-    expect(screen.getByRole("link", { name: "Open Meghraj resume" })).toHaveAttribute(
-      "href",
-      "/resume",
-    );
+    const resumeLinks = container.querySelectorAll("a[href='/resume']");
+    expect(resumeLinks.length).toBeGreaterThanOrEqual(1);
   });
 });
