@@ -1,6 +1,10 @@
 import "@testing-library/jest-dom/vitest";
+import * as axeMatchers from "vitest-axe/matchers";
+import "vitest-axe/extend-expect";
 import React from "react";
-import { vi } from "vitest";
+import { expect, vi } from "vitest";
+
+expect.extend(axeMatchers);
 
 class MockIntersectionObserver implements IntersectionObserver {
   readonly root = null;
