@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "find out -name '*.map' -type f -delete 2>/dev/null || true",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",

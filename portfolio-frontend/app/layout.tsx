@@ -5,7 +5,7 @@ import MetricsTracker from "@/components/MetricsTracker";
 import SkipLink from "@/components/SkipLink";
 import CursorSparks from "@/components/CursorSparks";
 import CustomCursor from "@/components/CustomCursor";
-import { SEO_COPY } from "./seo";
+import { defaultMetadata, personJsonLd } from "./seo";
 import { ToastProvider } from "@/components/Toast";
 
 const spaceGrotesk = Space_Grotesk({
@@ -26,10 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: SEO_COPY.title,
-  description: SEO_COPY.description,
-};
+export const metadata: Metadata = defaultMetadata;
 
 export default function RootLayout({
   children,
@@ -53,6 +50,12 @@ export default function RootLayout({
                 } catch (e) {}
               })();
             `,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd),
           }}
         />
       </head>
