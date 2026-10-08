@@ -11,6 +11,10 @@ type HeroTrustBadgesProps = {
 const badgeImpressionStorageKey = "hero_trust_badge_impressions";
 const inMemoryImpressionIds = new Set<string>();
 
+export const resetBadgeImpressions = () => {
+  inMemoryImpressionIds.clear();
+};
+
 const shouldTrackBadgeImpression = (badgeId: string) => {
   if (typeof window === "undefined") return false;
   if (inMemoryImpressionIds.has(badgeId)) return false;

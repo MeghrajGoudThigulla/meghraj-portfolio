@@ -11,6 +11,12 @@ export type HeroMetricCard = {
   detail: string;
 };
 
+export const HERO_CTA_LINKS = [
+  { label: "View my work", href: "/#projects", testId: "hero-cta-projects" },
+  { label: "Work with me", href: "/#contact", testId: "hero-cta-contact" },
+  { label: "Résumé", href: "/resume", testId: "hero-cta-resume" },
+] as const;
+
 export const HERO_EYEBROW = "Senior AI Developer · Technical Consultant";
 
 export const HERO_HEADLINE =

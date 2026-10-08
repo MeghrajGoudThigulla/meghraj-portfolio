@@ -6,6 +6,7 @@ import HeroTrustBadges from "./HeroTrustBadges";
 import AnimatedGridBackground from "./AnimatedGridBackground";
 import CountUp from "./CountUp";
 import {
+  HERO_CTA_LINKS,
   HERO_EYEBROW,
   HERO_HEADLINE,
   HERO_METRIC_CARDS,
@@ -57,13 +58,13 @@ export default function Hero() {
 
             <motion.div variants={textVariants} className="mt-8 flex flex-wrap items-center gap-3">
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 450, damping: 14 }}>
-                <Link href="/#projects" className="btn btn-primary px-6 py-3.5 text-xs font-bold">View my work</Link>
+                <Link href={HERO_CTA_LINKS[0].href} data-testid={HERO_CTA_LINKS[0].testId} className="btn btn-primary px-6 py-3.5 text-xs font-bold">{HERO_CTA_LINKS[0].label}</Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }} transition={{ type: "spring", stiffness: 450, damping: 14 }}>
-                <Link href="/#contact" className="btn btn-secondary px-6 py-3.5 text-xs font-semibold">Work with me</Link>
+                <Link href={HERO_CTA_LINKS[1].href} data-testid={HERO_CTA_LINKS[1].testId} className="btn btn-secondary px-6 py-3.5 text-xs font-semibold">{HERO_CTA_LINKS[1].label}</Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.06, x: 2 }} whileTap={{ scale: 0.94 }} transition={{ type: "spring", stiffness: 450, damping: 14 }}>
-                <Link href="/resume" className="inline-block px-2 py-3.5 text-xs font-semibold text-brand-charcoal underline decoration-brand-border underline-offset-4 transition-colors hover:text-brand-blue hover:decoration-brand-blue">Résumé</Link>
+                <Link href={HERO_CTA_LINKS[2].href} data-testid={HERO_CTA_LINKS[2].testId} className="inline-block px-2 py-3.5 text-xs font-semibold text-brand-charcoal underline decoration-brand-border underline-offset-4 transition-colors hover:text-brand-blue hover:decoration-brand-blue">{HERO_CTA_LINKS[2].label}</Link>
               </motion.div>
             </motion.div>
 
