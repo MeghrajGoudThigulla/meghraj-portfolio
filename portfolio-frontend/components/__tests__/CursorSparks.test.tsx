@@ -82,4 +82,71 @@ describe("CursorSparks", () => {
     // Loop should start on user motion
     expect(rafSpy).toHaveBeenCalled();
   });
+
+  it("tears down RAF loop when sparks expire and enters idle state", () => {
+    let currentRafCb: FrameRequestCallback | null = null;
+    let nextRafId = 10;
+    const rafSpy = vi.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => {
+      currentRafCb = cb;
+      return nextRafId++;
+    });
+
+    render(<CursorSparks />);
+
+    act(() => {
+      fireEvent(
+        window,
+        new MouseEvent("pointermove", {
+          clientX: 100,
+          clientY: 100,
+        })
+      );
+    });
+
+    expect(rafSpy).toHaveBeenCalledTimes(1);
+
+    // Step frames until all sparks expire (maxLife is at most 40 frames)
+    for (let frame = 0; frame < 50; frame++) {
+      if (typeof currentRafCb !== "function") break;
+      const executeFrame: FrameRequestCallback = currentRafCb;
+      currentRafCb = null;
+      act(() => {
+        executeFrame(performance.now());
+      });
+    }
+
+    // After all sparks expire, the loop should not schedule any further RAFs
+    expect(currentRafCb).toBeNull();
+  });
+
+  it("stops loop when document becomes hidden and cancels pending RAF on unmount", () => {
+    let nextRafId = 20;
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation(() => nextRafId++);
+    const cancelRafSpy = vi.spyOn(window, "cancelAnimationFrame");
+
+    const { unmount } = render(<CursorSparks />);
+
+    act(() => {
+      fireEvent(
+        window,
+        new MouseEvent("pointermove", {
+          clientX: 100,
+          clientY: 100,
+        })
+      );
+    });
+
+    // Trigger visibility change to hidden
+    Object.defineProperty(document, "hidden", { value: true, configurable: true });
+    act(() => {
+      fireEvent(document, new Event("visibilitychange"));
+    });
+
+    expect(cancelRafSpy).toHaveBeenCalled();
+
+    // Reset document.hidden and unmount
+    Object.defineProperty(document, "hidden", { value: false, configurable: true });
+    unmount();
+    expect(cancelRafSpy).toHaveBeenCalled();
+  });
 });
