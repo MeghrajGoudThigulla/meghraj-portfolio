@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { trackMetric } from "@/lib/metrics";
 import useActiveSection from "@/hooks/useActiveSection";
-import { navItems, navSectionIds } from "./navItems";
+import { MOBILE_NAV_CTA, navItems, navSectionIds } from "./navItems";
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -102,8 +102,8 @@ export default function MobileNav() {
             </div>
 
             <div className="border-t border-brand-border/60 pt-6">
-              <Link href="/#contact" className="btn btn-primary w-full py-3.5 text-xs" onClick={closeMenu}>
-                Let&apos;s Connect
+              <Link href={MOBILE_NAV_CTA.href} data-testid="mobile-nav-connect-cta" className="btn btn-primary w-full py-3.5 text-xs" onClick={closeMenu}>
+                {MOBILE_NAV_CTA.label}
               </Link>
             </div>
           </div>

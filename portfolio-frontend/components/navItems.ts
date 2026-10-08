@@ -20,6 +20,11 @@ export const navItems: NavItem[] = [
   { href: "/resume", label: "Resume", group: "primary" },
 ];
 
+export const MOBILE_NAV_CTA = {
+  href: "/#contact",
+  label: "Let's Connect",
+};
+
 export const navSectionIds = navItems
   .filter((item) => item.href.startsWith("#"))
   .map((item) => item.href.slice(1));
