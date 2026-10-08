@@ -81,7 +81,7 @@ const projectsData: Project[] = [
     action: [
       "Architected a multi-tenant FastAPI backend with 70 REST endpoints, routing between PostgreSQL/Supabase and legacy MySQL.",
       "Created a rules engine with openpyxl and xlcalculator that executes credit validation matrices directly from spreadsheet models.",
-      "Generated tamper-proof loan agreement PDFs with WeasyPrint and Jinja2 templates.",
+      "Generated tamper-evident loan agreement PDFs with WeasyPrint and Jinja2 templates.",
       "Managed system migrations and resolved production infrastructure failures directly on live instances."
     ],
     result: "A multi-surface financial platform connecting applicant workflows, backend services, web interfaces, and mobile experiences.",

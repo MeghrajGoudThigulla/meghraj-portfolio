@@ -10,7 +10,7 @@ const TIMELINE_EVENTS = [
     icon: Briefcase,
     role: 'Senior AI Developer',
     company: 'Threshing Floor Group Pvt Ltd',
-    period: 'Jul 2024 — Present',
+    period: 'July 2024 — Oct 2026',
     description: 'Hands-on engineering across AI/ML, backend systems, Flutter applications, infrastructure, R&D, product demonstrations, and technical enablement.',
     achievements: [
       'Built TFGenAPI from scratch and contribute to difficult backend, R&D, and infrastructure problems across the product portfolio.',

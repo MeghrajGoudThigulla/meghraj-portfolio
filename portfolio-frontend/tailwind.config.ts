@@ -13,7 +13,7 @@ const config: Config = {
           navy: "rgb(var(--brand-navy-rgb))",
           charcoal: "rgb(var(--brand-charcoal-rgb))",
           blue: "rgb(var(--brand-blue-rgb))",
-          gold: "#F59E0B",
+          gold: "rgb(var(--brand-accent-rgb))",
           bg: "rgb(var(--brand-bg-rgb))",
           surface: "rgb(var(--brand-surface-rgb))",
           border: "rgb(var(--brand-border-rgb))",
@@ -22,7 +22,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ["var(--font-space-grotesk)", "sans-serif"],
+        display: ["var(--font-space-grotesk)", "sans-serif"],
+        serif: ["Georgia", "Cambria", "Times New Roman", "serif"],
         sans: ["var(--font-dm-sans)", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
       },

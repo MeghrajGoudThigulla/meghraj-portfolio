@@ -30,7 +30,7 @@ export default function Navbar() {
       <div className={`mx-auto flex max-w-7xl items-center justify-between px-4 transition-all duration-300 ${
         scrolled ? "py-2.5 sm:px-6 lg:px-8" : "py-4 sm:px-6 lg:px-8"
       }`}>
-        <Link href="/#top" className="text-base font-bold tracking-[0.08em] text-brand-navy hover:text-brand-blue transition-colors font-serif" aria-label="Meghraj Goud home">
+        <Link href="/#top" className="text-base font-bold tracking-[0.08em] text-brand-navy hover:text-brand-blue transition-colors font-display" aria-label="Meghraj Goud home">
           Meghraj Goud
         </Link>
 
