@@ -12,6 +12,10 @@ type ProjectDetailsToggleProps = {
 const projectExpandStorageKey = "project_expand_events";
 const inMemoryProjectExpandIds = new Set<string>();
 
+export const resetProjectExpand = () => {
+  inMemoryProjectExpandIds.clear();
+};
+
 const toProjectId = (projectTitle: string) =>
   projectTitle.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
