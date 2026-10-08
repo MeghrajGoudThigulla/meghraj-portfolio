@@ -4,13 +4,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import MobileNav from "./MobileNav";
 import ThemeSwitcher from "./ThemeSwitcher";
-import { navItems } from "./navItems";
+import { navItems, navSectionIds } from "./navItems";
+import useActiveSection from "@/hooks/useActiveSection";
 import Magnetic from "./Magnetic";
 
 export default function Navbar() {
   const desktopSectionItems = navItems.filter((item) => item.group === "section");
   const desktopUtilityItems = navItems.filter((item) => item.group !== "section");
   const [scrolled, setScrolled] = useState(false);
+  const activeSectionId = useActiveSection(navSectionIds);
+  const internalSectionHref = activeSectionId ? `#${activeSectionId}` : "";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,14 +38,27 @@ export default function Navbar() {
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-3 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-charcoal/80 lg:flex">
-          {desktopSectionItems.map((item) => (
-            <Magnetic key={item.href} radius={18} strength={0.22}>
-              <Link href={`/${item.href}`} className="group relative px-2.5 py-1.5 transition-colors duration-200 hover:text-brand-blue block">
-                {item.label}
-                <span className="absolute bottom-0 left-2.5 right-2.5 h-0.5 scale-x-0 bg-brand-blue transition-transform duration-300 origin-center group-hover:scale-x-100" />
-              </Link>
-            </Magnetic>
-          ))}
+          {desktopSectionItems.map((item) => {
+            const isActive = item.href === internalSectionHref;
+            return (
+              <Magnetic key={item.href} radius={18} strength={0.22}>
+                <Link
+                  href={`/${item.href}`}
+                  aria-current={isActive ? "location" : undefined}
+                  className={`group relative px-2.5 py-1.5 transition-colors duration-200 block ${
+                    isActive ? "text-brand-blue" : "hover:text-brand-blue"
+                  }`}
+                >
+                  {item.label}
+                  <span
+                    className={`absolute bottom-0 left-2.5 right-2.5 h-0.5 bg-brand-blue transition-transform duration-300 origin-center ${
+                      isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
+                </Link>
+              </Magnetic>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
