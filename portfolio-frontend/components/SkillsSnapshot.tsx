@@ -23,9 +23,10 @@ export default function SkillsSnapshot() {
   };
 
   return (
-    <section className="section-shell border-y border-brand-border/40 bg-brand-bg" id="skills">
+    <section className="section-shell border-y border-brand-border/40 bg-brand-bg" id="skills" aria-labelledby="skills-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
+          titleId="skills-heading"
           title="Engineering Capabilities"
           description="A direct inventory of technologies and domain architecture I work across in production systems, sourced directly from verified experience."
           eyebrow="CORE SKILLS"
@@ -41,6 +42,7 @@ export default function SkillsSnapshot() {
           {resumeData.skills.map((item, index) => (
             <motion.div
               key={item.category}
+              data-testid="skill-row"
               variants={rowVariants}
               className="group grid gap-2 py-5 sm:grid-cols-[14rem_1fr] sm:gap-6 sm:items-baseline transition-colors hover:bg-brand-surface/40 px-2 sm:px-4 rounded-xl"
             >
