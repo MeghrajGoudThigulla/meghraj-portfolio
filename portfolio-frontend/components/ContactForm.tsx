@@ -36,6 +36,8 @@ export default function ContactForm({ minElapsedMs }: ContactFormProps = {}) {
         toastError("Form validation failed. Please check the highlighted fields.");
       } else if (error.includes("Please take a moment before submitting")) {
         toastError("Please take a moment before submitting.");
+      } else if (error.includes("Too many requests")) {
+        toastError("Too many requests, try again later.");
       } else if (error.includes("not configured yet")) {
         toastError("Contact API endpoint is not configured.");
       } else {

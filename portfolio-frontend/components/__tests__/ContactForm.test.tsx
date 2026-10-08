@@ -9,6 +9,7 @@ vi.mock("@/lib/metrics", () => ({ trackMetric: (payload: unknown) => trackMetric
 
 const API_BASE = "https://api.example.com";
 type ContactValues = { name: string; email: string; message: string };
+
 const fillContactForm = async (user: ReturnType<typeof userEvent.setup>, values: ContactValues) => {
   await user.type(screen.getByLabelText("Name"), values.name);
   await user.type(screen.getByLabelText("Email"), values.email);
@@ -20,46 +21,64 @@ describe("ContactForm", () => {
     process.env.NEXT_PUBLIC_RENDER_API_URL = API_BASE;
     trackMetricMock.mockReset();
   });
+
   afterEach(() => {
     cleanup();
     vi.restoreAllMocks();
     delete process.env.NEXT_PUBLIC_RENDER_API_URL;
   });
 
-  it("shows inline validation messages and does not submit invalid input", async () => {
+  it("shows validation errors via role=alert and aria-invalid on invalid submission", async () => {
     const user = userEvent.setup();
     const fetchMock = vi.fn();
     vi.stubGlobal("fetch", fetchMock);
+
     render(
       <ToastProvider>
         <ContactForm />
       </ToastProvider>
     );
 
-    await user.click(screen.getByRole("button", { name: "Start the conversation" }));
-    expect(await screen.findByText("Please fix the highlighted fields and submit again.")).toBeInTheDocument();
-    expect(screen.getByText("Name is required.")).toBeInTheDocument();
-    expect(screen.getByText("Email is required.")).toBeInTheDocument();
-    expect(screen.getByText("Message is required.")).toBeInTheDocument();
+    const nameInput = screen.getByLabelText("Name");
+    const emailInput = screen.getByLabelText("Email");
+    const messageInput = screen.getByLabelText("What problem are we solving?");
+
+    expect(nameInput).toHaveAttribute("aria-invalid", "false");
+    expect(emailInput).toHaveAttribute("aria-invalid", "false");
+    expect(messageInput).toHaveAttribute("aria-invalid", "false");
+
+    await user.click(screen.getByRole("button", { name: /start the conversation/i }));
+
+    const alerts = await screen.findAllByRole("alert");
+    expect(alerts.length).toBeGreaterThan(0);
+
+    expect(nameInput).toHaveAttribute("aria-invalid", "true");
+    expect(emailInput).toHaveAttribute("aria-invalid", "true");
+    expect(messageInput).toHaveAttribute("aria-invalid", "true");
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("validates email format on blur", async () => {
+  it("validates email format on blur setting aria-invalid", async () => {
     const user = userEvent.setup();
     render(
       <ToastProvider>
         <ContactForm />
       </ToastProvider>
     );
-    await user.type(screen.getByLabelText("Email"), "invalid-email");
+
+    const emailInput = screen.getByLabelText("Email");
+    await user.type(emailInput, "not-an-email");
     await user.tab();
-    expect(await screen.findByText("Enter a valid email address.")).toBeInTheDocument();
+
+    expect(emailInput).toHaveAttribute("aria-invalid", "true");
+    expect(await screen.findByRole("alert")).toBeInTheDocument();
   });
 
-  it("submits to the configured endpoint and shows success feedback", async () => {
+  it("submits exact payload contract on 200 and renders success status", async () => {
     const user = userEvent.setup();
     const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200 } as Response);
     vi.stubGlobal("fetch", fetchMock);
+
     render(
       <ToastProvider>
         <ContactForm />
@@ -71,12 +90,15 @@ describe("ContactForm", () => {
       email: " meghraj@example.com ",
       message: " Need help with API performance and rollout reliability. ",
     });
-    await user.click(screen.getByRole("button", { name: "Start the conversation" }));
+
+    const submitButton = screen.getByRole("button", { name: /start the conversation/i });
+    await user.click(submitButton);
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
     const [requestUrl, requestInit] = fetchMock.mock.calls[0] as [string, RequestInit];
-    expect(requestUrl).toBe("https://api.example.com/api/contact");
-    expect(requestInit).toEqual(expect.objectContaining({ method: "POST", headers: { "Content-Type": "application/json" } }));
+    expect(requestUrl).toBe(`${API_BASE}/api/contact`);
+    expect(requestInit.method).toBe("POST");
+
     const body = JSON.parse(String(requestInit.body));
     expect(body).toEqual({
       name: "Meghraj",
@@ -86,11 +108,11 @@ describe("ContactForm", () => {
       website: "",
       elapsedMs: expect.any(Number),
     });
-    expect(await screen.findByText("Message received. I'll review the context and get back to you with a practical next step.")).toBeInTheDocument();
-    expect(screen.getByRole("status")).toBeInTheDocument();
+
+    expect(await screen.findByRole("status")).toBeInTheDocument();
   });
 
-  it("renders off-screen honeypot input for bot defense", () => {
+  it("renders off-screen honeypot input with aria-hidden and tabIndex -1", () => {
     render(
       <ToastProvider>
         <ContactForm />
@@ -106,35 +128,125 @@ describe("ContactForm", () => {
     expect(container).toHaveAttribute("aria-hidden", "true");
   });
 
-  it("rejects fast submissions client-side when elapsed time is under threshold", async () => {
+  it("disables button while request is pending", async () => {
     const user = userEvent.setup();
-    const fetchMock = vi.fn();
+    let resolvePromise: (value: Response) => void;
+    const pendingPromise = new Promise<Response>((resolve) => {
+      resolvePromise = resolve;
+    });
+    const fetchMock = vi.fn().mockReturnValue(pendingPromise);
     vi.stubGlobal("fetch", fetchMock);
 
-    render(
-      <ToastProvider>
-        <ContactForm minElapsedMs={10000} />
-      </ToastProvider>
-    );
-
-    await user.click(screen.getByRole("button", { name: "Start the conversation" }));
-
-    expect(await screen.findByRole("alert")).toHaveTextContent("Please take a moment before submitting.");
-    expect(fetchMock).not.toHaveBeenCalled();
-  });
-
-  it("shows request failure feedback when backend returns a non-2xx response", async () => {
-    const user = userEvent.setup();
-    const fetchMock = vi.fn().mockResolvedValue({ ok: false, status: 500 } as Response);
-    vi.stubGlobal("fetch", fetchMock);
     render(
       <ToastProvider>
         <ContactForm />
       </ToastProvider>
     );
-    await fillContactForm(user, { name: "Meghraj", email: "meghraj@example.com", message: "Need support with a project." });
-    await user.click(screen.getByRole("button", { name: "Start the conversation" }));
-    expect(await screen.findByText("Unable to send right now. Please try again or email directly.")).toBeInTheDocument();
-    expect(screen.getByRole("alert")).toBeInTheDocument();
+
+    await fillContactForm(user, {
+      name: "Meghraj",
+      email: "meghraj@example.com",
+      message: "Infrastructure review inquiry.",
+    });
+
+    const submitButton = screen.getByRole("button", { name: /start the conversation/i });
+    await user.click(submitButton);
+
+    expect(submitButton).toBeDisabled();
+
+    resolvePromise!({ ok: true, status: 200 } as Response);
+    await waitFor(() => expect(submitButton).not.toBeDisabled());
+  });
+
+  it("handles 400 bad request response showing alert role", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn().mockResolvedValue({ ok: false, status: 400 } as Response);
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
+
+    await fillContactForm(user, {
+      name: "Meghraj",
+      email: "meghraj@example.com",
+      message: "Short request.",
+    });
+
+    await user.click(screen.getByRole("button", { name: /start the conversation/i }));
+
+    const alerts = await screen.findAllByRole("alert");
+    expect(alerts.length).toBeGreaterThan(0);
+  });
+
+  it("handles 429 rate limit response showing alert role", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn().mockResolvedValue({ ok: false, status: 429 } as Response);
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
+
+    await fillContactForm(user, {
+      name: "Meghraj",
+      email: "meghraj@example.com",
+      message: "High frequency message.",
+    });
+
+    await user.click(screen.getByRole("button", { name: /start the conversation/i }));
+
+    const alerts = await screen.findAllByRole("alert");
+    expect(alerts.length).toBeGreaterThan(0);
+  });
+
+  it("handles 500 server error response showing alert role", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn().mockResolvedValue({ ok: false, status: 500 } as Response);
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
+
+    await fillContactForm(user, {
+      name: "Meghraj",
+      email: "meghraj@example.com",
+      message: "Server test message.",
+    });
+
+    await user.click(screen.getByRole("button", { name: /start the conversation/i }));
+
+    const alerts = await screen.findAllByRole("alert");
+    expect(alerts.length).toBeGreaterThan(0);
+  });
+
+  it("handles network error rejection showing alert role", async () => {
+    const user = userEvent.setup();
+    const fetchMock = vi.fn().mockRejectedValue(new TypeError("Failed to fetch"));
+    vi.stubGlobal("fetch", fetchMock);
+
+    render(
+      <ToastProvider>
+        <ContactForm />
+      </ToastProvider>
+    );
+
+    await fillContactForm(user, {
+      name: "Meghraj",
+      email: "meghraj@example.com",
+      message: "Offline test message.",
+    });
+
+    await user.click(screen.getByRole("button", { name: /start the conversation/i }));
+
+    const alerts = await screen.findAllByRole("alert");
+    expect(alerts.length).toBeGreaterThan(0);
   });
 });

@@ -144,7 +144,14 @@ export const useContactForm = ({
           durationMs: performance.now() - startedAt,
           meta: { statusCode: response.status },
         });
-        throw new Error("Bad response");
+
+        setStatus("error");
+        if (response.status === 429) {
+          setError("Too many requests, try again later.");
+        } else {
+          setError("Unable to send right now. Please try again or email directly.");
+        }
+        return;
       }
 
       setStatus("success");
