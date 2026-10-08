@@ -4,6 +4,7 @@ type SectionHeadingProps = {
   description?: string;
   anchor?: string;
   className?: string;
+  titleId?: string;
 };
 
 export default function SectionHeading({
@@ -12,6 +13,7 @@ export default function SectionHeading({
   description,
   anchor,
   className,
+  titleId,
 }: SectionHeadingProps) {
   const containerClassName = [
     "mb-9 flex max-w-3xl flex-col gap-3 sm:mb-10 lg:mb-12",
@@ -31,6 +33,7 @@ export default function SectionHeading({
         </div>
       ) : null}
       <h2 
+        id={titleId}
         className="max-w-2xl font-black leading-[1.08] text-brand-navy tracking-tight"
         style={{ fontSize: "clamp(1.85rem, 1.55rem + 1.35vw, 3.1rem)" }}
       >
