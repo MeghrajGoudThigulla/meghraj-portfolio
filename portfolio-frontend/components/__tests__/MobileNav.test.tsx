@@ -54,7 +54,7 @@ describe("MobileNav", () => {
 
   it("renders all expected navigation links", async () => {
     const user = userEvent.setup(); render(<MobileNav />); await user.click(screen.getByRole("button", { name: "Open navigation menu" }));
-    for (const label of ["About", "Approach", "Services", "Projects", "Experience", "Capabilities", "GitHub", "Resume"]) {
+    for (const label of ["About", "Services", "Projects", "Experience", "Capabilities", "GitHub", "Resume"]) {
       expect(screen.getByRole("link", { name: label })).toBeInTheDocument();
     }
     expect(screen.getByRole("link", { name: "Let's Connect" })).toBeInTheDocument();

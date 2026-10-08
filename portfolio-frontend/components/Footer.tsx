@@ -38,7 +38,6 @@ const FileTextIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 const quickLinks = [
   { href: "/#about", label: "About" },
-  { href: "/#strengths", label: "Approach" },
   { href: "/#services", label: "Services" },
   { href: "/#projects", label: "Projects" },
   { href: "/#journey", label: "Experience" },

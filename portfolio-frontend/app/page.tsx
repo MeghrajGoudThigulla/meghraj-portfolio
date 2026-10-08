@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import About from "@/components/About";
-import ConsultingStrengths from "@/components/ConsultingStrengths";
 import SkillsSnapshot from "@/components/SkillsSnapshot";
 import Projects from "@/components/Projects";
 import ServicesSection from "@/components/ServicesSection";
@@ -45,8 +44,6 @@ export default function Home() {
         <Hero />
         <div className="section-divider" />
         <About />
-        <div className="section-divider" />
-        <ConsultingStrengths />
         <div className="section-divider" />
         <ServicesSection />
         <div className="section-divider" />

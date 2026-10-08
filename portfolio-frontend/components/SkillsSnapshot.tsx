@@ -1,65 +1,61 @@
 'use client';
 
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants, useReducedMotion } from 'framer-motion';
 import SectionHeading from './SectionHeading';
-import TiltCard from './TiltCard';
-
-const SKILL_GROUPS = [
-  { label: 'Core Engineering', items: ['Python', 'Flutter', 'Dart', 'JavaScript', 'AI / ML'] },
-  { label: 'Backend & APIs', items: ['FastAPI', 'Node.js', 'Express', 'REST APIs', 'Prisma'] },
-  { label: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'] },
-  { label: 'Data & Platforms', items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Firebase', 'Supabase'] },
-  { label: 'Cloud & Delivery', items: ['AWS', 'GCP', 'Docker', 'Render', 'Git', 'GitHub Actions', 'Linux'] },
-  { label: 'AI, R&D & Web3', items: ['LLM Integration', 'NLP', 'Machine Learning', 'Solidity', 'Web3.js', 'IPFS'] },
-];
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
-};
-
-const cardVariants: Variants = {
-  hidden: { y: 12, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
-};
+import { resumeData } from '@/data/resume';
 
 export default function SkillsSnapshot() {
+  const shouldReduceMotion = useReducedMotion();
+  const containerVariants: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.04 } },
+  };
+
+  const rowVariants: Variants = {
+    hidden: shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: shouldReduceMotion
+        ? { duration: 0.05 }
+        : { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
     <section className="section-shell border-y border-brand-border/40 bg-brand-bg" id="skills">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Engineering Capabilities"
-          description="A practical view of the technologies I use across AI/ML, application development, backend systems, infrastructure, and product R&D."
-          eyebrow="TECH STACK"
+          description="A direct inventory of technologies and domain architecture I work across in production systems, sourced directly from verified experience."
+          eyebrow="CORE SKILLS"
         />
 
         <motion.div
-          className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-12 divide-y divide-brand-border/60 border-y border-brand-border/60"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
         >
-          {SKILL_GROUPS.map((group, index) => (
-            <TiltCard as="article" key={group.label} variants={cardVariants} className="card card-hover p-5 sm:p-6" max={5} liftScale={1.01}>
-              <div className="flex items-center justify-between gap-4">
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-brand-blue">0{index + 1}</span>
-                <span className="h-px flex-1 bg-brand-border" />
+          {resumeData.skills.map((item, index) => (
+            <motion.div
+              key={item.category}
+              variants={rowVariants}
+              className="group grid gap-2 py-5 sm:grid-cols-[14rem_1fr] sm:gap-6 sm:items-baseline transition-colors hover:bg-brand-surface/40 px-2 sm:px-4 rounded-xl"
+            >
+              <div className="flex items-center gap-3">
+                <span className="font-mono text-[10px] font-semibold text-brand-blue">
+                  0{index + 1}
+                </span>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-brand-navy group-hover:text-brand-blue transition-colors">
+                  {item.category}
+                </h3>
               </div>
-              <h3 className="mt-5 text-lg font-bold text-brand-navy group-hover:text-brand-blue transition-colors">{group.label}</h3>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <motion.span
-                    key={item}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    transition={{ type: "spring", stiffness: 450, damping: 15 }}
-                    className="rounded-lg border border-brand-border bg-brand-muted/60 px-2.5 py-1.5 font-mono text-[10px] font-medium text-brand-charcoal cursor-default transition-all duration-150 hover:border-brand-blue/45 hover:bg-brand-blue/5 hover:text-brand-blue hover:shadow-[0_3px_10px_rgba(2,132,199,0.08)]"
-                  >
-                    {item}
-                  </motion.span>
-                ))}
-              </div>
-            </TiltCard>
+              <p className="font-mono text-sm leading-relaxed text-brand-charcoal">
+                {item.skills}
+              </p>
+            </motion.div>
           ))}
         </motion.div>
       </div>
