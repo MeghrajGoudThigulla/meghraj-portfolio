@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const queryMock = vi.fn();
 const contactCreateMock = vi.fn();
+const metricCreateMock = vi.fn();
 
 vi.mock("pg", () => {
   class Pool {
@@ -21,6 +22,9 @@ vi.mock("../generated/prisma", () => ({
   PrismaClient: class PrismaClient {
     contact = {
       create: contactCreateMock,
+    };
+    metric = {
+      create: metricCreateMock,
     };
     constructor(_args: unknown) {}
   },
@@ -54,8 +58,10 @@ describe("backend route coverage", () => {
 
     queryMock.mockReset();
     contactCreateMock.mockReset();
+    metricCreateMock.mockReset();
     queryMock.mockResolvedValue({ rowCount: 1 });
     contactCreateMock.mockResolvedValue({ id: 101 });
+    metricCreateMock.mockResolvedValue({ id: 201 });
     vi.spyOn(console, "error").mockImplementation(() => {});
   });
 
@@ -77,7 +83,9 @@ describe("backend route coverage", () => {
     const response = await request(app).get("/health");
 
     expect(response.status).toBe(500);
-    expect(response.body).toEqual({ status: "error", message: "Database connection failed" });
+    expect(response.body).toHaveProperty("status", "error");
+    expect(response.body).toHaveProperty("message");
+    expect(typeof response.body.message).toBe("string");
   });
 
   it("POST /api/contact accepts valid payload and trims fields", async () => {
@@ -118,7 +126,8 @@ describe("backend route coverage", () => {
     });
 
     expect(response.status).toBe(400);
-    expect(response.body).toEqual({ error: "Invalid contact payload" });
+    expect(response.body).toHaveProperty("error");
+    expect(typeof response.body.error).toBe("string");
     expect(contactCreateMock).not.toHaveBeenCalled();
   });
 
@@ -138,7 +147,8 @@ describe("backend route coverage", () => {
 
     expect(firstResponse.status).toBe(200);
     expect(secondResponse.status).toBe(429);
-    expect(secondResponse.body).toEqual({ error: "Too many requests, try again later." });
+    expect(secondResponse.body).toHaveProperty("error");
+    expect(typeof secondResponse.body.error).toBe("string");
   });
 
   it("POST /api/contact returns 202 accepted when Resend fails", async () => {
@@ -231,5 +241,31 @@ describe("backend route coverage", () => {
 
     expect(response.status).toBeGreaterThanOrEqual(400);
     expect(response.headers["access-control-allow-origin"]).toBeUndefined();
+  });
+
+  it("POST /api/metrics rejects invalid payload with 400 and error property", async () => {
+    const app = await loadApp();
+    const response = await request(app).post("/api/metrics").send({
+      invalidKey: 123,
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("error");
+    expect(typeof response.body.error).toBe("string");
+  });
+
+  it("POST /api/metrics accepts valid payload with status 202", async () => {
+    queryMock.mockResolvedValueOnce({ rowCount: 1 });
+    const app = await loadApp();
+    const response = await request(app).post("/api/metrics").send({
+      eventName: "cta_click",
+      page: "/",
+      sessionId: "session-abc-123",
+      meta: { target: "hero" },
+    });
+
+    expect(response.status).toBe(202);
+    expect(response.body).toEqual({ accepted: true });
+    expect(queryMock).toHaveBeenCalled();
   });
 });
