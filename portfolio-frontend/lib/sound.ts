@@ -186,6 +186,75 @@ class SoundFX {
       // AudioContext unavailable
     }
   }
+
+  private droneOsc: OscillatorNode | null = null;
+  private droneGain: GainNode | null = null;
+
+  public startAmbientDrone() {
+    if (this.isMuted || this.droneOsc) return;
+    try {
+      const ctx = this.initContext();
+      if (!ctx) return;
+      this.droneOsc = ctx.createOscillator();
+      this.droneGain = ctx.createGain();
+
+      this.droneOsc.type = "sine";
+      this.droneOsc.frequency.setValueAtTime(55, ctx.currentTime);
+      this.droneGain.gain.setValueAtTime(0.001, ctx.currentTime);
+      this.droneGain.gain.exponentialRampToValueAtTime(0.016, ctx.currentTime + 1.2);
+
+      this.droneOsc.connect(this.droneGain);
+      this.droneGain.connect(ctx.destination);
+      this.droneOsc.start();
+    } catch {
+      // AudioContext unavailable
+    }
+  }
+
+  public stopAmbientDrone() {
+    if (!this.droneOsc || !this.ctx) return;
+    try {
+      this.droneGain?.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.3);
+      setTimeout(() => {
+        try {
+          this.droneOsc?.stop();
+          this.droneOsc?.disconnect();
+          this.droneGain?.disconnect();
+        } catch {
+          // Ignore
+        }
+        this.droneOsc = null;
+        this.droneGain = null;
+      }, 350);
+    } catch {
+      this.droneOsc = null;
+      this.droneGain = null;
+    }
+  }
+
+  public playExplodeFX() {
+    if (this.isMuted) return;
+    try {
+      const ctx = this.initContext();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(480, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(75, ctx.currentTime + 0.24);
+
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.24);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.26);
+    } catch {
+      // AudioContext unavailable
+    }
+  }
 }
 
 export const soundFX = new SoundFX();

@@ -130,7 +130,19 @@ describe("Interactive AI and 3D Showcase Components", () => {
       fireEvent.click(termBtn);
 
       expect(screen.getByRole("dialog")).toBeInTheDocument();
-      expect(screen.getByPlaceholderText(/type 'help' or 'sudo access/i)).toBeInTheDocument();
+      expect(screen.getByPlaceholderText(/type 'help'/i)).toBeInTheDocument();
+    });
+
+    it("toggles exploded architecture view when explode button is clicked", () => {
+      render(<WorldScene3D />);
+      const enterBtn = screen.getByRole("button", { name: /ENTER OPERATIONS CENTER/i });
+      fireEvent.click(enterBtn);
+
+      const explodeBtn = screen.getByRole("button", { name: /EXPLODE \[E\]/i });
+      expect(explodeBtn).toBeInTheDocument();
+
+      fireEvent.click(explodeBtn);
+      expect(screen.getByRole("button", { name: /ASSEMBLE \[E\]/i })).toBeInTheDocument();
     });
   });
 });
