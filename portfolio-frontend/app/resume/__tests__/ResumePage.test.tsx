@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import ResumePage from "../page";
 import { resumeData } from "@/data/resume";
@@ -32,19 +32,22 @@ describe("ResumePage", () => {
     cleanup();
   });
 
-  it("renders semantic h1 for candidate name and h2 for each section", () => {
+  it("renders exactly one semantic h1 for candidate name and h2 sections in strict order", () => {
     render(<ResumePage />);
 
-    const h1 = screen.getByRole("heading", { level: 1 });
-    expect(h1).toHaveTextContent(resumeData.name);
+    const h1Headings = screen.getAllByRole("heading", { level: 1 });
+    expect(h1Headings).toHaveLength(1);
+    expect(h1Headings[0]).toHaveTextContent(resumeData.name);
 
     const sectionHeadings = screen.getAllByRole("heading", { level: 2 });
     const sectionTitles = sectionHeadings.map((h) => h.textContent?.trim());
-    expect(sectionTitles).toContain("EXPERIENCE");
-    expect(sectionTitles).toContain("SKILLS");
-    expect(sectionTitles).toContain("PROJECTS");
-    expect(sectionTitles).toContain("EDUCATION");
-    expect(sectionTitles).toContain("CERTIFICATIONS");
+    expect(sectionTitles).toEqual([
+      "EXPERIENCE",
+      "SKILLS",
+      "PROJECTS",
+      "EDUCATION",
+      "CERTIFICATIONS",
+    ]);
   });
 
   it("renders all contact links with valid hrefs and external security attributes", () => {
@@ -67,28 +70,25 @@ describe("ResumePage", () => {
     expect(screen.queryByText(/whatsapp/i)).not.toBeInTheDocument();
   });
 
-  it("renders project external links with rel noopener noreferrer", () => {
+  it("renders project external links matching data with rel noopener noreferrer", () => {
     render(<ResumePage />);
 
-    const iyovLink = screen.getByRole("link", { name: /iyov\.ai/i });
-    expect(iyovLink).toHaveAttribute("href", "https://iyov.ai/");
-    expect(iyovLink).toHaveAttribute("target", "_blank");
-    expect(iyovLink).toHaveAttribute("rel", "noopener noreferrer");
-
-    const playStoreLink = screen.getByRole("link", { name: /Play Store/i });
-    expect(playStoreLink).toHaveAttribute(
-      "href",
-      "https://play.google.com/store/apps/details?id=com.tfg.medicaladvisor&pcampaignid=web_share",
-    );
-    expect(playStoreLink).toHaveAttribute("target", "_blank");
-    expect(playStoreLink).toHaveAttribute("rel", "noopener noreferrer");
+    resumeData.projects
+      .filter((project) => project.url && project.urlLabel)
+      .forEach((project) => {
+        const link = screen.getByRole("link", { name: new RegExp(project.urlLabel!, "i") });
+        expect(link).toHaveAttribute("href", project.url);
+        expect(link).toHaveAttribute("target", "_blank");
+        expect(link).toHaveAttribute("rel", "noopener noreferrer");
+      });
   });
 
-  it("renders quick actions navigation and print control", () => {
+  it("renders quick actions navigation and print control with valid hrefs", () => {
     render(<ResumePage />);
 
-    expect(screen.getByRole("button", { name: /Download PDF/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Back to Portfolio/i })).toHaveAttribute("href", "/");
-    expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/#contact");
+    const quickActions = screen.getByRole("complementary", { name: /resume quick actions/i });
+    expect(within(quickActions).getByRole("button", { name: /download pdf/i })).toBeInTheDocument();
+    expect(within(quickActions).getByRole("link", { name: /portfolio/i })).toHaveAttribute("href", "/");
+    expect(within(quickActions).getByRole("link", { name: /contact/i })).toHaveAttribute("href", "/#contact");
   });
 });
