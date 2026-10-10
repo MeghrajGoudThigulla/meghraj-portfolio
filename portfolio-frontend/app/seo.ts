@@ -45,6 +45,9 @@ export const defaultMetadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: "ERd-otQP8i_OVsjad9wmLt7oXVJz4yjn4R5fH4VPVco",
+  },
 };
 
 export const personJsonLd = {
